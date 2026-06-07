@@ -9,10 +9,10 @@
       - 8GB VRAM forces offload for 12B+ models.
       - Cloud models remain stronger for long-horizon synthesis.
   assert:
-    - type: contains
-      value: VRAM
-    - type: contains
-      value: next
+    - type: javascript
+      value: (output || '').includes('VRAM')
+    - type: javascript
+      value: (output || '').includes('next')
 
 - description: research — template (agent harness workflow)
   metadata:
@@ -25,8 +25,8 @@
       - External connector catalogs sit behind adapters.
       - First prototype targets ten internal tools before breadth integrations.
   assert:
-    - type: contains
-      value: tool
+    - type: javascript
+      value: (output || '').includes('tool')
     - type: javascript
       value: (output || '').length > 200
 
@@ -44,9 +44,9 @@
       - Baselines imported only (no harness-paid calls); user-judge primary.
       - Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.
   assert:
-    - type: contains
-      value: qwen
-    - type: contains
-      value: brief
+    - type: javascript
+      value: (output || '').includes('qwen')
+    - type: javascript
+      value: (output || '').includes('brief')
     - type: javascript
       value: (output || '').length > 180 && ((output || '').toLowerCase().includes('token') || (output || '').toLowerCase().includes('tps') || (output || '').toLowerCase().includes('plan'))
