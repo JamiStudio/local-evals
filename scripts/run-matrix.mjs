@@ -127,7 +127,7 @@ function readPromptfooStats(beforeMtimeMs) {
   }
 }
 
-function runCommand(command, args, { cwd = root, env = process.env, phase, cell }) {
+function runCommand(command, args, { cwd = root, env = process.env, phase, cell, shell = false }) {
   return new Promise((resolve) => {
     const started = Date.now();
     let stdout = '';
@@ -137,7 +137,7 @@ function runCommand(command, args, { cwd = root, env = process.env, phase, cell 
     const child = spawn(command, args, {
       cwd,
       env,
-      shell: process.platform === 'win32',
+      shell,
       windowsHide: true,
     });
 
@@ -273,6 +273,7 @@ async function loadModel(modelKey, gpuFlag, cell) {
   const result = await runCommand('lms', ['load', modelKey, '--gpu', gpuFlag, '-y'], {
     phase: 'load',
     cell,
+    shell: process.platform === 'win32',
   });
   return {
     ok: result.status === 0 && !result.timedOut,
@@ -286,6 +287,7 @@ function unloadModels() {
   return runCommand('lms', ['unload', '--all'], {
     phase: 'unload',
     cell: null,
+    shell: process.platform === 'win32',
   });
 }
 
