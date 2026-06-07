@@ -598,7 +598,14 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Dispatch timestamp: 2026-06-07 after Stream 31 audit.
 - Ownership boundary: exactly one LM Studio local cell, `EVAL_USE_PROMPTFOO=false`, `EVAL_TASK_FILTER=build-synthetic-smoke`, `EVAL_CELL_TIMEOUT_MS=300000`; no 31B partial/full, no 31B-QAT, no other models, no retry.
 - Expected deliverables: `results/stream32-31b-q4-offload-practical.json`, one matrix JSONL row, targeted status updates, and this roadmap checkpoint.
-- Next coordinator action: poll in short intervals until commit+push, then audit whether 31B Q4 moved from estimate-timeout-only to direct bounded practical success/failure evidence.
+- Status: completed by Stream 32.
+- Result artifact: `results/stream32-31b-q4-offload-practical.json`.
+- Matrix artifact: `results/matrix-2026-06-07T15-01-50-563Z.jsonl`.
+- Numeric result: `google/gemma-4-31b@gpu_offload`, local fallback `build-synthetic-smoke`, `status=completed`, `passes=1`, `total=1`, `durationMs=262464`, empty stderr, no load failure, no timeout.
+- Compare/queue: `results/promptfoo-latest.json` refreshed to the Stream 32 local-fallback row, so `results/baseline-comparison-stream32-31b-q4-offload.jsonl` and `results/user-judge-queue-stream32-31b-q4-offload.jsonl` were generated.
+- Runtime closeout: the model was IDLE after the row; `lms unload --all` unloaded it. Settled post-unload `lms ps` showed no loaded models and `nvidia-smi` showed 247 MiB used / 7741 MiB free / 1% utilization.
+- Gap outcome: Stream 32 moves 31B Q4_K_M from Stream 16 estimate-timeout-only evidence to one direct bounded offload practical success row. This does not prove broad 31B readiness, partial/full placement, Promptfoo no-cache throughput, final 3-solid promotion, or user-accepted quality.
+- Remaining gaps: subjective user review, final 3-solid selection, broad/full local matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, 31B broad quality proof, 31B-QAT practical proof, and final two-verifier completion audit.
 
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.

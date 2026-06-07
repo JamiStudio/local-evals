@@ -233,7 +233,9 @@
     "Stream 27 W7 section repair is complete: qwen strict tracker wrote a no-fallback model_final artifact with all five required sections present, tps=3.0, wall 513.05s, usage 9752/1531/11283, and no tool failures; this repairs the Stream 23 Token & Speed omission but W7 quality acceptance remains user-review gated because the model text used pending speed placeholders and action-quality caveats remain.",
     "Stream 28 qwen no-cache single-task probe is complete: after adding Promptfoo --filter-metadata taskId pass-through for EVAL_TASK_FILTER, qwen/qwen3.5-9b@gpu_offload build-synthetic-smoke ran no-cache and completed as eval_failed 0/4 in 261012 ms with cached tokens 0; this closes only the no completed qwen no-cache row at all evidence gap, while full 40-case no-cache throughput remains incomplete.",
     "Stream 29 mid-size filtered partials is complete: google/gemma-4-12b@gpu_partial_0.9, zai-org/glm-4.6v-flash@gpu_partial_0.88, and google/gemma-4-12b-qat@gpu_partial_0.95 ran Promptfoo no-cache build-synthetic-smoke with the Stream 28 metadata filter fix; all three timed out at ~300s before pass totals while stderr confirmed cache disabled and 4 filtered cases. No compare/queue archives were generated because promptfoo-latest remained the stale Stream 28 surface. Remaining gaps: user review, final 3-solid, broad/full matrix, broad partial profiles, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, and final verification.",
-    "Stream 30 readiness synthesis is complete: no model/eval/cloud runs; docs/evals/2026-06-07-stream30-readiness-synthesis.md consolidates draft qwen/liquid/cloud roles, useful vs timeout evidence, hardware limits, user-review decisions, automatable/non-automatable gaps, and recommends user review or a no-load scoring worksheet next. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT practical proof, and final verification."
+    "Stream 30 readiness synthesis is complete: no model/eval/cloud runs; docs/evals/2026-06-07-stream30-readiness-synthesis.md consolidates draft qwen/liquid/cloud roles, useful vs timeout evidence, hardware limits, user-review decisions, automatable/non-automatable gaps, and recommends user review or a no-load scoring worksheet next. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT practical proof, and final verification.",
+    "Stream 31 final-selection worksheet is complete: docs/evals/2026-06-07-final-selection-scoring-worksheet.md gives user-fillable accept/conditional/reject lanes for qwen, liquid, imported baseline, mid-size fallback, 26B exploration, and 31B/31B-QAT exclusion. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT proof, and final verification.",
+    "Stream 32 31B Q4 offload practical probe is complete: google/gemma-4-31b@gpu_offload local fallback build-synthetic-smoke completed 1/1 in 262464 ms with no timeout/load failure; compare and queue archives were generated because promptfoo-latest refreshed to Stream 32. This closes only the narrow 31B Q4 estimate-timeout-only practical evidence gap; 31B broad readiness and 31B-QAT practical proof remain incomplete."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -2882,6 +2884,61 @@
       "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
       "Broad partial-profile quality/throughput remains incomplete.",
       "31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only.",
+      "Final two-verifier completion audit remains pending."
+    ]
+  },
+  "stream32Large31bQ4OffloadPractical": {
+    "at": "2026-06-07T15:10:00.000Z",
+    "scope": "One bounded 31B Q4_K_M offload practical local-fallback cell; LM Studio local only; hard stop after one cell.",
+    "matrixJsonl": "results/matrix-2026-06-07T15-01-50-563Z.jsonl",
+    "row": {
+      "runId": "2026-06-07T15-01-50-563Z",
+      "modelKey": "google/gemma-4-31b",
+      "variant": "google/gemma-4-31b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 262464,
+      "stderr": ""
+    },
+    "comparisonArtifacts": {
+      "generated": true,
+      "baselineComparison": "results/baseline-comparison-stream32-31b-q4-offload.jsonl",
+      "userJudgeQueue": "results/user-judge-queue-stream32-31b-q4-offload.jsonl",
+      "reason": "The cell completed and promptfoo-latest.json points to Stream 32, so compare and queue archives are tied to this row rather than a stale surface."
+    },
+    "stream16Comparison": {
+      "source": "results/stream16-large-estimates.json",
+      "priorState": "Stream 16 had only estimate-timeout evidence for google/gemma-4-31b Q4_K_M: gpu_full, gpu_partial_0.35, and gpu_offload estimate-only probes each timed out at 120000 ms, so no practical 31B Q4 cell was attempted.",
+      "practicalDelta": "Stream 32 moves google/gemma-4-31b Q4_K_M from estimate-timeout-only to one direct bounded practical gpu_offload success row."
+    },
+    "stream25Comparison": {
+      "source": "results/stream25-31b-qat-offload-practical.json",
+      "priorState": "Stream 25 google/gemma-4-31b-qat@gpu_offload timed out at 300031 ms with no pass totals.",
+      "practicalDelta": "The non-QAT 31B Q4_K_M offload row completed the same local-fallback build-synthetic-smoke task 1/1 in 262464 ms, while 31B-QAT remains timeout-only."
+    },
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 189 MiB used, 7799 MiB free, 6% utilization"
+    },
+    "runtimeAfterUnload": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 247 MiB used, 7741 MiB free, 1% utilization after a short wait."
+    },
+    "gapOutcome": "This closes or sharpens only the narrow 31B Q4_K_M practical-evidence gap: there is now one direct bounded gpu_offload local-fallback success row after Stream 16 estimate-only timeouts. It does not prove broad 31B readiness, partial/full placement, Promptfoo no-cache throughput, user-accepted quality, or final 3-solid promotion.",
+    "remainingGaps": [
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
+      "Broad partial-profile quality/throughput remains incomplete.",
+      "31B Q4_K_M has only one offload local-fallback success row; no partial/full or broad quality proof exists.",
+      "31B-QAT remains timeout-only for practical evidence after partial and offload attempts.",
       "Final two-verifier completion audit remains pending."
     ]
   }

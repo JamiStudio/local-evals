@@ -1,0 +1,128 @@
+{
+  "stream": 32,
+  "at": "2026-06-07T15:10:00.000Z",
+  "scope": "One bounded 31B Q4_K_M offload practical local-fallback cell; LM Studio local only; hard stop after one cell.",
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/engineering/agents/orchestration-reliability.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 16, 25, 30, 31 and remaining 31B gaps",
+    "docs/evals/2026-06-07-stream30-readiness-synthesis.md",
+    "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+    "results/stream16-large-estimates.json",
+    "results/stream25-31b-qat-offload-practical.json",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/runtime-snapshot.json",
+    "scripts/run-matrix.mjs timeout wiring for load and eval subprocesses",
+    "live git pull --ff-only / git status --short / lms ps / nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitPull": "Already up to date.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 189 MiB used, 7799 MiB free, 6% utilization"
+  },
+  "command": "EVAL_USE_PROMPTFOO=false; EVAL_TASK_FILTER=build-synthetic-smoke; EVAL_SMOKE_MODELS=google/gemma-4-31b; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=300000; node scripts/run-matrix.mjs --smoke",
+  "hardStopRule": "Exactly one google/gemma-4-31b gpu_offload practical cell was run. No partial/full profile, no 31B-QAT, no 26B or mid-size model, no extra task, and no retry was attempted.",
+  "timeoutWiring": {
+    "script": "scripts/run-matrix.mjs",
+    "loadModel": "spawnSync lms load uses timeout: EVAL_CELL_TIMEOUT_MS when set.",
+    "evalCell": "spawnSync eval/local-fallback subprocess uses timeout: EVAL_CELL_TIMEOUT_MS when set.",
+    "unload": "Runner calls lms unload --all after the row; Stream 32 also performed explicit unload verification because the model stayed IDLE after the cell."
+  },
+  "matrixJsonl": "results/matrix-2026-06-07T15-01-50-563Z.jsonl",
+  "row": {
+    "runId": "2026-06-07T15-01-50-563Z",
+    "modelKey": "google/gemma-4-31b",
+    "variant": "google/gemma-4-31b@q4_k_m",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "completed",
+    "passes": 1,
+    "total": 1,
+    "durationMs": 262464,
+    "stderr": ""
+  },
+  "promptfooLatest": {
+    "path": "results/promptfoo-latest.json",
+    "meaningfulForStream32": true,
+    "reason": "The completed local-fallback row refreshed promptfoo-latest.json with the Stream 32 build-synthetic-smoke output."
+  },
+  "comparisonArtifacts": {
+    "generated": true,
+    "baselineComparison": "results/baseline-comparison-stream32-31b-q4-offload.jsonl",
+    "userJudgeQueue": "results/user-judge-queue-stream32-31b-q4-offload.jsonl",
+    "reason": "The cell completed and promptfoo-latest.json points to Stream 32, so compare and queue archives are tied to this row rather than a stale surface."
+  },
+  "stream16Comparison": {
+    "source": "results/stream16-large-estimates.json",
+    "priorState": "Stream 16 had only estimate-timeout evidence for google/gemma-4-31b Q4_K_M: gpu_full, gpu_partial_0.35, and gpu_offload estimate-only probes each timed out at 120000 ms, so no practical 31B Q4 cell was attempted.",
+    "practicalDelta": "Stream 32 moves google/gemma-4-31b Q4_K_M from estimate-timeout-only to one direct bounded practical gpu_offload success row."
+  },
+  "stream25Comparison": {
+    "source": "results/stream25-31b-qat-offload-practical.json",
+    "priorState": "Stream 25 google/gemma-4-31b-qat@gpu_offload timed out at 300031 ms with no pass totals.",
+    "practicalDelta": "The non-QAT 31B Q4_K_M offload row completed the same local-fallback build-synthetic-smoke task 1/1 in 262464 ms, while 31B-QAT remains timeout-only."
+  },
+  "runtimeAfterBeforeUnload": {
+    "lmsPs": "google/gemma-4-31b was IDLE at 19.89 GB, context 4096, device Local, TTL 10m / 10m.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 7894 MiB used, 94 MiB free, 1% utilization"
+  },
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "immediate": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 7894 MiB used, 94 MiB free, 1% utilization immediately after unload."
+    },
+    "settled": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 247 MiB used, 7741 MiB free, 1% utilization after a short wait."
+    }
+  },
+  "gapOutcome": "This closes or sharpens only the narrow 31B Q4_K_M practical-evidence gap: there is now one direct bounded gpu_offload local-fallback success row after Stream 16 estimate-only timeouts. It does not prove broad 31B readiness, partial/full placement, Promptfoo no-cache throughput, user-accepted quality, or final 3-solid promotion.",
+  "remainingGaps": [
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
+    "Broad partial-profile quality/throughput remains incomplete.",
+    "31B Q4_K_M has only one offload local-fallback success row; no partial/full or broad quality proof exists.",
+    "31B-QAT remains timeout-only for practical evidence after partial and offload attempts.",
+    "Final two-verifier completion audit remains pending."
+  ],
+  "matrixSummary": {
+    "at": "2026-06-07T15:11:23.650Z",
+    "matrixFile": "matrix-2026-06-07T15-01-50-563Z.jsonl",
+    "runId": "2026-06-07T15-01-50-563Z",
+    "cells": [
+      {
+        "modelKey": "google/gemma-4-31b",
+        "profileId": "gpu_offload",
+        "status": "completed",
+        "durationMs": 262464,
+        "passRate": {
+          "passes": 1,
+          "total": 1
+        },
+        "evalOk": true
+      }
+    ],
+    "totals": {
+      "cells": 1,
+      "completed": 1,
+      "loadFailed": 0,
+      "avgPassRate": 1
+    },
+    "leaderboard": [
+      {
+        "modelKey": "google/gemma-4-31b",
+        "profileId": "gpu_offload",
+        "passes": 1,
+        "total": 1,
+        "pct": 100
+      }
+    ]
+  }
+}
