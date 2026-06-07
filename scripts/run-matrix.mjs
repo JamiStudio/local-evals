@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { spawnSync, execSync } from 'node:child_process';
+import { spawn, execSync } from 'node:child_process';
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -58,36 +58,206 @@ const resultsDir = join(root, 'results');
 mkdirSync(resultsDir, { recursive: true });
 const runId = new Date().toISOString().replace(/[:.]/g, '-');
 const jsonlPath = join(resultsDir, `matrix-${runId}.jsonl`);
+const progressPath = join(resultsDir, `matrix-${runId}.progress.jsonl`);
+const latestProgressPath = join(resultsDir, 'matrix-latest-progress.json');
 const taskFilter = (process.env.EVAL_TASK_FILTER ?? '').trim() || null;
+const progressIntervalMs = Number(process.env.EVAL_PROGRESS_INTERVAL_MS ?? 30000);
 
 function logRow(row) {
   appendFileSync(jsonlPath, JSON.stringify(row) + '\n', 'utf8');
 }
 
-function loadModel(modelKey, gpuFlag) {
-  const result = spawnSync('lms', ['load', modelKey, '--gpu', gpuFlag, '-y'], {
-    encoding: 'utf8',
-    stdio: 'pipe',
-    shell: process.platform === 'win32',
-    timeout: cellTimeoutMs > 0 ? cellTimeoutMs : undefined,
+function writeProgress(event) {
+  const payload = {
+    at: new Date().toISOString(),
+    runId,
+    ...event,
+  };
+  appendFileSync(progressPath, JSON.stringify(payload) + '\n', 'utf8');
+  writeFileSync(
+    latestProgressPath,
+    JSON.stringify(
+      {
+        runId,
+        matrixJsonl: jsonlPath,
+        progressJsonl: progressPath,
+        updatedAt: payload.at,
+        latest: payload,
+      },
+      null,
+      2,
+    ),
+    'utf8',
+  );
+}
+
+function tailText(value, max = 4000) {
+  return (value ?? '').slice(-max);
+}
+
+function runCommand(command, args, { cwd = root, env = process.env, phase, cell }) {
+  return new Promise((resolve) => {
+    const started = Date.now();
+    let stdout = '';
+    let stderr = '';
+    let timedOut = false;
+    let done = false;
+    const child = spawn(command, args, {
+      cwd,
+      env,
+      shell: process.platform === 'win32',
+      windowsHide: true,
+    });
+
+    writeProgress({
+      event: `${phase}_started`,
+      phase,
+      cell,
+      command,
+      args,
+      pid: child.pid,
+      timeoutMs: cellTimeoutMs > 0 ? cellTimeoutMs : null,
+    });
+
+    child.stdout?.on('data', (chunk) => {
+      const text = chunk.toString();
+      stdout += text;
+      process.stdout.write(text);
+      writeProgress({
+        event: `${phase}_stdout`,
+        phase,
+        cell,
+        pid: child.pid,
+        elapsedMs: Date.now() - started,
+        output: tailText(text, 2000),
+      });
+    });
+
+    child.stderr?.on('data', (chunk) => {
+      const text = chunk.toString();
+      stderr += text;
+      process.stderr.write(text);
+      writeProgress({
+        event: `${phase}_stderr`,
+        phase,
+        cell,
+        pid: child.pid,
+        elapsedMs: Date.now() - started,
+        output: tailText(text, 2000),
+      });
+    });
+
+    const heartbeat =
+      progressIntervalMs > 0
+        ? setInterval(() => {
+            writeProgress({
+              event: `${phase}_heartbeat`,
+              phase,
+              cell,
+              pid: child.pid,
+              elapsedMs: Date.now() - started,
+              stdoutTail: tailText(stdout, 1200),
+              stderrTail: tailText(stderr, 1200),
+            });
+            console.log(
+              `[progress] ${phase} ${cell?.modelKey ?? ''} ${cell?.profileId ?? ''} elapsed=${Date.now() - started}ms`,
+            );
+          }, progressIntervalMs)
+        : null;
+
+    const timeout =
+      cellTimeoutMs > 0
+        ? setTimeout(() => {
+            timedOut = true;
+            writeProgress({
+              event: `${phase}_timeout`,
+              phase,
+              cell,
+              pid: child.pid,
+              elapsedMs: Date.now() - started,
+              timeoutMs: cellTimeoutMs,
+            });
+            child.kill('SIGTERM');
+          }, cellTimeoutMs)
+        : null;
+
+    child.on('close', (status, signal) => {
+      if (done) return;
+      done = true;
+      if (heartbeat) clearInterval(heartbeat);
+      if (timeout) clearTimeout(timeout);
+      const durationMs = Date.now() - started;
+      writeProgress({
+        event: `${phase}_finished`,
+        phase,
+        cell,
+        pid: child.pid,
+        status,
+        signal,
+        timedOut,
+        durationMs,
+        stdoutTail: tailText(stdout, 2000),
+        stderrTail: tailText(stderr, 2000),
+      });
+      resolve({
+        ok: status === 0 && !timedOut,
+        status,
+        signal,
+        timedOut,
+        stdout,
+        stderr,
+        durationMs,
+      });
+    });
+
+    child.on('error', (error) => {
+      if (done) return;
+      done = true;
+      if (heartbeat) clearInterval(heartbeat);
+      if (timeout) clearTimeout(timeout);
+      const durationMs = Date.now() - started;
+      writeProgress({
+        event: `${phase}_error`,
+        phase,
+        cell,
+        pid: child.pid,
+        error: error.message,
+        durationMs,
+      });
+      resolve({
+        ok: false,
+        status: null,
+        signal: null,
+        timedOut,
+        stdout,
+        stderr: `${stderr}\n${error.message}`.trim(),
+        durationMs,
+      });
+    });
+  });
+}
+
+async function loadModel(modelKey, gpuFlag, cell) {
+  const result = await runCommand('lms', ['load', modelKey, '--gpu', gpuFlag, '-y'], {
+    phase: 'load',
+    cell,
   });
   return {
-    ok: result.status === 0,
-    timedOut: result.error?.code === 'ETIMEDOUT',
+    ok: result.status === 0 && !result.timedOut,
+    timedOut: result.timedOut,
     stdout: result.stdout,
     stderr: result.stderr,
   };
 }
 
 function unloadModels() {
-  spawnSync('lms', ['unload', '--all'], {
-    encoding: 'utf8',
-    stdio: 'pipe',
-    shell: process.platform === 'win32',
+  return runCommand('lms', ['unload', '--all'], {
+    phase: 'unload',
+    cell: null,
   });
 }
 
-function runPromptfoo(modelKey, profileId) {
+async function runPromptfoo(modelKey, profileId, cell) {
   const env = {
     ...process.env,
     EVAL_SUBJECT_MODEL: modelKey,
@@ -115,23 +285,18 @@ function runPromptfoo(modelKey, profileId) {
   if (taskFilter) {
     promptfooArgs.push('--filter-metadata', `taskId=${taskFilter}`);
   }
-  const result = spawnSync(
-    process.execPath,
-    usePromptfoo ? promptfooArgs : ['scripts/run-local-eval.mjs'],
-    {
-      cwd: root,
-      env,
-      encoding: 'utf8',
-      stdio: 'pipe',
-      timeout: cellTimeoutMs > 0 ? cellTimeoutMs : undefined,
-    },
-  );
+  const result = await runCommand(process.execPath, usePromptfoo ? promptfooArgs : ['scripts/run-local-eval.mjs'], {
+    cwd: root,
+    env,
+    phase: 'eval',
+    cell,
+  });
   const combined = `${result.stdout ?? ''}\n${result.stderr ?? ''}`.trim();
-  const timedOut = result.error?.code === 'ETIMEDOUT';
+  const timedOut = result.timedOut;
   return {
-    ok: result.status === 0 && !timedOut,
+    ok: result.ok && !timedOut,
     timedOut,
-    durationMs: Date.now() - started,
+    durationMs: result.durationMs ?? Date.now() - started,
     stdout: combined.slice(-4000),
     stderr: timedOut
       ? `EVAL_CELL_TIMEOUT_MS=${cellTimeoutMs} elapsed before eval completed.\n${combined.slice(-1800)}`
@@ -159,10 +324,21 @@ function parsePassRate(output) {
 }
 
 console.log(`Matrix run ${runId}: ${targets.length} cells`);
+console.log(`Progress: ${progressPath}`);
+console.log(`Latest progress: ${latestProgressPath}`);
 if (cellTimeoutMs > 0) {
   console.log(`Per-cell timeout enabled: ${cellTimeoutMs} ms`);
 }
 writeFileSync(jsonlPath, '', 'utf8');
+writeFileSync(progressPath, '', 'utf8');
+writeProgress({
+  event: 'run_started',
+  smoke,
+  full,
+  targets: targets.length,
+  models: targets.map(({ model, profileId }) => `${model.modelKey}@${profileId}`),
+  taskFilter,
+});
 
 try {
   execSync('node scripts/capture-system-profile.mjs --quick', { cwd: root, stdio: 'inherit' });
@@ -172,29 +348,38 @@ try {
 
 for (const { model, profileId, profile } of targets) {
   const cellStarted = Date.now();
+  const cell = {
+    modelKey: model.modelKey,
+    profileId,
+    gpuFlag: profile.lmsGpuFlag,
+    taskFilter,
+  };
   console.log(`\n→ ${model.modelKey} @ ${profileId} (${profile.lmsGpuFlag})`);
+  writeProgress({ event: 'cell_started', cell });
 
-  const load = loadModel(model.modelKey, profile.lmsGpuFlag);
+  const load = await loadModel(model.modelKey, profile.lmsGpuFlag, cell);
   if (!load.ok) {
-    logRow({
+    const row = {
       runId,
       modelKey: model.modelKey,
       profileId,
       status: load.timedOut ? 'load_timeout' : 'load_failed',
       error: load.stderr || load.stdout,
       durationMs: Date.now() - cellStarted,
-    });
-    unloadModels();
+    };
+    logRow(row);
+    writeProgress({ event: 'cell_finished', cell, row });
+    await unloadModels();
     continue;
   }
 
-  const evalResult = runPromptfoo(model.modelKey, profileId);
+  const evalResult = await runPromptfoo(model.modelKey, profileId, cell);
   const evalOutput = `${evalResult.stdout ?? ''}\n${evalResult.stderr ?? ''}`;
   const passRate = parsePassRate(evalOutput);
   const passes = passRate?.passes ?? null;
   const total = passRate?.total ?? null;
   const partial = passes != null && total != null && passes > 0 && passes < total;
-  logRow({
+  const row = {
     runId,
     modelKey: model.modelKey,
     variant: model.selectedVariant,
@@ -206,11 +391,14 @@ for (const { model, profileId, profile } of targets) {
     total,
     durationMs: evalResult.durationMs,
     stderr: evalResult.stderr,
-  });
+  };
+  logRow(row);
+  writeProgress({ event: 'cell_finished', cell, row });
 
-  unloadModels();
+  await unloadModels();
 }
 
+writeProgress({ event: 'run_finished' });
 console.log(`\nResults: ${jsonlPath}`);
 try {
   execSync('node scripts/capture-system-profile.mjs', { cwd: root, stdio: 'inherit' });
