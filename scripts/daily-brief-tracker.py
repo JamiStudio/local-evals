@@ -197,7 +197,16 @@ def run_brief_agent(
         "### Recommended Actions (plan)\n1. ...\n\n### Token & Speed\nprompt=.. completion=.. tps=.. duration_s=..\n"
     )
 
-    messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
+    messages: list[dict[str, Any]] = [
+        {"role": "system", "content": system},
+        {
+            "role": "user",
+            "content": (
+                "Build the daily evals interest brief for this focus. "
+                f"Use tools when useful, then return the required brief structure.\n\nFocus: {interest_query}"
+            ),
+        },
+    ]
     steps_log: list[dict[str, Any]] = []
     tools_schema = [
         {
@@ -317,7 +326,7 @@ def run_brief_agent(
                         "role": "tool",
                         "tool_call_id": tc.id,
                         "name": name,
-                        "content": str(obs)[:1800],
+                        "content": str(obs)[:800],
                     })
             else:
                 final_brief = (msg.content or "").strip()

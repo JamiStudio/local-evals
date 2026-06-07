@@ -231,7 +231,7 @@
     "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",
     "speedNote": "qwen cells ~12min; liquid ~4s; daily-briefs dry tps=38.4 (qwen specialist); no matrix tps layer yet",
     "baselinesStatus": "8/10 tasks have vertex-gemini-3-1-pro-preview imports; 2 W7 tasks registered but no imports/cells",
-    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps: current-profile coverage still lacks large/mid models (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT) and qwen/liquid current 40-assertion + all-profile refresh; W7 baseline/user review/real tracker gaps remain. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest. Stream 4: aborted timeout-evidence stream only; no completed cells credited. Empty JSONLs: results/matrix-2026-06-07T07-12-46-491Z.jsonl (12B gpu_full), results/matrix-2026-06-07T07-41-56-989Z.jsonl (12B filtered first cell), results/matrix-2026-06-07T07-59-50-425Z.jsonl (GLM filtered first cell). Runner now has EVAL_SMOKE_PROFILES and opt-in EVAL_CELL_TIMEOUT_MS, but the 900000 ms timeout did not fire before final redirect."
+    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps: current-profile coverage still lacks large/mid models (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT) and qwen/liquid current 40-assertion + all-profile refresh; W7 baseline/user review/real tracker gaps remain. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest. Stream 4: aborted timeout-evidence stream only; no completed cells credited. Empty JSONLs: results/matrix-2026-06-07T07-12-46-491Z.jsonl (12B gpu_full), results/matrix-2026-06-07T07-41-56-989Z.jsonl (12B filtered first cell), results/matrix-2026-06-07T07-59-50-425Z.jsonl (GLM filtered first cell). Runner now has EVAL_SMOKE_PROFILES and opt-in EVAL_CELL_TIMEOUT_MS, but the 900000 ms timeout did not fire before final redirect. Stream 5: qwen --gpu off real tracker stream wrote dry artifacts results/daily-briefs/brief-20260607-082135.json and brief-20260607-082240.json (both dry_run true, kb_loaded true, tps 38.4, wall 6.9s, usage 142/265/407, all expected sections). Real artifacts: brief-20260607-082149.json and brief-20260607-082222.json failed before usage with qwen LM Studio tool parser \"No user query found\"; tracker fixed by adding explicit user message. brief-20260607-082434.json used read_file tools but hit 4096 context on step 2 (tps 3.0, wall 106.01s, usage 2725/313/3038); tracker capped injected tool observations. brief-20260607-082646.json completed process with read_file/web_search/github observations (tps 3.1, wall 109.1s, usage 6789/339/7128, kb_loaded true) but final brief body was blank and gh search used an invalid --json flag. No load-profile change. Remaining W7 gap: usable real final brief still needs a focused repair/refresh."
   },
   "connectivity": {
     "lmstudio": true,
@@ -271,7 +271,8 @@
     "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)",
     "Stream 2 nemotron local matrix slice (COMPLETED + pushed 4b8a7b2; 11 cells, 9/40 each, 0 load failures, latest results/matrix-2026-06-07T06-30-40-559Z.jsonl)",
     "Stream 3 fit-class local matrix slice (COMPLETED + pushed c563e9c; 33 cells, e2b 11/40, e4b 10/40, rnj 7/40 across all profiles, 0 load failures, latest results/matrix-2026-06-07T06-44-52-303Z.jsonl)",
-    "Stream 4 mid-size local matrix slice (ABORTED timeout-evidence stream; no completed cells; empty JSONLs results/matrix-2026-06-07T07-12-46-491Z.jsonl, results/matrix-2026-06-07T07-41-56-989Z.jsonl, results/matrix-2026-06-07T07-59-50-425Z.jsonl; runner gained EVAL_SMOKE_PROFILES and EVAL_CELL_TIMEOUT_MS; pushed by subagent)"
+    "Stream 4 mid-size local matrix slice (ABORTED timeout-evidence stream; no completed cells; empty JSONLs results/matrix-2026-06-07T07-12-46-491Z.jsonl, results/matrix-2026-06-07T07-41-56-989Z.jsonl, results/matrix-2026-06-07T07-59-50-425Z.jsonl; runner gained EVAL_SMOKE_PROFILES and EVAL_CELL_TIMEOUT_MS; pushed by subagent)",
+    "Stream 5 W7 real tracker specialist evidence (COMPLETED + pending push; dry controls passed at 38.4 tps; real qwen tracker produced tool evidence but blank final after parser/context fixes; no usable real final brief yet)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -314,6 +315,13 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "Contained mid-size/borderline local matrix slice: google/gemma-4-12b, google/gemma-4-12b-qat, zai-org/glm-4.6v-flash only, all current load-profiles via EVAL_SMOKE_MODELS and node scripts/run-matrix.mjs --smoke; live lms/nvidia first (dispatch had no loaded model and 7532 MiB free), no full matrix, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
+    },
+    {
+      "id": "019ea12a-0c99-7bc3-8440-213dd7afeef2",
+      "workstream": "Stream 5",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "Contained W7 real daily-brief tracker + specialist evidence: load qwen/qwen3.5-9b with --gpu off, run one specialist dry control and one specialist real tracker with --max-steps 2, parse new daily-brief artifacts, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
     }
   ],
   "solidModelsTarget": {
@@ -386,5 +394,154 @@
     "profileChange": "none; no completed cells or pass-rate evidence, so registry/load-profiles.json was left unchanged.",
     "remainingGaps": "No Stream 4 matrix coverage credited for google/gemma-4-12b, google/gemma-4-12b-qat, or zai-org/glm-4.6v-flash. Mid-size current-suite cells require a smaller task subset, lower LM Studio context/parallel settings, local-eval fallback, or a runner-level timeout repair proven with a short timeout before retry.",
     "recommendedNextStream": "Avoid another unbounded mid-size attempt. Run a blocking-free qwen/liquid current-suite refresh with EVAL_SMOKE_PROFILES, or W7 real tracker/specialist evidence."
+  },
+  "stream5W7RealTrackerSpecialistEvidence": {
+    "at": "2026-06-07T08:28:10-04:00",
+    "scope": "qwen/qwen3.5-9b only; measured leader preset lms load --gpu off; one specialist dry control and bounded real tracker attempts with --max-steps 2; LM Studio local plus host-script real tools only; no cloud/direct paid APIs; no loop",
+    "sourceTruthReadBeforeRun": [
+      "results/optimization-state.json",
+      "results/system-profile.json",
+      "results/matrix-summary.json",
+      "registry/models.json",
+      "registry/load-profiles.json",
+      "scripts/daily-brief-tracker.py",
+      "recent results/daily-briefs/brief-*.json artifacts"
+    ],
+    "liveRuntimeBeforeLoad": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "2026/06/07 04:20:20.670, RTX 2080 Super Max-Q, 8192 MiB total, 418 MiB used, 7570 MiB free, 5% GPU util"
+    },
+    "load": {
+      "command": "lms unload --all; lms load qwen/qwen3.5-9b --gpu off -y",
+      "result": "loaded successfully in 17.47s; size reported 6.10 GiB; API identifier qwen/qwen3.5-9b"
+    },
+    "dryControlArtifacts": [
+      {
+        "path": "results/daily-briefs/brief-20260607-082135.json",
+        "command": "uv run --project C:\\Users\\james\\projects\\evals python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --query \"contained stream 5 dry control evals specialist tracker\" --use-specialist --dry-run --max-steps 2",
+        "dry_run": true,
+        "model": "qwen/qwen3.5-9b",
+        "kb_loaded": true,
+        "tps": 38.4,
+        "wall_seconds": 6.9,
+        "usage": {
+          "prompt_tokens": 142,
+          "completion_tokens": 265,
+          "total_tokens": 407
+        },
+        "sectionsPresent": [
+          "Web Signals",
+          "GH / Repo Activity",
+          "Harness Placement Notes",
+          "Recommended Actions",
+          "Token & Speed"
+        ],
+        "notes": "Successful dry control after using uv --project so repo dependencies were visible."
+      },
+      {
+        "path": "results/daily-briefs/brief-20260607-082240.json",
+        "command": "uv run --project C:\\Users\\james\\projects\\evals python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --query \"contained stream 5 dry control evals specialist tracker\" --use-specialist --dry-run --max-steps 2",
+        "dry_run": true,
+        "model": "qwen/qwen3.5-9b",
+        "kb_loaded": true,
+        "tps": 38.4,
+        "wall_seconds": 6.9,
+        "usage": {
+          "prompt_tokens": 142,
+          "completion_tokens": 265,
+          "total_tokens": 407
+        },
+        "sectionsPresent": [
+          "Web Signals",
+          "GH / Repo Activity",
+          "Harness Placement Notes",
+          "Recommended Actions",
+          "Token & Speed"
+        ],
+        "notes": "Successful dry control after tracker user-message compatibility fix."
+      }
+    ],
+    "realArtifacts": [
+      {
+        "path": "results/daily-briefs/brief-20260607-082149.json",
+        "dry_run": false,
+        "model": "qwen/qwen3.5-9b",
+        "kb_loaded": true,
+        "tps": 0,
+        "wall_seconds": 3.08,
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        },
+        "outcome": "failure_artifact",
+        "failure": "LM Studio qwen tool-template parser error: No user query found in messages; tracker had only a system message at conversation start."
+      },
+      {
+        "path": "results/daily-briefs/brief-20260607-082222.json",
+        "dry_run": false,
+        "model": "qwen/qwen3.5-9b",
+        "kb_loaded": true,
+        "tps": 0,
+        "wall_seconds": 2.66,
+        "usage": {
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "total_tokens": 0
+        },
+        "outcome": "failure_artifact",
+        "failure": "Same parser error confirmed with UTF-8 output; not a Windows console-only issue."
+      },
+      {
+        "path": "results/daily-briefs/brief-20260607-082434.json",
+        "dry_run": false,
+        "model": "qwen/qwen3.5-9b",
+        "kb_loaded": true,
+        "tps": 3,
+        "wall_seconds": 106.01,
+        "usage": {
+          "prompt_tokens": 2725,
+          "completion_tokens": 313,
+          "total_tokens": 3038
+        },
+        "outcome": "real_tool_evidence_then_context_failure",
+        "toolObservations": [
+          "read_file results/matrix-summary.json",
+          "read_file results/optimization-state.json"
+        ],
+        "failure": "After adding an explicit user message, qwen entered the tool loop but exceeded 4096 context on step 2 after large read_file observations (5212 prompt tokens)."
+      },
+      {
+        "path": "results/daily-briefs/brief-20260607-082646.json",
+        "dry_run": false,
+        "model": "qwen/qwen3.5-9b",
+        "kb_loaded": true,
+        "tps": 3.1,
+        "wall_seconds": 109.1,
+        "usage": {
+          "prompt_tokens": 6789,
+          "completion_tokens": 339,
+          "total_tokens": 7128
+        },
+        "outcome": "real_tool_evidence_blank_final",
+        "toolObservations": [
+          "read_file results/matrix-summary.json",
+          "read_file results/optimization-state.json",
+          "read_file registry/load-profiles.json",
+          "web_search qwen3.5-9b local evaluation results 2024 2025 -> No web results",
+          "github search issues:state:open,qwen,local-evals --json -> gh CLI error unknown flag --json"
+        ],
+        "sectionsPresent": [],
+        "failure": "Process completed without timeout after capping injected tool observations to 800 chars, but qwen returned an empty final brief body at max step 2. This is real tracker evidence but not a usable daily brief."
+      }
+    ],
+    "codeChanges": [
+      "scripts/daily-brief-tracker.py now seeds the ReAct conversation with an explicit user message so qwen LM Studio tool templates can parse the request.",
+      "scripts/daily-brief-tracker.py now caps tool observation content injected into the model at 800 chars to reduce 4096-context failures; stored observation previews remain available in artifacts."
+    ],
+    "postRunRuntime": "lms unload --all unloaded qwen; post-run lms ps showed no loaded models; nvidia-smi showed 418 MiB used / 7570 MiB free at 2026/06/07 04:28:10.943.",
+    "profileChange": "none; this stream tested tracker behavior only and did not justify changing registry/load-profiles.json.",
+    "remainingGaps": "W7 has dry controls and real tool-call evidence on qwen, but still lacks a usable real final brief. Need a follow-up stream to force finalization after one tool step, reduce specialist/context payload further, fix gh search invocation, or increase LM Studio context before judging qwen daily-brief quality. W7 baselines and user-judge review remain open.",
+    "recommendedNextStream": "Run a narrow W7 tracker repair/refresh on qwen with finalization forced after tool observations and smaller live summaries, then rerun exactly one real max-steps-2 artifact; alternatively qwen/liquid current-suite refresh if matrix coverage is higher priority."
   }
 }
