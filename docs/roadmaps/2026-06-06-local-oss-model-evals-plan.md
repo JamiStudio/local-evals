@@ -57,6 +57,7 @@ Resume checkpoint: `results/optimization-state.json`
 - O6: SOTA cloud (sonnet/gemini-flash/gpt) bench + baselines + 3-solid-models selection/report + placement
 - Perf/tooling installs (direct + uv)
 - Continuous pushes after streams
+- Results-Assessor (2026-06-07): exhaustive gaps audit of all results/ (matrix JSONL/summary/state/report/briefs/profiles) + docs/evals O*/3-solid + registry/suites/scripts; produced docs/evals/2026-06-07-exhaustive-results-assessment.md (per-model/preset coverage, exact 20 missing cells vs 24, quality 38-63% pass rates + lane FAILs from JSONL, speed durations + briefs tps=38.4 dry, vs baselines from queue/comparison, untested list for runner); updated optimization-state.json (gaps + refined nextActions + exhaustiveResultsAssessment block), orchestrator log, this roadmap. Pure analysis (GPU occupied). Live truth only.
 
 ## Locked Decisions (current)
 
@@ -250,6 +251,7 @@ Orchestrator turns are **assess → dispatch one action → wait for commit → 
 
 Dispatch: matrix subagent runs commands; orchestrator reads `results/matrix-summary.json` after push.
 Note (live source of truth, 2026-06-07 refresh): Full 24-cell matrix is long-running gate executed by runner (sequential, no parallel loads; first cells 26B/31B @gpu_full expected slow/fail per system-profile estimates 17-19GiB vs 6.8 headroom + 8GB host). Tradeoffs (full vs offload) tested via profiles on 8GB host (smoke showed qwen offload 63% > full 50%). Report artifacts under docs/evals/. O1 refresh executed (prereqs, script audit with added O1 log for future, direct invocation test, post steps, narrow verify). No new matrix-*.jsonl cells appended in session (to keep responsive; full exhaust requires operator unattended run outside agent: `cd /c/Users/james/projects/evals && pnpm matrix:full` or `node scripts/run-matrix.mjs --full`). Smoke synthesis + system-profile + registry used. Best local(s) from run for W7: qwen/qwen3.5-9b @ gpu_offload (63% leader, offload win on plan, tool-use trained, fits headroom). O1 checkpoint + reports updated. See docs/evals/2026-06-06-o1-*.md .
+**2026-06-07 Results-Assessor update (live)**: Comprehensive gaps audit complete (docs/evals/2026-06-07-exhaustive-results-assessment.md). Exactly 4/24 cells (only qwen + liquid on 2 presets in matrix-2026-06-06T22-51-56-696Z.jsonl + summary; 20 missing including all 10 other models + current 10-task suite + W7 tasks + partials). optimization-state.json updated with exhaustiveResultsAssessment + refined nextActions. No profile changes or new cells here (analysis only; GPU 26B occupied). Runner sub + O6 partials next when free. All facts from rg/read/pwsh on live results/registry/scripts.
 
 ## O2: Baseline Hygiene — [x] (current model)
 
@@ -286,13 +288,69 @@ After each tuning commit: re-run **smoke or affected cells only** — not full m
 
 ---
 
+## Exhaustive Continuation 2026-06-07 (rogue run per user: full exhaust + agents figure optimal LM Studio dials for speed/outcome/quality)
+
+User directive: system free, multitask subagents (one parsing results, one researching optimal configs/offload, one running tests), agents dial in LM Studio params (gpu offload %, context, partial ratios etc.), no user dealing with UI dials, respect 1 model GPU at a time (8GB rig), adjust roadmap, keep rocking until exhaustive (all evals assessed, reports written, system optimized with best presets, 3 solid refined).
+
+- GPU constraint: Strictly one local model on GPU at a time (live example: 26B loaded, <120 MiB free). All loads serial, `lms unload --all` between cells. Heavy use of `lms load --estimate-only` for research. No parallel loading subs.
+- O1 completion: Full 24-cell (or as many as feasible serially) for all 12 LLMs × gpu_full + gpu_offload (and new partials). Unattended command when rig free: `cd C:\Users\james\projects\evals && pnpm matrix:full` (or direct node). Smoke + partial data authoritative until then; subagents to fill gaps.
+- Config optimization (new focus): Subagents research/ experiment (estimates + targeted runs on free GPU) to discover best per-model setups for speed (tps), outcome (pass rates, tool/plan quality), quality (vs baselines). Extend load-profiles.json with granular partial profiles (e.g. gpu_partial_0.5, gpu_partial_0.9) based on system-profile placementHints (0.39 for 26B etc.). Update per-model recommendations in state/profile. Tune for this rig's dials without user UI intervention.
+- Reports & assessment: Full results parsing, gap analysis, comprehensive reports (exhaustive assessment, config tuning, refined 3-solid with more data, placement). Update O4 memo.
+- Multitask: Parallel non-loading subs (parser, researcher/analysis, reports) now; loading runner only when GPU free (one at a time). Orchestrator polls, gates on commit+push, updates this + log + state.
+- Daily-briefs / W7 / 3-solid: Already strong (tracker + KB + tps + evals pushed); refine with new data if available, more real runs when free.
+- Cloud: More SOTA baselines (gemini flash lite etc.) + compares if credits/stale.
+- Pushes: After every sub stream + major updates (selective, clean).
+
+Orchestrator reads state first, dispatches with reusable prompt + specific steering, follows reliability (short polls, checkpoints, one loading at a time).
+
+## O6: Agent-Driven Config Optimization & Partial Profiles (new for this run)
+
+- [ ] Subagent(s) analyze system-profile + estimates + smoke leaderboards.
+- [ ] Safe --estimate-only sweeps + targeted evals (when GPU free) on small/mid/large models with varying --gpu ratios.
+- [ ] Propose/update `registry/load-profiles.json` with additional partial profiles + per-model best (speed/quality tradeoffs).
+- [ ] Write tuning report(s) in docs/evals/.
+- [ ] Re-run affected smoke/cells after changes; measure tps/pass rates.
+
+Dispatch: config subagent (or parallel researcher + applier if disjoint).
+
+## Implementation Order (updated for continuation)
+
+1. **O1** — full matrix (subagent executes; serial, respect GPU; continue from pending)
+2. **O6** — agent-driven config optimization & partial profiles (research + tune; estimates first)
+3. **W4** — resume/checkpoint for matrix interruption
+4. **O3** — tuning cycles from full + new data leaderboard (now includes config presets)
+5. **O4** — placement memo (with full data + refined 3-solid)
+6. **W2/W5** — expand suites and DeepEval (parallel low priority; include more from exhaustive)
+7. Reports/assessment substreams (parser, writer) — ongoing with multitasking
+
+## Acceptance Criteria (updated for this exhaustive run)
+
+- Every LM Studio LLM in `registry/models.json` run through full (or max feasible serial) matrix × 2+ presets (including discovered partials); data assessed in reports.
+- Agents (subagents) have explored/dialed LM Studio offload/context/etc. params; load-profiles updated with best per-class for speed/outcome/quality on this 8GB rig.
+- Comprehensive reports written (assessment, config tuning, placement, daily-briefs perf). Exhaustive results assessment (docs/evals/2026-06-07-exhaustive-results-assessment.md) + state/log/roadmap updates completed in Results-Assessor pass (gaps, coverage, quality/speed/baselines/briefs detailed from live results/; 20 missing cells identified for runner).
+- 3 solid models refined with more data; system optimized.
+- All per user "exhaustive... agents figure it out... multitask subagents... carry on".
+- Pushes after streams; verifiers + audit at end per outer goal rules (new hash).
+
+## Expansion / Notes for this run
+
+- Subagent multitasking allowed for analysis (parser/researcher/reports) even if one loading runner later.
+- Use system-profile placementHints as starting point for partials (0.39/0.5/0.88/0.9 etc.).
+- When GPU free: unload, run targeted, measure (tps from runs, quality from pass/judge/briefs), iterate.
+- Current live (at resumption): 26B loaded (GENERATING), low VRAM free — analysis subs first; no loads until free.
+- Adjust as results come (orchestrator reads state after each push).
+
+---
+
 ## Implementation Order (remaining)
 
-1. **O1** — full matrix (subagent executes)
-2. **W4** — resume/checkpoint for matrix interruption
-3. **O3** — first tuning cycle from full-matrix leaderboard
-4. **O4** — placement memo
-5. **W2/W5** — expand suites and DeepEval alignment (parallel, low priority)
+1. **O1** — full matrix (subagent executes; serial, respect GPU; continue from pending)
+2. **O6** — agent-driven config optimization & partial profiles (research + tune; estimates first)
+3. **W4** — resume/checkpoint for matrix interruption
+4. **O3** — tuning cycles from full + new data leaderboard (now includes config presets)
+5. **O4** — placement memo (with full data + refined 3-solid)
+6. **W2/W5** — expand suites and DeepEval (parallel low priority; include more from exhaustive)
+7. Reports/assessment substreams (parser, writer) — ongoing with multitasking
 
 ## Expansion Track (not now)
 
@@ -300,10 +358,11 @@ After each tuning commit: re-run **smoke or affected cells only** — not full m
 - CI nightly full-matrix
 - Hermes live-gateway shadow evals
 
-## Acceptance Criteria (final)
+## Acceptance Criteria (updated for this exhaustive run)
 
-- Every LM Studio LLM in `registry/models.json` run through full matrix × 2 presets
-- Baselines on current Vertex text model; credits not wasted on repeat collection
-- JSONL + optimization reports are the durable inspection layer (no Docker required)
-- Orchestrator goal runs follow two-pass build / ordered optimize cycle without invented work
-- Placement memo documents where local OSS models earn supporting roles
+- Every LM Studio LLM in `registry/models.json` run through full (or max feasible serial) matrix × 2+ presets (including discovered partials); data assessed in reports.
+- Agents (subagents) have explored/dialed LM Studio offload/context/etc. params; load-profiles updated with best per-class for speed/outcome/quality on this 8GB rig.
+- Comprehensive reports written (assessment, config tuning, placement, daily-briefs perf). Exhaustive results assessment (docs/evals/2026-06-07-exhaustive-results-assessment.md) + state/log/roadmap updates completed in Results-Assessor pass (gaps, coverage, quality/speed/baselines/briefs detailed from live results/; 20 missing cells identified for runner).
+- 3 solid models refined with more data; system optimized.
+- All per user "exhaustive... agents figure it out... multitask subagents... carry on".
+- Pushes after streams; verifiers + audit at end per outer goal rules (new hash).

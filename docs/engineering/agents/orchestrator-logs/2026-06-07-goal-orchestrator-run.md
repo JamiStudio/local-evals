@@ -73,3 +73,58 @@ Unattended full O1 command (when rig is free, fans on coolerboost, time availabl
 This will take many hours for the full 12x2. The harness is designed for it (serialize + unload between cells).
 Results will be pushed on next manual or scheduled continuation.
 
+
+## Resumption 2026-06-07 (user: "please resume.. carry on.. subagents multitask.. optimal configs for speed/outcome/quality.. agents figure out dials.. exhaustive eval run")
+
+User reminder: rig can only handle **one local model on GPU at a time** (confirmed live: gemma-4-26b-a4b GENERATING, ~117 MiB free out of 8192). Strictly enforced going forward.
+
+Current assessment (from reads + capture):
+- Evals: Only smoke 4 cells (qwen offload 63% leader, full 50%, liquid 38%). O1 sub dispatched and "completed" its support (5d8437b) but noted "full cell data pending unattended" - only partial matrix-*.jsonl, no complete 24-cell for all 12 LLMs x 2 presets. W7 daily-briefs fully implemented, tested, pushed (multiple briefs artifacts with tps ~38.4, specialist KB). Daily-briefs volume: 10+ artifacts.
+- System optimization: load-profiles.json still only gpu_full/gpu_offload. system-profile has detailed placementHints for partials (0.39 for 26B, 0.9 for 12B, 0.88 for glm, offload for 9B based on measured). Notes recommend adding partial --gpu <ratio> after lms --estimate-only. No agent-driven exploration of LM Studio dials (gpu offload %, context length, etc.) yet for best speed/quality/outcome. Many dials in LM Studio UI - agents to figure via estimates + targeted runs.
+- Reports: Partial (O3 smoke tuning on qwen, 3-solid based on smoke + W7, O1 audit notes pending full). No full placement memo (O4), no comprehensive exhaustive assessment report.
+- Git: Pushes happened (up to c702d35 etc.), remote JamiStudio/local-evals. Some ?? results (per .gitignore transparency exceptions), M on generated.
+- GPU: Currently occupied (26B), so analysis first; loads only when free, serial, unload between.
+- Goal shape: Exhaust all (full matrix), optimize (configs by agents), SOTA cloud (partial), 3 solid (initial), daily-briefs (done), reports, pushes after streams.
+
+Plan for this rogue exhaustive continuation (shaped to goal.md + user request for multitasking subagents, agents figure dials, protect context):
+- Update roadmap for continuation phase.
+- Subagent multitasking (analysis parallel now; loads serial later when GPU free):
+  - Parser/assessor for results gaps.
+  - Configs researcher (safe estimates + experiments on free GPU for optimal partial ratios, tps/quality tradeoffs per model class).
+  - Runner for remaining serial cells once free.
+  - Reports writer.
+- Respect: one loading sub at a time. Use --estimate-only heavily for research. Update load-profiles with best discovered presets. Re-run smoke/affected after tunes. Push after each stream.
+- Adjust as live (GPU state, results volume).
+- End with full audit + 2 verifiers (new hash 1e822eb62dc4).
+
+Carry on until full exhaust, optimized configs, reports, 3 solid refined with more data.
+
+## Results-Assessor Workstream Findings (2026-06-07, pure analysis; GPU occupied by 26B)
+
+**Dispatch context**: This sub (Results-Assessor) per roadmap Exhaustive Continuation + user steering (AUDIT/EXECUTE gaps, comprehensive report, update state/log/roadmap, narrow verify, commit+push). Read AGENTS.md + full guidance first (used rg/pwsh + read_file offsets for long results/ + source). No loads (respect serialize + current 26B GENERATING, ~98 MiB free per system-profile 2026-06-07T04:20).
+
+**Key live findings (source of truth only; no fakes)**:
+- Matrix coverage: exactly 4 cells in results/matrix-2026-06-06T22-51-56-696Z.jsonl + matrix-summary.json (qwen/qwen3.5-9b gpu_full 4/8 50% 731s; offload 5/8 63% 727s leader; liquid/lfm2.5-1.2b both 3/8 38% ~4s). Other 2 matrix-*.jsonl: 4 dummy short entries + empty (0 lines). 20/24 cells missing.
+- 12 LLMs confirmed (registry/models.json + system-profile lmstudio.inventory.llms + runtime-snapshot): gemma-4-26b-a4b (17.99GB), gemma-4-12b, glm-4.6v-flash, qwen3.5-9b, gemma-4-e2b, gemma-4-31b (19.89), gemma-4-31b-qat, gemma-4-12b-qat, rnj-1, nemotron-3-nano-4b, lfm2.5-1.2b, gemma-4-e4b. load-profiles.json: only gpu_full/offload (no partials implemented despite system-profile placementHints + notes e.g. gpu_partial_0.39 for 26B, 0.35 for 31B, 0.9 for 12B; headroom 6.8GiB; serializeLoads enforced).
+- Quality: build lane 100% on smoke for qwen; research (harness-tools PASS, synthetic-smoke FAIL); plan (offload win qwen synthetic); tool (search-docs PASS, read-file FAIL). From JSONL stderr + promptfoo-latest.json. user-judge-queue.jsonl + baseline-comparison.jsonl (8 entries): deterministicPass true for build-synthetic-smoke/research-harness-tools/tool-search-docs etc.; false others. Locals shorter vs structured vertex-gemini-3-1-pro-preview baselines (8/8 imported for original tasks; manifest now 10 tasks incl. 2 W7 with 0 cells/imports). DeepEval W7 extensions present but smoke only.
+- Speed: matrix durations qwen~12min/cell, liquid~4s. Daily-briefs (11 files results/daily-briefs/): all dry_run qwen+specialist, tps=38.4 (completion/wall from tracker.py), ~6.9s, 407 tokens, placeholder briefs, kb_loaded varies. Script supports real ReAct + free web (ddgs/trafilatura) + safe fs/gh + tps record + specialist KB (docs/knowledge-bank/evals-specialist.md); 0 real inference in artifacts.
+- Vs baselines/cloud: Gemini ref 100% on 8 tasks. Locals 38-63% deterministic; qualitative gaps in queue. SOTA paths (vertex/gcloud + azure lib) exist but no additional data in results. Briefs: W7 harness complete (tracker + KB + suite/manifest additions + deepeval) but quality/speed assessment pending real matrix cells + user review.
+- Gaps summary (for runner sub): Untested: 10 models ×2 presets + qwen/liquid on current 10-task set + new W7 tasks (daily-brief-synthetic-smoke, interest-tracker-tool-use) + any partials. optimization-state + report-1 reflect smoke only. o1MatrixAttempt note updated with facts.
+- Reports cross-checked: O1/O3/3-solid (docs/evals/) + feasibility + roadmap + standards/ops/agents/ all consistent with live results/ (smoke authoritative until unattended full; qwen-offload leader; 3-solid qwen+liquid+cloud).
+- Orchestrator contract followed: assessed results/ + registry + scripts + docs first (rg first per AGENTS); no matrix run here; pure analysis + report + targeted edits (state/log/roadmap + new assessment md); boundary preserved.
+
+**Artifacts produced/updated (intentional only)**:
+- New: docs/evals/2026-06-07-exhaustive-results-assessment.md (comprehensive per-model/preset gaps, quality/speed/baselines/briefs breakdown, exact untested list, refs to live files only).
+- Updated: results/optimization-state.json (added exhaustiveResultsAssessment block + 2 refined nextActions for gaps/runner/O6).
+- Updated: docs/engineering/agents/orchestrator-logs/2026-06-07-goal-orchestrator-run.md (this section).
+- Updated: docs/roadmaps/2026-06-06-local-oss-model-evals-plan.md (O1 + exhaustive continuation accuracy + assessment note).
+- Verification (narrow, docs+orchestration focus): read back md + git diff --check; pnpm verify (syntax/export checks; safe, no loads); rg/pwsh for confirmation. Full pnpm matrix:full dry-run equivalent via script audit (2x2 smoke path confirmed). No unrelated changes.
+
+**Recommendations for next dispatch**: When GPU free (lms unload --all; one serial): runner sub for pnpm matrix:full (or node) + O6 partials researcher (estimates + targeted on free GPU per system-profile). Re-summarize/compare/judge post. Update state/log/roadmap + this log. User review queue. Push after.
+
+**Blockers**: GPU occupied (26B); long-running full matrix requires operator unattended outside agent (per O1 + reliability.md). No other (Langfuse deferred; no secrets; creds for baselines optional per policy).
+
+All per AGENTS.md / roadmap / standards (Windows/pwsh + rg; live truth; no fakes). Report + updates staged for commit. Ready for runner sub + O6.
+
+(End of Results-Assessor append.)
+

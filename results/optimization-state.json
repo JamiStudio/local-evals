@@ -75,8 +75,38 @@
     "3 solid models documented (f06f54b + a80d345; qwen-offload specialist w/ W7 KB, liquid speed, cloud ref); promote to decisions/ after full data",
     "Frequent clean pushes done (multiple after streams to JamiStudio/local-evals; pyproject deps + note fixes committed)",
     "Perf tooling + captures + verify + deepeval W7 tests (ToolCall fixed) done",
-    "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal"
+    "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal",
+    "EXHAUSTIVE GAPS (2026-06-07 Results-Assessor): 20/24 cells missing (all except qwen/qwen3.5-9b + liquid/lfm2.5-1.2b on gpu_full/offload); 10 models (gemma-4-26b-a4b, gemma-4-12b, glm-4.6v-flash, gemma-4-e2b, gemma-4-31b, gemma-4-31b-qat, gemma-4-12b-qat, rnj-1, nemotron-3-nano-4b, gemma-4-e4b) × 2 presets completely untested in matrix; even tested models lack current 10-task suite (manifest now has daily-brief-synthetic-smoke + interest-tracker-tool-use) + tps capture + partials; load-profiles.json still only 2 entries (no gpu_partial_* despite system-profile placementHints 0.39/0.9/0.88/0.35 etc.); run unattended pnpm matrix:full (or node scripts/run-matrix.mjs --full) + O6 partials when GPU free (26B currently loaded); re-summarize + update state after",
+    "Add/validate partial load profiles (O6) from system-profile + estimates; targeted matrix on new W7 tasks + re-run qwen/liquid for full suite; collect baselines for the 2 new manifest tasks; user-judge review of queue; promote refined 3-solid to docs/decisions/ post-full data"
   ],
+  "exhaustiveResultsAssessment": {
+    "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
+    "at": "2026-06-07",
+    "testedCells": 4,
+    "expectedCells": 24,
+    "missingCells": 20,
+    "testedModels": ["qwen/qwen3.5-9b", "liquid/lfm2.5-1.2b"],
+    "untestedModels": [
+      "google/gemma-4-26b-a4b",
+      "google/gemma-4-12b",
+      "zai-org/glm-4.6v-flash",
+      "google/gemma-4-e2b",
+      "google/gemma-4-31b",
+      "google/gemma-4-31b-qat",
+      "google/gemma-4-12b-qat",
+      "essentialai/rnj-1",
+      "nvidia/nemotron-3-nano-4b",
+      "google/gemma-4-e4b"
+    ],
+    "currentProfiles": ["gpu_full", "gpu_offload"],
+    "partialsImplemented": false,
+    "newW7TasksInMatrix": 0,
+    "leaderFromSmoke": "qwen/qwen3.5-9b@gpu_offload 63%",
+    "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",
+    "speedNote": "qwen cells ~12min; liquid ~4s; daily-briefs dry tps=38.4 (qwen specialist); no matrix tps layer yet",
+    "baselinesStatus": "8/10 tasks have vertex-gemini-3-1-pro-preview imports; 2 W7 tasks registered but no imports/cells",
+    "dailyBriefs": "11 dry-run artifacts (qwen, tps=38.4, specialist); 0 real matrix cells for new W7 tasks"
+  },
   "connectivity": {
     "lmstudio": true,
     "vertexBaselines": true,
