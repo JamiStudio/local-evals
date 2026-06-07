@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawn, execSync } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
@@ -60,6 +60,7 @@ const runId = new Date().toISOString().replace(/[:.]/g, '-');
 const jsonlPath = join(resultsDir, `matrix-${runId}.jsonl`);
 const progressPath = join(resultsDir, `matrix-${runId}.progress.jsonl`);
 const latestProgressPath = join(resultsDir, 'matrix-latest-progress.json');
+const promptfooOutputPath = join(resultsDir, 'promptfoo-latest.json');
 const taskFilter = (process.env.EVAL_TASK_FILTER ?? '').trim() || null;
 const progressIntervalMs = Number(process.env.EVAL_PROGRESS_INTERVAL_MS ?? 30000);
 
@@ -93,6 +94,37 @@ function writeProgress(event) {
 
 function tailText(value, max = 4000) {
   return (value ?? '').slice(-max);
+}
+
+function fileMtimeMs(path) {
+  try {
+    return statSync(path).mtimeMs;
+  } catch {
+    return null;
+  }
+}
+
+function readPromptfooStats(beforeMtimeMs) {
+  const afterMtimeMs = fileMtimeMs(promptfooOutputPath);
+  if (afterMtimeMs == null || (beforeMtimeMs != null && afterMtimeMs <= beforeMtimeMs)) {
+    return { refreshed: false, passes: null, total: null };
+  }
+
+  try {
+    const data = JSON.parse(readFileSync(promptfooOutputPath, 'utf8'));
+    const stats = data.stats ?? data.results?.stats;
+    if (Number.isFinite(stats?.passes) && Number.isFinite(stats?.total)) {
+      return { refreshed: true, passes: stats.passes, total: stats.total };
+    }
+    if (Array.isArray(data.results?.results)) {
+      const total = data.results.results.length;
+      const passes = data.results.results.filter((result) => result.success === true).length;
+      return { refreshed: true, passes, total };
+    }
+    return { refreshed: true, passes: null, total: null };
+  } catch (error) {
+    return { refreshed: true, passes: null, total: null, error: error.message };
+  }
 }
 
 function runCommand(command, args, { cwd = root, env = process.env, phase, cell }) {
@@ -269,6 +301,7 @@ async function runPromptfoo(modelKey, profileId, cell) {
   const usePromptfoo =
     process.env.EVAL_USE_PROMPTFOO === 'true' ||
     (process.env.EVAL_USE_PROMPTFOO !== 'false' && existsSync(sqliteBinding));
+  const promptfooBeforeMtimeMs = usePromptfoo ? fileMtimeMs(promptfooOutputPath) : null;
   const promptfooArgs = [
     'node_modules/promptfoo/dist/src/entrypoint.js',
     'eval',
@@ -293,9 +326,12 @@ async function runPromptfoo(modelKey, profileId, cell) {
   });
   const combined = `${result.stdout ?? ''}\n${result.stderr ?? ''}`.trim();
   const timedOut = result.timedOut;
+  const promptfooStats = usePromptfoo ? readPromptfooStats(promptfooBeforeMtimeMs) : null;
   return {
     ok: result.ok && !timedOut,
     timedOut,
+    usedPromptfoo: usePromptfoo,
+    promptfooStats,
     durationMs: result.durationMs ?? Date.now() - started,
     stdout: combined.slice(-4000),
     stderr: timedOut
@@ -376,9 +412,15 @@ for (const { model, profileId, profile } of targets) {
   const evalResult = await runPromptfoo(model.modelKey, profileId, cell);
   const evalOutput = `${evalResult.stdout ?? ''}\n${evalResult.stderr ?? ''}`;
   const passRate = parsePassRate(evalOutput);
-  const passes = passRate?.passes ?? null;
-  const total = passRate?.total ?? null;
+  const passes = passRate?.passes ?? evalResult.promptfooStats?.passes ?? null;
+  const total = passRate?.total ?? evalResult.promptfooStats?.total ?? null;
   const partial = passes != null && total != null && passes > 0 && passes < total;
+  const noPromptfooResults =
+    evalResult.usedPromptfoo &&
+    evalResult.ok &&
+    !evalResult.timedOut &&
+    !passRate &&
+    (!evalResult.promptfooStats?.refreshed || passes == null || total == null);
   const row = {
     runId,
     modelKey: model.modelKey,
@@ -386,11 +428,22 @@ for (const { model, profileId, profile } of targets) {
     profileId,
     gpuFlag: profile.lmsGpuFlag,
     taskFilter,
-    status: evalResult.timedOut ? 'eval_timeout' : evalResult.ok ? 'completed' : partial ? 'eval_partial' : 'eval_failed',
+    status: evalResult.timedOut
+      ? 'eval_timeout'
+      : noPromptfooResults
+        ? 'eval_no_results'
+        : evalResult.ok
+          ? 'completed'
+          : partial
+            ? 'eval_partial'
+            : 'eval_failed',
     passes,
     total,
     durationMs: evalResult.durationMs,
-    stderr: evalResult.stderr,
+    stderr:
+      noPromptfooResults && !evalResult.stderr
+        ? 'Promptfoo exited successfully but did not emit pass totals or refresh results/promptfoo-latest.json.'
+        : evalResult.stderr,
   };
   logRow(row);
   writeProgress({ event: 'cell_finished', cell, row });

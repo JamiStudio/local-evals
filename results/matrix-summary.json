@@ -1,5 +1,5 @@
 {
-  "at": "2026-06-07T16:55:00.000Z",
+  "at": "2026-06-07T16:56:46.217Z",
   "matrixFile": "matrix-2026-06-07T16-48-17-033Z.jsonl",
   "runId": "2026-06-07T16-48-17-033Z",
   "cells": [
@@ -9,18 +9,14 @@
       "status": "completed",
       "durationMs": 666,
       "passRate": null,
-      "evalOk": null,
-      "taskFilter": "build-synthetic-smoke",
-      "passes": null,
-      "total": null
+      "evalOk": false
     }
   ],
   "totals": {
     "cells": 1,
-    "completed": 1,
+    "completed": 0,
     "loadFailed": 0,
     "avgPassRate": null
   },
-  "leaderboard": [],
-  "note": "Stream 36 completed the runner cell but Promptfoo did not emit pass totals or refresh results/promptfoo-latest.json."
+  "leaderboard": []
 }

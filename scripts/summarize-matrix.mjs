@@ -12,7 +12,9 @@ const resultsDir = join(root, 'results');
 
 function latestMatrixFile() {
   if (!existsSync(resultsDir)) return null;
-  const files = readdirSync(resultsDir).filter((f) => f.startsWith('matrix-') && f.endsWith('.jsonl'));
+  const files = readdirSync(resultsDir).filter(
+    (f) => f.startsWith('matrix-') && f.endsWith('.jsonl') && !f.endsWith('.progress.jsonl'),
+  );
   return files.sort().at(-1) ?? null;
 }
 
@@ -46,16 +48,17 @@ const cells = rows.map((row) => {
     Number.isFinite(row.passes) && Number.isFinite(row.total)
       ? { passes: row.passes, total: row.total }
       : parsePassRate(row.stderr);
+  const evalOk =
+    (row.status === 'completed' && Boolean(passRate)) ||
+    row.status === 'eval_partial' ||
+    Boolean(passRate && passRate.passes > 0);
   return {
     modelKey: row.modelKey,
     profileId: row.profileId,
     status: row.status,
     durationMs: row.durationMs,
     passRate,
-    evalOk:
-      row.status === 'completed' ||
-      row.status === 'eval_partial' ||
-      (passRate && passRate.passes > 0),
+    evalOk,
   };
 });
 
