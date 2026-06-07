@@ -1,213 +1,609 @@
 {
-  "at": "2026-06-07T06:37:20.554Z",
-  "matrixFile": "matrix-2026-06-07T06-30-40-559Z.jsonl",
-  "runId": "2026-06-07T06-30-40-559Z",
+  "at": "2026-06-07T07:06:13.598Z",
+  "matrixFile": "matrix-2026-06-07T06-44-52-303Z.jsonl",
+  "runId": "2026-06-07T06-44-52-303Z",
   "cells": [
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_full",
-      "status": "eval_failed",
-      "durationMs": 140360,
+      "status": "eval_partial",
+      "durationMs": 229498,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_offload",
-      "status": "eval_failed",
-      "durationMs": 11029,
+      "status": "eval_partial",
+      "durationMs": 10011,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.3",
-      "status": "eval_failed",
-      "durationMs": 8413,
+      "status": "eval_partial",
+      "durationMs": 9745,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.35",
-      "status": "eval_failed",
-      "durationMs": 8986,
+      "status": "eval_partial",
+      "durationMs": 11023,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.36",
-      "status": "eval_failed",
-      "durationMs": 9456,
+      "status": "eval_partial",
+      "durationMs": 9885,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.39",
-      "status": "eval_failed",
-      "durationMs": 8490,
+      "status": "eval_partial",
+      "durationMs": 11716,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.5",
-      "status": "eval_failed",
-      "durationMs": 11541,
+      "status": "eval_partial",
+      "durationMs": 10804,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.7",
-      "status": "eval_failed",
-      "durationMs": 9756,
+      "status": "eval_partial",
+      "durationMs": 8972,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.88",
-      "status": "eval_failed",
-      "durationMs": 9426,
+      "status": "eval_partial",
+      "durationMs": 8959,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.9",
-      "status": "eval_failed",
-      "durationMs": 9502,
+      "status": "eval_partial",
+      "durationMs": 8447,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
         "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.95",
-      "status": "eval_failed",
-      "durationMs": 9922,
+      "status": "eval_partial",
+      "durationMs": 9530,
       "passRate": {
-        "passes": 9,
+        "passes": 11,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_full",
+      "status": "eval_partial",
+      "durationMs": 123533,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_offload",
+      "status": "eval_partial",
+      "durationMs": 10360,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.3",
+      "status": "eval_partial",
+      "durationMs": 10370,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.35",
+      "status": "eval_partial",
+      "durationMs": 11985,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.36",
+      "status": "eval_partial",
+      "durationMs": 9834,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.39",
+      "status": "eval_partial",
+      "durationMs": 10292,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.5",
+      "status": "eval_partial",
+      "durationMs": 13006,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.7",
+      "status": "eval_partial",
+      "durationMs": 11674,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.88",
+      "status": "eval_partial",
+      "durationMs": 13273,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.9",
+      "status": "eval_partial",
+      "durationMs": 12487,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.95",
+      "status": "eval_partial",
+      "durationMs": 12613,
+      "passRate": {
+        "passes": 7,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_full",
+      "status": "eval_partial",
+      "durationMs": 431129,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_offload",
+      "status": "eval_partial",
+      "durationMs": 11120,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.3",
+      "status": "eval_partial",
+      "durationMs": 10950,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.35",
+      "status": "eval_partial",
+      "durationMs": 11543,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.36",
+      "status": "eval_partial",
+      "durationMs": 11083,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.39",
+      "status": "eval_partial",
+      "durationMs": 11071,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.5",
+      "status": "eval_partial",
+      "durationMs": 10626,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.7",
+      "status": "eval_partial",
+      "durationMs": 10865,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.88",
+      "status": "eval_partial",
+      "durationMs": 11394,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.9",
+      "status": "eval_partial",
+      "durationMs": 12124,
+      "passRate": {
+        "passes": 10,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.95",
+      "status": "eval_partial",
+      "durationMs": 10236,
+      "passRate": {
+        "passes": 10,
         "total": 40
       },
       "evalOk": true
     }
   ],
   "totals": {
-    "cells": 11,
-    "completed": 11,
+    "cells": 33,
+    "completed": 33,
     "loadFailed": 0,
-    "avgPassRate": 0.22500000000000006
+    "avgPassRate": 0.23333333333333325
   },
   "leaderboard": [
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_full",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_offload",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.3",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.35",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.36",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.39",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.5",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.7",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.88",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.9",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
     },
     {
-      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "modelKey": "google/gemma-4-e2b",
       "profileId": "gpu_partial_0.95",
-      "passes": 9,
+      "passes": 11,
       "total": 40,
-      "pct": 23
+      "pct": 28
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_full",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_offload",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.3",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.35",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.36",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.39",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.5",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.7",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.88",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.9",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "profileId": "gpu_partial_0.95",
+      "passes": 10,
+      "total": 40,
+      "pct": 25
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_full",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_offload",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.3",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.35",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.36",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.39",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.5",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.7",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.88",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.9",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "profileId": "gpu_partial_0.95",
+      "passes": 7,
+      "total": 40,
+      "pct": 18
     }
   ]
 }

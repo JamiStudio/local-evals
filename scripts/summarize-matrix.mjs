@@ -42,7 +42,10 @@ const rows = readFileSync(join(resultsDir, matrixFile), 'utf8')
   .map((line) => JSON.parse(line));
 
 const cells = rows.map((row) => {
-  const passRate = parsePassRate(row.stderr);
+  const passRate =
+    Number.isFinite(row.passes) && Number.isFinite(row.total)
+      ? { passes: row.passes, total: row.total }
+      : parsePassRate(row.stderr);
   return {
     modelKey: row.modelKey,
     profileId: row.profileId,

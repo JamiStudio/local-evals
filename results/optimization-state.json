@@ -78,6 +78,65 @@
     "postSteps": ["node scripts/summarize-matrix.mjs", "pnpm compare:baseline", "pnpm judge:queue"],
     "parserNote": "scripts/run-matrix.mjs and scripts/summarize-matrix.mjs now parse both old 'x/y passed' and current promptfoo 'Results: 9 passed, 23 failed, 8 errors' formats so pass counts are not dropped."
   },
+  "stream3FitClassLocalMatrixSlice": {
+    "at": "2026-06-07T07:05:00.000Z",
+    "scope": "essentialai/rnj-1, google/gemma-4-e2b, google/gemma-4-e4b only; all 11 current registry/load-profiles.json profiles; LM Studio local only; max concurrency 1; no cloud/direct paid APIs",
+    "liveRuntimeBeforeLoad": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free"
+    },
+    "sourceTruthReadBeforeRun": [
+      "results/optimization-state.json",
+      "results/system-profile.json",
+      "results/matrix-summary.json",
+      "registry/models.json",
+      "registry/load-profiles.json",
+      "git show --stat --oneline 4b8a7b2"
+    ],
+    "latestMatrixJsonl": "results/matrix-2026-06-07T06-44-52-303Z.jsonl",
+    "summary": "results/matrix-summary.json",
+    "cellsAdded": 33,
+    "loadFailures": 0,
+    "statuses": {
+      "eval_partial": 33
+    },
+    "perModel": {
+      "google/gemma-4-e2b": {
+        "cells": 11,
+        "passRate": "11/40 on every profile (27.5%, rounded 28%)",
+        "loadFailures": 0,
+        "totalDurationMs": 328590,
+        "bestPreset": "gpu_partial_0.9 by duration only; all profiles tied at 11/40",
+        "worstPreset": "gpu_full by duration; all profiles tied at 11/40",
+        "fastestDurationMs": 8447,
+        "slowestDurationMs": 229498
+      },
+      "essentialai/rnj-1": {
+        "cells": 11,
+        "passRate": "7/40 on every profile (17.5%, rounded 18%)",
+        "loadFailures": 0,
+        "totalDurationMs": 239427,
+        "bestPreset": "gpu_partial_0.36 by duration only; all profiles tied at 7/40",
+        "worstPreset": "gpu_full by duration; all profiles tied at 7/40",
+        "fastestDurationMs": 9834,
+        "slowestDurationMs": 123533
+      },
+      "google/gemma-4-e4b": {
+        "cells": 11,
+        "passRate": "10/40 on every profile (25%)",
+        "loadFailures": 0,
+        "totalDurationMs": 542141,
+        "bestPreset": "gpu_partial_0.95 by duration only; all profiles tied at 10/40",
+        "worstPreset": "gpu_full by duration; all profiles tied at 10/40",
+        "fastestDurationMs": 10236,
+        "slowestDurationMs": 431129
+      }
+    },
+    "profileChange": "none; pass rates were invariant across profiles for all three models, so this stream only supports speed observations, not changing registry/load-profiles.json",
+    "postRunRuntime": "google/gemma-4-e4b was IDLE after runner; lms unload --all unloaded it; lms ps then showed no loaded models",
+    "postSteps": ["pnpm summarize:matrix (returned success but did not refresh in this shell)", "node scripts/summarize-matrix.mjs", "node scripts/compare-to-baseline.mjs", "node scripts/queue-user-judge.mjs"],
+    "parserNote": "scripts/summarize-matrix.mjs now prefers top-level row passes/total emitted by scripts/run-matrix.mjs, then falls back to stderr parsing; this prevents summary from staying on the prior JSONL when stderr parsing is insufficient."
+  },
   "systemProfile": {
     "at": "2026-06-06T23:42:16.540Z",
     "vramGb": 8,
@@ -148,7 +207,7 @@
     "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",
     "speedNote": "qwen cells ~12min; liquid ~4s; daily-briefs dry tps=38.4 (qwen specialist); no matrix tps layer yet",
     "baselinesStatus": "8/10 tasks have vertex-gemini-3-1-pro-preview imports; 2 W7 tasks registered but no imports/cells",
-    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Lock qwen offload leader + prioritize real tracker (headroom now), another small-model slice (rnj/e2b/e4b), or cloud SOTA per data. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest."
+    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps: current-profile coverage still lacks large/mid models (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT) and qwen/liquid current 40-assertion + all-profile refresh; W7 baseline/user review/real tracker gaps remain. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest."
   },
   "connectivity": {
     "lmstudio": true,
@@ -168,7 +227,7 @@
     "systemTurboCoolerboost": true,
     "creditsOnTap": "vertex(gcloud-active) + azure(if-env) + reasonable burn"
   },
-  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)", "Stream 2 nemotron local matrix slice (COMPLETED locally; pending final commit+push; 11 cells, 9/40 each, 0 load failures, latest results/matrix-2026-06-07T06-30-40-559Z.jsonl)"],
+  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)", "Stream 2 nemotron local matrix slice (COMPLETED + pushed 4b8a7b2; 11 cells, 9/40 each, 0 load failures, latest results/matrix-2026-06-07T06-30-40-559Z.jsonl)", "Stream 3 fit-class local matrix slice (COMPLETED locally; pending final commit+push; 33 cells, e2b 11/40, e4b 10/40, rnj 7/40 across all profiles, 0 load failures, latest results/matrix-2026-06-07T06-44-52-303Z.jsonl)"],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
     "5156a75: docs/roadmap + state update for user goal (second stream)",
@@ -196,6 +255,13 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "Contained small untested local matrix slice: nvidia/nemotron-3-nano-4b only, all current load-profiles via EVAL_SMOKE_MODELS and node scripts/run-matrix.mjs --smoke; live lms/nvidia first, unload idle model if safe, no full matrix, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
+    },
+    {
+      "id": "019ea0d1-c4e0-7251-8213-11fadb0b57f4",
+      "workstream": "Stream 3",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "Contained fit-class local matrix slice: essentialai/rnj-1, google/gemma-4-e2b, google/gemma-4-e4b only, all current load-profiles via EVAL_SMOKE_MODELS and node scripts/run-matrix.mjs --smoke; live lms/nvidia first (dispatch had no loaded model and 7532 MiB free), no full matrix, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
     }
   ],
   "solidModelsTarget": {
