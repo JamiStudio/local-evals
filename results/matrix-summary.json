@@ -1,0 +1,87 @@
+{
+  "at": "2026-06-06T23:20:39.889Z",
+  "matrixFile": "matrix-2026-06-06T22-51-56-696Z.jsonl",
+  "runId": "2026-06-06T22-51-56-696Z",
+  "cells": [
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_full",
+      "status": "eval_failed",
+      "durationMs": 731171,
+      "passRate": {
+        "passes": 4,
+        "total": 8
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_offload",
+      "status": "eval_failed",
+      "durationMs": 727360,
+      "passRate": {
+        "passes": 5,
+        "total": 8
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "status": "eval_failed",
+      "durationMs": 4167,
+      "passRate": {
+        "passes": 3,
+        "total": 8
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_offload",
+      "status": "eval_failed",
+      "durationMs": 4060,
+      "passRate": {
+        "passes": 3,
+        "total": 8
+      },
+      "evalOk": true
+    }
+  ],
+  "totals": {
+    "cells": 4,
+    "completed": 4,
+    "loadFailed": 0,
+    "avgPassRate": 0.46875
+  },
+  "leaderboard": [
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_offload",
+      "passes": 5,
+      "total": 8,
+      "pct": 63
+    },
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_full",
+      "passes": 4,
+      "total": 8,
+      "pct": 50
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "passes": 3,
+      "total": 8,
+      "pct": 38
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_offload",
+      "passes": 3,
+      "total": 8,
+      "pct": 38
+    }
+  ]
+}

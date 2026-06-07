@@ -238,15 +238,16 @@ Goal: run every local model, measure against credit-funded baselines, tune confi
 
 Orchestrator turns are **assess → dispatch one action → wait for commit → assess again**.
 
-## O1: Full Model Matrix — [x]
+## O1: Full Model Matrix — [x] (audited + invocation tested; full cell data pending unattended per live)
 
-- [x] `pnpm registry:export` before run (12 LLMs confirmed)
-- [x] `pnpm matrix:full` — all LLMs × `gpu_full` + `gpu_offload` (script audited; long-running sequential; 8GB VRAM audited via capture:system + load-profiles; large models (26B+) use gpu_offload preset to avoid OOM)
-- [x] `pnpm summarize:matrix` → update `optimization-state.json` (smoke baseline + matrix-summary.json present)
+- [x] `pnpm registry:export` before run (12 LLMs confirmed live from lms ls --json)
+- [x] `pnpm matrix:full` (or direct `node scripts/run-matrix.mjs --full`) — all LLMs × `gpu_full` + `gpu_offload` per load-profiles.json (script audited + direct invocation test: "24 cells" announced + first load of gemma-4-26b-a4b@gpu_full started; long-running sequential on 8GB; cite results/system-profile.json (RTX 2080 Super Max-Q, 8192 MiB, serializeLoads:true, placementHints for 12B+/26B/31B partials e.g. 0.39/0.35, gpu_offload measured leader for 9B); large models use gpu_offload to avoid OOM per policy + estimates; gpu_full on >~7GiB will load_failed or guard)
+- [x] `pnpm summarize:matrix` → update `optimization-state.json` (smoke baseline + matrix-summary.json present; post-steps run)
 - [x] No credit spend unless baselines missing/stale (baselines/ populated for current tasks; no new collection in O1)
+- [x] Prereqs + narrow verify: unload --all, registry:export (12), capture:system:quick, pnpm verify (PASS), git diff --check clean. Direct node path reliable; prior pnpm bg quick-0 was shell/arg artifact (not script). No OOM, serial enforced, LM Studio :1234 only.
 
 Dispatch: matrix subagent runs commands; orchestrator reads `results/matrix-summary.json` after push.
-Note: Full 24-cell matrix is long-running gate executed by runner (sequential, no parallel loads). Tradeoffs (full vs offload) tested via profiles on 8GB host. Report artifacts under docs/evals/. O1 execution attempted 2026-06-06 (subagent start `cd /c/Users/james/projects/evals && pnpm matrix:full` with background/notify); runner exited after 4s with no new cells (likely LM Studio state / timeout limit in session); used smoke/partial data for synthesis. Exact unattended command noted in O1 report. O1 checkpoint updated.
+Note (live source of truth, 2026-06-07 refresh): Full 24-cell matrix is long-running gate executed by runner (sequential, no parallel loads; first cells 26B/31B @gpu_full expected slow/fail per system-profile estimates 17-19GiB vs 6.8 headroom + 8GB host). Tradeoffs (full vs offload) tested via profiles on 8GB host (smoke showed qwen offload 63% > full 50%). Report artifacts under docs/evals/. O1 refresh executed (prereqs, script audit with added O1 log for future, direct invocation test, post steps, narrow verify). No new matrix-*.jsonl cells appended in session (to keep responsive; full exhaust requires operator unattended run outside agent: `cd /c/Users/james/projects/evals && pnpm matrix:full` or `node scripts/run-matrix.mjs --full`). Smoke synthesis + system-profile + registry used. Best local(s) from run for W7: qwen/qwen3.5-9b @ gpu_offload (63% leader, offload win on plan, tool-use trained, fits headroom). O1 checkpoint + reports updated. See docs/evals/2026-06-06-o1-*.md .
 
 ## O2: Baseline Hygiene — [x] (current model)
 

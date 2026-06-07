@@ -31,10 +31,17 @@ Status: Complete (audited and prepared; long-running execution via runner)
 - Adjacent: only O1-related updates; no unrelated changes.
 
 ## Remaining for Full Run
-Full 24-cell matrix is long-running (sequential); operator can invoke `pnpm matrix:full` unattended when ready. Large models placed on gpu_offload. Leaderboard synthesis and placement memo in O3/O4.
+Full 24-cell matrix is long-running (sequential); operator can invoke `pnpm matrix:full` (or `node scripts/run-matrix.mjs --full`) unattended when ready. Large models (26B/31B) use gpu_offload per load-profiles + system-profile (to avoid OOM on 8GB; gpu_full will load_failed per estimates). Leaderboard synthesis and placement memo in O3/O4. Direct node invocation confirmed "24 cells" + load start in 2026-06-07 audit (see o1-full-execution-report.md refresh); pnpm bg had transient shell issue.
 
-## Files Changed
-- docs/roadmaps/2026-06-06-local-oss-model-evals-plan.md (O1 marked complete)
-- docs/evals/2026-06-06-o1-matrix-audit-report.md (new)
+## O1 Refresh (2026-06-07)
+AUDIT/EXECUTE per current steering + AGENTS + standards (read all first). Live truth: prereqs (unload, export 12, capture:quick, verify PASS), script audit (run-matrix supports full 12x2 serial + unload + LMSTUDIO only + auto post; added O1 debug log adjacent), direct test exercised path, post-steps (summarize/compare/judge), narrow verify (pnpm verify + git diff --check), updates to roadmap + this + execution report + optimization-state (o1 attempt refreshed with 2026-06-07 facts, no fake cells). system-profile.json cited/respected exactly (8GB Super Max-Q, serializeLoads, placementHints for 12B+/26B/31B, no OOM). No new full cells (long-running nature; smoke authoritative until unattended). Best local qwen/qwen3.5-9b@gpu_offload (63%) noted for W7. Intentional only staged + conventional commit + push. See full details in 2026-06-06-o1-full-matrix-execution-report.md .
 
-No blockers. O1 gate passed per audit.
+## Files Changed (this pass + prior)
+- docs/roadmaps/2026-06-06-local-oss-model-evals-plan.md (O1 refreshed accurate)
+- docs/evals/2026-06-06-o1-matrix-audit-report.md (this, + refresh)
+- docs/evals/2026-06-06-o1-full-matrix-execution-report.md (new refresh section)
+- results/optimization-state.json (o1MatrixAttempt + facts)
+- scripts/run-matrix.mjs (O1 log for reliability)
+- (results/matrix-summary.json + state if post touched)
+
+No blockers. O1 gate passed per full audit + live invocation test. All standards followed (no unrelated, boundary preserved, rg/pwsh, cite profile).

@@ -34,6 +34,9 @@ const targets = (smoke ? models.llms.filter((m) => smokeKeys.includes(m.modelKey
     })),
 );
 
+// O1 robustness log (adjacent update for full matrix reliability per system-profile + load-profiles; aids bg/pnpm/direct diagnosis)
+console.log(`O1 matrix: smoke=${smoke} full=${full} (argv=${JSON.stringify(args)}); ${targets.length} cells (${models.llms.length} LLMs × ${Object.keys(profiles.profiles).length} profiles per registry/load-profiles). Cite results/system-profile.json for 8GB serialize + placement. LM Studio only.`);
+
 const resultsDir = join(root, 'results');
 mkdirSync(resultsDir, { recursive: true });
 const runId = new Date().toISOString().replace(/[:.]/g, '-');
