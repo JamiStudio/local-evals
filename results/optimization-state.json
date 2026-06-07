@@ -70,12 +70,12 @@
   },
   "nextActions": [
     "Dispatch O1 full matrix exhaust (all 12 models x 2 presets; cite system-profile + load-profiles)",
-    "Dispatch W7: daily-briefs + hourly web/interest tracker + local tool-use (gh/fs/web/planning) + OSS specialist harness/KB for leader model (qwen or post-matrix best)",
     "SOTA cloud baselines + bench for sonnet 4.6, gemini 3.1 flash lite, gpt 5.4 + peers (vertex/gcloud active; azure if .env)",
     "After runs: compare, judge queue, identify/document 3 solid models across tasks; update decisions + roadmap",
     "Frequent clean pushes to https://github.com/JamiStudio/local-evals.git after each stream",
     "Perf tooling: duckduckgo-search/trafilatura/httpx added; system facts current",
-    "Run full verification ladder + 2 verifiers (code reviewer + QA) with verbatim prompts before update_goal"
+    "Run full verification ladder + 2 verifiers (code reviewer + QA) with verbatim prompts before update_goal",
+    "W7 completed: daily-briefs tracker + ReAct agent loop + specialist KB + suite evals for tool/plan/briefs + tps recording + manifest task registration (baselines collect pending)"
   ],
   "connectivity": {
     "lmstudio": true,
@@ -95,11 +95,12 @@
     "systemTurboCoolerboost": true,
     "creditsOnTap": "vertex(gcloud-active) + azure(if-env) + reasonable burn"
   },
-  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (pending post O1)"],
+  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)"],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
     "5156a75: docs/roadmap + state update for user goal (second stream)",
-    "24ee2b3: docs+state+log user goal expansion (third stream)"
+    "24ee2b3: docs+state+log user goal expansion (third stream)",
+    "W7: daily-briefs tracker + specialist KB + ReAct loop + suite additions (tool/plan/briefs metrics + tps + manifest) + roadmap/state update (subagent)"
   ],
   "dispatches": [
     {
@@ -108,6 +109,13 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "full matrix exhaust all 12 x 2 presets; cite system-profile; update results/state; commit+push; note best local for specialist"
+    },
+    {
+      "id": "w7-subagent-2026-06-07",
+      "workstream": "W7",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "AUDIT/EXECUTE W7: implement tracker (real + ReAct + dry-run) + KB + loader + deepeval/promptfoo additions for tool correctness/plan/briefs-quality + tps + manifest tasks + update roadmap/state. Smoke/dry/small only. Commit+push. Live source truth only."
     }
   ],
   "solidModelsTarget": {

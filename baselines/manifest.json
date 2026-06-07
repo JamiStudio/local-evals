@@ -49,6 +49,23 @@
       "taskId": "tool-call-read-file",
       "lane": "tool-call",
       "promptFile": "suites/promptfoo/prompts/tool-call.txt"
+    },
+    {
+      "taskId": "daily-brief-synthetic-smoke",
+      "lane": "research",
+      "promptFile": "suites/promptfoo/prompts/research.txt",
+      "vars": {
+        "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+        "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use."
+      }
+    },
+    {
+      "taskId": "interest-tracker-tool-use",
+      "lane": "tool-call",
+      "promptFile": "suites/promptfoo/prompts/tool-call.txt",
+      "vars": {
+        "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+      }
     }
   ],
   "imports": [

@@ -63,3 +63,74 @@
             }
             return 'FILE_NOT_FOUND';
           }
+
+# W7 addition: tool correctness + plan for interest tracker / daily briefs flow
+# (reuses sandboxed callbacks pattern; taskId in baselines/manifest.json for compare/baseline lane)
+- description: interest-tracker tool use (W7 daily-briefs + gh/fs/web)
+  metadata:
+    taskId: interest-tracker-tool-use
+    lane: tool-call
+  vars:
+    request: Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan.
+  assert:
+    - type: javascript
+      value: |
+        (output.toLowerCase().includes('search') || output.toLowerCase().includes('tool')) && (output.toLowerCase().includes('plan') || output.toLowerCase().includes('step') || output.toLowerCase().includes('brief'))
+  provider:
+    config:
+      tools:
+        - type: function
+          function:
+            name: search_docs
+            description: Search project documentation or results for evals signals
+            parameters:
+              type: object
+              properties:
+                query:
+                  type: string
+              required: [query]
+        - type: function
+          function:
+            name: read_file
+            description: Read a tracked project file (e.g. optimization-state or matrix-summary for W7)
+            parameters:
+              type: object
+              properties:
+                path:
+                  type: string
+              required: [path]
+        - type: function
+          function:
+            name: github_activity
+            description: Simulated gh tool for repo interest (public evals transparency)
+            parameters:
+              type: object
+              properties:
+                repo:
+                  type: string
+              required: [repo]
+      functionToolCallbacks:
+        search_docs: |
+          async (args) => {
+            const { query } = JSON.parse(args);
+            if (query.toLowerCase().includes('w7') || query.toLowerCase().includes('tracker')) {
+              return 'W7: daily-briefs tracker implemented in scripts/daily-brief-tracker.py with ReAct loop, real free tools (ddg/trafilatura/gh), tps recording, specialist KB. Dry-run supported for smoke.';
+            }
+            return 'No direct W7 match; see results/optimization-state.json and docs/knowledge-bank/evals-specialist.md';
+          }
+        read_file: |
+          async (args) => {
+            const { path } = JSON.parse(args);
+            if (path.includes('optimization-state') || path.includes('matrix-summary')) {
+              return JSON.stringify({ leader: 'qwen/qwen3.5-9b@gpu_offload', w7: 'dailyBriefsTracker + specialistHarnessAndKB flags present', passes: 5 });
+            }
+            return 'FILE_NOT_FOUND_OR_REDACED_FOR_SANDBOX';
+          }
+        github_activity: |
+          async (args) => {
+            const { repo } = JSON.parse(args);
+            if (repo.includes('local-evals')) {
+              return 'Simulated: JamiStudio/local-evals public, recent commits on W7 + O1, transparency pushes active.';
+            }
+            return 'No gh signals';
+          }

@@ -29,3 +29,24 @@
       value: tool
     - type: javascript
       value: output.length > 200
+
+# W7 addition: briefs quality research-style case (daily interest + specialist harness)
+# Exercises research lane for briefs quality vs baseline (taskId registered in baselines/manifest.json)
+- description: daily-brief research (W7 interest tracker)
+  metadata:
+    taskId: daily-brief-synthetic-smoke
+    lane: research
+  vars:
+    topic: Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB
+    sources: |
+      - Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).
+      - Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.
+      - Baselines imported only (no harness-paid calls); user-judge primary.
+      - Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.
+  assert:
+    - type: contains
+      value: qwen
+    - type: contains
+      value: brief
+    - type: javascript
+      value: output.length > 180 && (output.toLowerCase().includes('token') || output.toLowerCase().includes('tps') || output.toLowerCase().includes('plan'))

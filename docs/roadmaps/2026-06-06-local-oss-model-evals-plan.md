@@ -45,13 +45,15 @@ Resume checkpoint: `results/optimization-state.json`
 - OSS quality + specialist: find strong OSS, give proper harness + knowledge bank (RAG-lite/prompt+docs store + specialist prompts), let it be specialist; eval vs general.
 - Additional tooling: installed (uv add duckduckgo-search trafilatura httpx bs4 for tracker/web; system captures, lm tools, gh/az/gcloud checked; fans/turbo user-side).
 - 3 solid models target: not stop until have 3 that are solid across tasks (chat/plan/tool/briefs/specialist) — local primary, cloud ref; understand SOTA limits but push.
+
+**W7 execution note (live source of truth update):** W7 implemented in dedicated subagent pass. See live files: `scripts/daily-brief-tracker.py` (real on-demand/loop + simple ReAct tool loop + tps measurement + dry-run for smoke; uses duckduckgo-search+trafilatura+gh+safe fs + LM Studio OpenAI compat), `docs/knowledge-bank/evals-specialist.md` (KB + simple loader), baselines/manifest.json (new taskIds daily-brief-synthetic-smoke + interest-tracker-tool-use registered for baseline collect/import), suites/promptfoo/tests/research.yaml + tool-call.yaml (additions for briefs quality + tool correctness), suites/deepeval/test_workflows.py (ToolCorrectnessMetric / PlanAdherenceMetric / briefs vs baseline tests). Only smoke/dry/small-model verification performed (large gemma idle on host; O1 note respected). No product runtimes implemented. Baselines tasks added to manifest (collect via pnpm when credits; no fake outputs). Token speeds recorded in tracker. Roadmap/state updated. Full specialist matrix vs baselines post-O1.
 - Push hard/fast, burn credits reasonable, full access, verify everything, public transparency repo.
 
 **Orchestrator discipline for this run**: read state first, dispatch ONE (matrix load serial), poll (no long single wait), checkpoint roadmap + state + docs/engineering/agents/orchestrator-logs/ after dispatch + on return, gate with git show --stat + numeric + A/B/C, subagent does commits/pushes (remote set), update_goal only after full audit + 2 verifiers PASS. Reusable prompt + steering only.
 
 **Added/expanded items for this run**:
 - O1 refresh + full exhaust (dispatch matrix:full)
-- W7: Daily-briefs + local tool-use (fs, gh, web, planning) + OSS specialist harness + KB + evals + token speed (dispatch dedicated subagent)
+- W7: Daily-briefs + local tool-use (fs, gh, web, planning) + OSS specialist harness + KB + evals + token speed (dispatch dedicated subagent) — **completed** (see W7 execution note above + scripts/daily-brief-tracker.py + docs/knowledge-bank + suite additions)
 - O6: SOTA cloud (sonnet/gemini-flash/gpt) bench + baselines + 3-solid-models selection/report + placement
 - Perf/tooling installs (direct + uv)
 - Continuous pushes after streams
