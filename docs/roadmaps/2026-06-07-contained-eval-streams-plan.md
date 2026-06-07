@@ -607,6 +607,14 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 32 moves 31B Q4_K_M from Stream 16 estimate-timeout-only evidence to one direct bounded offload practical success row. This does not prove broad 31B readiness, partial/full placement, Promptfoo no-cache throughput, final 3-solid promotion, or user-accepted quality.
 - Remaining gaps: subjective user review, final 3-solid selection, broad/full local matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, 31B broad quality proof, 31B-QAT practical proof, and final two-verifier completion audit.
 
+**Stream 33 dispatch checkpoint (contained stream, 2026-06-07):**
+- Agent: `019ea2a5-cb4b-7a61-b2bd-d0b24176979f` (`Gauss`).
+- Workstream/pass: Contained Stream 33, no-load review-readiness index and machine-readable manifest for final-selection/user-review decisions after Streams 1-32.
+- Dispatch timestamp: 2026-06-07 after Stream 32 audit.
+- Ownership boundary: no LM Studio model loads, no matrix/eval cells, no baseline collection, no cloud/API calls; verify referenced review artifacts by path/count and create a user-facing review index plus JSON manifest.
+- Expected deliverables: `docs/evals/2026-06-07-review-readiness-index.md`, `results/final-selection-review-manifest.json`, targeted links/status updates, and this roadmap checkpoint.
+- Next coordinator action: poll in short intervals until commit+push, then audit index/manifest coverage, runtime idle state, and remaining-gap assessment.
+
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.
 - Executed only `EVAL_SMOKE_MODELS=essentialai/rnj-1,google/gemma-4-e2b,google/gemma-4-e4b node scripts/run-matrix.mjs --smoke` after `lms unload --all`. Latest JSONL: `results/matrix-2026-06-07T06-44-52-303Z.jsonl` (raw JSONL remains ignored by current `.gitignore`; tracked transparent surfaces were refreshed).
