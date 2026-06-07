@@ -1,0 +1,91 @@
+{
+  "stream": 25,
+  "at": "2026-06-07T13:22:30.000Z",
+  "scope": "One bounded 31B-QAT offload practical local-fallback cell; LM Studio local only; hard stop after one cell.",
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/engineering/agents/orchestration-reliability.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 16, 21, 24 and remaining gaps",
+    "results/stream16-large-estimates.json",
+    "results/stream24-26b-offload-practical.json",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/runtime-snapshot.json",
+    "live git status --short",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 435 MiB used, 7553 MiB free, 6% utilization"
+  },
+  "command": "EVAL_USE_PROMPTFOO=false; EVAL_TASK_FILTER=build-synthetic-smoke; EVAL_SMOKE_MODELS=google/gemma-4-31b-qat; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=300000; node scripts/run-matrix.mjs --smoke",
+  "hardStopRule": "Exactly one 31B-QAT gpu_offload practical cell was run. No partial/full profile, non-QAT 31B, extra task, or retry was attempted.",
+  "matrixJsonl": "results/matrix-2026-06-07T13-16-59-439Z.jsonl",
+  "row": {
+    "runId": "2026-06-07T13-16-59-439Z",
+    "modelKey": "google/gemma-4-31b-qat",
+    "variant": "google/gemma-4-31b-qat@q4_0",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "eval_timeout",
+    "passes": null,
+    "total": null,
+    "durationMs": 300031,
+    "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed.\nTask filter: build-synthetic-smoke\n→ build-synthetic-smoke"
+  },
+  "promptfooLatest": {
+    "path": "results/promptfoo-latest.json",
+    "meaningfulForStream25": false,
+    "lastWriteTimeObserved": "2026-06-07 09:04:23 local",
+    "reason": "The timeout row did not refresh promptfoo-latest.json; it still points at the prior Stream 24 26B completed cell."
+  },
+  "comparisonArtifacts": {
+    "generated": false,
+    "reason": "Comparison and user-judge queue commands would have reused the stale Stream 24 promptfoo-latest surface because Stream 25 timed out before writing a promptfoo result."
+  },
+  "stream16Comparison": {
+    "source": "results/stream16-large-estimates.json",
+    "partialAttempt": "Stream 16 ran google/gemma-4-31b-qat@gpu_partial_0.36 on build-synthetic-smoke and timed out at 300022 ms with no pass count.",
+    "offloadEstimate": "Stream 16 estimated google/gemma-4-31b-qat@gpu_offload at 72.86 MiB GPU / 18.66 GiB total.",
+    "practicalDelta": "Stream 25 adds a second bounded 31B-QAT practical timeout, this time on gpu_offload at 300031 ms."
+  },
+  "stream24Comparison": {
+    "source": "results/stream24-26b-offload-practical.json",
+    "result": "26B offload completed build-synthetic-smoke 1/1 in 76163 ms; Stream 25 shows the same safer offload shape did not complete for 31B-QAT within 300000 ms."
+  },
+  "runtimeAfterBeforeUnload": {
+    "lmsPs": "google/gemma-4-31b-qat was IDLE at 18.85 GB, context 4096, device Local, TTL 10m / 10m.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 7846 MiB used, 142 MiB free, 5% utilization"
+  },
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 426 MiB used, 7562 MiB free, 7% utilization"
+  },
+  "assessment": "This does not close the 31B-QAT practical gap. It adds bounded gpu_offload timeout evidence: google/gemma-4-31b-qat did not complete build-synthetic-smoke within the 300000 ms cap, after the earlier Stream 16 gpu_partial_0.36 timeout. Treat 31B-QAT as still unproven for practical local fallback on this rig.",
+  "remainingGaps": [
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Large-model proof remains narrow: 26B has one completed offload build cell only; 26B partial is untested practically; 31B Q4_K_M remains estimate-timeout only; 31B-QAT has partial and offload timeout-only practical evidence.",
+    "Qwen uncached current-suite throughput remains incomplete.",
+    "Broad partial-profile measurements remain incomplete.",
+    "Final two-verifier completion audit remains pending."
+  ],
+  "matrixSummary": {
+    "path": "results/matrix-summary.json",
+    "matrixFile": "matrix-2026-06-07T13-16-59-439Z.jsonl",
+    "totals": {
+      "cells": 1,
+      "completed": 0,
+      "loadFailed": 0,
+      "avgPassRate": null
+    },
+    "leaderboard": []
+  },
+  "defaultSurfaceCaveat": "results/matrix-summary.json now points to the Stream 25 timeout row. results/promptfoo-latest.json, results/baseline-comparison.jsonl, and results/user-judge-queue.jsonl still point to the prior Stream 24 26B completed cell because the Stream 25 timeout did not write a Promptfoo result."
+}
