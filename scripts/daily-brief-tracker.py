@@ -60,8 +60,8 @@ REQUIRED_SECTIONS = [
     "Web Signals",
     "GH / Repo Activity",
     "Harness Placement Notes",
-    "Recommended Actions",
     "Token & Speed",
+    "Recommended Actions",
 ]
 MODEL_OBSERVATION_CHARS = 360
 
@@ -386,10 +386,14 @@ def run_brief_agent(
         "- read_file(path: str)  # relative to evals repo root, whitelisted surfaces only\n"
         "- github(args: list[str])  # e.g. ['repo', 'view', 'JamiStudio/local-evals', '--json', 'description,stargazerCount']\n\n"
         "Interest focus: " + interest_query + "\n"
-        "Output structure when ready (markdown):\n"
+        "Output structure when ready (markdown, exact headings in this order):\n"
         "## Daily Evals Interest Brief — YYYY-MM-DD\n\n"
         "### Web Signals\n...\n\n### GH / Repo Activity\n...\n\n### Harness Placement Notes\n...\n\n"
-        "### Recommended Actions (plan)\n1. ...\n\n### Token & Speed\nprompt=.. completion=.. tps=.. duration_s=..\n"
+        "### Token & Speed\nprompt=pending completion=pending tps=pending duration_s=pending\n\n"
+        "### Recommended Actions (plan)\n1. ...\n"
+        "Write the five section headings first, then fill each section concisely. "
+        "Keep Web/GH/Harness to at most 2 bullets each and Recommended Actions to at most 4 numbered items. "
+        "Do not postpone Token & Speed until after Recommended Actions; it must appear before the action list even if metrics are pending.\n"
         "Keep tool calls targeted: prefer one repo file read, one web_search, and one valid repo-scoped GitHub query. "
         "Allowed repo file reads include docs/roadmaps/2026-06-07-contained-eval-streams-plan.md, "
         "docs/evals/2026-06-07-strict-gap-audit.md, docs/evals/2026-06-07-user-review-packet.md, "
@@ -493,8 +497,10 @@ def run_brief_agent(
                     "role": "user",
                     "content": (
                         "This is the final allowed step. Do not call another tool. Return the complete final "
-                        "markdown brief now with all five required sections: Web Signals, GH / Repo Activity, "
-                        "Harness Placement Notes, Recommended Actions (plan), and Token & Speed."
+                        "markdown brief now. First write these exact headings in order, then fill them concisely: "
+                        "Web Signals; GH / Repo Activity; Harness Placement Notes; Token & Speed; Recommended Actions (plan). "
+                        "Token & Speed may use pending placeholders because artifact metrics are recorded after completion. "
+                        "Do not call another tool and do not omit any heading."
                     ),
                 })
             try:

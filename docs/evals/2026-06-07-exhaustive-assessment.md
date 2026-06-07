@@ -1,6 +1,6 @@
 # Exhaustive Assessment — Current Snapshot (2026-06-07)
 
-**Status:** Current snapshot aligned to Streams 9-26. This is a synthesis aid, not a completion certificate.
+**Status:** Current snapshot aligned to Streams 9-27. This is a synthesis aid, not a completion certificate.
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
 
@@ -8,6 +8,7 @@
 
 - W7 baselines exist for both registered W7 tasks; qwen and liquid archived queues are 40/40 baseline-backed with W7 8/8 backed.
 - Qwen strict real W7 tracker artifact exists at `results/daily-briefs/brief-20260607-100231.json`: model-final, no fallback, all sections present, `tps=3.0`, with tool-quality caveats.
+- Stream 27 repaired the later Stream 23 section-completeness gap: `results/daily-briefs/brief-20260607-135239.json` is strict, model-final, no fallback, all five sections present, `tps=3.0`, wall `513.05s`, usage `9752/1531/11283`, and no tool failures. Quality acceptance remains user-review gated.
 - DeepEval W7 local-safe tests pass 4/4.
 - Small/fit-class all-profile data exists for nemotron, e2b, e4b, and rnj; qwen/liquid have current-suite controls.
 - Stream 4 mid-size targets have bounded one-task local fallback proof on `build-synthetic-smoke`: 12B, GLM, and 12B-QAT completed 1/1 on `gpu_offload`.

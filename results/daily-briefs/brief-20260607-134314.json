@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-06-07T13:43:14.247319+00:00",
+  "model": "qwen/qwen3.5-9b",
+  "use_specialist": true,
+  "interest_query": "stream 27 no-load section check",
+  "dry_run": true,
+  "brief": "## Daily Evals Interest Brief \u2014 2026-06-06 (DRY-RUN)\n\n### Web Signals\n- qwen3.5-9b strong on 8GB offload (simulated from knowledge).\n- Local evals harness progressing on W7 tracker + specialist KB.\n\n### GH / Repo Activity\n- JamiStudio/local-evals: transparency repo, recent pushes for O1/W7.\n\n### Harness Placement Notes\nqwen/qwen3.5-9b @ gpu_offload preferred for daily supporting role (research/plan/tool). Use this tracker for briefs. Record tps.\n\n### Recommended Actions (plan)\n1. Run tracker --use-specialist after lms load.\n2. Add more deepeval coverage for briefs quality.\n3. Collect baselines for new daily-brief-* tasks.\n\n### Token & Speed (simulated)\nprompt=142 completion=265 total=407 tps=38.2 duration_s=6.9\n",
+  "steps": [],
+  "usage": {
+    "prompt_tokens": 142,
+    "completion_tokens": 265,
+    "total_tokens": 407
+  },
+  "wall_seconds": 6.9,
+  "tps": 38.4,
+  "max_steps": 1,
+  "kb_loaded": true,
+  "strict_final": true,
+  "finalization_status": "dry_run",
+  "fallback_used": false,
+  "fallback_reason": "",
+  "model_failure_reason": "",
+  "final_brief_nonempty": true,
+  "sections_present": [
+    "Web Signals",
+    "GH / Repo Activity",
+    "Harness Placement Notes",
+    "Token & Speed",
+    "Recommended Actions"
+  ],
+  "tool_failures": [],
+  "model_observation_chars": 360
+}

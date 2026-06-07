@@ -229,7 +229,8 @@
     "Stream 23 W7 quality refresh is complete: qwen strict tracker used current repo-file evidence and valid gh repo view fields with no tool failures, but strict finalization status is strict_blank_or_missing_sections because Token & Speed was omitted; W7 quality acceptance remains incomplete and user review/final 3-solid remain pending.",
     "Stream 24 26B offload practical retry is complete: google/gemma-4-26b-a4b@gpu_offload local fallback build-synthetic-smoke completed 1/1 in 76163 ms with no timeout/load failure; default summary/compare/queue point to this one-cell surface. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
     "Stream 25 31B-QAT offload practical probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke timed out at 300031 ms with no pass totals; promptfoo-latest was not refreshed, so no Stream 25 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
-    "Stream 26 26B partial practical probe is complete: google/gemma-4-26b-a4b@gpu_partial_0.39 local fallback build-synthetic-smoke completed 1/1 in 72024 ms with no timeout/load failure; default summary/promptfoo/compare/queue point to this one-cell surface and stream26 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification."
+    "Stream 26 26B partial practical probe is complete: google/gemma-4-26b-a4b@gpu_partial_0.39 local fallback build-synthetic-smoke completed 1/1 in 72024 ms with no timeout/load failure; default summary/promptfoo/compare/queue point to this one-cell surface and stream26 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
+    "Stream 27 W7 section repair is complete: qwen strict tracker wrote a no-fallback model_final artifact with all five required sections present, tps=3.0, wall 513.05s, usage 9752/1531/11283, and no tool failures; this repairs the Stream 23 Token & Speed omission but W7 quality acceptance remains user-review gated because the model text used pending speed placeholders and action-quality caveats remain."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -2424,5 +2425,85 @@
       ]
     },
     "defaultSurfaceCaveat": "results/matrix-summary.json, results/promptfoo-latest.json, results/baseline-comparison.jsonl, and results/user-judge-queue.jsonl now point only to the Stream 26 single 26B partial build cell."
+  },
+  "stream27W7SectionRepair": {
+    "at": "2026-06-07T13:52:39.000Z",
+    "scope": "One strict qwen W7 daily-brief tracker section-completeness repair; LM Studio local only; no fallback synthesis; no direct paid API calls.",
+    "sourceTruthReadBeforeLoad": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 12, 23, 25, 26 and remaining W7 gaps",
+      "results/stream23-w7-quality-refresh.json",
+      "results/optimization-state.json",
+      "results/system-profile.json",
+      "registry/runtime-snapshot.json",
+      "scripts/daily-brief-tracker.py",
+      "live git pull --ff-only",
+      "live git status --short",
+      "live lms ps",
+      "live nvidia-smi"
+    ],
+    "codeChanges": [
+      "Moved Token & Speed ahead of Recommended Actions in REQUIRED_SECTIONS and in the final prompt structure.",
+      "Tightened the final prompt to ask for exact headings first, concise section budgets, and Token & Speed before the action list.",
+      "Kept strict-final validation and fallback behavior intact; no fallback was used as success evidence."
+    ],
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "M scripts/daily-brief-tracker.py",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 227 MiB used, 7761 MiB free, 0% utilization"
+    },
+    "noLoadChecks": {
+      "pyCompile": "uv run python -m py_compile scripts/daily-brief-tracker.py",
+      "dryRunArtifact": "results/daily-briefs/brief-20260607-134314.json"
+    },
+    "command": "uv run python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --use-specialist --strict-final --max-steps 4 --query \"JamiStudio/local-evals current Stream 27 W7 repair: summarize exact pushed evidence from Streams 16-26; include the sections Web Signals, GH / Repo Activity, Harness Placement Notes, Token & Speed, Recommended Actions; use repo files under docs/evals and results plus valid gh repo view fields; do not use stale Stream 9-only wording\"",
+    "realArtifact": "results/daily-briefs/brief-20260607-135239.json",
+    "summaryArtifact": "results/stream27-w7-section-repair.json",
+    "result": {
+      "strictFinal": true,
+      "fallbackUsed": false,
+      "finalizationStatus": "model_final",
+      "finalBriefNonempty": true,
+      "sectionsPresent": [
+        "Web Signals",
+        "GH / Repo Activity",
+        "Harness Placement Notes",
+        "Token & Speed",
+        "Recommended Actions"
+      ],
+      "missingSections": [],
+      "tps": 3,
+      "wallSeconds": 513.05,
+      "usage": {
+        "promptTokens": 9752,
+        "completionTokens": 1531,
+        "totalTokens": 11283
+      },
+      "toolsObserved": [
+        "read_file",
+        "web_search",
+        "github"
+      ],
+      "toolFailures": [],
+      "webSearchObservation": "Two web_search calls returned No web results.",
+      "githubObservation": "Valid gh repo view fields returned name, description, stargazerCount, updatedAt, and url."
+    },
+    "assessment": "Stream 27 repairs the Stream 23 missing Token & Speed section under strict/no-fallback model-final behavior, but W7 quality acceptance remains user-review gated because the model text used pending speed placeholders and its recommended actions need review.",
+    "runtimeAfterUnload": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 227 MiB used, 7761 MiB free, 0% utilization"
+    },
+    "remainingGaps": [
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only.",
+      "Qwen uncached current-suite throughput remains incomplete.",
+      "Broad partial-profile measurements remain incomplete outside contained slices.",
+      "Final two-verifier completion audit remains pending."
+    ]
   }
 }
