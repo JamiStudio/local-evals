@@ -568,7 +568,15 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Dispatch timestamp: 2026-06-07 coordinator resume after compact checkpoint.
 - Ownership boundary: no LM Studio model loads, no new matrix/eval cells, no cloud/API calls; synthesize current stream evidence into a review-ready packet and update status docs/state only.
 - Expected deliverables: `docs/evals/2026-06-07-stream30-readiness-synthesis.md`, targeted updates to current eval synthesis/status docs, `results/optimization-state.json`, and this roadmap checkpoint.
-- Next coordinator action: poll in short intervals until commit+push, then audit the changed files, runtime idle state, and remaining-gap assessment before dispatching any further stream.
+- Status: completed and pushed by Stream 30.
+- Result artifact: `docs/evals/2026-06-07-stream30-readiness-synthesis.md`.
+- Changed status surfaces: `docs/evals/2026-06-07-3-solid-models.md`, `docs/evals/2026-06-07-placement-decisions.md`, `docs/evals/2026-06-07-exhaustive-assessment.md`, `docs/evals/2026-06-07-exhaustive-results-assessment.md`, `docs/evals/2026-06-07-strict-gap-audit.md`, and `results/optimization-state.json`.
+- Runtime boundary: no LM Studio model loads, matrix/eval cells, cloud/API calls, or baseline collection were run. The stream only read current docs/results, synthesized evidence, and updated docs/state.
+- Key verdict: qwen remains the draft local specialist/W7 support candidate, liquid remains the draft speed/triage control, and imported cloud baselines remain the quality ceiling. These are still review-gated roles, not final 3-solid selections.
+- Hardware/status conclusions: 26B has narrow one-task offload and partial feasibility only; 31B Q4_K_M remains estimate-timeout only; 31B-QAT remains timeout-only on partial and offload; qwen full 40-case no-cache throughput remains incomplete; mid-size recommended partials timed out under Promptfoo no-cache in Stream 29.
+- Recommended next action: user review of `docs/evals/2026-06-07-user-review-packet.md` plus the Stream 30 synthesis. If another stream is required first, make it a no-load scoring worksheet/checklist stream rather than another model run.
+- Remaining gaps: subjective user review, final 3-solid selection, broad/full local matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, 31B/31B-QAT practical proof, and final two-verifier completion audit.
+- Next coordinator action: audit Stream 30 commit/result state, keep the overall goal active, and do not dispatch final verifiers or mark completion from this checkpoint.
 
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.

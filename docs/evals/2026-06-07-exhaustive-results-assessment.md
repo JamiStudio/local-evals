@@ -1,10 +1,12 @@
 # Exhaustive Results Assessment — Current Addendum (2026-06-07)
 
-**Status:** Current synthesis after Streams 9-28. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
+**Status:** Current synthesis after Streams 9-30. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
 
-**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. Stream 20 added one bounded mid-size partial-profile task slice only. Stream 21 audited remaining gaps only. Stream 22 added a safe Promptfoo no-cache pass-through plus one completed liquid no-cache cell and one qwen no-cache timeout. Stream 23 ran one improved strict qwen W7 tracker quality refresh. Stream 24 ran exactly one 26B offload local-fallback practical cell. Stream 25 ran exactly one 31B-QAT offload local-fallback practical cell and it timed out. Stream 26 ran exactly one 26B partial local-fallback practical cell. Stream 27 ran exactly one strict qwen W7 tracker section repair. Stream 28 added the missing Promptfoo task-filter pass-through and ran exactly one filtered qwen no-cache `build-synthetic-smoke` surface. Stream 29 ran exactly three mid-size recommended-partial no-cache filtered Promptfoo cells. No cloud runs or baseline collection were performed in Streams 16-29.
+**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. Stream 20 added one bounded mid-size partial-profile task slice only. Stream 21 audited remaining gaps only. Stream 22 added a safe Promptfoo no-cache pass-through plus one completed liquid no-cache cell and one qwen no-cache timeout. Stream 23 ran one improved strict qwen W7 tracker quality refresh. Stream 24 ran exactly one 26B offload local-fallback practical cell. Stream 25 ran exactly one 31B-QAT offload local-fallback practical cell and it timed out. Stream 26 ran exactly one 26B partial local-fallback practical cell. Stream 27 ran exactly one strict qwen W7 tracker section repair. Stream 28 added the missing Promptfoo task-filter pass-through and ran exactly one filtered qwen no-cache `build-synthetic-smoke` surface. Stream 29 ran exactly three mid-size recommended-partial no-cache filtered Promptfoo cells. Stream 30 ran no model/eval work and added a readiness synthesis packet. No cloud runs or baseline collection were performed in Streams 16-30.
+
+**Readiness synthesis:** `docs/evals/2026-06-07-stream30-readiness-synthesis.md` is the current review-ready status packet after Streams 1-29. It keeps qwen, liquid, and cloud/reference roles draft and review-gated.
 
 ## Current Coverage
 
@@ -83,6 +85,7 @@
 - Wider mid-size task coverage beyond `build-synthetic-smoke` is narrowed by Stream 18, and one-task mid-size partial-profile coverage is narrowed by Stream 20, but broad mid-size suite/profile coverage remains open.
 - SOTA peer imports beyond the current Vertex baseline lane where policy requires them.
 - Final evidence-backed 3-solid selection and strict completion verification.
+- User review is now the highest-value next action identified by Stream 30; a no-load scoring worksheet stream is the next automatable step if the review surface needs one more pass.
 
 ## Current Assessment
 

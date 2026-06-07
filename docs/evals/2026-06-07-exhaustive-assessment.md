@@ -1,8 +1,10 @@
 # Exhaustive Assessment — Current Snapshot (2026-06-07)
 
-**Status:** Current snapshot aligned to Streams 9-27. This is a synthesis aid, not a completion certificate.
+**Status:** Current snapshot aligned to Streams 9-30. This is a synthesis aid, not a completion certificate.
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
+
+**Readiness synthesis:** See `docs/evals/2026-06-07-stream30-readiness-synthesis.md` for the current review-ready candidate/status packet after Streams 1-29.
 
 ## Current Facts
 
@@ -19,6 +21,9 @@
 - Stream 17 added qwen/liquid current-suite profile-sensitivity evidence: liquid ran all 11 profiles at `5/40`; qwen ran `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full` at `7/40`. No final placement winner changed.
 - Stream 18 added bounded mid-size local fallback task coverage beyond `build-synthetic-smoke`: 12B, GLM, and 12B-QAT ran `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs` on `gpu_offload`, with 9 cells, 6/9 passed, 0 timeouts, and 0 load failures.
 - Stream 20 added bounded mid-size recommended-partial coverage for the best-behaved Stream 18 task: 12B `gpu_partial_0.9`, GLM `gpu_partial_0.88`, and 12B-QAT `gpu_partial_0.95` each passed `plan-synthetic-smoke` 1/1 with no timeout.
+- Stream 28 added one qwen no-cache filtered Promptfoo row on `build-synthetic-smoke`: `0/4`, `261012 ms`, `cached=0`; this is failure/latency evidence, not full-suite throughput.
+- Stream 29 added three mid-size recommended-partial Promptfoo no-cache filtered timeout rows on `build-synthetic-smoke`; all timed out at about 300s before pass totals.
+- Stream 30 added `docs/evals/2026-06-07-stream30-readiness-synthesis.md`, a no-load review-ready synthesis that keeps qwen/liquid/cloud roles draft and user-review gated.
 
 ## Current Non-Completion Facts
 
@@ -28,5 +33,6 @@
 - Partial GPU profiles are not broadly measured outside contained slices; Stream 17 qwen/liquid quality was invariant and qwen durations were cached reruns, not uncached throughput. Stream 22 closes liquid no-cache throughput only; qwen no-cache current-suite throughput timed out before pass totals. Stream 20 covers only one mid-size task on one recommended partial profile per model.
 - Mid-size coverage is not broad; it is one build proof, a small three-task local fallback slice on `gpu_offload`, and one recommended-partial plan-task slice only.
 - Final 3-solid model selection is not complete.
+- Stream 30 does not change that boundary; it recommends user review of the packet, or a no-load scoring worksheet stream, before any final 3-solid promotion.
 
 Use `docs/evals/2026-06-07-exhaustive-results-assessment.md`, `docs/evals/2026-06-07-placement-decisions.md`, and `docs/evals/2026-06-07-3-solid-models.md` for the current detailed draft evidence.

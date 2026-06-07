@@ -232,7 +232,8 @@
     "Stream 26 26B partial practical probe is complete: google/gemma-4-26b-a4b@gpu_partial_0.39 local fallback build-synthetic-smoke completed 1/1 in 72024 ms with no timeout/load failure; default summary/promptfoo/compare/queue point to this one-cell surface and stream26 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
     "Stream 27 W7 section repair is complete: qwen strict tracker wrote a no-fallback model_final artifact with all five required sections present, tps=3.0, wall 513.05s, usage 9752/1531/11283, and no tool failures; this repairs the Stream 23 Token & Speed omission but W7 quality acceptance remains user-review gated because the model text used pending speed placeholders and action-quality caveats remain.",
     "Stream 28 qwen no-cache single-task probe is complete: after adding Promptfoo --filter-metadata taskId pass-through for EVAL_TASK_FILTER, qwen/qwen3.5-9b@gpu_offload build-synthetic-smoke ran no-cache and completed as eval_failed 0/4 in 261012 ms with cached tokens 0; this closes only the no completed qwen no-cache row at all evidence gap, while full 40-case no-cache throughput remains incomplete.",
-    "Stream 29 mid-size filtered partials is complete: google/gemma-4-12b@gpu_partial_0.9, zai-org/glm-4.6v-flash@gpu_partial_0.88, and google/gemma-4-12b-qat@gpu_partial_0.95 ran Promptfoo no-cache build-synthetic-smoke with the Stream 28 metadata filter fix; all three timed out at ~300s before pass totals while stderr confirmed cache disabled and 4 filtered cases. No compare/queue archives were generated because promptfoo-latest remained the stale Stream 28 surface. Remaining gaps: user review, final 3-solid, broad/full matrix, broad partial profiles, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, and final verification."
+    "Stream 29 mid-size filtered partials is complete: google/gemma-4-12b@gpu_partial_0.9, zai-org/glm-4.6v-flash@gpu_partial_0.88, and google/gemma-4-12b-qat@gpu_partial_0.95 ran Promptfoo no-cache build-synthetic-smoke with the Stream 28 metadata filter fix; all three timed out at ~300s before pass totals while stderr confirmed cache disabled and 4 filtered cases. No compare/queue archives were generated because promptfoo-latest remained the stale Stream 28 surface. Remaining gaps: user review, final 3-solid, broad/full matrix, broad partial profiles, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, and final verification.",
+    "Stream 30 readiness synthesis is complete: no model/eval/cloud runs; docs/evals/2026-06-07-stream30-readiness-synthesis.md consolidates draft qwen/liquid/cloud roles, useful vs timeout evidence, hardware limits, user-review decisions, automatable/non-automatable gaps, and recommends user review or a no-load scoring worksheet next. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT practical proof, and final verification."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -2752,5 +2753,88 @@
       "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 185 MiB used, 7803 MiB free, 5% utilization"
     },
     "gapOutcome": "Narrows broad/full and broad partial-profile gaps only by adding three exact no-cache filtered timeout rows. It does not close broad/full matrix coverage, broad partial-profile quality/throughput, subjective user review, final 3-solid selection, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, or final verifier audit."
+  },
+  "stream30ReadinessSynthesis": {
+    "at": "2026-06-07T15:05:00.000Z",
+    "scope": "No-load evidence synthesis after Streams 1-29; no LM Studio model loads, no new matrix/eval cells, no cloud/API calls, and no baseline collection.",
+    "sourceTruthRead": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 22-29 and remaining gaps",
+      "docs/evals/2026-06-07-strict-gap-audit.md",
+      "docs/evals/2026-06-07-3-solid-models.md",
+      "docs/evals/2026-06-07-placement-decisions.md",
+      "docs/evals/2026-06-07-exhaustive-assessment.md",
+      "docs/evals/2026-06-07-exhaustive-results-assessment.md",
+      "docs/evals/2026-06-07-user-review-packet.md",
+      "results/optimization-state.json",
+      "results/user-review-packet-summary.json",
+      "results/stream22-uncached-throughput.json through results/stream29-mid-size-filtered-partials.json"
+    ],
+    "deliverable": "docs/evals/2026-06-07-stream30-readiness-synthesis.md",
+    "statusDocsUpdated": [
+      "docs/evals/2026-06-07-3-solid-models.md",
+      "docs/evals/2026-06-07-placement-decisions.md",
+      "docs/evals/2026-06-07-exhaustive-assessment.md",
+      "docs/evals/2026-06-07-exhaustive-results-assessment.md",
+      "docs/evals/2026-06-07-strict-gap-audit.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md"
+    ],
+    "draftCandidateRoles": {
+      "localSpecialistW7Support": {
+        "model": "qwen/qwen3.5-9b",
+        "profile": "gpu_offload",
+        "evidence": "Stream 17 qwen profiles tied at 7/40; Stream 27 strict W7 tracker artifact is model_final, fallback_used=false, all five sections present, tps=3.0, wall 513.05s, usage 9752/1531/11283, no tool failures.",
+        "caveat": "Review-gated: deterministic score is weak, full no-cache qwen timed out in Stream 22, Stream 28 no-cache single-task failed 0/4, and W7 action/text quality needs human review."
+      },
+      "speedTriageControl": {
+        "model": "liquid/lfm2.5-1.2b",
+        "profile": "gpu_full",
+        "evidence": "Stream 17 all 11 profiles tied at 5/40; Stream 22 completed no-cache current-suite cell at 5/40 in 31096 ms with cached=0.",
+        "caveat": "Speed/triage only, not a quality leader."
+      },
+      "qualityCeiling": {
+        "role": "imported cloud baseline lane",
+        "evidence": "Stream 9 made qwen/liquid review archives 40/40 baseline-backed with W7 8/8 backed; Stream 19 prepared the user-review packet.",
+        "caveat": "Imported/credit-funded reference lane only; not a direct paid matrix provider."
+      }
+    },
+    "hardwareConclusions": [
+      "26B is narrowly feasible for one local-fallback build task: offload 1/1 in 76163 ms and gpu_partial_0.39 1/1 in 72024 ms.",
+      "31B Q4_K_M remains estimate-timeout only under current probes.",
+      "31B-QAT remains timeout-only for practical evidence after gpu_partial_0.36 and gpu_offload each timed out around 300s.",
+      "Mid-size recommended partials pass local-fallback plan cells but timed out under Promptfoo no-cache build-synthetic-smoke in Stream 29.",
+      "Qwen full 40-case no-cache current-suite throughput remains incomplete after the Stream 22 timeout; Stream 28 only adds a failed 0/4 filtered row."
+    ],
+    "userReviewDecisionsNeeded": [
+      "Accept or reject qwen W7 output quality despite Stream 27 placeholder/action caveats.",
+      "Score qwen Stream 17 rows against imported baselines for local specialist routing.",
+      "Score liquid as speed/triage only or reject it for user-facing routing.",
+      "Decide whether Stream 18/20 mid-size local-fallback outputs are acceptable for bounded build/planning drafts.",
+      "Decide whether 26B one-task feasibility warrants more bounded exploration or exclusion from final selection.",
+      "Decide whether 31B and 31B-QAT should be treated as hardware-limited for this rig/campaign."
+    ],
+    "automatableGaps": [
+      "No-load scoring worksheet or review packet refinement.",
+      "Additional bounded local fallback or Promptfoo probes if explicitly worth the timeouts.",
+      "Local-safe DeepEval reruns and JSONL/archive integrity checks."
+    ],
+    "notAutomatableByHarness": [
+      "Subjective user review and acceptance.",
+      "Final 3-solid promotion from draft roles.",
+      "Cloud SOTA expansion unless explicitly credit-gated and imported by policy.",
+      "Final completion while material gaps remain."
+    ],
+    "recommendedNextAction": "User review of docs/evals/2026-06-07-user-review-packet.md plus docs/evals/2026-06-07-stream30-readiness-synthesis.md. If another contained stream is needed first, make it a no-load scoring worksheet/checklist stream.",
+    "remainingGaps": [
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
+      "Broad partial-profile quality/throughput remains incomplete.",
+      "31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only.",
+      "Final two-verifier completion audit remains pending."
+    ]
   }
 }
