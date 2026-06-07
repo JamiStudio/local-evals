@@ -254,7 +254,8 @@
     "Stream 5 W7 real tracker specialist evidence (COMPLETED + pushed 8b665ca; dry controls passed at 38.4 tps; real qwen tracker produced tool evidence but blank final after parser/context fixes; no usable real final brief yet)",
     "Stream 6 W7 tracker final-brief repair (COMPLETED + pushed f76f51b; real artifact results/daily-briefs/brief-20260607-083746.json nonblank with all required sections; fallback_used=true; tps 3.3, wall 150.48s, usage 2346/499/2845; qwen did not finalize within max_steps=2)",
     "Stream 7 qwen current-suite leader refresh (COMPLETED + pushed 558260b; one cell results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload eval_partial 7/40, 17.5% rounded 18%, duration 1018924 ms; promptfoo 7 passed, 25 failed, 8 errors; weakens old 5/8 leader claim on current 40-assertion suite)",
-    "Stream 8 liquid current-suite control (COMPLETED in this stream; one cell results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full eval_partial 5/40, 12.5% rounded 13%, duration 13373 ms; promptfoo 5 passed, 27 failed, 8 errors, 4703 total tokens; compared to Stream 7 qwen 7/40 in 1018924 ms, liquid is -2 passes but ~76x faster)"
+    "Stream 8 liquid current-suite control (COMPLETED + pushed ba2348d; one cell results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full eval_partial 5/40, 12.5% rounded 13%, duration 13373 ms; promptfoo 5 passed, 27 failed, 8 errors, 4703 total tokens; compared to Stream 7 qwen 7/40 in 1018924 ms, liquid is -2 passes but ~76x faster)",
+    "Stream 9 W7 baseline/user-judge bounded collection (DISPATCH READY; baseline scripts now support repeatable --task filters; target only daily-brief-synthetic-smoke and interest-tracker-tool-use, then refresh compare/queue and push evidence)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -325,6 +326,13 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "Contained liquid current-suite control: run exactly one liquid/lfm2.5-1.2b@gpu_full matrix cell using EVAL_SMOKE_MODELS, EVAL_SMOKE_PROFILES, and EVAL_CELL_TIMEOUT_MS=600000; summarize/compare/judge as needed; update state+roadmap with qwen-vs-liquid comparison; verify; commit+push."
+    },
+    {
+      "id": "stream9-dispatch-ready-2026-06-07",
+      "workstream": "Stream 9",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "Contained W7 baseline/user-judge bounded collection/readiness: use repeatable --task filters only for daily-brief-synthetic-smoke and interest-tracker-tool-use; print prompts, check gemini/Vertex readiness, collect only those W7 baselines if credits/env are available, refresh compare/queue, update state+roadmap, verify, commit+push. Never run broad baseline collection or direct paid API calls."
     }
   ],
   "solidModelsTarget": {

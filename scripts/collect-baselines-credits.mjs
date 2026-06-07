@@ -12,6 +12,17 @@ import { generateContent, baselineModelId, baselineSourceLabel } from './lib/gem
 const { root } = loadEvalEnv();
 const collector = process.env.EVAL_BASELINE_COLLECTOR ?? 'vertex';
 const manifest = readManifest();
+const taskFilters = new Set();
+
+for (let i = 2; i < process.argv.length; i += 1) {
+  const arg = process.argv[i];
+  if (arg === '--task' && process.argv[i + 1]) {
+    taskFilters.add(process.argv[i + 1]);
+    i += 1;
+  } else if (arg.startsWith('--task=')) {
+    taskFilters.add(arg.slice('--task='.length));
+  }
+}
 
 async function vertexGenerate(prompt) {
   const { modelId, output } = await generateContent(prompt);
@@ -35,7 +46,20 @@ if (!source) {
 
 console.log(`Collecting baselines via ${collector} → source=${source}`);
 
-for (const task of manifest.tasks) {
+const tasks = taskFilters.size
+  ? manifest.tasks.filter((task) => taskFilters.has(task.taskId))
+  : manifest.tasks;
+
+if (taskFilters.size && tasks.length !== taskFilters.size) {
+  const known = new Set(manifest.tasks.map((task) => task.taskId));
+  const missing = [...taskFilters].filter((taskId) => !known.has(taskId));
+  console.error(`Unknown baseline task filter(s): ${missing.join(', ')}`);
+  process.exit(1);
+}
+
+console.log(`Task scope: ${tasks.map((task) => task.taskId).join(', ')}`);
+
+for (const task of tasks) {
   const outPath = join(root, 'baselines', task.taskId, `${source}.json`);
   if (existsSync(outPath) && !process.argv.includes('--force')) {
     console.log(`skip ${task.taskId} (exists)`);
