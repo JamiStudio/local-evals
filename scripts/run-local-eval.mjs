@@ -16,6 +16,11 @@ if (!model) {
   process.exit(1);
 }
 
+const taskFilter = (process.env.EVAL_TASK_FILTER ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+const taskFilterSet = new Set(taskFilter);
 const baseUrl = (process.env.LMSTUDIO_BASE_URL ?? 'http://localhost:1234/v1').replace(/\/$/, '');
 const prompts = {
   research: readFileSync(join(root, 'suites/promptfoo/prompts/research.txt'), 'utf8'),
@@ -79,13 +84,31 @@ function evalAssert(type, value, output, vars) {
 
 const lanes = ['research', 'plan', 'build', 'tool-call'];
 const results = [];
+const laneTests = lanes.map((lane) => ({
+  lane,
+  tests: loadTests(lane),
+  template: prompts[lane],
+}));
+const knownTaskIds = new Set(
+  laneTests.flatMap(({ tests }) => tests.map((test) => test.metadata?.taskId ?? test.description)),
+);
 
-for (const lane of lanes) {
-  const tests = loadTests(lane);
-  const template = prompts[lane];
+if (taskFilter.length) {
+  const unknown = taskFilter.filter((taskId) => !knownTaskIds.has(taskId));
+  if (unknown.length) {
+    console.error(`Unknown EVAL_TASK_FILTER task id(s): ${unknown.join(', ')}`);
+    console.error(`Known task ids: ${[...knownTaskIds].sort().join(', ')}`);
+    process.exit(1);
+  }
+  console.log(`Task filter: ${taskFilter.join(', ')}`);
+}
+
+for (const { lane, tests, template } of laneTests) {
   for (const test of tests) {
-    const prompt = renderTemplate(template, test.vars);
     const taskId = test.metadata?.taskId ?? test.description;
+    if (taskFilterSet.size && !taskFilterSet.has(taskId)) continue;
+
+    const prompt = renderTemplate(template, test.vars);
     console.log(`→ ${taskId}`);
     let output = '';
     let latencyMs = 0;
@@ -93,7 +116,7 @@ for (const lane of lanes) {
     try {
       const r = await chat(prompt);
       output = test.options?.transform
-        ? String(new Function('output', `return (${test.options.transform})`)(r.output))
+        ? String(new Function('output', `return (${test.options.transform})(output)`)(r.output))
         : r.output;
       latencyMs = r.latencyMs;
     } catch (e) {

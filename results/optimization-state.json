@@ -167,7 +167,7 @@
     "Perf tooling + captures + verify + deepeval W7 tests (ToolCall fixed) done",
     "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal",
     "Qwen and liquid current-suite one-cell controls are now matched: Stream 7 qwen/qwen3.5-9b@gpu_offload 7/40 (17.5%, rounded 18%) in 1018924 ms; Stream 8 liquid/lfm2.5-1.2b@gpu_full 5/40 (12.5%, rounded 13%) in 13373 ms. Liquid remains speed/control only; qwen has +2 passes but is ~76x slower on the current suite. Next: either user-judge/baseline W7 gaps or a bounded no-fallback W7 refresh before promoting 3-solid decisions.",
-    "Stream 4 timeout evidence: mid-size current-suite cells for google/gemma-4-12b and GLM hung with three 0-row JSONLs; do not retry unbounded mid-size matrix until smaller task subset or timeout behavior is proven. Prefer qwen/liquid current-suite profile-filter refresh or W7 real tracker/specialist next."
+    "Use the Stream 13 bounded local-fallback path for any next mid-size retry: keep EVAL_TASK_FILTER small, one GPU model at a time, and expand from one task/profile only after each cell writes a completed row."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -258,7 +258,8 @@
     "Stream 9 W7 baseline/user-judge bounded collection (COMPLETED; W7 baselines imported for daily-brief-synthetic-smoke and interest-tracker-tool-use using only bounded task filters; refreshed compare/queue now 40/40 baseline-backed with 8/8 W7 backed)",
     "Stream 10 model-specific review queue preservation + qwen rerun after W7 baselines (COMPLETED in working stream; liquid Stream 8 and qwen Stream 10 comparison/queue archives both 40 rows, 40 baseline-backed, W7 8/8; qwen current-suite cell eval_partial 7/40 with Promptfoo cached output, runner duration 7543 ms)",
     "Stream 11 W7 DeepEval agent-trace repair (COMPLETED in working stream; ToolCall import fixed; local-safe deterministic W7 tool/plan/brief assertions replace default OpenAI metric construction; uv run deepeval test run suites/deepeval/test_workflows.py -v passed 4/4; LM Studio liquid unloaded after research smoke)",
-    "Stream 12 strict qwen W7 tracker refresh (COMPLETED in working stream; artifact results/daily-briefs/brief-20260607-100231.json; strict_final=true, finalization_status=model_final, fallback_used=false, all 5 sections present, usage 5141/1393/6534, wall 457.92s, tps 3.0; one invalid GitHub tool failure and quality/freshness caveats remain; no final 3-solid claim)"
+    "Stream 12 strict qwen W7 tracker refresh (COMPLETED in working stream; artifact results/daily-briefs/brief-20260607-100231.json; strict_final=true, finalization_status=model_final, fallback_used=false, all 5 sections present, usage 5141/1393/6534, wall 457.92s, tps 3.0; one invalid GitHub tool failure and quality/freshness caveats remain; no final 3-solid claim)",
+    "Stream 13 bounded mid-size local fallback proof (COMPLETED in working stream; google/gemma-4-12b@gpu_offload with EVAL_TASK_FILTER=build-synthetic-smoke, EVAL_USE_PROMPTFOO=false, EVAL_CELL_TIMEOUT_MS=300000 completed 1/1 in 71342 ms; local fallback filter/transform/pass-count parsing repaired; no broad mid-size coverage claim)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -1094,5 +1095,68 @@
     "assessment": "Qwen can produce a strict no-fallback W7 real tracker final brief after tools within max_steps=3. This removes the Stream 6 fallback-finalization caveat for behavior, but not the quality/review caveat: one GitHub tool call failed, web search returned unrelated results, and the final brief repeats stale stream wording about W7 baselines/user review.",
     "postRunRuntime": "post-run lms ps showed qwen IDLE; lms unload --all unloaded it; final lms ps showed no loaded models; nvidia-smi returned to 456 MiB used / 7532 MiB free",
     "remainingGaps": "Subjective user review remains pending; strict qwen W7 output still has quality/freshness caveats; final 3-solid model selection is not complete."
+  },
+  "stream13BoundedMidSizeLocalFallback": {
+    "workstream": "Stream 13",
+    "title": "repair/prove bounded mid-size matrix path using local-eval task filtering",
+    "sourceTruthReads": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Stream 4/current gaps",
+      "results/optimization-state.json stream4MidSizeTimeoutEvidence",
+      "scripts/run-matrix.mjs",
+      "scripts/run-local-eval.mjs",
+      "registry/models.json",
+      "registry/load-profiles.json",
+      "live lms ps and nvidia-smi"
+    ],
+    "codeChanges": [
+      "scripts/run-local-eval.mjs supports EVAL_TASK_FILTER as a comma-separated metadata.taskId filter, validates unknown ids before inference, and preserves default all-task behavior",
+      "scripts/run-local-eval.mjs now applies Promptfoo-style options.transform functions to model output instead of serializing the transform function text",
+      "scripts/run-matrix.mjs parses pass counts from combined local fallback stdout/stderr, preserving all-pass local fallback counts, and records taskFilter on matrix rows"
+    ],
+    "liveRuntimeBefore": {
+      "lmsPs": "No models were loaded before the bounded proof run",
+      "nvidiaSmi": "RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free"
+    },
+    "estimateNote": "lms load google/gemma-4-12b --gpu off --estimate-only did not return inside the 60s probe timeout, so the proof used the conservative gpu_offload profile with a runner-level 300000 ms cell timeout.",
+    "validation": {
+      "unknownTaskFilter": "EVAL_SUBJECT_MODEL=local/filter-validation-only EVAL_TASK_FILTER=does-not-exist node scripts/run-local-eval.mjs rejected before inference and listed known task ids",
+      "nodeCheck": "node --check scripts/run-local-eval.mjs scripts/run-matrix.mjs passed before model run"
+    },
+    "proofRuns": [
+      {
+        "command": "EVAL_USE_PROMPTFOO=false EVAL_TASK_FILTER=build-synthetic-smoke EVAL_SMOKE_MODELS=google/gemma-4-12b EVAL_SMOKE_PROFILES=gpu_offload EVAL_CELL_TIMEOUT_MS=300000 node scripts/run-matrix.mjs --smoke",
+        "matrixJsonl": "results/matrix-2026-06-07T10-10-52-650Z.jsonl",
+        "status": "eval_failed",
+        "passes": 0,
+        "total": 1,
+        "durationMs": 76981,
+        "note": "First run exposed the local fallback transform bug: build task output was the transform function text, not model output."
+      },
+      {
+        "command": "EVAL_USE_PROMPTFOO=false EVAL_TASK_FILTER=build-synthetic-smoke EVAL_SMOKE_MODELS=google/gemma-4-12b EVAL_SMOKE_PROFILES=gpu_offload EVAL_CELL_TIMEOUT_MS=300000 node scripts/run-matrix.mjs --smoke",
+        "matrixJsonl": "results/matrix-2026-06-07T10-13-15-815Z.jsonl",
+        "modelKey": "google/gemma-4-12b",
+        "variant": "google/gemma-4-12b@q4_k_m",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "completed",
+        "passes": 1,
+        "total": 1,
+        "durationMs": 71342,
+        "promptLatencyMs": 71197,
+        "outputEvidence": "Diff output included +++ and a reduce-based sum implementation."
+      }
+    ],
+    "refreshedArtifacts": {
+      "matrixSummary": "results/matrix-summary.json now points at the one-row filtered Gemma 12B local-fallback proof with cells=1, completed=1, loadFailed=0, avgPassRate=1",
+      "baselineComparison": "results/baseline-comparison.jsonl refreshed to 1 comparison, baseline-backed 1/1",
+      "userJudgeQueue": "results/user-judge-queue.jsonl refreshed to 1 pending case"
+    },
+    "assessment": "The bounded mid-size path is now proven for at least one Stream 4 target model using local fallback and task filtering: google/gemma-4-12b@gpu_offload completed a one-task local eval in 71.342s under a 300000 ms cell timeout. This repairs the zero-row Stream 4 failure mode for narrow filtered local fallback cells only.",
+    "remainingGaps": "Do not overclaim broad mid-size coverage: only one 12B model, one CPU/offload profile, and one build task passed. google/gemma-4-12b-qat, zai-org/glm-4.6v-flash, wider task subsets, Promptfoo full-suite behavior, partial GPU profiles, and user-review quality remain unproven. Final 3-solid selection is not complete."
   }
 }

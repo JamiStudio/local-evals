@@ -58,6 +58,7 @@ const resultsDir = join(root, 'results');
 mkdirSync(resultsDir, { recursive: true });
 const runId = new Date().toISOString().replace(/[:.]/g, '-');
 const jsonlPath = join(resultsDir, `matrix-${runId}.jsonl`);
+const taskFilter = (process.env.EVAL_TASK_FILTER ?? '').trim() || null;
 
 function logRow(row) {
   appendFileSync(jsonlPath, JSON.stringify(row) + '\n', 'utf8');
@@ -183,7 +184,8 @@ for (const { model, profileId, profile } of targets) {
   }
 
   const evalResult = runPromptfoo(model.modelKey, profileId);
-  const passRate = parsePassRate(evalResult.stderr);
+  const evalOutput = `${evalResult.stdout ?? ''}\n${evalResult.stderr ?? ''}`;
+  const passRate = parsePassRate(evalOutput);
   const passes = passRate?.passes ?? null;
   const total = passRate?.total ?? null;
   const partial = passes != null && total != null && passes > 0 && passes < total;
@@ -193,6 +195,7 @@ for (const { model, profileId, profile } of targets) {
     variant: model.selectedVariant,
     profileId,
     gpuFlag: profile.lmsGpuFlag,
+    taskFilter,
     status: evalResult.timedOut ? 'eval_timeout' : evalResult.ok ? 'completed' : partial ? 'eval_partial' : 'eval_failed',
     passes,
     total,
