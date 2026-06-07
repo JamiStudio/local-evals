@@ -1,6 +1,6 @@
 # Strict Gap Audit - Stream 21 (2026-06-07)
 
-**Status:** Internal remaining-gap audit after Streams 1-20, updated with Streams 22-25 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
+**Status:** Internal remaining-gap audit after Streams 1-20, updated with Streams 22-26 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
 
 **Runtime boundary:** Stream 21 ran no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or paid-provider calls. Live `lms ps` was used only to confirm that no models were loaded.
 
@@ -10,11 +10,11 @@
 
 The campaign has real pushed evidence across every major lane, but the original exhaustive target is not complete. The strongest covered lanes are git transparency, W7 baseline backing, local-safe DeepEval W7, and prepared human-review packet. The strongest local candidate remains qwen for specialist/W7 support, liquid remains speed/triage, and cloud/imported baselines remain the quality anchor. Those are draft roles only.
 
-Stream 22 resolved the cache-control preflight and partially refreshed throughput: installed Promptfoo exposes `--no-cache`, now env-gated in `scripts/run-matrix.mjs` via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid completed a no-cache current-suite cell; qwen timed out under the bounded no-cache cap. Stream 23 improved qwen W7 tracker tool relevance but did not close strict quality acceptance because the final brief omitted a required section. Stream 24 added one completed 26B practical row: `google/gemma-4-26b-a4b@gpu_offload`, local fallback only, `build-synthetic-smoke`, `1/1` in `76163 ms`. Stream 25 added one bounded 31B-QAT offload practical timeout: `google/gemma-4-31b-qat@gpu_offload`, local fallback only, `build-synthetic-smoke`, `eval_timeout` at `300031 ms`.
+Stream 22 resolved the cache-control preflight and partially refreshed throughput: installed Promptfoo exposes `--no-cache`, now env-gated in `scripts/run-matrix.mjs` via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid completed a no-cache current-suite cell; qwen timed out under the bounded no-cache cap. Stream 23 improved qwen W7 tracker tool relevance but did not close strict quality acceptance because the final brief omitted a required section. Stream 24 added one completed 26B practical row: `google/gemma-4-26b-a4b@gpu_offload`, local fallback only, `build-synthetic-smoke`, `1/1` in `76163 ms`. Stream 25 added one bounded 31B-QAT offload practical timeout: `google/gemma-4-31b-qat@gpu_offload`, local fallback only, `build-synthetic-smoke`, `eval_timeout` at `300031 ms`. Stream 26 added one completed 26B partial practical row: `google/gemma-4-26b-a4b@gpu_partial_0.39`, local fallback only, `build-synthetic-smoke`, `1/1` in `72024 ms`.
 
 The remaining gaps split into two categories:
 
-- **Actionable with bounded streams:** any future W7 tracker repair only if the orchestrator wants to address Stream 23's missing-section failure before user review; future large-model expansion should be explicitly scoped because Stream 24 closed only the "26B has no practical row" gap and Stream 25 added timeout-only 31B-QAT offload evidence.
+- **Actionable with bounded streams:** any future W7 tracker repair only if the orchestrator wants to address Stream 23's missing-section failure before user review; future large-model expansion should be explicitly scoped because Streams 24 and 26 closed only one-task 26B offload/partial gaps and Stream 25 added timeout-only 31B-QAT offload evidence.
 - **Not automatable by this harness:** subjective user review and final 3-solid promotion.
 
 ## Dimension Classification
@@ -29,7 +29,7 @@ The remaining gaps split into two categories:
 | DeepEval W7 | covered | Stream 11 local-safe deterministic W7 lane passed 4/4 without requiring `OPENAI_API_KEY`. | Judge-backed DeepEval metrics remain opt-in and are not needed for the local-safe default lane. |
 | Baselines and user-review queue | pending user review | Stream 9 collected W7 baselines; qwen/liquid model-specific archives are 40/40 baseline-backed with W7 8/8. Stream 19 prepared the review packet. | Human scoring has not happened. Automation cannot mark this complete without the user. |
 | Cloud/imported baselines and no-direct-paid boundary | narrowly covered | Current Vertex baseline lane and W7 imported baselines exist; no direct paid matrix/API calls were run in Streams 16-21. | Additional SOTA peers beyond current imported baseline lane are not broadly imported. Do not run cloud/API collection unless explicitly scoped and credit-gated. |
-| Large 26B/31B evidence | evidence exists but not complete | Stream 16 estimates returned for 26B and 31B-QAT; 31B Q4_K_M estimates timed out; first practical 31B-QAT partial build cell timed out at 300022 ms. Stream 24 added one completed 26B offload local-fallback `build-synthetic-smoke` row: `1/1`, `76163 ms`, no timeout/load failure. Stream 25 added one 31B-QAT offload local-fallback timeout row at `300031 ms`; it did not refresh `promptfoo-latest.json`. | The previous "26B has no practical cell" gap is closed narrowly. Large-model proof remains incomplete: 26B has only one offload build cell, 26B partial is untested practically, 31B Q4_K_M has estimate-timeout only, and 31B-QAT has timeout-only practical evidence on partial and offload. |
+| Large 26B/31B evidence | evidence exists but not complete | Stream 16 estimates returned for 26B and 31B-QAT; 31B Q4_K_M estimates timed out; first practical 31B-QAT partial build cell timed out at 300022 ms. Stream 24 added one completed 26B offload local-fallback `build-synthetic-smoke` row: `1/1`, `76163 ms`, no timeout/load failure. Stream 25 added one 31B-QAT offload local-fallback timeout row at `300031 ms`; it did not refresh `promptfoo-latest.json`. Stream 26 added one completed 26B partial local-fallback `build-synthetic-smoke` row: `1/1`, `72024 ms`, no timeout/load failure. | The previous 26B offload and partial one-cell practical gaps are closed narrowly. Large-model proof remains incomplete: 26B has only two one-task build cells, 31B Q4_K_M has estimate-timeout only, and 31B-QAT has timeout-only practical evidence on partial and offload. |
 | Synthesis/ranking/3-solid status | evidence exists but not complete | Current memos name draft roles: qwen local specialist, liquid speed/triage, cloud baseline/ref. | Final 3-solid selection is incomplete until user review and remaining material gaps are resolved or explicitly accepted as hardware/time limits. |
 | Git transparency and push cadence | covered | Streams 1-20 were committed and pushed; Stream 21 adds this audit as a committed checkpoint. | Keep pushing after each future stream. |
 | Verification ladder status | evidence exists but not complete | Repeated `pnpm verify`, JSON parses, `git diff --check`, `lms ps`, and per-stream checks passed in prior stream closeouts. | This is not the final two-verifier completion audit. Final completion verification remains pending. |
@@ -132,6 +132,30 @@ lms unload --all
 **Compare/queue caveat:** The timeout did not refresh `results/promptfoo-latest.json`; that file still points at the prior Stream 24 26B completed cell. No Stream 25 compare/queue archive was generated because it would have been stale/misleading.
 
 **Assessment:** This is a practical limitation proof, not a success row. 31B-QAT remains unproven for local fallback on this rig after both `gpu_partial_0.36` and `gpu_offload` timed out under the 300000 ms cap.
+
+### Stream 26 result - 26B partial one-task practical probe
+
+**Gap outcome:** The narrow 26B partial-profile practical evidence gap is closed. Large-model proof is still not complete.
+
+**Scope:** One `google/gemma-4-26b-a4b` local fallback cell on `build-synthetic-smoke`, using `gpu_partial_0.39`, the recommended Stream 16 partial estimate (`6.99 GiB` GPU / `17.43 GiB` total). The stream stopped after this single completed row and did not retest offload, full profile, or any 31B model.
+
+**Command run:**
+
+```powershell
+$env:EVAL_USE_PROMPTFOO='false'
+$env:EVAL_TASK_FILTER='build-synthetic-smoke'
+$env:EVAL_SMOKE_MODELS='google/gemma-4-26b-a4b'
+$env:EVAL_SMOKE_PROFILES='gpu_partial_0.39'
+$env:EVAL_CELL_TIMEOUT_MS='300000'
+node scripts/run-matrix.mjs --smoke
+lms unload --all
+```
+
+**Result:** `results/stream26-26b-partial-practical.json` and `results/matrix-2026-06-07T13-30-41-025Z.jsonl` record `google/gemma-4-26b-a4b@gpu_partial_0.39`, `status=completed`, `passes=1`, `total=1`, `durationMs=72024`, and no stderr. The run left the model IDLE; `lms unload --all` returned LM Studio to no loaded models.
+
+**Compare/queue:** The completed row refreshed `results/promptfoo-latest.json`, so Stream 26 compare and review archives were generated: `results/baseline-comparison-stream26-26b-partial.jsonl` and `results/user-judge-queue-stream26-26b-partial.jsonl`.
+
+**Assessment:** This is a real practical 26B partial proof for one build task, not broad large-model readiness. It narrows the 26B placement evidence alongside Stream 24 offload, but it does not promote 26B into the final 3-solid set or close 31B/31B-QAT practical gaps.
 
 ## Explicitly Not Next
 

@@ -1,7 +1,7 @@
 {
-  "evalId": "2026-06-07T13-03-06-317Z",
+  "evalId": "2026-06-07T13-30-41-025Z",
   "model": "google/gemma-4-26b-a4b",
-  "loadProfile": "gpu_offload",
+  "loadProfile": "gpu_partial_0.39",
   "results": {
     "results": [
       {
@@ -25,7 +25,7 @@
         "response": {
           "output": "```diff\n--- src/math.ts\n+++ src/math.ts\n@@ -1,3 +1,3 @@\n export function sum(values: number[]): number {\n-  return 0;\n+  return values.reduce((acc, curr) => acc + curr, 0);\n }\n```"
         },
-        "latencyMs": 76001,
+        "latencyMs": 71842,
         "success": true,
         "error": null,
         "assertResults": [

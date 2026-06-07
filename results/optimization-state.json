@@ -228,7 +228,8 @@
     "Stream 22 uncached qwen/liquid throughput refresh is complete: Promptfoo --no-cache is supported and now env-gated via EVAL_PROMPTFOO_NO_CACHE; liquid@gpu_full completed uncached 5/40 in 31096 ms with cached tokens 0; qwen@gpu_offload timed out at 1200052 ms before pass totals, so qwen uncached throughput remains incomplete under the bounded cap.",
     "Stream 23 W7 quality refresh is complete: qwen strict tracker used current repo-file evidence and valid gh repo view fields with no tool failures, but strict finalization status is strict_blank_or_missing_sections because Token & Speed was omitted; W7 quality acceptance remains incomplete and user review/final 3-solid remain pending.",
     "Stream 24 26B offload practical retry is complete: google/gemma-4-26b-a4b@gpu_offload local fallback build-synthetic-smoke completed 1/1 in 76163 ms with no timeout/load failure; default summary/compare/queue point to this one-cell surface. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
-    "Stream 25 31B-QAT offload practical probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke timed out at 300031 ms with no pass totals; promptfoo-latest was not refreshed, so no Stream 25 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification."
+    "Stream 25 31B-QAT offload practical probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke timed out at 300031 ms with no pass totals; promptfoo-latest was not refreshed, so no Stream 25 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
+    "Stream 26 26B partial practical probe is complete: google/gemma-4-26b-a4b@gpu_partial_0.39 local fallback build-synthetic-smoke completed 1/1 in 72024 ms with no timeout/load failure; default summary/promptfoo/compare/queue point to this one-cell surface and stream26 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -2237,7 +2238,7 @@
       "lmsPs": "No models are currently loaded after explicit lms unload --all.",
       "nvidiaSmi": "2026/06/07 09:04:37.257, RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 5% utilization"
     },
-    "assessment": "The 26B no-practical-row gap is narrowly closed: one gpu_offload local-fallback build cell completed 1/1 in 76163 ms. This does not prove broad 26B quality, 26B partial performance, 31B/31B-QAT practicality, final 3-solid selection, subjective user review, or final completion.",
+    "assessment": "The 26B no-practical-row gap was narrowly closed at Stream 24: one gpu_offload local-fallback build cell completed 1/1 in 76163 ms. Stream 26 later added the recommended partial one-task row. Neither row proves broad 26B quality, 31B/31B-QAT practicality, final 3-solid selection, subjective user review, or final completion.",
     "remainingGaps": [
       "Subjective user review remains pending.",
       "Final 3-solid selection remains incomplete.",
@@ -2304,7 +2305,7 @@
       "Subjective user review remains pending.",
       "Final 3-solid selection remains incomplete.",
       "Broad/full local matrix coverage remains incomplete.",
-      "Large-model proof remains narrow: 26B has one completed offload build cell only; 26B partial is untested practically; 31B Q4_K_M remains estimate-timeout only; 31B-QAT has partial and offload timeout-only practical evidence.",
+      "Large-model proof remained narrow at Stream 25 closeout: 26B had one completed offload build cell only until Stream 26 added the partial row; 31B Q4_K_M remained estimate-timeout only; 31B-QAT had partial and offload timeout-only practical evidence.",
       "Qwen uncached current-suite throughput remains incomplete.",
       "Broad partial-profile measurements remain incomplete.",
       "Final two-verifier completion audit remains pending."
@@ -2321,5 +2322,107 @@
       "leaderboard": []
     },
     "defaultSurfaceCaveat": "results/matrix-summary.json now points to the Stream 25 timeout row. results/promptfoo-latest.json, results/baseline-comparison.jsonl, and results/user-judge-queue.jsonl still point to the prior Stream 24 26B completed cell because the Stream 25 timeout did not write a Promptfoo result."
+  },
+  "stream26Large26bPartialPractical": {
+    "at": "2026-06-07T13:34:00.000Z",
+    "scope": "One bounded 26B partial practical local-fallback cell; LM Studio local only; hard stop after one cell.",
+    "sourceTruthReadBeforeLoad": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 16, 21, 24, 25 and remaining gaps",
+      "results/stream16-large-estimates.json",
+      "results/stream24-26b-offload-practical.json",
+      "results/stream25-31b-qat-offload-practical.json",
+      "results/optimization-state.json",
+      "results/system-profile.json",
+      "registry/runtime-snapshot.json",
+      "live git pull --ff-only",
+      "live git status --short",
+      "live lms ps",
+      "live nvidia-smi"
+    ],
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 426 MiB used, 7562 MiB free, 6% utilization"
+    },
+    "command": "EVAL_USE_PROMPTFOO=false; EVAL_TASK_FILTER=build-synthetic-smoke; EVAL_SMOKE_MODELS=google/gemma-4-26b-a4b; EVAL_SMOKE_PROFILES=gpu_partial_0.39; EVAL_CELL_TIMEOUT_MS=300000; node scripts/run-matrix.mjs --smoke",
+    "matrixJsonl": "results/matrix-2026-06-07T13-30-41-025Z.jsonl",
+    "summary": "results/stream26-26b-partial-practical.json",
+    "row": {
+      "runId": "2026-06-07T13-30-41-025Z",
+      "modelKey": "google/gemma-4-26b-a4b",
+      "variant": "google/gemma-4-26b-a4b@q4_k_m",
+      "profileId": "gpu_partial_0.39",
+      "gpuFlag": "0.39",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 72024,
+      "stderr": ""
+    },
+    "stream16Comparison": {
+      "source": "results/stream16-large-estimates.json",
+      "partialEstimate": "gpu_partial_0.39 estimated 6.99 GiB GPU / 17.43 GiB total",
+      "offloadEstimate": "gpu_offload estimated 36.70 MiB GPU / 17.43 GiB total",
+      "practicalDelta": "Stream 26 adds one completed 26B partial local-fallback build-synthetic-smoke row after Stream 16 had estimate-only partial evidence."
+    },
+    "stream24Comparison": {
+      "source": "results/stream24-26b-offload-practical.json",
+      "offloadResult": "26B offload completed build-synthetic-smoke 1/1 in 76163 ms",
+      "partialResult": "26B partial completed build-synthetic-smoke 1/1 in 72024 ms",
+      "durationDeltaMs": -4139,
+      "assessment": "Weak one-task timing evidence only; not broad throughput proof."
+    },
+    "comparisonArtifacts": {
+      "defaultComparison": "results/baseline-comparison.jsonl",
+      "defaultUserJudgeQueue": "results/user-judge-queue.jsonl",
+      "streamComparisonArchive": "results/baseline-comparison-stream26-26b-partial.jsonl",
+      "streamUserJudgeQueueArchive": "results/user-judge-queue-stream26-26b-partial.jsonl",
+      "rows": 1,
+      "baselineBackedRows": 1
+    },
+    "runtimeAfterBeforeUnload": {
+      "lmsPs": "google/gemma-4-26b-a4b was IDLE at 17.99 GB, context 4096, device Local, TTL 10m / 10m.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 7552 MiB used, 436 MiB free, 0% utilization"
+    },
+    "runtimeAfterUnload": {
+      "action": "lms unload --all",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 227 MiB used, 7761 MiB free, 0% utilization"
+    },
+    "assessment": "This closes the narrow 26B partial-profile practical evidence gap: google/gemma-4-26b-a4b@gpu_partial_0.39 completed build-synthetic-smoke 1/1 within the 300000 ms cap. It does not prove broad 26B quality, broad partial-profile coverage, 31B Q4_K_M practicality, 31B-QAT practical usefulness, final 3-solid selection, subjective user review, or final completion.",
+    "remainingGaps": [
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Large-model proof remains narrow: 26B has one completed offload build cell and one completed partial build cell only; 31B Q4_K_M remains estimate-timeout only; 31B-QAT has partial and offload timeout-only practical evidence.",
+      "Qwen uncached current-suite throughput remains incomplete.",
+      "Broad partial-profile measurements remain incomplete outside contained one-task slices.",
+      "Final two-verifier completion audit remains pending."
+    ],
+    "matrixSummary": {
+      "path": "results/matrix-summary.json",
+      "matrixFile": "matrix-2026-06-07T13-30-41-025Z.jsonl",
+      "totals": {
+        "cells": 1,
+        "completed": 1,
+        "loadFailed": 0,
+        "avgPassRate": 1
+      },
+      "leaderboard": [
+        {
+          "modelKey": "google/gemma-4-26b-a4b",
+          "profileId": "gpu_partial_0.39",
+          "passes": 1,
+          "total": 1,
+          "pct": 100
+        }
+      ]
+    },
+    "defaultSurfaceCaveat": "results/matrix-summary.json, results/promptfoo-latest.json, results/baseline-comparison.jsonl, and results/user-judge-queue.jsonl now point only to the Stream 26 single 26B partial build cell."
   }
 }
