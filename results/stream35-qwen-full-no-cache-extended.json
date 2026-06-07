@@ -1,0 +1,104 @@
+{
+  "stream": 35,
+  "at": "2026-06-07T16:36:00.000Z",
+  "purpose": "Retry exactly one extended qwen full current-suite no-cache Promptfoo cell after the first Stream 35 session crashed before producing a row.",
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/engineering/agents/orchestration-reliability.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 22, 28, 34, and 35 checkpoint",
+    "docs/evals/2026-06-07-review-readiness-index.md",
+    "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+    "results/stream22-uncached-throughput.json",
+    "results/stream28-qwen-uncached-single-task.json",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/runtime-snapshot.json",
+    "scripts/run-matrix.mjs no-cache and timeout handling",
+    "live git pull --ff-only / git status --short / lms ps / nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitPull": "Already up to date before the run; later git log confirmed 8e36da3 Add matrix run progress telemetry was present before Stream 35 commit work.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 276 MiB used, 7712 MiB free, 2% utilization"
+  },
+  "command": {
+    "env": {
+      "EVAL_PROMPTFOO_NO_CACHE": "true",
+      "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+      "EVAL_SMOKE_PROFILES": "gpu_offload",
+      "EVAL_CELL_TIMEOUT_MS": "2400000",
+      "EVAL_TASK_FILTER": null
+    },
+    "command": "node scripts/run-matrix.mjs --smoke",
+    "scopeGuard": "Exactly one Promptfoo-backed full current-suite cell; no task filter, no alternate profile, no other model, no retry."
+  },
+  "artifacts": {
+    "matrixJsonl": "results/matrix-2026-06-07T15-55-23-224Z.jsonl",
+    "abandonedCrashMatrixJsonl": "results/matrix-2026-06-07T15-42-34-484Z.jsonl",
+    "promptfooLatest": "results/promptfoo-latest.json",
+    "matrixSummary": "results/matrix-summary.json",
+    "comparisonArchive": null,
+    "userJudgeQueueArchive": null
+  },
+  "abandonedCrashArtifact": {
+    "path": "results/matrix-2026-06-07T15-42-34-484Z.jsonl",
+    "bytes": 0,
+    "assessment": "Zero-byte JSONL from the crashed first Stream 35 session; retained as abandoned crash evidence only, not a completed matrix row."
+  },
+  "row": {
+    "runId": "2026-06-07T15-55-23-224Z",
+    "modelKey": "qwen/qwen3.5-9b",
+    "variant": "qwen/qwen3.5-9b@q4_k_m",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": null,
+    "status": "eval_timeout",
+    "passes": null,
+    "total": null,
+    "durationMs": 2400084,
+    "stderr": "EVAL_CELL_TIMEOUT_MS=2400000 elapsed before eval completed.\ns of undefined (reading 'includes')\"\n  }\n}\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:qwen/qwen3.5-9b\",\n  \"providerLabel\": \"local:qwen/qwen3.5-9b (gpu_offload)\",\n  \"promptIdx\": 2,\n  \"testIdx\": 5,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:qwen/qwen3.5-9b\",\n  \"providerLabel\": \"local:qwen/qwen3.5-9b (gpu_offload)\",\n  \"promptIdx\": 3,\n  \"testIdx\": 5,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:qwen/qwen3.5-9b\",\n  \"providerLabel\": \"local:qwen/qwen3.5-9b (gpu_offload)\",\n  \"promptIdx\": 0,\n  \"testIdx\": 6,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:qwen/qwen3.5-9b\",\n  \"providerLabel\": \"local:qwen/qwen3.5-9b (gpu_offload)\",\n  \"promptIdx\": 1,\n  \"testIdx\": 6,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:qwen/qwen3.5-9b\",\n  \"providerLabel\": \"local:qwen/qwen3.5-9b (gpu_offload)\",\n  \"promptIdx\": 2,\n  \"testIdx\": 6,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:qwen/qwen3.5-9b\",\n  \"providerLabel\": \"local:qwen/qwen3.5-9b (gpu_offload)\",\n  \"promptIdx\": 3,\n  \"testIdx\": 6,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}"
+  },
+  "promptfooLatestStatus": {
+    "refreshedByStream35": false,
+    "currentId": null,
+    "currentStats": null,
+    "assessment": "Stream 35 timed out before Promptfoo wrote a new output; promptfoo-latest.json still points to the Stream 34 31B-QAT surface."
+  },
+  "cacheEvidence": {
+    "envSetNoCache": true,
+    "stderrIncludesCacheDisabled": false,
+    "note": "The timeout stderr tail no longer includes the Promptfoo no-cache banner, unlike Stream 22, because run-matrix preserves only the final stderr slice for timed-out cells. The command environment set EVAL_PROMPTFOO_NO_CACHE=true and run-matrix appends --no-cache when that env var is true."
+  },
+  "comparisonToPriorQwenNoCache": {
+    "stream22FullNoCache": {
+      "artifact": "results/stream22-uncached-throughput.json",
+      "result": "qwen/qwen3.5-9b@gpu_offload full 40-case no-cache timed out at 1200052 ms before pass totals; stderr confirmed Cache is disabled and 40 cases started."
+    },
+    "stream28FilteredNoCache": {
+      "artifact": "results/stream28-qwen-uncached-single-task.json",
+      "result": "qwen/qwen3.5-9b@gpu_offload build-synthetic-smoke no-cache completed as eval_failed 0/4 in 261012 ms with cached tokens 0; it was a filtered task, not full current suite."
+    },
+    "stream35Delta": "The extended full-suite retry ran about twice the Stream 22 cap and still timed out before pass totals. It adds stronger infeasibility/throughput-limit evidence for qwen full-suite no-cache on this rig, but does not produce completed throughput or quality counts."
+  },
+  "comparisonArtifacts": {
+    "generated": false,
+    "reason": "The Stream 35 timeout did not refresh results/promptfoo-latest.json and produced no completed Promptfoo output surface. Compare/queue archives would have pointed at stale Stream 34 data, so they were intentionally not generated."
+  },
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "lmsPs": "No models are currently loaded after unloading qwen/qwen3.5-9b.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 360 MiB used, 7628 MiB free, 4% utilization"
+  },
+  "gapOutcome": {
+    "closedOrSharpened": [
+      "Sharpened the qwen full 40-case no-cache throughput gap from a 1200s timeout to a 2400s timeout with a concrete full-suite row."
+    ],
+    "notClosed": [
+      "Qwen full current-suite no-cache throughput is still not complete because the extended cell timed out before pass totals.",
+      "The row has no pass/total counts, no refreshed Promptfoo output, and no user-reviewable local outputs.",
+      "Final 3-solid selection, subjective user review, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
+  }
+}

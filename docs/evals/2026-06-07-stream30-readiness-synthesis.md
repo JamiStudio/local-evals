@@ -6,7 +6,7 @@
 
 | Draft role | Current candidate | Evidence | Why still review-gated |
 | --- | --- | --- | --- |
-| Local specialist / W7 support | `qwen/qwen3.5-9b@gpu_offload` | Stream 17 qwen profiles tied at `7/40`; Stream 12 and Stream 27 produced strict no-fallback W7 tracker artifacts; Stream 27 has all five sections, `tps=3.0`, wall `513.05s`, usage `9752/1531/11283`, and no tool failures. | Deterministic score is weak, Stream 22 full no-cache qwen timed out, Stream 28 qwen no-cache single-task failed `0/4`, and W7 quality still needs human review because Stream 27 text used pending Token & Speed placeholders and review-worthy recommendations. |
+| Local specialist / W7 support | `qwen/qwen3.5-9b@gpu_offload` | Stream 17 qwen profiles tied at `7/40`; Stream 12 and Stream 27 produced strict no-fallback W7 tracker artifacts; Stream 27 has all five sections, `tps=3.0`, wall `513.05s`, usage `9752/1531/11283`, and no tool failures. | Deterministic score is weak, Stream 22 full no-cache qwen timed out at `1200052 ms`, Stream 35 extended the full-suite cap and still timed out at `2400084 ms`, Stream 28 qwen no-cache single-task failed `0/4`, and W7 quality still needs human review because Stream 27 text used pending Token & Speed placeholders and review-worthy recommendations. |
 | Speed / triage control | `liquid/lfm2.5-1.2b@gpu_full` | Stream 17 liquid all 11 profiles tied at `5/40`; Stream 22 liquid no-cache completed the 40-case current suite at `5/40`, `31096 ms`, Promptfoo `28s`, `4711` total eval tokens, `cached=0`. | Useful for speed and routing only. It is not a quality leader and still needs review if routed into user-facing work. |
 | Quality ceiling / review anchor | Imported cloud baseline lane, currently Vertex/Gemini-backed artifacts | Stream 9 made qwen/liquid review archives 40/40 baseline-backed with W7 8/8 backed; Stream 19 prepared the user-review packet. | Cloud outputs are imported/credit-funded references, not direct paid matrix providers. Additional SOTA peers are policy-gated, and final local acceptance depends on user scoring. |
 
@@ -28,7 +28,7 @@ No final 3-solid selection is made here. The strongest current rotation is qwen 
 - 26B can complete one local-fallback build task in both offload and recommended partial placement; both rows are about 72-76 seconds. Treat that as feasibility for bounded task probes only.
 - 31B Q4_K_M can complete one bounded offload local-fallback build task, but only barely inside the 300 second cap at `262464 ms`; treat it as exploration evidence only, not broad readiness. 31B-QAT loads enough to attempt and can reach a terminal offload row with a 900s cap, but the terminal Stream 34 row failed `0/1` after `305466 ms`; this remains hardware/runtime-limited evidence, not practical success.
 - Mid-size recommended partials can pass local-fallback single-task rows, but Promptfoo no-cache filtered rows timed out at 300 seconds. The harness should not extrapolate local-fallback success to Promptfoo-backed throughput.
-- Qwen no-cache full-suite throughput remains unclosed: Stream 22 timed out at `1200052 ms` before pass totals. Stream 28 only gives one failed filtered row, `0/4` in `261012 ms` with `cached=0`.
+- Qwen no-cache full-suite throughput remains unclosed: Stream 22 timed out at `1200052 ms` before pass totals, and Stream 35 timed out again at `2400084 ms` before pass totals. Stream 28 only gives one failed filtered row, `0/4` in `261012 ms` with `cached=0`.
 
 ## User Review Decisions Needed
 

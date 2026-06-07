@@ -637,14 +637,18 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Runtime closeout: the row left `google/gemma-4-31b-qat` IDLE; explicit `lms unload --all` returned LM Studio to no loaded models.
 - Gap outcome: Stream 34 closes only the "was 300s too tight for terminal status" question. 31B-QAT still has no practical success row: partial timed out, 300s offload timed out, and extended offload failed `0/1` with empty output after `305466 ms`. Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, and final two-verifier audit remain pending.
 
-**Stream 35 dispatch checkpoint (contained stream, 2026-06-07):**
+**Stream 35 result checkpoint (contained stream, 2026-06-07):**
 - Original agent `019ea2be-e1b2-7760-ab79-a16783f3db71` (`Kierkegaard`) crashed before producing a row; `results/matrix-2026-06-07T15-42-34-484Z.jsonl` remained 0 bytes and is treated as abandoned crash evidence only.
-- Replacement agent: `019ea2ca-69ed-76b2-80a6-09b6f021f67b` (`Curie`).
+- Retry executor: inline Stream 35 retry after the crashed agent was shut down. Coordinator dispatch/hotfix commits were pulled before Stream 35 commit work; latest pre-Stream-35 commits included `a68cd75` and `8e36da3`.
 - Workstream/pass: Contained Stream 35, one extended qwen full current-suite no-cache Promptfoo cell.
-- Dispatch timestamp: 2026-06-07 after Stream 34 audit.
+- Status: completed by Stream 35 retry.
 - Ownership boundary: exactly one LM Studio local Promptfoo cell, `EVAL_PROMPTFOO_NO_CACHE=true`, no `EVAL_TASK_FILTER`, `EVAL_SMOKE_MODELS=qwen/qwen3.5-9b`, `EVAL_SMOKE_PROFILES=gpu_offload`, `EVAL_CELL_TIMEOUT_MS=2400000`; no other qwen profile, no other models, no retry.
-- Expected deliverables: `results/stream35-qwen-full-no-cache-extended.json`, one full-suite matrix JSONL row, targeted status updates, and this roadmap checkpoint.
-- Next coordinator action: poll Curie in short intervals until commit+push, then audit whether qwen full 40-case no-cache moved from Stream 22 timeout-only evidence to a terminal pass/fail/timeout row under the longer cap.
+- Result artifact: `results/stream35-qwen-full-no-cache-extended.json`; matrix JSONL: `results/matrix-2026-06-07T15-55-23-224Z.jsonl`.
+- Numeric result: `qwen/qwen3.5-9b@gpu_offload`, full current-suite Promptfoo no-cache, `taskFilter=null`, `status=eval_timeout`, `passes=null`, `total=null`, `durationMs=2400084`. The timeout stderr tail shows repeated Promptfoo assertion errors on undefined output; it does not include the earlier no-cache banner because the runner preserved only the final timeout stderr slice.
+- Comparison: Stream 22 full qwen no-cache timed out at `1200052 ms` before pass totals; Stream 28 produced only a filtered single-task no-cache row, `0/4` in `261012 ms`. Stream 35 roughly doubled the full-suite cap and still timed out before pass totals, so it sharpens the throughput limitation evidence but does not produce completed qwen no-cache throughput.
+- Compare/queue: no Stream 35 compare/queue archive was generated because the timeout did not refresh `results/promptfoo-latest.json`; that file remained on the Stream 34 31B-QAT surface, so archiving compare/queue would have been stale and misleading.
+- Runtime closeout: explicit `lms unload --all` unloaded `qwen/qwen3.5-9b`; final verification must confirm `lms ps` remains clean before commit.
+- Gap outcome: Stream 35 closes only the narrow "retry with a longer full-suite cap" question. Qwen full 40-case no-cache throughput remains incomplete after both the Stream 22 `1200052 ms` timeout and this Stream 35 `2400084 ms` timeout. Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final two-verifier audit remain pending.
 
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.

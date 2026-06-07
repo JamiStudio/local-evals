@@ -237,7 +237,8 @@
     "Stream 31 final-selection worksheet is complete: docs/evals/2026-06-07-final-selection-scoring-worksheet.md gives user-fillable accept/conditional/reject lanes for qwen, liquid, imported baseline, mid-size fallback, 26B exploration, and 31B/31B-QAT exclusion. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT proof, and final verification.",
     "Stream 32 31B Q4 offload practical probe is complete: google/gemma-4-31b@gpu_offload local fallback build-synthetic-smoke completed 1/1 in 262464 ms with no timeout/load failure; compare and queue archives were generated because promptfoo-latest refreshed to Stream 32. This closes only the narrow 31B Q4 estimate-timeout-only practical evidence gap; 31B broad readiness and 31B-QAT practical success remains incomplete.",
     "Stream 33 review-readiness index is complete: docs/evals/2026-06-07-review-readiness-index.md and results/final-selection-review-manifest.json group exact artifacts and row/existence checks for seven pending review lanes. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT broad proof, and final verification.",
-    "Stream 34 31B-QAT extended offload probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke reached a terminal row under EVAL_CELL_TIMEOUT_MS=900000, but failed 0/1 after 305466 ms with empty output and fetch failed; no compare/queue archive was generated because there was no completed model output. This shows the 300s cap was slightly too tight for terminal status, but 31B-QAT still has no practical success row."
+    "Stream 34 31B-QAT extended offload probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke reached a terminal row under EVAL_CELL_TIMEOUT_MS=900000, but failed 0/1 after 305466 ms with empty output and fetch failed; no compare/queue archive was generated because there was no completed model output. This shows the 300s cap was slightly too tight for terminal status, but 31B-QAT still has no practical success row.",
+    "Stream 35 qwen full no-cache extended retry is complete: qwen/qwen3.5-9b@gpu_offload full current-suite Promptfoo no-cache timed out at 2400084 ms before pass totals; the abandoned zero-byte crash JSONL remains documented; no compare/queue archives were generated because promptfoo-latest stayed on Stream 34. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache completed throughput, broad partial profiles, broad 31B/31B-QAT proof, and final verification."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -3070,6 +3071,40 @@
       "Broad partial-profile quality/throughput remains incomplete.",
       "31B Q4_K_M has only one offload local-fallback success row; no partial/full or broad quality proof exists.",
       "31B-QAT has no practical success row: partial timed out, 300s offload timed out, and extended offload failed 0/1 with empty output after 305466 ms.",
+      "Final two-verifier completion audit remains pending."
+    ]
+  },
+  "stream35QwenFullNoCacheExtended": {
+    "at": "2026-06-07T16:36:00.000Z",
+    "scope": "One extended qwen/qwen3.5-9b@gpu_offload full current-suite Promptfoo no-cache cell; no task filter, no other profile, no other model, no retry.",
+    "matrixJsonl": "results/matrix-2026-06-07T15-55-23-224Z.jsonl",
+    "abandonedCrashMatrixJsonl": "results/matrix-2026-06-07T15-42-34-484Z.jsonl",
+    "row": {
+      "runId": "2026-06-07T15-55-23-224Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": null,
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 2400084,
+      "loadFailure": false,
+      "evalTimeout": true
+    },
+    "comparisonArtifacts": {
+      "generated": false,
+      "reason": "The timeout did not refresh results/promptfoo-latest.json; it still points to Stream 34, so Stream 35 compare/queue archives would be stale."
+    },
+    "gapOutcome": "Stream 35 sharpens the qwen full no-cache current-suite gap with a 2400s timeout row, but does not close throughput: no pass totals, no refreshed Promptfoo output, and no user-reviewable output surface.",
+    "remainingGaps": [
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Qwen full 40-case no-cache current-suite throughput remains incomplete after Stream 22 1200s timeout and Stream 35 2400s timeout.",
+      "Broad partial-profile quality/throughput remains incomplete.",
+      "31B Q4_K_M has one narrow offload success row and 31B-QAT has no practical success row.",
       "Final two-verifier completion audit remains pending."
     ]
   }
