@@ -69,14 +69,39 @@
     ]
   },
   "nextActions": [
-    "Tune thresholds using leader qwen/qwen3.5-9b@gpu_offload (63% pass)",
-    "Review results/user-judge-queue.jsonl",
-    "Tune suites/promptfoo/tests/*.yaml thresholds and matrix presets"
+    "Dispatch O1 full matrix exhaust (all 12 models x 2 presets; cite system-profile + load-profiles)",
+    "Dispatch W7: daily-briefs + hourly web/interest tracker + local tool-use (gh/fs/web/planning) + OSS specialist harness/KB for leader model (qwen or post-matrix best)",
+    "SOTA cloud baselines + bench for sonnet 4.6, gemini 3.1 flash lite, gpt 5.4 + peers (vertex/gcloud active; azure if .env)",
+    "After runs: compare, judge queue, identify/document 3 solid models across tasks; update decisions + roadmap",
+    "Frequent clean pushes to https://github.com/JamiStudio/local-evals.git after each stream",
+    "Perf tooling: duckduckgo-search/trafilatura/httpx added; system facts current",
+    "Run full verification ladder + 2 verifiers (code reviewer + QA) with verbatim prompts before update_goal"
   ],
   "connectivity": {
     "lmstudio": true,
     "vertexBaselines": true,
     "langfuse": false,
     "dockerRequiredForLangfuse": true
+  },
+  "userGoal": {
+    "exhaustAllLocal": true,
+    "sotaCloudBench": ["sonnet-4.6", "gemini-3.1-flash-lite", "gpt-5.4", "comparables"],
+    "dailyBriefsTracker": true,
+    "localToolUse": ["github", "fs-read", "web-search", "planning"],
+    "specialistHarnessAndKB": true,
+    "targetSolidModels": 3,
+    "githubTransparencyRepo": "https://github.com/JamiStudio/local-evals.git",
+    "perfToolingAdded": ["duckduckgo-search", "trafilatura", "httpx", "beautifulsoup4"],
+    "systemTurboCoolerboost": true,
+    "creditsOnTap": "vertex(gcloud-active) + azure(if-env) + reasonable burn"
+  },
+  "currentStreams": ["O1-full-matrix-exhaust", "W7-daily-briefs-tool-specialist"],
+  "githubPushes": [
+    "5477ab0: init harness + state (first stream)",
+    "5156a75: docs/roadmap + state update for user goal (second stream)"
+  ],
+  "solidModelsTarget": {
+    "count": 3,
+    "criteria": "solid across chat/plan/tool/briefs/specialist; local primary + cloud ref; quality + usable token speed"
   }
 }

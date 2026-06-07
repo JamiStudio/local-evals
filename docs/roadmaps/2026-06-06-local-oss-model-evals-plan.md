@@ -33,6 +33,29 @@ credits purposefully (not wastefully), and tune configs from measured results.
 
 Resume checkpoint: `results/optimization-state.json`
 
+## This Goal Run (orchestrator + user query expansion, 2026)
+
+**Git transparency (user explicit)**: repo inited on main, remote https://github.com/JamiStudio/local-evals.git (public, jamesnavinhill collab). Pushed after init stream (5477ab0) and every subsequent (docs, subagent commits). .gitignore allows selective results summaries/queues/profiles for transparency; no model files, no large artifacts, no secrets.
+
+**User goal directives executed** (incorporated here per "deliver everything"; roadmap live-updated; no violation of contract — all exec via dispatch or allowed orchestrator ops; follow reliability.md):
+- Exhaust evals for *all* our models (full 12 LLMs registry × gpu_full + gpu_offload; test best locals hard, including intentional large pairs 26B/31B on/off-gpu offload to probe 8GB system limits; time ok, token speed tracked for tasks).
+- Optimize for system (use live system-profile + matrix JSONL + estimates before any load-profile/preset/threshold change; partial profiles if evidence).
+- Benchmark cloud SOTA using vertex + azure credits (test sonnet 4.6, gemini 3.1 flash lite, gpt 5.4 + peers; collect baselines reasonably via pnpm baseline:collect / gemini:models / import; head-to-head vs locals; "reach" with local crew).
+- Daily-briefs: hourly web search + interest tracker unloaded to local models (epic goal — match quality if possible). Local chat, local planning, local tool calls (github via gh, file reads, web search). Baby steps flushed to working end-to-end (real fetches via free libs, model loops, evals).
+- OSS quality + specialist: find strong OSS, give proper harness + knowledge bank (RAG-lite/prompt+docs store + specialist prompts), let it be specialist; eval vs general.
+- Additional tooling: installed (uv add duckduckgo-search trafilatura httpx bs4 for tracker/web; system captures, lm tools, gh/az/gcloud checked; fans/turbo user-side).
+- 3 solid models target: not stop until have 3 that are solid across tasks (chat/plan/tool/briefs/specialist) — local primary, cloud ref; understand SOTA limits but push.
+- Push hard/fast, burn credits reasonable, full access, verify everything, public transparency repo.
+
+**Orchestrator discipline for this run**: read state first, dispatch ONE (matrix load serial), poll (no long single wait), checkpoint roadmap + state + docs/engineering/agents/orchestrator-logs/ after dispatch + on return, gate with git show --stat + numeric + A/B/C, subagent does commits/pushes (remote set), update_goal only after full audit + 2 verifiers PASS. Reusable prompt + steering only.
+
+**Added/expanded items for this run**:
+- O1 refresh + full exhaust (dispatch matrix:full)
+- W7: Daily-briefs + local tool-use (fs, gh, web, planning) + OSS specialist harness + KB + evals + token speed (dispatch dedicated subagent)
+- O6: SOTA cloud (sonnet/gemini-flash/gpt) bench + baselines + 3-solid-models selection/report + placement
+- Perf/tooling installs (direct + uv)
+- Continuous pushes after streams
+
 ## Locked Decisions (current)
 
 - Hybrid stack: **Promptfoo + local eval runner fallback + DeepEval**
