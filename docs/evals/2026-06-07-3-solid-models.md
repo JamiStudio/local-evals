@@ -2,6 +2,8 @@
 
 **Status:** Draft evidence memo, not final completion. Streams 9-20 materially refreshed the evidence base and prepared a human review packet, but subjective user review, broad/full matrix coverage, completed large-model proofs, broad uncached partial-profile measurements, and final selection remain open.
 
+**Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
+
 **Scope boundary:** This memo covers the `evals` harness only. Automated model runs are LM Studio local; cloud outputs are imported/credit-funded baselines and review anchors, not direct paid API calls from the matrix harness.
 
 ## Current Evidence Inputs

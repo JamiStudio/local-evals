@@ -2,6 +2,8 @@
 
 **Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-20 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, wider mid-size local fallback task-slice evidence, human review packet, and one-task mid-size partial-profile evidence, but final placement remains caveated until user review and broader local coverage are complete.
 
+**Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
+
 **Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, `results/stream20-mid-size-partial-profile.json`, `docs/evals/2026-06-07-user-review-packet.md`, `results/user-review-packet-summary.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-20 checkpoints in the active roadmap, and the W7 DeepEval suite.
 
 ## Evidence Summary

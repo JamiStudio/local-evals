@@ -3,6 +3,60 @@
   "at": "2026-06-06T23:43:20.763Z",
   "mode": "smoke",
   "readyForLongRunningGoal": true,
+  "stream21StrictGapAudit": {
+    "at": "2026-06-07T12:25:00.000Z",
+    "scope": "Strict remaining-gap audit and next-stream recommendation after Streams 1-20; no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or direct paid calls.",
+    "audit": "docs/evals/2026-06-07-strict-gap-audit.md",
+    "runtimeBoundary": {
+      "lmsPs": "No models are currently loaded.",
+      "modelLoadsRun": false,
+      "matrixCellsRun": false,
+      "baselineCollectionRun": false,
+      "cloudApiCallsRun": false
+    },
+    "classifications": {
+      "all12ModelsInventory": "covered",
+      "currentSuitePromptfooCoverage": "evidence exists but not complete",
+      "localFallbackSlices": "narrowly covered",
+      "loadProfilesAndPartials": "evidence exists but not complete",
+      "w7Tracker": "narrowly covered",
+      "deepevalW7": "covered",
+      "baselinesAndUserReviewQueue": "pending user review",
+      "cloudImportedBaselinesBoundary": "narrowly covered",
+      "large26b31bEvidence": "not complete",
+      "synthesisRanking3Solid": "evidence exists but not complete",
+      "gitTransparencyPushCadence": "covered",
+      "verificationLadder": "evidence exists but not complete"
+    },
+    "recommendedNextStreams": [
+      {
+        "stream": 22,
+        "name": "Uncached qwen/liquid runtime refresh",
+        "gap": "Stream 17 qwen/liquid timings are cached Promptfoo reruns.",
+        "commandScope": "Confirm a safe Promptfoo no-cache option via eval --help; if supported, run liquid@gpu_full and qwen@gpu_offload current-suite one cell each. Do not delete global cache or unrelated artifacts."
+      },
+      {
+        "stream": 23,
+        "name": "Improved strict qwen W7 tracker quality refresh",
+        "gap": "Stream 12 proves no-fallback finalization but has quality/freshness/tool caveats.",
+        "commandScope": "Run one qwen/qwen3.5-9b --gpu off strict-final specialist tracker with tighter query/tool constraints, then unload."
+      },
+      {
+        "stream": 24,
+        "name": "26B offload one-task practical retry",
+        "gap": "Large-model evidence is estimate/timeout only; 26B has no practical cell.",
+        "commandScope": "Run one google/gemma-4-26b-a4b@gpu_offload local-fallback build-synthetic-smoke cell with EVAL_CELL_TIMEOUT_MS=300000; stop after one row or timeout."
+      }
+    ],
+    "remainingGaps": [
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Large 26B/31B practical proof remains incomplete.",
+      "Broad partial-profile measurements remain incomplete.",
+      "Final two-verifier completion audit remains pending."
+    ]
+  },
   "o1MatrixAttempt": "2026-06-07 O1 refresh (this subagent): prereqs (unload, pnpm registry:export=12, capture:quick, pnpm verify PASS); script audit + direct `node scripts/run-matrix.mjs --full` test (printed 'Matrix run ...: 24 cells', started 26b@gpu_full load before tool kill for safety; pnpm bg variant quick-0 was shell artifact); post summarize/compare/judge; narrow verify; no new cells appended (long-running on 8GB per system-profile: serialize, first large gpu_full slow/partial per 17GiB est vs headroom, use gpu_offload for 12B+/26B/31B); smoke data + profile authoritative; best local qwen/qwen3.5-9b@gpu_offload 63% for W7; see updated docs/evals/2026-06-06-o1-*.md + roadmap. Live truth overrides prior claims.",
   "reportPath": "results/optimization-report-1.json",
   "matrixSummary": [

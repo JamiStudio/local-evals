@@ -2,6 +2,8 @@
 
 **Status:** Current snapshot aligned to Streams 9-20. This is a synthesis aid, not a completion certificate.
 
+**Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
+
 ## Current Facts
 
 - W7 baselines exist for both registered W7 tasks; qwen and liquid archived queues are 40/40 baseline-backed with W7 8/8 backed.

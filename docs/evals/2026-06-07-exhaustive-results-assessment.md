@@ -2,6 +2,8 @@
 
 **Status:** Current synthesis after Streams 9-20. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
 
+**Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
+
 **Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. Stream 20 added one bounded mid-size partial-profile task slice only. No cloud runs or baseline collection were performed in these streams.
 
 ## Current Coverage
