@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
-  "stream": 34,
-  "generatedAt": "2026-06-07T15:40:00.000Z",
+  "stream": 36,
+  "generatedAt": "2026-06-07T16:55:00.000Z",
   "status": "pending_user_review",
   "runtimeBoundary": {
     "modelLoadsRun": true,
@@ -9,7 +9,7 @@
     "baselineCollectionRun": false,
     "cloudApiCallsRun": false,
     "paidProviderCallsRun": false,
-    "note": "Stream 34 updated the manifest after exactly one LM Studio local 31B-QAT offload cell."
+    "note": "Stream 36 updated the manifest after exactly one LM Studio local qwen Promptfoo assertion-hardening validation cell."
   },
   "reviewIndex": "docs/evals/2026-06-07-review-readiness-index.md",
   "worksheet": "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
@@ -124,12 +124,45 @@
           "exists": true,
           "expectedRows": 4,
           "actualRows": 4
+        },
+        {
+          "path": "results/stream35-qwen-full-no-cache-extended.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "status": "eval_timeout",
+            "passes": null,
+            "total": null,
+            "durationMs": 2400084,
+            "stderrContainsUndefinedIncludes": true
+          }
+        },
+        {
+          "path": "results/stream36-qwen-assertion-hardening-validation.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "status": "completed",
+            "passes": null,
+            "total": null,
+            "durationMs": 666,
+            "undefinedIncludesPresentInRow": false,
+            "promptfooLatestRefreshed": false,
+            "progressTelemetryProduced": true
+          }
+        },
+        {
+          "path": "results/matrix-2026-06-07T16-48-17-033Z.jsonl",
+          "kind": "matrix_jsonl",
+          "exists": true
         }
       ],
       "caveats": [
         "Stream 17 timings are cached Promptfoo reruns.",
         "Stream 22 full 40-case no-cache qwen timed out before pass totals.",
-        "Stream 28 is one filtered no-cache task and failed 0/4."
+        "Stream 28 is one filtered no-cache task and failed 0/4.",
+        "Stream 35 full 40-case no-cache qwen timed out at 2400084 ms before pass totals.",
+        "Stream 36 shows the prior undefined.includes assertion error absent from the single post-hardening row/progress surface, but pass totals are null and promptfoo-latest did not refresh."
       ]
     },
     {
@@ -430,13 +463,10 @@
     }
   ],
   "remainingGaps": [
-    "Subjective user review remains pending.",
-    "Final 3-solid selection remains incomplete.",
-    "Broad/full local matrix coverage remains incomplete.",
-    "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
-    "Broad partial-profile quality/throughput remains incomplete.",
-    "31B/31B-QAT broad practical proof remains incomplete; 31B-QAT has no success row after partial timeout, 300s offload timeout, and extended offload failure.",
-    "Final two-verifier completion audit remains pending."
+    "The row has null pass/total counts and did not refresh results/promptfoo-latest.json.",
+    "No Stream 36 compare/queue archive was generated because the Promptfoo output surface stayed stale.",
+    "Qwen full current-suite no-cache throughput remains incomplete.",
+    "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
   ],
-  "updatedBy": "Contained Stream 34"
+  "updatedBy": "Contained Stream 36"
 }

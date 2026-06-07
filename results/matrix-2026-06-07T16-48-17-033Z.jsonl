@@ -1,0 +1,1 @@
+{"runId":"2026-06-07T16-48-17-033Z","modelKey":"qwen/qwen3.5-9b","variant":"qwen/qwen3.5-9b@q4_k_m","profileId":"gpu_offload","gpuFlag":"off","taskFilter":"build-synthetic-smoke","status":"completed","passes":null,"total":null,"durationMs":666,"stderr":""}

@@ -1,22 +1,26 @@
 {
-  "at": "2026-06-07T16:39:40.354Z",
-  "matrixFile": "matrix-2026-06-07T15-55-23-224Z.jsonl",
-  "runId": "2026-06-07T15-55-23-224Z",
+  "at": "2026-06-07T16:55:00.000Z",
+  "matrixFile": "matrix-2026-06-07T16-48-17-033Z.jsonl",
+  "runId": "2026-06-07T16-48-17-033Z",
   "cells": [
     {
       "modelKey": "qwen/qwen3.5-9b",
       "profileId": "gpu_offload",
-      "status": "eval_timeout",
-      "durationMs": 2400084,
+      "status": "completed",
+      "durationMs": 666,
       "passRate": null,
-      "evalOk": null
+      "evalOk": null,
+      "taskFilter": "build-synthetic-smoke",
+      "passes": null,
+      "total": null
     }
   ],
   "totals": {
     "cells": 1,
-    "completed": 0,
+    "completed": 1,
     "loadFailed": 0,
     "avgPassRate": null
   },
-  "leaderboard": []
+  "leaderboard": [],
+  "note": "Stream 36 completed the runner cell but Promptfoo did not emit pass totals or refresh results/promptfoo-latest.json."
 }

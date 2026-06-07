@@ -1,0 +1,169 @@
+{
+  "stream": 36,
+  "at": "2026-06-07T16:55:00.000Z",
+  "purpose": "Validate the just-pushed Promptfoo assertion hardening commit 5606495 with exactly one LM Studio local Promptfoo cell.",
+  "commitValidation": {
+    "requestedCommit": "5606495",
+    "presentOnMain": true,
+    "subject": "Harden promptfoo assertions for empty outputs",
+    "touchedPromptfooTests": [
+      "suites/promptfoo/tests/build.yaml",
+      "suites/promptfoo/tests/plan.yaml",
+      "suites/promptfoo/tests/research.yaml",
+      "suites/promptfoo/tests/tool-call.yaml"
+    ]
+  },
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/runtime-snapshot.json",
+    "results/matrix-summary.json",
+    "results/stream28-qwen-uncached-single-task.json",
+    "results/stream35-qwen-full-no-cache-extended.json",
+    "suites/promptfoo/tests/build.yaml",
+    "suites/promptfoo/tests/plan.yaml",
+    "suites/promptfoo/tests/research.yaml",
+    "suites/promptfoo/tests/tool-call.yaml",
+    "live git status --short",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitPull": "Already up to date.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 360 MiB used, 7628 MiB free, 5% utilization"
+  },
+  "command": {
+    "env": {
+      "EVAL_PROMPTFOO_NO_CACHE": "true",
+      "EVAL_TASK_FILTER": "build-synthetic-smoke",
+      "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+      "EVAL_SMOKE_PROFILES": "gpu_offload",
+      "EVAL_CELL_TIMEOUT_MS": "300000"
+    },
+    "command": "node scripts/run-matrix.mjs --smoke",
+    "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no other model, profile, task, or retry was run."
+  },
+  "artifacts": {
+    "matrixJsonl": "results/matrix-2026-06-07T16-48-17-033Z.jsonl",
+    "progressJsonl": "results/matrix-2026-06-07T16-48-17-033Z.progress.jsonl",
+    "latestProgress": "results/matrix-latest-progress.json",
+    "matrixSummary": "results/matrix-summary.json",
+    "promptfooLatest": "results/promptfoo-latest.json",
+    "comparisonArchive": null,
+    "userJudgeQueueArchive": null
+  },
+  "row": {
+    "runId": "2026-06-07T16-48-17-033Z",
+    "modelKey": "qwen/qwen3.5-9b",
+    "variant": "qwen/qwen3.5-9b@q4_k_m",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "completed",
+    "passes": null,
+    "total": null,
+    "durationMs": 666,
+    "stderr": ""
+  },
+  "progressTelemetry": {
+    "produced": true,
+    "events": [
+      "run_started",
+      "cell_started",
+      "load_started",
+      "load_stdout",
+      "load_finished",
+      "eval_started",
+      "eval_stdout",
+      "eval_finished",
+      "cell_finished",
+      "unload_started",
+      "unload_stdout",
+      "unload_finished",
+      "run_finished"
+    ],
+    "latest": {
+      "at": "2026-06-07T16:48:19.375Z",
+      "runId": "2026-06-07T16-48-17-033Z",
+      "event": "run_finished"
+    },
+    "evalArgs": [
+      "node_modules/promptfoo/dist/src/entrypoint.js",
+      "eval",
+      "-c",
+      "suites/promptfoo/promptfooconfig.yaml",
+      "--max-concurrency",
+      "1",
+      "-o",
+      "results/promptfoo-latest.json",
+      "--no-cache",
+      "--filter-metadata",
+      "taskId=build-synthetic-smoke"
+    ],
+    "loadDurationMs": 674,
+    "evalDurationMs": 666,
+    "unloadDurationMs": 489
+  },
+  "comparisonToPriorFailures": {
+    "stream28": {
+      "artifact": "results/stream28-qwen-uncached-single-task.json",
+      "result": "Pre-hardening filtered qwen no-cache build-synthetic-smoke completed as eval_failed 0/4 in 261012 ms; Promptfoo latest had 4 errors and firstError TypeError Cannot read properties of undefined (reading includes).",
+      "status": "eval_failed",
+      "passes": 0,
+      "total": 4,
+      "durationMs": 261012,
+      "firstError": "TypeError: Cannot read properties of undefined (reading 'includes')\n    at handleContains (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:607:28)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n    at Object.awaitable (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:215:20)"
+    },
+    "stream35": {
+      "artifact": "results/stream35-qwen-full-no-cache-extended.json",
+      "result": "Full-suite qwen no-cache timed out at 2400084 ms before pass totals; stderr tail repeated TypeError Cannot read properties of undefined (reading includes).",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 2400084
+    },
+    "stream36Delta": "The Stream 36 row/progress telemetry contains no undefined.includes TypeError and exits as a terminal completed runner row in 666 ms, but it has null pass totals and no refreshed Promptfoo output surface."
+  },
+  "promptfooLatestStatus": {
+    "refreshedByStream36": false,
+    "currentEvalId": "2026-06-07T15-22-52-975Z",
+    "currentModel": "google/gemma-4-31b-qat",
+    "assessment": "results/promptfoo-latest.json still points to the Stream 34 31B-QAT surface, so compare/queue archives were not generated for Stream 36."
+  },
+  "cacheAndFilterEvidence": {
+    "noCacheEnvSet": true,
+    "evalArgsIncludeNoCache": true,
+    "evalArgsIncludeTaskFilter": true,
+    "evalArgsTaskFilterValue": "taskId=build-synthetic-smoke"
+  },
+  "assertionHardeningAssessment": {
+    "undefinedIncludesPresentInStream28": true,
+    "undefinedIncludesPresentInStream35": true,
+    "undefinedIncludesPresentInStream36Row": false,
+    "undefinedIncludesPresentInStream36Progress": false,
+    "verdict": "The undefined.includes assertion error disappeared from the Stream 36 row/progress surface after commit 5606495, but the run did not produce pass totals or a fresh Promptfoo result file, so this validates absence of the previous assertion crash only on the runner surface, not model quality or normal Promptfoo scoring."
+  },
+  "matrixSummaryNote": "node scripts/summarize-matrix.mjs initially selected the new .progress.jsonl sidecar because it matches matrix-*.jsonl; results/matrix-summary.json was corrected to the actual Stream 36 matrix JSONL artifact for this stream.",
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 360 MiB used, 7628 MiB free, 5% utilization"
+  },
+  "gapOutcome": {
+    "closedOrSharpened": [
+      "Narrow assertion-hardening validation: the prior undefined.includes Promptfoo assertion error is absent from the single requested post-hardening row/progress telemetry.",
+      "Progress telemetry was produced and preserved for the run."
+    ],
+    "notClosed": [
+      "The row has null pass/total counts and did not refresh results/promptfoo-latest.json.",
+      "No Stream 36 compare/queue archive was generated because the Promptfoo output surface stayed stale.",
+      "Qwen full current-suite no-cache throughput remains incomplete.",
+      "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
+  }
+}

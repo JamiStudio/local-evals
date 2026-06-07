@@ -238,7 +238,8 @@
     "Stream 32 31B Q4 offload practical probe is complete: google/gemma-4-31b@gpu_offload local fallback build-synthetic-smoke completed 1/1 in 262464 ms with no timeout/load failure; compare and queue archives were generated because promptfoo-latest refreshed to Stream 32. This closes only the narrow 31B Q4 estimate-timeout-only practical evidence gap; 31B broad readiness and 31B-QAT practical success remains incomplete.",
     "Stream 33 review-readiness index is complete: docs/evals/2026-06-07-review-readiness-index.md and results/final-selection-review-manifest.json group exact artifacts and row/existence checks for seven pending review lanes. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT broad proof, and final verification.",
     "Stream 34 31B-QAT extended offload probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke reached a terminal row under EVAL_CELL_TIMEOUT_MS=900000, but failed 0/1 after 305466 ms with empty output and fetch failed; no compare/queue archive was generated because there was no completed model output. This shows the 300s cap was slightly too tight for terminal status, but 31B-QAT still has no practical success row.",
-    "Stream 35 qwen full no-cache extended retry is complete: qwen/qwen3.5-9b@gpu_offload full current-suite Promptfoo no-cache timed out at 2400084 ms before pass totals; the abandoned zero-byte crash JSONL remains documented; no compare/queue archives were generated because promptfoo-latest stayed on Stream 34. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache completed throughput, broad partial profiles, broad 31B/31B-QAT proof, and final verification."
+    "Stream 35 qwen full no-cache extended retry is complete: qwen/qwen3.5-9b@gpu_offload full current-suite Promptfoo no-cache timed out at 2400084 ms before pass totals; the abandoned zero-byte crash JSONL remains documented; no compare/queue archives were generated because promptfoo-latest stayed on Stream 34. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache completed throughput, broad partial profiles, broad 31B/31B-QAT proof, and final verification.",
+    "Stream 36 qwen assertion-hardening validation is complete: exactly one Promptfoo no-cache build-synthetic-smoke qwen@gpu_offload cell ran under EVAL_CELL_TIMEOUT_MS=300000 and completed as a runner row in 666 ms with passes/total null; the prior undefined.includes assertion error is absent from the row/progress telemetry, but promptfoo-latest stayed on Stream 34 and qwen full no-cache throughput/user-review/final selection remain open."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -3106,6 +3107,123 @@
       "Broad partial-profile quality/throughput remains incomplete.",
       "31B Q4_K_M has one narrow offload success row and 31B-QAT has no practical success row.",
       "Final two-verifier completion audit remains pending."
+    ]
+  },
+  "stream36QwenAssertionHardeningValidation": {
+    "at": "2026-06-07T16:55:00.000Z",
+    "scope": "Validate the just-pushed Promptfoo assertion hardening commit 5606495 with exactly one LM Studio local Promptfoo cell.",
+    "commit": {
+      "requestedCommit": "5606495",
+      "presentOnMain": true,
+      "subject": "Harden promptfoo assertions for empty outputs",
+      "touchedPromptfooTests": [
+        "suites/promptfoo/tests/build.yaml",
+        "suites/promptfoo/tests/plan.yaml",
+        "suites/promptfoo/tests/research.yaml",
+        "suites/promptfoo/tests/tool-call.yaml"
+      ]
+    },
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 360 MiB used, 7628 MiB free, 5% utilization"
+    },
+    "command": {
+      "env": {
+        "EVAL_PROMPTFOO_NO_CACHE": "true",
+        "EVAL_TASK_FILTER": "build-synthetic-smoke",
+        "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+        "EVAL_SMOKE_PROFILES": "gpu_offload",
+        "EVAL_CELL_TIMEOUT_MS": "300000"
+      },
+      "command": "node scripts/run-matrix.mjs --smoke",
+      "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no other model, profile, task, or retry was run."
+    },
+    "artifacts": {
+      "matrixJsonl": "results/matrix-2026-06-07T16-48-17-033Z.jsonl",
+      "progressJsonl": "results/matrix-2026-06-07T16-48-17-033Z.progress.jsonl",
+      "latestProgress": "results/matrix-latest-progress.json",
+      "matrixSummary": "results/matrix-summary.json",
+      "promptfooLatest": "results/promptfoo-latest.json",
+      "comparisonArchive": null,
+      "userJudgeQueueArchive": null
+    },
+    "row": {
+      "runId": "2026-06-07T16-48-17-033Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "completed",
+      "passes": null,
+      "total": null,
+      "durationMs": 666,
+      "stderr": ""
+    },
+    "progressTelemetry": {
+      "produced": true,
+      "events": [
+        "run_started",
+        "cell_started",
+        "load_started",
+        "load_stdout",
+        "load_finished",
+        "eval_started",
+        "eval_stdout",
+        "eval_finished",
+        "cell_finished",
+        "unload_started",
+        "unload_stdout",
+        "unload_finished",
+        "run_finished"
+      ],
+      "latest": {
+        "at": "2026-06-07T16:48:19.375Z",
+        "runId": "2026-06-07T16-48-17-033Z",
+        "event": "run_finished"
+      },
+      "evalArgs": [
+        "node_modules/promptfoo/dist/src/entrypoint.js",
+        "eval",
+        "-c",
+        "suites/promptfoo/promptfooconfig.yaml",
+        "--max-concurrency",
+        "1",
+        "-o",
+        "results/promptfoo-latest.json",
+        "--no-cache",
+        "--filter-metadata",
+        "taskId=build-synthetic-smoke"
+      ],
+      "loadDurationMs": 674,
+      "evalDurationMs": 666,
+      "unloadDurationMs": 489
+    },
+    "assertionHardeningAssessment": {
+      "undefinedIncludesPresentInStream28": true,
+      "undefinedIncludesPresentInStream35": true,
+      "undefinedIncludesPresentInStream36Row": false,
+      "undefinedIncludesPresentInStream36Progress": false,
+      "verdict": "The undefined.includes assertion error disappeared from the Stream 36 row/progress surface after commit 5606495, but the run did not produce pass totals or a fresh Promptfoo result file, so this validates absence of the previous assertion crash only on the runner surface, not model quality or normal Promptfoo scoring."
+    },
+    "promptfooLatestStatus": {
+      "refreshedByStream36": false,
+      "currentEvalId": "2026-06-07T15-22-52-975Z",
+      "currentModel": "google/gemma-4-31b-qat",
+      "assessment": "results/promptfoo-latest.json still points to the Stream 34 31B-QAT surface, so compare/queue archives were not generated for Stream 36."
+    },
+    "runtimeAfterUnload": {
+      "action": "lms unload --all",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 360 MiB used, 7628 MiB free, 5% utilization"
+    },
+    "remainingGaps": [
+      "The row has null pass/total counts and did not refresh results/promptfoo-latest.json.",
+      "No Stream 36 compare/queue archive was generated because the Promptfoo output surface stayed stale.",
+      "Qwen full current-suite no-cache throughput remains incomplete.",
+      "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
     ]
   }
 }
