@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "description": "Imported reference outputs from subs or credit-funded endpoints. The harness never calls paid APIs to populate this.",
+  "tasks": [
+    {
+      "taskId": "research-synthetic-smoke",
+      "lane": "research",
+      "promptFile": "suites/promptfoo/prompts/research.txt",
+      "vars": {
+        "topic": "Local OSS model placement for agent research tasks",
+        "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis."
+      }
+    },
+    {
+      "taskId": "research-harness-tools",
+      "lane": "research",
+      "promptFile": "suites/promptfoo/prompts/research.txt",
+      "vars": {
+        "topic": "Tool registry design for a harness product",
+        "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations."
+      }
+    },
+    {
+      "taskId": "plan-synthetic-smoke",
+      "lane": "plan",
+      "promptFile": "suites/promptfoo/prompts/plan.txt"
+    },
+    {
+      "taskId": "plan-voice-host",
+      "lane": "plan",
+      "promptFile": "suites/promptfoo/prompts/plan.txt"
+    },
+    {
+      "taskId": "build-synthetic-smoke",
+      "lane": "build",
+      "promptFile": "suites/promptfoo/prompts/build.txt"
+    },
+    {
+      "taskId": "build-config-timeout",
+      "lane": "build",
+      "promptFile": "suites/promptfoo/prompts/build.txt"
+    },
+    {
+      "taskId": "tool-call-search-docs",
+      "lane": "tool-call",
+      "promptFile": "suites/promptfoo/prompts/tool-call.txt"
+    },
+    {
+      "taskId": "tool-call-read-file",
+      "lane": "tool-call",
+      "promptFile": "suites/promptfoo/prompts/tool-call.txt"
+    }
+  ],
+  "imports": [
+    {
+      "taskId": "research-synthetic-smoke",
+      "source": "vertex-gemini",
+      "path": "baselines/research-synthetic-smoke/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:47:25.652Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "research-harness-tools",
+      "source": "vertex-gemini",
+      "path": "baselines/research-harness-tools/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:47:31.133Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "plan-synthetic-smoke",
+      "source": "vertex-gemini",
+      "path": "baselines/plan-synthetic-smoke/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:47:40.129Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "plan-voice-host",
+      "source": "vertex-gemini",
+      "path": "baselines/plan-voice-host/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:47:50.576Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "build-synthetic-smoke",
+      "source": "vertex-gemini",
+      "path": "baselines/build-synthetic-smoke/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:47:58.759Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "build-config-timeout",
+      "source": "vertex-gemini",
+      "path": "baselines/build-config-timeout/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:48:03.838Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "tool-call-search-docs",
+      "source": "vertex-gemini",
+      "path": "baselines/tool-call-search-docs/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:48:04.765Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "tool-call-read-file",
+      "source": "vertex-gemini",
+      "path": "baselines/tool-call-read-file/vertex-gemini.json",
+      "importedAt": "2026-06-06T22:48:05.737Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "research-synthetic-smoke",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/research-synthetic-smoke/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:24:10.230Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "research-harness-tools",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/research-harness-tools/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:24:20.158Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "plan-synthetic-smoke",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/plan-synthetic-smoke/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:24:37.193Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "plan-voice-host",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/plan-voice-host/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:24:56.115Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "build-synthetic-smoke",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/build-synthetic-smoke/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:25:10.295Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "build-config-timeout",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/build-config-timeout/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:25:25.323Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "tool-call-search-docs",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/tool-call-search-docs/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:25:29.424Z",
+      "collector": "vertex"
+    },
+    {
+      "taskId": "tool-call-read-file",
+      "source": "vertex-gemini-3-1-pro-preview",
+      "path": "baselines/tool-call-read-file/vertex-gemini-3-1-pro-preview.json",
+      "importedAt": "2026-06-06T23:25:33.165Z",
+      "collector": "vertex"
+    }
+  ]
+}

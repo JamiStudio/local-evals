@@ -1,0 +1,43 @@
+# Optional overlay — credit-funded Azure OpenAI rubric ONLY.
+# Enable with EVAL_ENABLE_AZURE_JUDGE=true in .env
+# Never use direct openai.com API keys here.
+
+description: Azure credit-funded judge overlay (optional)
+
+prompts:
+  - file://prompts/research.txt
+  - file://prompts/plan.txt
+  - file://prompts/build.txt
+  - file://prompts/tool-call.txt
+
+providers:
+  - file://providers/lmstudio-subject.yaml
+
+defaultTest:
+  options:
+    provider: azure:chat:{{env.AZURE_OPENAI_DEPLOYMENT}}
+    transform: |
+      (output || '').replace(/```[\s\S]*?```/g, '').trim()
+  assert:
+    - type: llm-rubric
+      value: Response is relevant, actionable, and matches the task intent
+      threshold: 0.65
+      provider: azure:chat:{{env.AZURE_OPENAI_DEPLOYMENT}}
+      config:
+        apiHost: '{{env.AZURE_OPENAI_ENDPOINT}}'
+        apiKey: '{{env.AZURE_OPENAI_API_KEY}}'
+        apiVersion: '{{env.AZURE_OPENAI_API_VERSION}}'
+
+tests:
+  - file://tests/research.yaml
+  - file://tests/plan.yaml
+  - file://tests/build.yaml
+  - file://tests/tool-call.yaml
+
+evaluateOptions:
+  maxConcurrency: 1
+
+outputPath: results/promptfoo-azure-judge.json
+
+metadata:
+  scoringMode: azure-credit-judge

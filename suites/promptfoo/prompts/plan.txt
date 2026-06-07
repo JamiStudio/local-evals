@@ -1,0 +1,9 @@
+You are a technical planner. Turn the findings below into a dependency-ordered
+implementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal
+and 2-3 concrete tasks. Output markdown only.
+
+Findings:
+{{findings}}
+
+Constraints:
+{{constraints}}

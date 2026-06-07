@@ -1,0 +1,25 @@
+- description: plan — synthetic smoke
+  metadata:
+    taskId: plan-synthetic-smoke
+    lane: plan
+  vars:
+    findings: Local eval harness needs registry, suites, matrix runner, and Langfuse.
+    constraints: Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines.
+  assert:
+    - type: contains
+      value: Workstream
+    - type: javascript
+      value: output.split(/\n/).filter(l => l.trim()).length >= 5
+
+- description: plan — template (voice host integration)
+  metadata:
+    taskId: plan-voice-host
+    lane: plan
+  vars:
+    findings: Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.
+    constraints: No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback.
+  assert:
+    - type: contains
+      value: gateway
+    - type: javascript
+      value: output.toLowerCase().includes('host') || output.toLowerCase().includes('hermes')

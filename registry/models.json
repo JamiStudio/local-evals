@@ -1,0 +1,196 @@
+{
+  "version": 1,
+  "exportedAt": "2026-06-06T22:39:06.234Z",
+  "source": "lms ls --json",
+  "llms": [
+    {
+      "modelKey": "google/gemma-4-26b-a4b",
+      "displayName": "Gemma 4 26B A4B",
+      "params": "26B-A4B",
+      "architecture": "gemma4",
+      "sizeGb": 17.99,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "google/gemma-4-26b-a4b@q4_k_m"
+      ],
+      "selectedVariant": "google/gemma-4-26b-a4b@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 262144
+    },
+    {
+      "modelKey": "google/gemma-4-12b",
+      "displayName": "Gemma 4 12B",
+      "params": "12B",
+      "architecture": "gemma4",
+      "sizeGb": 7.56,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "google/gemma-4-12b@q4_k_m"
+      ],
+      "selectedVariant": "google/gemma-4-12b@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 262144
+    },
+    {
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "displayName": "Glm 4.6v Flash",
+      "params": "9.4B",
+      "architecture": "glm4",
+      "sizeGb": 7.95,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "zai-org/glm-4.6v-flash@q4_k_m"
+      ],
+      "selectedVariant": "zai-org/glm-4.6v-flash@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 131072
+    },
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "displayName": "Qwen3.5 9B",
+      "params": "9B",
+      "architecture": "qwen35",
+      "sizeGb": 6.55,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "qwen/qwen3.5-9b@q4_k_m"
+      ],
+      "selectedVariant": "qwen/qwen3.5-9b@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 262144
+    },
+    {
+      "modelKey": "google/gemma-4-e2b",
+      "displayName": "Gemma 4 E2B",
+      "params": "4.6B",
+      "architecture": "gemma4",
+      "sizeGb": 4.41,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "google/gemma-4-e2b@q4_k_m",
+        "google/gemma-4-e2b@q8_0"
+      ],
+      "selectedVariant": "google/gemma-4-e2b@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 131072
+    },
+    {
+      "modelKey": "google/gemma-4-31b",
+      "displayName": "Gemma 4 31B",
+      "params": "31B",
+      "architecture": "gemma4",
+      "sizeGb": 19.89,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "google/gemma-4-31b@q4_k_m"
+      ],
+      "selectedVariant": "google/gemma-4-31b@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 262144
+    },
+    {
+      "modelKey": "google/gemma-4-31b-qat",
+      "displayName": "Gemma 4 31B Qat",
+      "params": "31B",
+      "architecture": "gemma4",
+      "sizeGb": 18.85,
+      "quantization": "Q4_0",
+      "variants": [
+        "google/gemma-4-31b-qat@q4_0"
+      ],
+      "selectedVariant": "google/gemma-4-31b-qat@q4_0",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 262144
+    },
+    {
+      "modelKey": "google/gemma-4-12b-qat",
+      "displayName": "Gemma 4 12B Qat",
+      "params": "12B",
+      "architecture": "gemma4",
+      "sizeGb": 7.15,
+      "quantization": "Q4_0",
+      "variants": [
+        "google/gemma-4-12b-qat@q4_0"
+      ],
+      "selectedVariant": "google/gemma-4-12b-qat@q4_0",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 262144
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "displayName": "Rnj 1",
+      "params": "8.3B",
+      "architecture": "gemma3",
+      "sizeGb": 5.11,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "essentialai/rnj-1@q4_k_m"
+      ],
+      "selectedVariant": "essentialai/rnj-1@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": false,
+      "maxContextLength": 32768
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "displayName": "Nemotron 3 Nano 4B",
+      "params": "4.0B",
+      "architecture": "nemotron_h",
+      "sizeGb": 2.84,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "nvidia/nemotron-3-nano-4b@q4_k_m",
+        "nvidia/nemotron-3-nano-4b@q8_0"
+      ],
+      "selectedVariant": "nvidia/nemotron-3-nano-4b@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": false,
+      "maxContextLength": 1048576
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "displayName": "Lfm2.5 1.2B",
+      "params": "1.2B",
+      "architecture": "lfm2",
+      "sizeGb": 1.25,
+      "quantization": "Q8_0",
+      "variants": [
+        "liquid/lfm2.5-1.2b@q8_0"
+      ],
+      "selectedVariant": "liquid/lfm2.5-1.2b@q8_0",
+      "trainedForToolUse": true,
+      "vision": false,
+      "maxContextLength": 128000
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "displayName": "Gemma 4 E4B",
+      "params": "7.5B",
+      "architecture": "gemma4",
+      "sizeGb": 6.33,
+      "quantization": "Q4_K_M",
+      "variants": [
+        "google/gemma-4-e4b@q4_k_m"
+      ],
+      "selectedVariant": "google/gemma-4-e4b@q4_k_m",
+      "trainedForToolUse": true,
+      "vision": true,
+      "maxContextLength": 131072
+    }
+  ],
+  "embeddings": [
+    {
+      "modelKey": "text-embedding-nomic-embed-text-v1.5",
+      "displayName": "Nomic Embed Text v1.5",
+      "quantization": "Q4_K_M"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+- description: research — synthetic smoke
+  metadata:
+    taskId: research-synthetic-smoke
+    lane: research
+  vars:
+    topic: Local OSS model placement for agent research tasks
+    sources: |
+      - LM Studio exposes OpenAI-compatible APIs for local GGUF models.
+      - 8GB VRAM forces offload for 12B+ models.
+      - Cloud models remain stronger for long-horizon synthesis.
+  assert:
+    - type: contains
+      value: VRAM
+    - type: contains
+      value: next
+
+- description: research — template (agent harness workflow)
+  metadata:
+    taskId: research-harness-tools
+    lane: research
+  vars:
+    topic: Tool registry design for a harness product
+    sources: |
+      - Harness owns tool identity, permissions, approval, and audit mapping.
+      - External connector catalogs sit behind adapters.
+      - First prototype targets ten internal tools before breadth integrations.
+  assert:
+    - type: contains
+      value: tool
+    - type: javascript
+      value: output.length > 200

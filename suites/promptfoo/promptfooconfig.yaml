@@ -1,0 +1,27 @@
+description: Local OSS model eval matrix — LM Studio only, no paid API calls
+
+prompts:
+  - file://prompts/research.txt
+  - file://prompts/plan.txt
+  - file://prompts/build.txt
+  - file://prompts/tool-call.txt
+
+providers:
+  - file://providers/lmstudio-subject.yaml
+
+tests:
+  - file://tests/research.yaml
+  - file://tests/plan.yaml
+  - file://tests/build.yaml
+  - file://tests/tool-call.yaml
+
+evaluateOptions:
+  maxConcurrency: 1
+
+outputPath: results/promptfoo-latest.json
+
+metadata:
+  runId: '{{env.EVAL_RUN_ID}}'
+  loadProfile: '{{env.EVAL_LOAD_PROFILE}}'
+  subjectModel: '{{env.EVAL_SUBJECT_MODEL}}'
+  scoringMode: deterministic-only

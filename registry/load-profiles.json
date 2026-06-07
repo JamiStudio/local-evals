@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "vramGb": 8,
+  "vramSource": "nvidia-smi 2026-06-06 — RTX 2080 Super Max-Q 8192 MiB",
+  "profiles": {
+    "gpu_full": {
+      "label": "GPU max offload",
+      "lmsGpuFlag": "max",
+      "description": "`lms load --gpu max` (100% GPU offload). Weights on GPU; best throughput when estimated GPU memory fits host headroom (~6.8 GiB for qwen3.5-9b on this host)."
+    },
+    "gpu_offload": {
+      "label": "CPU-only (gpu off)",
+      "lmsGpuFlag": "off",
+      "description": "`lms load --gpu off` (0% GPU). CPU RAM holds weights; use when max exceeds VRAM (e.g. gemma-4-26b @ 17.4 GiB) or measured matrix prefers it (qwen3.5-9b smoke: 63% vs 50%)."
+    }
+  },
+  "notes": [
+    "Profile ids are eval labels, not LM Studio defaults. Read results/system-profile.json before tuning.",
+    "Models exceeding headroom: add partial --gpu <ratio> profile after lms load --estimate-only.",
+    "Matrix serializes loads; unload between cells. Reserve ~1.2 GiB VRAM for KV/runtime beyond weight estimates."
+  ]
+}

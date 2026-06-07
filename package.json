@@ -1,0 +1,42 @@
+{
+  "name": "evals",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "postinstall": "node scripts/ensure-sqlite.mjs",
+    "ensure:sqlite": "node scripts/ensure-sqlite.mjs",
+    "verify:connectivity": "node scripts/verify-connectivity.mjs",
+    "capture:system": "node scripts/capture-system-profile.mjs",
+    "capture:system:quick": "node scripts/capture-system-profile.mjs --quick",
+    "registry:export": "node scripts/export-registry.mjs",
+    "baseline:collect": "node scripts/collect-baselines-credits.mjs",
+    "gemini:models": "node scripts/list-gemini-models.mjs",
+    "langfuse:up": "docker compose -f langfuse/docker-compose.yml up -d",
+    "langfuse:down": "docker compose -f langfuse/docker-compose.yml down",
+    "eval:smoke": "node scripts/run-local-eval.mjs",
+    "eval:promptfoo": "node node_modules/promptfoo/dist/src/entrypoint.js eval -c suites/promptfoo/promptfooconfig.yaml --max-concurrency 1 -o results/promptfoo-latest.json",
+    "matrix:smoke": "node scripts/run-matrix.mjs --smoke",
+    "matrix:full": "node scripts/run-matrix.mjs --full",
+    "baseline:prompts": "node scripts/print-baseline-prompts.mjs",
+    "baseline:import": "node scripts/import-baseline.mjs",
+    "compare:baseline": "node scripts/compare-to-baseline.mjs",
+    "summarize:matrix": "node scripts/summarize-matrix.mjs",
+    "judge:queue": "node scripts/queue-user-judge.mjs",
+    "eval:deepeval": "uv run deepeval test run suites/deepeval/test_workflows.py -v",
+    "eval:azure-judge": "npx promptfoo eval -c suites/promptfoo/promptfooconfig.azure-judge.yaml --max-concurrency 1",
+    "optimize:smoke": "node scripts/optimization-loop.mjs --smoke",
+    "optimize:full": "node scripts/optimization-loop.mjs --full",
+    "optimize:loop": "node scripts/optimization-loop.mjs --smoke --loop",
+    "optimize:report": "node scripts/optimization-loop.mjs --report-only",
+    "verify": "node scripts/export-registry.mjs && node --check scripts/run-matrix.mjs && node --check scripts/import-baseline.mjs && node --check scripts/compare-to-baseline.mjs && node --check scripts/summarize-matrix.mjs && node --check scripts/optimization-loop.mjs"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "promptfoo": "^0.120.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "yaml": "^2.9.0"
+  }
+}

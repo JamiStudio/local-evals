@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "policy": "No direct paid API calls. Automated harness runs LM Studio only. Baselines and primary judging happen outside the harness via subscriptions or imported credit-funded outputs.",
+  "importedBaseline": {
+    "directory": "baselines",
+    "manifest": "baselines/manifest.json",
+    "importScript": "scripts/import-baseline.mjs",
+    "compareScript": "scripts/compare-to-baseline.mjs",
+    "allowedSources": [
+      "chatgpt-sub",
+      "claude-sub",
+      "grok-sub",
+      "gemini-sub",
+      "azure-openai",
+      "vertex-gemini",
+      "vertex-gemini-3-1-pro-preview",
+      "vertex-gemini-3-5-flash",
+      "other-sub"
+    ],
+    "purpose": "Operator runs each task through a chosen sub or Azure/Vertex credit endpoint, then imports the reference output"
+  },
+  "automatedJudge": {
+    "default": "none",
+    "optional": [
+      {
+        "id": "azure-openai",
+        "enabledEnv": "EVAL_ENABLE_AZURE_JUDGE",
+        "purpose": "Credit-funded rubric only when explicitly enabled",
+        "configFile": "suites/promptfoo/promptfooconfig.azure-judge.yaml"
+      },
+      {
+        "id": "vertex-gemini",
+        "enabledEnv": "EVAL_ENABLE_VERTEX_JUDGE",
+        "purpose": "Credit-funded rubric only when explicitly enabled"
+      }
+    ]
+  },
+  "userJudge": {
+    "queueFile": "results/user-judge-queue.jsonl",
+    "reviewAllEnv": "EVAL_USER_JUDGE_REVIEW_ALL",
+    "purpose": "Primary quality lane — review local output vs imported baseline in subscription UI or review queue"
+  }
+}

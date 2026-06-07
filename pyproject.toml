@@ -1,0 +1,18 @@
+[project]
+name = "evals-deepeval"
+version = "0.1.0"
+description = "DeepEval agent-trace suites for local OSS model evals"
+requires-python = ">=3.11"
+dependencies = [
+  "deepeval>=2.0.0",
+  "pytest>=8.0.0",
+  "python-dotenv>=1.0.0",
+  "openai>=1.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["suites/deepeval"]
+pythonpath = ["."]
+
+[tool.uv]
+dev-dependencies = []

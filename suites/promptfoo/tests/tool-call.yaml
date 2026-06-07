@@ -1,0 +1,65 @@
+- description: tool-call — search then summarize (synthetic)
+  metadata:
+    taskId: tool-call-search-docs
+    lane: tool-call
+  vars:
+    request: Search the docs for "load profile" and summarize how gpu_full differs from gpu_offload.
+  assert:
+    - type: javascript
+      value: |
+        output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().includes('max')
+  provider:
+    config:
+      tools:
+        - type: function
+          function:
+            name: search_docs
+            description: Search project documentation for a query string
+            parameters:
+              type: object
+              properties:
+                query:
+                  type: string
+              required: [query]
+      functionToolCallbacks:
+        search_docs: |
+          async (args) => {
+            const { query } = JSON.parse(args);
+            if (query.toLowerCase().includes('load profile')) {
+              return 'gpu_full uses lms load --gpu max; gpu_offload uses --gpu off.';
+            }
+            return 'No results';
+          }
+
+- description: tool-call — read file (template)
+  metadata:
+    taskId: tool-call-read-file
+    lane: tool-call
+  vars:
+    request: Read the registry load profiles and report the two preset ids.
+  assert:
+    - type: javascript
+      value: |
+        output.includes('gpu_full') && output.includes('gpu_offload')
+  provider:
+    config:
+      tools:
+        - type: function
+          function:
+            name: read_file
+            description: Read a tracked project file by relative path
+            parameters:
+              type: object
+              properties:
+                path:
+                  type: string
+              required: [path]
+      functionToolCallbacks:
+        read_file: |
+          async (args) => {
+            const { path } = JSON.parse(args);
+            if (path === 'registry/load-profiles.json') {
+              return JSON.stringify({ profiles: { gpu_full: {}, gpu_offload: {} } });
+            }
+            return 'FILE_NOT_FOUND';
+          }

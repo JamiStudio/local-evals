@@ -1,0 +1,39 @@
+- description: build — synthetic smoke
+  metadata:
+    taskId: build-synthetic-smoke
+    lane: build
+  vars:
+    task: Add a function that sums an array of numbers
+    file_path: src/math.ts
+    language: typescript
+    file_content: |
+      export function sum(values: number[]): number {
+        return 0;
+      }
+  assert:
+    - type: contains
+      value: '+++'
+    - type: javascript
+      value: output.includes('reduce') || output.includes('for') || output.includes('+=')
+  options:
+    transform: '(output) => (output || "").replace(/```[\\s\\S]*?```/g, "").trim()'
+
+- description: build — template (config helper)
+  metadata:
+    taskId: build-config-timeout
+    lane: build
+  vars:
+    task: Parse an optional timeout env var with default 30000
+    file_path: src/config.ts
+    language: typescript
+    file_content: |
+      export function readTimeout(): number {
+        throw new Error('not implemented');
+      }
+  assert:
+    - type: contains
+      value: '+++'
+    - type: javascript
+      value: output.includes('30000') || output.includes('30_000') || output.includes('30 * 1000')
+  options:
+    transform: '(output) => (output || "").replace(/```[\\s\\S]*?```/g, "").trim()'

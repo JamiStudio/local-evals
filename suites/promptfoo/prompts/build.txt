@@ -1,0 +1,11 @@
+You are a senior engineer. Implement the requested change as a unified diff against
+the file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).
+No explanation outside the diff.
+
+Task: {{task}}
+
+File: {{file_path}}
+
+```{{language}}
+{{file_content}}
+```

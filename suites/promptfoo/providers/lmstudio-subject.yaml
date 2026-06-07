@@ -1,0 +1,7 @@
+id: openai:chat:{{env.EVAL_SUBJECT_MODEL}}
+label: 'local:{{env.EVAL_SUBJECT_MODEL}} ({{env.EVAL_LOAD_PROFILE}})'
+config:
+  apiBaseUrl: '{{env.LMSTUDIO_BASE_URL}}'
+  apiKey: '{{env.LMSTUDIO_API_KEY}}'
+  temperature: 0.2
+  max_tokens: 2048
