@@ -1,0 +1,48 @@
+{
+  "cycle": 1,
+  "at": "2026-06-06T23:43:20.761Z",
+  "mode": "smoke",
+  "baseline": {
+    "covered": 8,
+    "total": 8,
+    "source": "vertex-gemini-3-1-pro-preview"
+  },
+  "latestMatrix": "matrix-2026-06-06T22-51-56-696Z.jsonl",
+  "matrixSummary": [
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_offload",
+      "passes": 5,
+      "total": 8,
+      "pct": 63
+    },
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_full",
+      "passes": 4,
+      "total": 8,
+      "pct": 50
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "passes": 3,
+      "total": 8,
+      "pct": 38
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_offload",
+      "passes": 3,
+      "total": 8,
+      "pct": 38
+    }
+  ],
+  "comparison": true,
+  "userJudgeQueue": true,
+  "nextActions": [
+    "Tune thresholds using leader qwen/qwen3.5-9b@gpu_offload (63% pass)",
+    "Review results/user-judge-queue.jsonl",
+    "Tune suites/promptfoo/tests/*.yaml thresholds and matrix presets"
+  ]
+}

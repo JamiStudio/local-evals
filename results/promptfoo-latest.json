@@ -1,0 +1,3903 @@
+{
+  "evalId": "eval-aXW-2026-06-07T05:53:34",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-06-07T05:53:34.788Z",
+    "prompts": [
+      {
+        "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+        "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+        "id": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "provider": "local:google/gemma-4-12b (gpu_full)",
+        "metrics": {
+          "score": 1,
+          "testPassCount": 1,
+          "testFailCount": 0,
+          "testErrorCount": 9,
+          "assertPassCount": 2,
+          "assertFailCount": 0,
+          "totalLatencyMs": 159188,
+          "tokenUsage": {
+            "prompt": 127,
+            "completion": 859,
+            "cached": 0,
+            "total": 986,
+            "numRequests": 10,
+            "completionDetails": {
+              "reasoning": 553,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+        "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+        "id": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "provider": "local:google/gemma-4-12b (gpu_full)",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 0,
+          "testErrorCount": 10,
+          "assertPassCount": 0,
+          "assertFailCount": 0,
+          "totalLatencyMs": 1195893,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 10,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+        "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+        "id": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "provider": "local:google/gemma-4-12b (gpu_full)",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 0,
+          "testErrorCount": 10,
+          "assertPassCount": 0,
+          "assertFailCount": 0,
+          "totalLatencyMs": 328,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 10,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+        "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+        "id": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "provider": "local:google/gemma-4-12b (gpu_full)",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 0,
+          "testErrorCount": 10,
+          "assertPassCount": 0,
+          "assertFailCount": 0,
+          "totalLatencyMs": 329,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 10,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "error": "API error: 400 Bad Request\n{\"error\":\"terminated\"}",
+        "gradingResult": null,
+        "id": "c450e3e3-460f-4380-a0c1-b8c3c59be673",
+        "latencyMs": 1195593,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API error: 400 Bad Request\n{\"error\":\"terminated\"}",
+          "metadata": {
+            "http": {
+              "status": 400,
+              "statusText": "Bad Request",
+              "headers": {
+                "access-control-allow-headers": "*",
+                "access-control-allow-origin": "*",
+                "connection": "keep-alive",
+                "content-length": "22",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Sun, 07 Jun 2026 06:16:09 GMT",
+                "etag": "W/\"16-omt6nCetO/GOsmnGEXRGZubI8NY\"",
+                "keep-alive": "timeout=5",
+                "x-powered-by": "Express"
+              }
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "research — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Local OSS model placement for agent research tasks",
+            "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "VRAM"
+            },
+            {
+              "type": "contains",
+              "value": "next"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "topic": "Local OSS model placement for agent research tasks",
+          "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 400,
+            "statusText": "Bad Request",
+            "headers": {
+              "access-control-allow-headers": "*",
+              "access-control-allow-origin": "*",
+              "connection": "keep-alive",
+              "content-length": "22",
+              "content-type": "application/json; charset=utf-8",
+              "date": "Sun, 07 Jun 2026 06:16:09 GMT",
+              "etag": "W/\"16-omt6nCetO/GOsmnGEXRGZubI8NY\"",
+              "keep-alive": "timeout=5",
+              "x-powered-by": "Express"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "b4e2ae05-0436-45a9-90bb-1fe8107257a2",
+        "latencyMs": 45,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "research — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Local OSS model placement for agent research tasks",
+            "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "VRAM"
+            },
+            {
+              "type": "contains",
+              "value": "next"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "topic": "Local OSS model placement for agent research tasks",
+          "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "35466a1d-d01d-45fc-ac5b-48e1d774dff7",
+        "latencyMs": 40,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "research — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Local OSS model placement for agent research tasks",
+            "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "VRAM"
+            },
+            {
+              "type": "contains",
+              "value": "next"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "topic": "Local OSS model placement for agent research tasks",
+          "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "VRAM"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "next"
+              }
+            }
+          ]
+        },
+        "id": "6c09d632-11c3-43bb-a20e-4cbaba8785b3",
+        "latencyMs": 158879,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: Local OSS model placement for agent research tasks\n\nSources:\n- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "output": "Thinking: Research assistant for a software team.\nLocal OSS model placement for agent research tasks.\n\n        *   LM Studio provides OpenAI-compatible APIs for local GGUF models.\n        *   8GB VRAM limits performance/capabilities (requires offloading for 12B+ models).\n        *   Cloud models are superior for long-horizon synthesis.\nConcise feasibility-style summary with key findings, risks, and recommended next steps.\nMarkdown headings. No preamble.\n\n    *   *Key Findings:* LM Studio makes local integration easy (OpenAI API compatibility). GGUF format is the standard for local deployment. Hardware constraints are real (8GB VRAM is a bottleneck for larger models). Cloud models still win on complex reasoning/synthesis.\n    *   *Risks:* Performance degradation due to offloading (latency, memory swapping). Model size limitations vs. task complexity. Potential \"intelligence gap\" when switching between local and cloud models.\n    *   *Next Steps:* Define a hybrid architecture. Use local for simple tasks/privacy-sensitive data; use cloud for complex synthesis. Test specific 7B-9B models on the current hardware to find the \"sweet spot.\"\n\n    *   *Heading: Key Findings*\n        *   LM Studio enables seamless integration of local GGUF models via OpenAI-compatible APIs, simplifying the transition from cloud to local infrastructure.\n        *   Hardware constraints are significant; 8GB VRAM limits high-performance execution for models exceeding 12B parameters without offloading.\n        *   Cloud-based models currently outperform local alternatives in complex, long-horizon synthesis tasks.\n\n    *   *Heading: Risks*\n        *   **Performance Degradation:** Offloading larger models (12B+) to system RAM/CPU can significantly increase latency and reduce throughput.\n        *   **Capability Gap:** Local models may struggle with the nuanced reasoning required for complex agentic workflows compared to frontier cloud models.\n\n    *   *Heading: Recommended Next Steps*\n        *   **Hybrid Architecture:** Implement a tiered approach where local models handle routine tasks/data preprocessing and cloud models are reserved for high-level synthesis.\n        *   **Hardware Optimization:** Benchmark 7B–9B parameter GGUF models to determine the optimal balance between speed and intelligence on existing 8GB VRAM hardware.\n        *   **Integration Testing:** Prototype a \"router\" logic to switch between local and cloud endpoints based on task complexity.\n\n    *   Concise? Yes.\n    *   Feasibility-style? Yes.\n    *   Markdown headings used? Yes.\n    *   No preamble? Yes.\n\n### Key Findings\n* **Integration Compatibility:** LM Studio provides a viable path for local deployment by exposing OpenAI-compatible APIs, allowing for easy integration of GGUF models into existing agentic workflows.\n* **Hardware Constraints:** The 8GB VRAM limit poses a significant bottleneck; models larger than 12B parameters will require offloading, likely resulting in degraded performance or increased latency.\n* **Capability Gap:** While local models are viable for specific tasks, cloud-based models remain the superior choice for complex, long-horizon synthesis and high-level reasoning.\n\n### Risks\n* **Performance Degradation:** Offloading larger models to system memory (due to 8GB VRAM limits) can cause significant latency spikes, potentially breaking real-time agent interactions.\n* **Diminished Reasoning:** Local models may lack the \"reasoning depth\" required for complex multi-step planning compared to frontier cloud models.\n\n### Recommended Next Steps\n* **Hybrid Architecture Implementation:** Develop a tiered system where local models handle routine tasks (e.g., data extraction, simple classification) and cloud models are invoked only for high-complexity synthesis.\n* **Model Benchmarking:** Test 7B–9B parameter GGUF models on current hardware to identify the \"sweet spot\" of performance vs. intelligence before scaling to larger models.\n* **Router Development:** Build a routing logic that detects task complexity and automatically selects the appropriate endpoint (Local via LM Studio or Cloud).",
+          "tokenUsage": {
+            "total": 986,
+            "prompt": 127,
+            "completion": 859,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 553
+            }
+          },
+          "cached": false,
+          "latencyMs": 158879,
+          "finishReason": "stop",
+          "guardrails": {
+            "flagged": false
+          },
+          "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-allow-headers": "*",
+                "access-control-allow-origin": "*",
+                "connection": "keep-alive",
+                "content-length": "4765",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Sun, 07 Jun 2026 05:56:13 GMT",
+                "etag": "W/\"129d-SbJfY2eRQ9n0YWGkZgEgAQim25E\"",
+                "keep-alive": "timeout=5",
+                "x-powered-by": "Express"
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "research — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Local OSS model placement for agent research tasks",
+            "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "VRAM"
+            },
+            {
+              "type": "contains",
+              "value": "next"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "topic": "Local OSS model placement for agent research tasks",
+          "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-allow-headers": "*",
+              "access-control-allow-origin": "*",
+              "connection": "keep-alive",
+              "content-length": "4765",
+              "content-type": "application/json; charset=utf-8",
+              "date": "Sun, 07 Jun 2026 05:56:13 GMT",
+              "etag": "W/\"129d-SbJfY2eRQ9n0YWGkZgEgAQim25E\"",
+              "keep-alive": "timeout=5",
+              "x-powered-by": "Express"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "a649672d-6df1-45c1-ba8a-7eaec04f3aa6",
+        "latencyMs": 37,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: Tool registry design for a harness product\n\nSources:\n- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "research — template (agent harness workflow)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-harness-tools",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Tool registry design for a harness product",
+            "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "tool"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 200"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "topic": "Tool registry design for a harness product",
+          "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-harness-tools",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "d608732d-6959-4552-a803-1aa1bd542e14",
+        "latencyMs": 36,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "research — template (agent harness workflow)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-harness-tools",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Tool registry design for a harness product",
+            "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "tool"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 200"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "topic": "Tool registry design for a harness product",
+          "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-harness-tools",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "226b8cc3-95ea-4bb6-89eb-11aac542f78e",
+        "latencyMs": 34,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "research — template (agent harness workflow)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-harness-tools",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Tool registry design for a harness product",
+            "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "tool"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 200"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "topic": "Tool registry design for a harness product",
+          "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-harness-tools",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "ca29318f-0ed5-4efb-8bf4-c15da9d4e72b",
+        "latencyMs": 39,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "research — template (agent harness workflow)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "research-harness-tools",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Tool registry design for a harness product",
+            "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "tool"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 200"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "topic": "Tool registry design for a harness product",
+          "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "research-harness-tools",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "817bf13e-afe9-4611-b6ba-221a46d94f4c",
+        "latencyMs": 33,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB\n\nSources:\n- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "daily-brief research (W7 interest tracker)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "daily-brief-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+            "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "qwen"
+            },
+            {
+              "type": "contains",
+              "value": "brief"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 180 && (output.toLowerCase().includes('token') || output.toLowerCase().includes('tps') || output.toLowerCase().includes('plan'))"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+          "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "daily-brief-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "79bd0dd5-c729-4766-80a4-61951c6bce2a",
+        "latencyMs": 36,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "daily-brief research (W7 interest tracker)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "daily-brief-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+            "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "qwen"
+            },
+            {
+              "type": "contains",
+              "value": "brief"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 180 && (output.toLowerCase().includes('token') || output.toLowerCase().includes('tps') || output.toLowerCase().includes('plan'))"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+          "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "daily-brief-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "493a5e13-82c1-4f6c-adf9-54153d3deba7",
+        "latencyMs": 41,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "daily-brief research (W7 interest tracker)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "daily-brief-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+            "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "qwen"
+            },
+            {
+              "type": "contains",
+              "value": "brief"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 180 && (output.toLowerCase().includes('token') || output.toLowerCase().includes('tps') || output.toLowerCase().includes('plan'))"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+          "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "daily-brief-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "4dd3205a-4a04-4bdc-8548-84e86a97ab98",
+        "latencyMs": 34,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "daily-brief research (W7 interest tracker)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "daily-brief-synthetic-smoke",
+            "lane": "research"
+          },
+          "vars": {
+            "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+            "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "qwen"
+            },
+            {
+              "type": "contains",
+              "value": "brief"
+            },
+            {
+              "type": "javascript",
+              "value": "output.length > 180 && (output.toLowerCase().includes('token') || output.toLowerCase().includes('tps') || output.toLowerCase().includes('plan'))"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+          "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "daily-brief-synthetic-smoke",
+          "lane": "research",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "253f5ef3-520b-40a9-a058-996d2a8e0ea2",
+        "latencyMs": 39,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-synthetic-smoke",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+            "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "Workstream"
+            },
+            {
+              "type": "javascript",
+              "value": "output.split(/\\n/).filter(l => l.trim()).length >= 5"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 3,
+        "vars": {
+          "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+          "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-synthetic-smoke",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "fb6fb92b-99c3-42e0-bfe4-a60199a1e5b0",
+        "latencyMs": 36,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\nLocal eval harness needs registry, suites, matrix runner, and Langfuse.\n\nConstraints:\nWindows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines.",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-synthetic-smoke",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+            "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "Workstream"
+            },
+            {
+              "type": "javascript",
+              "value": "output.split(/\\n/).filter(l => l.trim()).length >= 5"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 3,
+        "vars": {
+          "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+          "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-synthetic-smoke",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "8bd3cfbf-e0b5-4489-aa7e-4cc44de98ccf",
+        "latencyMs": 35,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-synthetic-smoke",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+            "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "Workstream"
+            },
+            {
+              "type": "javascript",
+              "value": "output.split(/\\n/).filter(l => l.trim()).length >= 5"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 3,
+        "vars": {
+          "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+          "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-synthetic-smoke",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "8057e68c-f651-46c0-b4c8-735eae45c7a0",
+        "latencyMs": 39,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-synthetic-smoke",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+            "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "Workstream"
+            },
+            {
+              "type": "javascript",
+              "value": "output.split(/\\n/).filter(l => l.trim()).length >= 5"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 3,
+        "vars": {
+          "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+          "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-synthetic-smoke",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "4f73bad5-f29c-4622-9e76-306b4d4d274b",
+        "latencyMs": 41,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — template (voice host integration)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-voice-host",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+            "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "gateway"
+            },
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('host') || output.toLowerCase().includes('hermes')"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 4,
+        "vars": {
+          "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+          "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-voice-host",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "faaa46ac-7777-4df3-b60c-a1d8743b3e37",
+        "latencyMs": 32,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\nVoice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.\n\nConstraints:\nNo Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback.",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — template (voice host integration)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-voice-host",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+            "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "gateway"
+            },
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('host') || output.toLowerCase().includes('hermes')"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 4,
+        "vars": {
+          "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+          "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-voice-host",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "d3f16a76-8458-47ab-9109-68c7d40a010c",
+        "latencyMs": 35,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — template (voice host integration)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-voice-host",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+            "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "gateway"
+            },
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('host') || output.toLowerCase().includes('hermes')"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 4,
+        "vars": {
+          "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+          "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-voice-host",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "d9176524-abf6-435b-b603-9a078b5b0aa0",
+        "latencyMs": 35,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "plan — template (voice host integration)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "plan-voice-host",
+            "lane": "plan"
+          },
+          "vars": {
+            "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+            "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "gateway"
+            },
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('host') || output.toLowerCase().includes('hermes')"
+            }
+          ],
+          "options": {}
+        },
+        "testIdx": 4,
+        "vars": {
+          "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+          "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "plan-voice-host",
+          "lane": "plan",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "b06c8d77-3e52-4ab3-9817-095c5ea44391",
+        "latencyMs": 31,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-synthetic-smoke",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Add a function that sums an array of numbers",
+            "file_path": "src/math.ts",
+            "language": "typescript",
+            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('reduce') || output.includes('for') || output.includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 5,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "6ba53913-3787-41db-adb5-2484a220d075",
+        "latencyMs": 33,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-synthetic-smoke",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Add a function that sums an array of numbers",
+            "file_path": "src/math.ts",
+            "language": "typescript",
+            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('reduce') || output.includes('for') || output.includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 5,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "fa641b89-f096-4bdb-9ff5-2ff866e84dfa",
+        "latencyMs": 29,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: Add a function that sums an array of numbers\n\nFile: src/math.ts\n\n```typescript\nexport function sum(values: number[]): number {\n  return 0;\n}\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-synthetic-smoke",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Add a function that sums an array of numbers",
+            "file_path": "src/math.ts",
+            "language": "typescript",
+            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('reduce') || output.includes('for') || output.includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 5,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "e91af4b0-a5c3-4e89-9b3d-78a3e4852f03",
+        "latencyMs": 26,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-synthetic-smoke",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Add a function that sums an array of numbers",
+            "file_path": "src/math.ts",
+            "language": "typescript",
+            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('reduce') || output.includes('for') || output.includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 5,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "f1f4e5df-283d-48e5-b3ef-81283a48455a",
+        "latencyMs": 32,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — template (config helper)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-config-timeout",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Parse an optional timeout env var with default 30000",
+            "file_path": "src/config.ts",
+            "language": "typescript",
+            "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('30000') || output.includes('30_000') || output.includes('30 * 1000')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 6,
+        "vars": {
+          "task": "Parse an optional timeout env var with default 30000",
+          "file_path": "src/config.ts",
+          "language": "typescript",
+          "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-config-timeout",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "9ef84b37-ec96-43fe-a879-2c0e7dbd303e",
+        "latencyMs": 27,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — template (config helper)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-config-timeout",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Parse an optional timeout env var with default 30000",
+            "file_path": "src/config.ts",
+            "language": "typescript",
+            "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('30000') || output.includes('30_000') || output.includes('30 * 1000')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 6,
+        "vars": {
+          "task": "Parse an optional timeout env var with default 30000",
+          "file_path": "src/config.ts",
+          "language": "typescript",
+          "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-config-timeout",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "43ae6283-f5e0-40b0-a514-f212531f0920",
+        "latencyMs": 25,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: Parse an optional timeout env var with default 30000\n\nFile: src/config.ts\n\n```typescript\nexport function readTimeout(): number {\n  throw new Error('not implemented');\n}\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — template (config helper)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-config-timeout",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Parse an optional timeout env var with default 30000",
+            "file_path": "src/config.ts",
+            "language": "typescript",
+            "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('30000') || output.includes('30_000') || output.includes('30 * 1000')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 6,
+        "vars": {
+          "task": "Parse an optional timeout env var with default 30000",
+          "file_path": "src/config.ts",
+          "language": "typescript",
+          "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-config-timeout",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "1ed37ae5-f0b2-43f5-98a3-27a12faece5f",
+        "latencyMs": 23,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — template (config helper)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-config-timeout",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Parse an optional timeout env var with default 30000",
+            "file_path": "src/config.ts",
+            "language": "typescript",
+            "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "+++"
+            },
+            {
+              "type": "javascript",
+              "value": "output.includes('30000') || output.includes('30_000') || output.includes('30 * 1000')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 6,
+        "vars": {
+          "task": "Parse an optional timeout env var with default 30000",
+          "file_path": "src/config.ts",
+          "language": "typescript",
+          "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-config-timeout",
+          "lane": "build",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "fa7079ce-6fa7-466c-860d-e66f8e241dfe",
+        "latencyMs": 35,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — search then summarize (synthetic)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-search-docs",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().includes('max')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation for a query string",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('load profile')) {\n    return 'gpu_full uses lms load --gpu max; gpu_offload uses --gpu off.';\n  }\n  return 'No results';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 7,
+        "vars": {
+          "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-search-docs",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "026978d9-58cc-4b06-b517-2d15563fbe71",
+        "latencyMs": 32,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — search then summarize (synthetic)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-search-docs",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().includes('max')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation for a query string",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('load profile')) {\n    return 'gpu_full uses lms load --gpu max; gpu_offload uses --gpu off.';\n  }\n  return 'No results';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 7,
+        "vars": {
+          "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-search-docs",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "e226eb5f-b5ac-41dc-8e61-72a875351bba",
+        "latencyMs": 27,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — search then summarize (synthetic)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-search-docs",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().includes('max')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation for a query string",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('load profile')) {\n    return 'gpu_full uses lms load --gpu max; gpu_offload uses --gpu off.';\n  }\n  return 'No results';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 7,
+        "vars": {
+          "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-search-docs",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "e79fd118-6e9e-4d05-b49a-704b8cd84e71",
+        "latencyMs": 26,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload.",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — search then summarize (synthetic)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-search-docs",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().includes('max')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation for a query string",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('load profile')) {\n    return 'gpu_full uses lms load --gpu max; gpu_offload uses --gpu off.';\n  }\n  return 'No results';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 7,
+        "vars": {
+          "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-search-docs",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "c6264888-2da3-4c02-a6b2-24b2000b38e2",
+        "latencyMs": 28,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — read file (template)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-read-file",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Read the registry load profiles and report the two preset ids."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.includes('gpu_full') && output.includes('gpu_offload')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file by relative path",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path === 'registry/load-profiles.json') {\n    return JSON.stringify({ profiles: { gpu_full: {}, gpu_offload: {} } });\n  }\n  return 'FILE_NOT_FOUND';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 8,
+        "vars": {
+          "request": "Read the registry load profiles and report the two preset ids."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-read-file",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "5e0220f8-f104-4af8-a90b-27de9ee9ee4c",
+        "latencyMs": 32,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — read file (template)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-read-file",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Read the registry load profiles and report the two preset ids."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.includes('gpu_full') && output.includes('gpu_offload')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file by relative path",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path === 'registry/load-profiles.json') {\n    return JSON.stringify({ profiles: { gpu_full: {}, gpu_offload: {} } });\n  }\n  return 'FILE_NOT_FOUND';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 8,
+        "vars": {
+          "request": "Read the registry load profiles and report the two preset ids."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-read-file",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "c3c3bf16-2675-45ee-95f5-e1c9acf28a0a",
+        "latencyMs": 31,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — read file (template)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-read-file",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Read the registry load profiles and report the two preset ids."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.includes('gpu_full') && output.includes('gpu_offload')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file by relative path",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path === 'registry/load-profiles.json') {\n    return JSON.stringify({ profiles: { gpu_full: {}, gpu_offload: {} } });\n  }\n  return 'FILE_NOT_FOUND';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 8,
+        "vars": {
+          "request": "Read the registry load profiles and report the two preset ids."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-read-file",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "4582ece0-df9c-4768-83e5-afed010c6440",
+        "latencyMs": 37,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: Read the registry load profiles and report the two preset ids.",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "tool-call — read file (template)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "tool-call-read-file",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Read the registry load profiles and report the two preset ids."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "output.includes('gpu_full') && output.includes('gpu_offload')\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file by relative path",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path === 'registry/load-profiles.json') {\n    return JSON.stringify({ profiles: { gpu_full: {}, gpu_offload: {} } });\n  }\n  return 'FILE_NOT_FOUND';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 8,
+        "vars": {
+          "request": "Read the registry load profiles and report the two preset ids."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "tool-call-read-file",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "55f021bb-5f1f-45d6-80df-5f051c3d2cfa",
+        "latencyMs": 33,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {}
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "interest-tracker tool use (W7 daily-briefs + gh/fs/web)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "interest-tracker-tool-use",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output.toLowerCase().includes('search') || output.toLowerCase().includes('tool')) && (output.toLowerCase().includes('plan') || output.toLowerCase().includes('step') || output.toLowerCase().includes('brief'))\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation or results for evals signals",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file (e.g. optimization-state or matrix-summary for W7)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "github_activity",
+                    "description": "Simulated gh tool for repo interest (public evals transparency)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "repo": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "repo"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('w7') || query.toLowerCase().includes('tracker')) {\n    return 'W7: daily-briefs tracker implemented in scripts/daily-brief-tracker.py with ReAct loop, real free tools (ddg/trafilatura/gh), tps recording, specialist KB. Dry-run supported for smoke.';\n  }\n  return 'No direct W7 match; see results/optimization-state.json and docs/knowledge-bank/evals-specialist.md';\n}\n",
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path.includes('optimization-state') || path.includes('matrix-summary')) {\n    return JSON.stringify({ leader: 'qwen/qwen3.5-9b@gpu_offload', w7: 'dailyBriefsTracker + specialistHarnessAndKB flags present', passes: 5 });\n  }\n  return 'FILE_NOT_FOUND_OR_REDACED_FOR_SANDBOX';\n}\n",
+                "github_activity": "async (args) => {\n  const { repo } = JSON.parse(args);\n  if (repo.includes('local-evals')) {\n    return 'Simulated: JamiStudio/local-evals public, recent commits on W7 + O1, transparency pushes active.';\n  }\n  return 'No gh signals';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 9,
+        "vars": {
+          "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "interest-tracker-tool-use",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "19078626-605f-4296-86dc-ed46eba199fc",
+        "latencyMs": 36,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {}
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "interest-tracker tool use (W7 daily-briefs + gh/fs/web)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "interest-tracker-tool-use",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output.toLowerCase().includes('search') || output.toLowerCase().includes('tool')) && (output.toLowerCase().includes('plan') || output.toLowerCase().includes('step') || output.toLowerCase().includes('brief'))\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation or results for evals signals",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file (e.g. optimization-state or matrix-summary for W7)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "github_activity",
+                    "description": "Simulated gh tool for repo interest (public evals transparency)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "repo": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "repo"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('w7') || query.toLowerCase().includes('tracker')) {\n    return 'W7: daily-briefs tracker implemented in scripts/daily-brief-tracker.py with ReAct loop, real free tools (ddg/trafilatura/gh), tps recording, specialist KB. Dry-run supported for smoke.';\n  }\n  return 'No direct W7 match; see results/optimization-state.json and docs/knowledge-bank/evals-specialist.md';\n}\n",
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path.includes('optimization-state') || path.includes('matrix-summary')) {\n    return JSON.stringify({ leader: 'qwen/qwen3.5-9b@gpu_offload', w7: 'dailyBriefsTracker + specialistHarnessAndKB flags present', passes: 5 });\n  }\n  return 'FILE_NOT_FOUND_OR_REDACED_FOR_SANDBOX';\n}\n",
+                "github_activity": "async (args) => {\n  const { repo } = JSON.parse(args);\n  if (repo.includes('local-evals')) {\n    return 'Simulated: JamiStudio/local-evals public, recent commits on W7 + O1, transparency pushes active.';\n  }\n  return 'No gh signals';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 9,
+        "vars": {
+          "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "interest-tracker-tool-use",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "53e1652a-0c20-4b0a-8db0-a035f9dcd424",
+        "latencyMs": 26,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: \n\nFile: \n\n```\n\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {}
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "interest-tracker tool use (W7 daily-briefs + gh/fs/web)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "interest-tracker-tool-use",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output.toLowerCase().includes('search') || output.toLowerCase().includes('tool')) && (output.toLowerCase().includes('plan') || output.toLowerCase().includes('step') || output.toLowerCase().includes('brief'))\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation or results for evals signals",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file (e.g. optimization-state or matrix-summary for W7)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "github_activity",
+                    "description": "Simulated gh tool for repo interest (public evals transparency)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "repo": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "repo"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('w7') || query.toLowerCase().includes('tracker')) {\n    return 'W7: daily-briefs tracker implemented in scripts/daily-brief-tracker.py with ReAct loop, real free tools (ddg/trafilatura/gh), tps recording, specialist KB. Dry-run supported for smoke.';\n  }\n  return 'No direct W7 match; see results/optimization-state.json and docs/knowledge-bank/evals-specialist.md';\n}\n",
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path.includes('optimization-state') || path.includes('matrix-summary')) {\n    return JSON.stringify({ leader: 'qwen/qwen3.5-9b@gpu_offload', w7: 'dailyBriefsTracker + specialistHarnessAndKB flags present', passes: 5 });\n  }\n  return 'FILE_NOT_FOUND_OR_REDACED_FOR_SANDBOX';\n}\n",
+                "github_activity": "async (args) => {\n  const { repo } = JSON.parse(args);\n  if (repo.includes('local-evals')) {\n    return 'Simulated: JamiStudio/local-evals public, recent commits on W7 + O1, transparency pushes active.';\n  }\n  return 'No gh signals';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 9,
+        "vars": {
+          "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "interest-tracker-tool-use",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      },
+      {
+        "cost": 0,
+        "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+        "gradingResult": null,
+        "id": "8a8a42da-2158-4c46-a50a-7802a91b0170",
+        "latencyMs": 30,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan.",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {}
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:google/gemma-4-12b",
+          "label": "local:google/gemma-4-12b (gpu_full)"
+        },
+        "response": {
+          "error": "API call error: Error: Error parsing response from http://localhost:1234/v1/chat/completions: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON. Received text: <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>Error</title>\n</head>\n<body>\n<pre>Internal Server Error</pre>\n</body>\n</html>\n",
+          "metadata": {
+            "http": {
+              "status": 0,
+              "statusText": "Error",
+              "headers": {}
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "interest-tracker tool use (W7 daily-briefs + gh/fs/web)",
+          "metadata": {
+            "runId": "2026-06-07T04-09-36-944Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "google/gemma-4-12b",
+            "scoringMode": "deterministic-only",
+            "taskId": "interest-tracker-tool-use",
+            "lane": "tool-call"
+          },
+          "vars": {
+            "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output.toLowerCase().includes('search') || output.toLowerCase().includes('tool')) && (output.toLowerCase().includes('plan') || output.toLowerCase().includes('step') || output.toLowerCase().includes('brief'))\n"
+            }
+          ],
+          "provider": {
+            "config": {
+              "tools": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_docs",
+                    "description": "Search project documentation or results for evals signals",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "read_file",
+                    "description": "Read a tracked project file (e.g. optimization-state or matrix-summary for W7)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "path"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "github_activity",
+                    "description": "Simulated gh tool for repo interest (public evals transparency)",
+                    "parameters": {
+                      "type": "object",
+                      "properties": {
+                        "repo": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "repo"
+                      ]
+                    }
+                  }
+                }
+              ],
+              "functionToolCallbacks": {
+                "search_docs": "async (args) => {\n  const { query } = JSON.parse(args);\n  if (query.toLowerCase().includes('w7') || query.toLowerCase().includes('tracker')) {\n    return 'W7: daily-briefs tracker implemented in scripts/daily-brief-tracker.py with ReAct loop, real free tools (ddg/trafilatura/gh), tps recording, specialist KB. Dry-run supported for smoke.';\n  }\n  return 'No direct W7 match; see results/optimization-state.json and docs/knowledge-bank/evals-specialist.md';\n}\n",
+                "read_file": "async (args) => {\n  const { path } = JSON.parse(args);\n  if (path.includes('optimization-state') || path.includes('matrix-summary')) {\n    return JSON.stringify({ leader: 'qwen/qwen3.5-9b@gpu_offload', w7: 'dailyBriefsTracker + specialistHarnessAndKB flags present', passes: 5 });\n  }\n  return 'FILE_NOT_FOUND_OR_REDACED_FOR_SANDBOX';\n}\n",
+                "github_activity": "async (args) => {\n  const { repo } = JSON.parse(args);\n  if (repo.includes('local-evals')) {\n    return 'Simulated: JamiStudio/local-evals public, recent commits on W7 + O1, transparency pushes active.';\n  }\n  return 'No gh signals';\n}\n"
+              }
+            }
+          },
+          "options": {}
+        },
+        "testIdx": 9,
+        "vars": {
+          "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+        },
+        "metadata": {
+          "runId": "2026-06-07T04-09-36-944Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "google/gemma-4-12b",
+          "scoringMode": "deterministic-only",
+          "taskId": "interest-tracker-tool-use",
+          "lane": "tool-call",
+          "http": {
+            "status": 0,
+            "statusText": "Error",
+            "headers": {}
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 2
+      }
+    ],
+    "stats": {
+      "successes": 1,
+      "failures": 0,
+      "errors": 39,
+      "tokenUsage": {
+        "prompt": 127,
+        "completion": 859,
+        "cached": 0,
+        "total": 986,
+        "numRequests": 40,
+        "completionDetails": {
+          "reasoning": 553,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 1357013,
+      "evaluationDurationMs": 1357013
+    }
+  },
+  "config": {
+    "tags": {},
+    "description": "Local OSS model eval matrix — LM Studio only, no paid API calls",
+    "prompts": [
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\research.txt",
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\plan.txt",
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\build.txt",
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\tool-call.txt"
+    ],
+    "providers": [
+      "file://providers/lmstudio-subject.yaml"
+    ],
+    "tests": [
+      "file://tests/research.yaml",
+      "file://tests/plan.yaml",
+      "file://tests/build.yaml",
+      "file://tests/tool-call.yaml"
+    ],
+    "scenarios": [],
+    "env": {},
+    "outputPath": [
+      "results/promptfoo-latest.json"
+    ],
+    "extensions": [],
+    "metadata": {
+      "runId": "2026-06-07T04-09-36-944Z",
+      "loadProfile": "gpu_full",
+      "subjectModel": "google/gemma-4-12b",
+      "scoringMode": "deterministic-only"
+    },
+    "evaluateOptions": {
+      "maxConcurrency": 1
+    }
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.120.27",
+    "nodeVersion": "v22.22.0",
+    "platform": "win32",
+    "arch": "x64",
+    "exportedAt": "2026-06-07T06:16:16.744Z",
+    "evaluationCreatedAt": "2026-06-07T05:53:34.788Z"
+  }
+}
