@@ -1,0 +1,419 @@
+{
+  "manifestVersion": 1,
+  "stream": 33,
+  "generatedAt": "2026-06-07T15:40:00.000Z",
+  "status": "pending_user_review",
+  "runtimeBoundary": {
+    "modelLoadsRun": false,
+    "matrixOrEvalCellsRun": false,
+    "baselineCollectionRun": false,
+    "cloudApiCallsRun": false,
+    "paidProviderCallsRun": false
+  },
+  "reviewIndex": "docs/evals/2026-06-07-review-readiness-index.md",
+  "worksheet": "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+  "lanes": [
+    {
+      "id": "qwen_w7_tracker",
+      "label": "Qwen W7/tracker",
+      "status": "pending_user_review",
+      "candidateRole": "qwen/qwen3.5-9b@gpu_offload for W7 daily-brief/tracker drafts",
+      "artifacts": [
+        {
+          "path": "results/stream27-w7-section-repair.json",
+          "kind": "json_summary",
+          "exists": true,
+          "expectedSections": 5,
+          "actualSections": 5,
+          "checks": {
+            "strictFinal": true,
+            "fallbackUsed": false,
+            "finalizationStatus": "model_final",
+            "toolFailures": 0,
+            "tps": 3,
+            "wallSeconds": 513.05
+          }
+        },
+        {
+          "path": "results/daily-briefs/brief-20260607-135239.json",
+          "kind": "daily_brief_artifact",
+          "exists": true
+        },
+        {
+          "path": "results/daily-briefs/brief-20260607-100231.json",
+          "kind": "prior_daily_brief_context",
+          "exists": true
+        },
+        {
+          "path": "results/daily-briefs/brief-20260607-125406.json",
+          "kind": "prior_daily_brief_context",
+          "exists": true
+        },
+        {
+          "path": "results/stream23-w7-quality-refresh.json",
+          "kind": "json_summary",
+          "exists": true
+        }
+      ],
+      "caveats": [
+        "Stream 27 repaired required-section completeness but did not complete subjective W7 quality acceptance.",
+        "The Stream 27 model text used pending speed placeholders even though exact metrics are present in the artifact.",
+        "Recommended actions still need human review."
+      ]
+    },
+    {
+      "id": "qwen_local_specialist_current_suite",
+      "label": "Qwen local specialist/current-suite",
+      "status": "pending_user_review",
+      "candidateRole": "qwen/qwen3.5-9b@gpu_offload for local specialist, planning, and harness-aware drafts",
+      "artifacts": [
+        {
+          "path": "results/user-judge-queue-qwen-stream17.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 40,
+          "actualRows": 40
+        },
+        {
+          "path": "results/baseline-comparison-qwen-stream17.jsonl",
+          "kind": "baseline_comparison",
+          "exists": true,
+          "expectedRows": 40,
+          "actualRows": 40
+        },
+        {
+          "path": "results/stream17-profile-sensitivity.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "passes": 7,
+            "total": 40,
+            "profilesTied": [
+              "gpu_offload",
+              "gpu_partial_0.95",
+              "gpu_partial_0.7",
+              "gpu_full"
+            ]
+          }
+        },
+        {
+          "path": "results/stream22-uncached-throughput.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "fullNoCacheStatus": "eval_timeout",
+            "durationMs": 1200052
+          }
+        },
+        {
+          "path": "results/stream28-qwen-uncached-single-task.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 4,
+            "durationMs": 261012,
+            "cachedTokens": 0
+          }
+        },
+        {
+          "path": "results/user-judge-queue-stream28-qwen-uncached-single-task.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 4,
+          "actualRows": 4
+        }
+      ],
+      "caveats": [
+        "Stream 17 timings are cached Promptfoo reruns.",
+        "Stream 22 full 40-case no-cache qwen timed out before pass totals.",
+        "Stream 28 is one filtered no-cache task and failed 0/4."
+      ]
+    },
+    {
+      "id": "liquid_speed_triage",
+      "label": "Liquid speed/triage",
+      "status": "pending_user_review",
+      "candidateRole": "liquid/lfm2.5-1.2b@gpu_full for speed, routing, triage, and lightweight drafts",
+      "artifacts": [
+        {
+          "path": "results/user-judge-queue-liquid-stream17.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 40,
+          "actualRows": 40
+        },
+        {
+          "path": "results/baseline-comparison-liquid-stream17.jsonl",
+          "kind": "baseline_comparison",
+          "exists": true,
+          "expectedRows": 40,
+          "actualRows": 40
+        },
+        {
+          "path": "results/stream17-profile-sensitivity.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "passes": 5,
+            "total": 40,
+            "profilesTested": 11
+          }
+        },
+        {
+          "path": "results/stream22-uncached-throughput.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "passes": 5,
+            "total": 40,
+            "durationMs": 31096,
+            "cachedTokens": 0
+          }
+        },
+        {
+          "path": "results/baseline-comparison-liquid-stream22.jsonl",
+          "kind": "baseline_comparison",
+          "exists": true,
+          "expectedRows": 40,
+          "actualRows": 40
+        },
+        {
+          "path": "results/user-judge-queue-liquid-stream22.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 1,
+          "actualRows": 1
+        }
+      ],
+      "caveats": [
+        "Use as speed/triage evidence, not quality-leader evidence.",
+        "The Stream 22 judge queue is a one-row surface even though the comparison archive has 40 rows."
+      ]
+    },
+    {
+      "id": "imported_baseline_reference",
+      "label": "Imported baseline/reference",
+      "status": "pending_user_review",
+      "candidateRole": "Imported Vertex/Gemini-backed baseline lane as quality ceiling and review anchor",
+      "artifacts": [
+        {
+          "path": "results/user-review-packet-summary.json",
+          "kind": "json_summary",
+          "exists": true
+        },
+        {
+          "path": "baselines/manifest.json",
+          "kind": "baseline_manifest",
+          "exists": true
+        },
+        {
+          "path": "docs/evals/2026-06-07-user-review-packet.md",
+          "kind": "review_packet",
+          "exists": true
+        },
+        {
+          "path": "results/baseline-comparison-qwen-stream17.jsonl",
+          "kind": "baseline_comparison",
+          "exists": true,
+          "expectedRows": 40,
+          "actualRows": 40
+        },
+        {
+          "path": "results/baseline-comparison-liquid-stream17.jsonl",
+          "kind": "baseline_comparison",
+          "exists": true,
+          "expectedRows": 40,
+          "actualRows": 40
+        }
+      ],
+      "caveats": [
+        "Baselines are imported or credit-funded references collected outside the local matrix path.",
+        "This lane is a review anchor, not a direct paid API provider wired into the harness.",
+        "Additional SOTA peers remain credit-gated and policy-gated."
+      ]
+    },
+    {
+      "id": "mid_size_fallback",
+      "label": "Mid-size fallback",
+      "status": "pending_user_review",
+      "candidateRole": "google/gemma-4-12b, zai-org/glm-4.6v-flash, and google/gemma-4-12b-qat for bounded build/planning drafts",
+      "artifacts": [
+        {
+          "path": "results/stream18-mid-size-task-slice.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "cells": 9,
+            "passes": 6,
+            "total": 9,
+            "loadFailures": 0,
+            "timeouts": 0
+          }
+        },
+        {
+          "path": "results/stream20-mid-size-partial-profile.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "cells": 3,
+            "passes": 3,
+            "total": 3,
+            "loadFailures": 0,
+            "timeouts": 0
+          }
+        },
+        {
+          "path": "results/stream29-mid-size-filtered-partials.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "cells": 3,
+            "evalTimeout": 3,
+            "loadFailures": 0
+          }
+        },
+        {
+          "path": "results/user-judge-queue-stream18-last-cell.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 1,
+          "actualRows": 1
+        },
+        {
+          "path": "results/user-judge-queue-stream20-last-cell.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 1,
+          "actualRows": 1
+        }
+      ],
+      "caveats": [
+        "Stream 18 and Stream 20 queues are last-cell review surfaces only.",
+        "Stream 29 shows Promptfoo no-cache filtered recommended partials timing out around 300s.",
+        "The full mid-size fallback decision requires reading JSON summaries, not just queue rows."
+      ]
+    },
+    {
+      "id": "large_26b_31b_exploration",
+      "label": "26B/31B exploration",
+      "status": "pending_user_review",
+      "candidateRole": "google/gemma-4-26b-a4b and google/gemma-4-31b for bounded exploration only",
+      "artifacts": [
+        {
+          "path": "results/stream24-26b-offload-practical.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "modelKey": "google/gemma-4-26b-a4b",
+            "profileId": "gpu_offload",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 76163
+          }
+        },
+        {
+          "path": "results/user-judge-queue-stream24-26b-offload.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 1,
+          "actualRows": 1
+        },
+        {
+          "path": "results/stream26-26b-partial-practical.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "modelKey": "google/gemma-4-26b-a4b",
+            "profileId": "gpu_partial_0.39",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 72024
+          }
+        },
+        {
+          "path": "results/user-judge-queue-stream26-26b-partial.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 1,
+          "actualRows": 1
+        },
+        {
+          "path": "results/stream32-31b-q4-offload-practical.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "modelKey": "google/gemma-4-31b",
+            "profileId": "gpu_offload",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 262464
+          }
+        },
+        {
+          "path": "results/user-judge-queue-stream32-31b-q4-offload.jsonl",
+          "kind": "user_judge_queue",
+          "exists": true,
+          "expectedRows": 1,
+          "actualRows": 1
+        }
+      ],
+      "caveats": [
+        "Each large-model success is a one-task local-fallback surface.",
+        "This does not prove broad quality, final routing, Promptfoo no-cache throughput, or 31B partial/full placement.",
+        "Use as bounded exploration evidence only unless the user explicitly accepts the narrow scope."
+      ]
+    },
+    {
+      "id": "large_31b_qat_exclusion",
+      "label": "31B-QAT exclusion",
+      "status": "pending_user_review",
+      "candidateRole": "Exclude google/gemma-4-31b-qat from final 3-solid promotion for this rig/campaign unless the user accepts further retesting",
+      "artifacts": [
+        {
+          "path": "results/stream25-31b-qat-offload-practical.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "modelKey": "google/gemma-4-31b-qat",
+            "profileId": "gpu_offload",
+            "status": "eval_timeout",
+            "passes": null,
+            "total": null,
+            "durationMs": 300031
+          }
+        },
+        {
+          "path": "results/stream16-large-estimates.json",
+          "kind": "json_summary",
+          "exists": true
+        },
+        {
+          "path": "results/matrix-2026-06-07T10-52-18-029Z.jsonl",
+          "kind": "matrix_jsonl",
+          "exists": true
+        },
+        {
+          "path": "results/matrix-2026-06-07T13-16-59-439Z.jsonl",
+          "kind": "matrix_jsonl",
+          "exists": true
+        }
+      ],
+      "caveats": [
+        "31B-QAT has timeout-only practical evidence on this rig after partial and offload attempts.",
+        "Exclusion is still a user decision for this campaign, not a global model judgment.",
+        "No Stream 25 compare/queue archive exists because the timeout did not refresh promptfoo-latest.json."
+      ]
+    }
+  ],
+  "remainingGaps": [
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
+    "Broad partial-profile quality/throughput remains incomplete.",
+    "31B/31B-QAT broad practical proof remains incomplete.",
+    "Final two-verifier completion audit remains pending."
+  ]
+}

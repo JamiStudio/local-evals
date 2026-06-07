@@ -4,6 +4,8 @@
 
 **Runtime boundary:** Stream 31 ran no LM Studio model loads, no matrix/eval cells, no baseline collection, no cloud/API calls, and no paid-provider calls. It converts the Stream 30 readiness synthesis into explicit accept/reject/conditional decisions.
 
+**Review index:** Use `docs/evals/2026-06-07-review-readiness-index.md` as the artifact checklist before filling the decisions below. Its companion manifest is `results/final-selection-review-manifest.json`.
+
 ## Scoring Rubric
 
 Use `accept`, `conditional`, or `reject` for each decision. Leave `Score` blank until human review is actually performed.

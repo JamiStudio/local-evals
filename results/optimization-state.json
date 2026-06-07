@@ -235,7 +235,8 @@
     "Stream 29 mid-size filtered partials is complete: google/gemma-4-12b@gpu_partial_0.9, zai-org/glm-4.6v-flash@gpu_partial_0.88, and google/gemma-4-12b-qat@gpu_partial_0.95 ran Promptfoo no-cache build-synthetic-smoke with the Stream 28 metadata filter fix; all three timed out at ~300s before pass totals while stderr confirmed cache disabled and 4 filtered cases. No compare/queue archives were generated because promptfoo-latest remained the stale Stream 28 surface. Remaining gaps: user review, final 3-solid, broad/full matrix, broad partial profiles, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, and final verification.",
     "Stream 30 readiness synthesis is complete: no model/eval/cloud runs; docs/evals/2026-06-07-stream30-readiness-synthesis.md consolidates draft qwen/liquid/cloud roles, useful vs timeout evidence, hardware limits, user-review decisions, automatable/non-automatable gaps, and recommends user review or a no-load scoring worksheet next. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT practical proof, and final verification.",
     "Stream 31 final-selection worksheet is complete: docs/evals/2026-06-07-final-selection-scoring-worksheet.md gives user-fillable accept/conditional/reject lanes for qwen, liquid, imported baseline, mid-size fallback, 26B exploration, and 31B/31B-QAT exclusion. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT proof, and final verification.",
-    "Stream 32 31B Q4 offload practical probe is complete: google/gemma-4-31b@gpu_offload local fallback build-synthetic-smoke completed 1/1 in 262464 ms with no timeout/load failure; compare and queue archives were generated because promptfoo-latest refreshed to Stream 32. This closes only the narrow 31B Q4 estimate-timeout-only practical evidence gap; 31B broad readiness and 31B-QAT practical proof remain incomplete."
+    "Stream 32 31B Q4 offload practical probe is complete: google/gemma-4-31b@gpu_offload local fallback build-synthetic-smoke completed 1/1 in 262464 ms with no timeout/load failure; compare and queue archives were generated because promptfoo-latest refreshed to Stream 32. This closes only the narrow 31B Q4 estimate-timeout-only practical evidence gap; 31B broad readiness and 31B-QAT practical proof remain incomplete.",
+    "Stream 33 review-readiness index is complete: docs/evals/2026-06-07-review-readiness-index.md and results/final-selection-review-manifest.json group exact artifacts and row/existence checks for seven pending review lanes. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT broad proof, and final verification."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -2939,6 +2940,71 @@
       "Broad partial-profile quality/throughput remains incomplete.",
       "31B Q4_K_M has only one offload local-fallback success row; no partial/full or broad quality proof exists.",
       "31B-QAT remains timeout-only for practical evidence after partial and offload attempts.",
+      "Final two-verifier completion audit remains pending."
+    ]
+  },
+  "stream33ReviewReadinessIndex": {
+    "at": "2026-06-07T15:40:00.000Z",
+    "scope": "No-load review-readiness index and machine-readable manifest for final-selection/user-review decisions after Streams 1-32; no LM Studio model loads, no matrix/eval cells, no baseline collection, no cloud/API calls, and no paid-provider calls.",
+    "sourceTruthRead": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 30-32 and Stream 33 dispatch checkpoint",
+      "docs/evals/2026-06-07-user-review-packet.md",
+      "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+      "docs/evals/2026-06-07-stream30-readiness-synthesis.md",
+      "docs/evals/2026-06-07-strict-gap-audit.md",
+      "results/user-review-packet-summary.json",
+      "results/optimization-state.json",
+      "Stream 17/22/24/25/26/27/28/29/32 artifacts and queue archives"
+    ],
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 247 MiB used, 7741 MiB free, 1% utilization"
+    },
+    "deliverables": {
+      "reviewIndex": "docs/evals/2026-06-07-review-readiness-index.md",
+      "manifest": "results/final-selection-review-manifest.json"
+    },
+    "linkedDocsUpdated": [
+      "docs/evals/2026-06-07-user-review-packet.md",
+      "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md"
+    ],
+    "manifestLanes": [
+      "qwen_w7_tracker",
+      "qwen_local_specialist_current_suite",
+      "liquid_speed_triage",
+      "imported_baseline_reference",
+      "mid_size_fallback",
+      "large_26b_31b_exploration",
+      "large_31b_qat_exclusion"
+    ],
+    "countChecks": {
+      "qwenStream17QueueRows": 40,
+      "qwenStream17BaselineRows": 40,
+      "qwenStream28QueueRows": 4,
+      "liquidStream17QueueRows": 40,
+      "liquidStream17BaselineRows": 40,
+      "liquidStream22BaselineRows": 40,
+      "liquidStream22QueueRows": 1,
+      "midSizeStream18LastCellQueueRows": 1,
+      "midSizeStream20LastCellQueueRows": 1,
+      "stream24QueueRows": 1,
+      "stream26QueueRows": 1,
+      "stream32QueueRows": 1
+    },
+    "progressNote": "Stream 33 makes the final-selection/user-review packet easier to execute by grouping exact artifacts and actual row/existence checks per decision lane. It does not invent scores, complete subjective user review, promote final 3-solid roles, or close broad coverage gaps.",
+    "remainingGaps": [
+      "Subjective user review remains pending until worksheet decisions are filled by the user.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
+      "Broad partial-profile quality/throughput remains incomplete.",
+      "31B/31B-QAT broad practical proof remains incomplete.",
       "Final two-verifier completion audit remains pending."
     ]
   }
