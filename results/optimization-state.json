@@ -242,7 +242,8 @@
     "Stream 36 qwen assertion-hardening validation is complete: exactly one Promptfoo no-cache build-synthetic-smoke qwen@gpu_offload cell ran under EVAL_CELL_TIMEOUT_MS=300000 and completed as a runner row in 666 ms with passes/total null; the prior undefined.includes assertion error is absent from the row/progress telemetry, but promptfoo-latest stayed on Stream 34 and qwen full no-cache throughput/user-review/final selection remain open.",
     "Stream 37 runner accounting validation is complete: exactly one qwen/qwen3.5-9b@gpu_offload Promptfoo no-cache build-synthetic-smoke cell ran after commit c62f3ac; the quick Promptfoo exit 0/no refreshed result case is now status=eval_no_results in 530 ms with passes/total null, progress telemetry reached run_finished, promptfoo-latest stayed stale on Stream 34, and summarize-matrix selected the real matrix JSONL while counting completed=0. Remaining gaps: qwen full no-cache throughput, user review, final 3-solid, broad/full coverage, broad partials, broad 31B/31B-QAT proof, final verifier audit.",
     "Stream 39 null-safe contains validation is complete: after commit c36e52b, exactly one qwen/qwen3.5-9b@gpu_offload Promptfoo no-cache build-synthetic-smoke cell ran 4 filtered test cases and timed out at 300059 ms with passes=null/total=null; the Stream 38 undefined.includes error is gone from row/progress telemetry, promptfoo-latest did not refresh and still points to Stream 34, and progress reached run_finished.",
-    "Stream 41 liquid string-coercion validation is complete: commit 0d50176 was present at HEAD; exactly one liquid/lfm2.5-1.2b@gpu_full Promptfoo no-cache build-synthetic-smoke cell ran; Promptfoo refreshed 4 filtered results, row status eval_failed 0/4 in 9072 ms, cached=0, progress reached run_finished, and `(output || \"\").includes is not a function` plus undefined.includes are absent. Failures are now normal `Custom function returned false` assertion failures. Remaining gaps: user review, final 3-solid selection, broad/full matrix, qwen full current-suite no-cache throughput, broad partial profiles, 31B/31B-QAT broad proof, and final verification."
+    "Stream 41 liquid string-coercion validation is complete: commit 0d50176 was present at HEAD; exactly one liquid/lfm2.5-1.2b@gpu_full Promptfoo no-cache build-synthetic-smoke cell ran; Promptfoo refreshed 4 filtered results, row status eval_failed 0/4 in 9072 ms, cached=0, progress reached run_finished, and `(output || \"\").includes is not a function` plus undefined.includes are absent. Failures are now normal `Custom function returned false` assertion failures. Remaining gaps: user review, final 3-solid selection, broad/full matrix, qwen full current-suite no-cache throughput, broad partial profiles, 31B/31B-QAT broad proof, and final verification.",
+    "Stream 42 decision ledger is complete: docs/evals/2026-06-07-stream42-decision-ledger.md synthesizes Streams 1-41 without loads, concludes contained harness reliability is now supportable while broad exhaustive Promptfoo remains low-value/untenable on the 8 GiB one-GPU rig, and recommends Stream 43 no-load user-review decision closeout. Final 3-solid acceptance, user review, broad matrix coverage, qwen full no-cache throughput, broad partials, broad 31B/31B-QAT proof, and final verifier audit remain open."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -3781,5 +3782,60 @@
       "The liquid row still fails 0/4 and is not a passing normal-scoring proof.",
       "Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full current-suite no-cache throughput, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
     ]
+  },
+  "stream42DecisionLedger": {
+    "at": "2026-06-07T18:10:00.000Z",
+    "scope": "No-load evidence synthesis and remaining-run minimization after Stream 41; no LM Studio model loads, matrix cells, Promptfoo evals, DeepEval, tracker real runs, baseline collection, cloud/API calls, or paid/direct API calls.",
+    "artifact": "docs/evals/2026-06-07-stream42-decision-ledger.md",
+    "sourceTruthRead": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md",
+      "results/optimization-state.json",
+      "results/matrix-summary.json",
+      "results/promptfoo-latest.json",
+      "results/stream41-liquid-string-coercion-validation.json",
+      "docs/evals/2026-06-07-strict-gap-audit.md",
+      "docs/evals/2026-06-07-stream30-readiness-synthesis.md",
+      "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+      "docs/evals/2026-06-07-review-readiness-index.md",
+      "docs/evals/2026-06-07-3-solid-models.md",
+      "results/final-selection-review-manifest.json",
+      "results/user-review-packet-summary.json"
+    ],
+    "runtimeBoundary": {
+      "modelLoadsRun": false,
+      "matrixCellsRun": false,
+      "promptfooEvalsRun": false,
+      "deepevalRun": false,
+      "trackerRealRunsRun": false,
+      "baselineCollectionRun": false,
+      "cloudApiCallsRun": false,
+      "paidProviderCallsRun": false
+    },
+    "conclusions": {
+      "harnessReliability": "Contained local evidence path is reliable enough after Streams 36-41 repaired/validated runner assertion, no-results accounting, direct Promptfoo spawn, null-safe contains, and string-coercion surfaces; broad unattended exhaustive Promptfoo remains unproven on this rig.",
+      "qwen": "Best-supported local specialist candidate, but review-gated and not a broad quality winner; current control 7/40 and full-suite no-cache timed out at 1200052 ms and 2400084 ms.",
+      "liquid": "Speed/triage control only; no-cache current suite 5/40 in 31096 ms, Stream 41 filtered no-cache surface 0/4 with normal deterministic assertion failures.",
+      "importedBaselines": "Quality ceiling and review anchor; imported/credit-funded references, not direct paid matrix providers.",
+      "midSize": "Bounded fallback only; local-fallback slices useful, but Promptfoo no-cache recommended partials timed out around 300 seconds.",
+      "largeModels": "26B and 31B Q4 have one-task exploration rows only; 31B-QAT remains hardware/runtime-limited with no success row."
+    },
+    "remainingTrulyUnproven": [
+      "Subjective user review",
+      "Final 3-solid acceptance",
+      "Broad/full local matrix coverage",
+      "Qwen full 40-case no-cache completed throughput",
+      "Broad partial-profile quality/throughput",
+      "Broad 26B/31B quality beyond one-task local-fallback rows",
+      "Any practical 31B-QAT success row",
+      "Additional SOTA peers unless credit-gated/imported",
+      "Final two-verifier completion audit"
+    ],
+    "remainingRunForecast": {
+      "defensibleFeasibilityShortlist": "2-4 more contained streams if focused on no-load user-review decisions, final shortlist synthesis, and at most one or two targeted confirmation runs.",
+      "literalExhaustiveRoadmapCompletion": "30+ more streams plus long serial cells, likely still incomplete or low-value on the 8 GiB one-GPU rig."
+    },
+    "recommendedNextStream": "Stream 43 no-load user-review decision closeout using the review packet, final-selection worksheet, review-readiness index, and referenced artifacts; do not run broad matrix cells."
   }
 }
