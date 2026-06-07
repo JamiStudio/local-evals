@@ -26,7 +26,9 @@
 3. SOTA cloud + 3 models (dispatch baseline/collect or compare sub; gemini flash via vertex, sonnet/gpt via azure if ready or import; head-to-head; select/document 3 solid; update docs/decisions + roadmap).
 4. Verifiers + audit at end (2 fresh full-toolset spawn_subagent: CODE REVIEWER + QA TESTER with verbatim canonical prompts; read /tmp/goal-verifier-*.md ; fix all issues until both PASS fresh on latest; only then update_goal completed).
 
-**O1 dispatch checkpoint (immediate post-spawn, per reliability.md)**: agent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea , workstream O1/pass1 , dispatched after 24ee2b3 push, ownership: matrix + results + push. Next coordinator: poll (get sub output, 60-120s), on terminal read git show --stat on its SHA, numeric gate + A/B/C classify, checkpoint return, dispatch W7 or next per cycle.
+**O1 dispatch checkpoint (immediate post-spawn, per reliability.md)**: agent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea , workstream O1/pass1 , dispatched after 24ee2b3 push, ownership: matrix + results + push. Poll status (first): still running (36s+, 19 tool calls, AUDIT phase reading files/todo). Next: continue poll, gate on terminal.
+
+**W7 dispatch checkpoint (immediate post-spawn)**: agent 019ea043-7987-7842-bc66-fdf4313427dd , workstream W7 , dispatched parallel (disjoint code focus; O1 load noted in steering — sub prefers writes + limited smoke). Ownership: daily-briefs tracker script + interest logic + local tool loops (gh/fs/web/planning) + specialist KB/harness for OSS leader + evals (deepeval/promptfoo) + baselines for briefs + commit/push. Next: poll, on return gate + checkpoint + analyze for 3 solid (with O1 data).
 
 ## Checkpoints (roadmap + state + logs updated live)
 - Roadmap: Current Phase + new "This Goal Run" section + W7/O6 + user directives + github + 3-model target.
