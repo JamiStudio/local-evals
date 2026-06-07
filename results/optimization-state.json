@@ -167,7 +167,7 @@
     "Perf tooling + captures + verify + deepeval W7 tests (ToolCall fixed) done",
     "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal",
     "Qwen and liquid current-suite one-cell controls are now matched: Stream 7 qwen/qwen3.5-9b@gpu_offload 7/40 (17.5%, rounded 18%) in 1018924 ms; Stream 8 liquid/lfm2.5-1.2b@gpu_full 5/40 (12.5%, rounded 13%) in 13373 ms. Liquid remains speed/control only; qwen has +2 passes but is ~76x slower on the current suite. Next: either user-judge/baseline W7 gaps or a bounded no-fallback W7 refresh before promoting 3-solid decisions.",
-    "Use the Stream 13 bounded local-fallback path for any next mid-size retry: keep EVAL_TASK_FILTER small, one GPU model at a time, and expand from one task/profile only after each cell writes a completed row."
+    "Use the Stream 13/14 bounded local-fallback path for any next mid-size retry: keep EVAL_TASK_FILTER small, one GPU model at a time, and expand from one task/profile only after each cell writes a completed row. Stream 4's three named mid-size targets now have one-task gpu_offload local-fallback coverage only; broader suites/profiles remain unproven."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -259,7 +259,8 @@
     "Stream 10 model-specific review queue preservation + qwen rerun after W7 baselines (COMPLETED in working stream; liquid Stream 8 and qwen Stream 10 comparison/queue archives both 40 rows, 40 baseline-backed, W7 8/8; qwen current-suite cell eval_partial 7/40 with Promptfoo cached output, runner duration 7543 ms)",
     "Stream 11 W7 DeepEval agent-trace repair (COMPLETED in working stream; ToolCall import fixed; local-safe deterministic W7 tool/plan/brief assertions replace default OpenAI metric construction; uv run deepeval test run suites/deepeval/test_workflows.py -v passed 4/4; LM Studio liquid unloaded after research smoke)",
     "Stream 12 strict qwen W7 tracker refresh (COMPLETED in working stream; artifact results/daily-briefs/brief-20260607-100231.json; strict_final=true, finalization_status=model_final, fallback_used=false, all 5 sections present, usage 5141/1393/6534, wall 457.92s, tps 3.0; one invalid GitHub tool failure and quality/freshness caveats remain; no final 3-solid claim)",
-    "Stream 13 bounded mid-size local fallback proof (COMPLETED in working stream; google/gemma-4-12b@gpu_offload with EVAL_TASK_FILTER=build-synthetic-smoke, EVAL_USE_PROMPTFOO=false, EVAL_CELL_TIMEOUT_MS=300000 completed 1/1 in 71342 ms; local fallback filter/transform/pass-count parsing repaired; no broad mid-size coverage claim)"
+    "Stream 13 bounded mid-size local fallback proof (COMPLETED in working stream; google/gemma-4-12b@gpu_offload with EVAL_TASK_FILTER=build-synthetic-smoke, EVAL_USE_PROMPTFOO=false, EVAL_CELL_TIMEOUT_MS=300000 completed 1/1 in 71342 ms; local fallback filter/transform/pass-count parsing repaired; no broad mid-size coverage claim)",
+    "Stream 14 remaining Stream 4 target bounded fallback proof (COMPLETED in working stream; zai-org/glm-4.6v-flash@gpu_offload completed 1/1 in 97743 ms and google/gemma-4-12b-qat@gpu_offload completed 1/1 in 70425 ms on EVAL_TASK_FILTER=build-synthetic-smoke with EVAL_USE_PROMPTFOO=false and EVAL_CELL_TIMEOUT_MS=300000; no broad mid-size coverage claim)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -1158,5 +1159,69 @@
     },
     "assessment": "The bounded mid-size path is now proven for at least one Stream 4 target model using local fallback and task filtering: google/gemma-4-12b@gpu_offload completed a one-task local eval in 71.342s under a 300000 ms cell timeout. This repairs the zero-row Stream 4 failure mode for narrow filtered local fallback cells only.",
     "remainingGaps": "Do not overclaim broad mid-size coverage: only one 12B model, one CPU/offload profile, and one build task passed. google/gemma-4-12b-qat, zai-org/glm-4.6v-flash, wider task subsets, Promptfoo full-suite behavior, partial GPU profiles, and user-review quality remain unproven. Final 3-solid selection is not complete."
+  },
+  "stream14RemainingStream4TargetBoundedFallback": {
+    "workstream": "Stream 14",
+    "title": "expand bounded mid-size local fallback proof to remaining Stream 4 target models",
+    "sourceTruthReads": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Stream 4 and Stream 13 checkpoints",
+      "results/optimization-state.json stream4MidSizeTimeoutEvidence and stream13BoundedMidSizeLocalFallback",
+      "scripts/run-matrix.mjs",
+      "scripts/run-local-eval.mjs",
+      "registry/models.json",
+      "registry/load-profiles.json",
+      "live lms ps and nvidia-smi"
+    ],
+    "scope": "Remaining Stream 4 target models only; local fallback only; exactly EVAL_TASK_FILTER=build-synthetic-smoke; exactly EVAL_SMOKE_PROFILES=gpu_offload; one GPU model at a time; no direct paid API calls, no cloud judge, no baseline collection, no broad/full matrix",
+    "liveRuntimeBefore": {
+      "lmsPs": "No models were loaded before the bounded Stream 14 run",
+      "nvidiaSmi": "2026/06/07 06:19:59.204, RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free, 6% GPU util"
+    },
+    "codeChanges": [],
+    "validationBeforeRun": {
+      "nodeCheck": "node --check scripts\\run-local-eval.mjs and node --check scripts\\run-matrix.mjs passed",
+      "runnerChangeNeeded": false
+    },
+    "command": "EVAL_USE_PROMPTFOO=false EVAL_TASK_FILTER=build-synthetic-smoke EVAL_SMOKE_MODELS=google/gemma-4-12b-qat,zai-org/glm-4.6v-flash EVAL_SMOKE_PROFILES=gpu_offload EVAL_CELL_TIMEOUT_MS=300000 node scripts/run-matrix.mjs --smoke",
+    "latestMatrixJsonl": "results/matrix-2026-06-07T10-20-16-337Z.jsonl",
+    "results": [
+      {
+        "modelKey": "zai-org/glm-4.6v-flash",
+        "variant": "zai-org/glm-4.6v-flash@q4_k_m",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "completed",
+        "passes": 1,
+        "total": 1,
+        "durationMs": 97743,
+        "outputEvidence": "results/promptfoo-latest.json was overwritten by the later 12B-QAT cell; GLM evidence is the matrix row with completed 1/1 and empty stderr."
+      },
+      {
+        "modelKey": "google/gemma-4-12b-qat",
+        "variant": "google/gemma-4-12b-qat@q4_0",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "completed",
+        "passes": 1,
+        "total": 1,
+        "durationMs": 70425,
+        "promptLatencyMs": 70272,
+        "outputEvidence": "Diff output for src/math.ts included +++ and a reduce-based sum implementation."
+      }
+    ],
+    "refreshedArtifacts": {
+      "matrixSummary": "results/matrix-summary.json now points at Stream 14 with cells=2, completed=2, loadFailed=0, avgPassRate=1",
+      "promptfooLatest": "results/promptfoo-latest.json retains only the last local fallback cell: google/gemma-4-12b-qat@gpu_offload, stats 1/1",
+      "baselineComparison": "results/baseline-comparison.jsonl refreshed to 1 baseline-backed comparison for the retained QAT promptfoo-latest cell",
+      "userJudgeQueue": "results/user-judge-queue.jsonl refreshed to 1 pending case for the retained QAT promptfoo-latest cell"
+    },
+    "postRunRuntime": "lms unload --all unloaded google/gemma-4-12b-qat; final lms ps showed no loaded models. Full nvidia-smi refresh showed 456 MiB used / 8192 MiB total with only desktop/LM Studio UI processes listed.",
+    "stream4TargetCoverageAssessment": "Stream 4's named mid-size target set now has bounded one-task gpu_offload local-fallback coverage: Stream 13 google/gemma-4-12b 1/1 in 71342 ms; Stream 14 zai-org/glm-4.6v-flash 1/1 in 97743 ms; Stream 14 google/gemma-4-12b-qat 1/1 in 70425 ms.",
+    "remainingGaps": "Do not claim broad mid-size coverage: Promptfoo full-suite behavior, partial GPU profiles, wider task subsets, GLM output artifact preservation, subjective user review, quality ranking, and final 3-solid selection remain unproven."
   }
 }
