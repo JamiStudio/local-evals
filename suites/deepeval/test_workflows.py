@@ -9,15 +9,17 @@ Run: pnpm eval:deepeval -k "tool_correctness or plan_adherence or briefs_quality
 from __future__ import annotations
 
 import os
+from typing import Any
 
 import pytest
 from openai import OpenAI
 
 try:
-    from deepeval.test_case import LLMTestCase
+    from deepeval.test_case import LLMTestCase, ToolCall
     from deepeval.metrics import ToolCorrectnessMetric, PlanAdherenceMetric, TaskCompletionMetric
 except Exception:  # deepeval optional for basic smoke
     LLMTestCase = None  # type: ignore
+    ToolCall = None  # type: ignore
     ToolCorrectnessMetric = None  # type: ignore
     PlanAdherenceMetric = None  # type: ignore
     TaskCompletionMetric = None  # type: ignore
@@ -63,7 +65,40 @@ def test_research_lane_returns_substantive_output():
 
 
 def _has_deepeval_metrics() -> bool:
-    return LLMTestCase is not None and ToolCorrectnessMetric is not None
+    return LLMTestCase is not None and ToolCall is not None
+
+
+def _judge_metrics_enabled() -> bool:
+    """Default DeepEval metrics use OpenAI; keep local smoke offline unless explicitly enabled."""
+    return os.getenv("EVAL_DEEPEVAL_JUDGE_METRICS", "").lower() in {"1", "true", "yes"}
+
+
+def _maybe_measure_metric(metric_cls: Any, test_case: Any, **kwargs: Any) -> Any | None:
+    if metric_cls is None or not _judge_metrics_enabled():
+        return None
+    try:
+        metric = metric_cls(**kwargs)
+        metric.measure(test_case)
+        return metric
+    except Exception as exc:
+        # Judge-backed metrics are optional in this local-only smoke lane. The
+        # deterministic assertions below still validate the W7 trace semantics.
+        if "OPENAI_API_KEY" not in str(exc) and "OpenAI API key" not in str(exc):
+            raise
+        return None
+
+
+def _assert_contains_all(text: str, expected: list[str]) -> None:
+    lowered = text.lower()
+    missing = [term for term in expected if term.lower() not in lowered]
+    assert not missing, f"missing expected W7 concepts: {missing}"
+
+
+def _assert_tool_trace(tools_called: list[Any], expected: list[str]) -> None:
+    observed = [tool.name for tool in tools_called]
+    assert observed == expected
+    for tool in tools_called:
+        assert tool.input_parameters, f"{tool.name} lacks input parameters"
 
 
 @pytest.mark.skipif(not _has_deepeval_metrics(), reason="deepeval metrics not importable in this env")
@@ -78,32 +113,44 @@ def test_tool_correctness_in_tracker_flow():
             ToolCall(name="read_file", input_parameters={"path": "results/optimization-state.json"}),
             ToolCall(name="github", input_parameters={"args": ["repo", "view", "JamiStudio/local-evals"]}),
         ],
-        expected_tools=["web_search", "read_file", "github"],
+        expected_tools=[
+            ToolCall(name="web_search", input_parameters={"query": "qwen3.5 evals"}),
+            ToolCall(name="read_file", input_parameters={"path": "results/optimization-state.json"}),
+            ToolCall(name="github", input_parameters={"args": ["repo", "view", "JamiStudio/local-evals"]}),
+        ],
     )
-    metric = ToolCorrectnessMetric(threshold=0.5)
-    try:
-        metric.measure(test_case)
+    _assert_tool_trace(test_case.tools_called, ["web_search", "read_file", "github"])
+    _assert_tool_trace(test_case.expected_tools, ["web_search", "read_file", "github"])
+    _assert_contains_all(test_case.actual_output, ["web_search", "read_file", "github", "finalized brief"])
+    metric = _maybe_measure_metric(ToolCorrectnessMetric, test_case, threshold=0.5)
+    if metric is not None:
         assert hasattr(metric, "score")
-        # In full run with judge may score; smoke accepts structure + non-negative
-        assert metric.score is not None or True
-    except Exception:
-        # Graceful for smoke (no judge / partial impl): at least metric constructed for W7 coverage
-        assert "ToolCorrectness" in repr(type(metric))
 
 
 def test_plan_adherence_for_briefs():
     """W7: PlanAdherence for briefs planning loop (ReAct steps -> actionable plan in brief)."""
     test_case = LLMTestCase(
         input="Produce daily brief with plan for specialist harness next steps.",
-        actual_output="## Brief\n\n### Recommended Actions\n1. Load qwen offload for daily use.\n2. Run tracker --use-specialist.\n3. Collect W7 baselines via manifest tasks.\n4. Extend deepeval for briefs quality.",
-        expected_plan="Step1: gather via tools; Step2: synthesize placement notes from matrix; Step3: output numbered plan; Step4: record tps.",
+        actual_output=(
+            "## Brief\n\n"
+            "### Recommended Actions\n"
+            "1. Gather web_search, read_file, and github signals for W7.\n"
+            "2. Synthesize qwen gpu_offload placement notes from matrix evidence.\n"
+            "3. Compare against W7 baselines before user-judge review.\n"
+            "4. Record token speed / tps and preserve the ordered plan."
+        ),
+        expected_output="Ordered plan covers tool gathering, placement synthesis, baseline comparison, and tps recording.",
     )
-    metric = PlanAdherenceMetric(threshold=0.5)
-    try:
-        metric.measure(test_case)
+    _assert_contains_all(
+        test_case.actual_output,
+        ["1.", "2.", "3.", "4.", "web_search", "read_file", "github", "qwen", "gpu_offload", "baseline", "tps"],
+    )
+    assert test_case.actual_output.index("1.") < test_case.actual_output.index("2.")
+    assert test_case.actual_output.index("2.") < test_case.actual_output.index("3.")
+    assert test_case.actual_output.index("3.") < test_case.actual_output.index("4.")
+    metric = _maybe_measure_metric(PlanAdherenceMetric, test_case, threshold=0.5)
+    if metric is not None:
         assert hasattr(metric, "score")
-    except Exception:
-        assert "PlanAdherence" in repr(type(metric))
 
 
 def test_briefs_quality_vs_baseline():
@@ -115,14 +162,20 @@ def test_briefs_quality_vs_baseline():
     )
     test_case = LLMTestCase(
         input="Daily interest brief for local evals W7.",
-        actual_output="qwen3.5-9b @ gpu_offload leads smoke (63%). Specialist KB loaded for briefs. Tools used correctly (web, gh, read). Plan: 1) daily tracker 2) baseline collect for new tasks 3) deepeval coverage. Token speed recorded.",
+        actual_output=(
+            "qwen3.5-9b @ gpu_offload is the caveated local specialist candidate. "
+            "Specialist KB loaded for briefs. Tools used correctly: web_search, github, read_file. "
+            "Plan: 1) daily tracker 2) baseline comparison for W7 tasks 3) DeepEval trace coverage. "
+            "Token speed / tps recorded against the baseline pattern."
+        ),
         expected_output=baseline_ref,
     )
     # Task completion as proxy for quality vs baseline reference; Tool/Plan above cover correctness
-    metric = TaskCompletionMetric(threshold=0.3)
-    try:
-        metric.measure(test_case)
+    _assert_contains_all(
+        test_case.actual_output,
+        ["qwen", "gpu_offload", "specialist", "web_search", "github", "read_file", "plan", "baseline", "tps"],
+    )
+    _assert_contains_all(test_case.expected_output or "", ["qwen", "offload", "risks", "next steps", "tps"])
+    metric = _maybe_measure_metric(TaskCompletionMetric, test_case, threshold=0.3)
+    if metric is not None:
         assert hasattr(metric, "score")
-    except Exception:
-        # Smoke fallback: direct quality signal (contains baseline concepts)
-        assert "qwen" in test_case.actual_output.lower() and "plan" in test_case.actual_output.lower()

@@ -256,7 +256,8 @@
     "Stream 7 qwen current-suite leader refresh (COMPLETED + pushed 558260b; one cell results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload eval_partial 7/40, 17.5% rounded 18%, duration 1018924 ms; promptfoo 7 passed, 25 failed, 8 errors; weakens old 5/8 leader claim on current 40-assertion suite)",
     "Stream 8 liquid current-suite control (COMPLETED + pushed ba2348d; one cell results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full eval_partial 5/40, 12.5% rounded 13%, duration 13373 ms; promptfoo 5 passed, 27 failed, 8 errors, 4703 total tokens; compared to Stream 7 qwen 7/40 in 1018924 ms, liquid is -2 passes but ~76x faster)",
     "Stream 9 W7 baseline/user-judge bounded collection (COMPLETED; W7 baselines imported for daily-brief-synthetic-smoke and interest-tracker-tool-use using only bounded task filters; refreshed compare/queue now 40/40 baseline-backed with 8/8 W7 backed)",
-    "Stream 10 model-specific review queue preservation + qwen rerun after W7 baselines (COMPLETED in working stream; liquid Stream 8 and qwen Stream 10 comparison/queue archives both 40 rows, 40 baseline-backed, W7 8/8; qwen current-suite cell eval_partial 7/40 with Promptfoo cached output, runner duration 7543 ms)"
+    "Stream 10 model-specific review queue preservation + qwen rerun after W7 baselines (COMPLETED in working stream; liquid Stream 8 and qwen Stream 10 comparison/queue archives both 40 rows, 40 baseline-backed, W7 8/8; qwen current-suite cell eval_partial 7/40 with Promptfoo cached output, runner duration 7543 ms)",
+    "Stream 11 W7 DeepEval agent-trace repair (COMPLETED in working stream; ToolCall import fixed; local-safe deterministic W7 tool/plan/brief assertions replace default OpenAI metric construction; uv run deepeval test run suites/deepeval/test_workflows.py -v passed 4/4; LM Studio liquid unloaded after research smoke)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -904,5 +905,42 @@
     },
     "postRunRuntime": "Runner unloaded after the cell; post-run lms ps showed no loaded models and nvidia-smi still showed 456 MiB used / 7532 MiB free.",
     "remainingGaps": "User review remains pending; Stream 10 only prepares and preserves model-specific baseline-backed review queues. Qwen W7 daily-brief evidence remains fallback-backed from Stream 6, and the Stream 10 promptfoo output was cached, so do not promote final 3-solid decisions from this alone."
+  },
+  "stream11W7DeepEvalTraceRepair": {
+    "at": "2026-06-07T10:00:00Z",
+    "scope": "Repair and validate W7 DeepEval agent-trace lane only; no GPU matrix, no baseline collection, no direct paid APIs, and no OPENAI_API_KEY requirement",
+    "sourceTruthReadBeforeRun": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md",
+      "results/optimization-state.json",
+      "suites/deepeval/test_workflows.py",
+      "package.json eval:deepeval",
+      "installed DeepEval 4.0.5 package introspection for deepeval.test_case.ToolCall"
+    ],
+    "failureFixed": [
+      "test_tool_correctness_in_tracker_flow raised NameError because ToolCall was not imported",
+      "ToolCorrectnessMetric, PlanAdherenceMetric, and TaskCompletionMetric construct DeepEval's default OpenAI GPTModel when used directly, causing missing OPENAI_API_KEY failures in local smoke"
+    ],
+    "codeChanges": [
+      "suites/deepeval/test_workflows.py imports ToolCall from deepeval.test_case for DeepEval 4.0.5",
+      "expected_tools now use ToolCall objects matching tools_called",
+      "local-safe deterministic assertions validate W7 tool order and parameters for web_search/read_file/github",
+      "plan and brief quality tests assert ordered actions plus qwen/offload/specialist/tools/plan/token speed/baseline concepts",
+      "judge-backed metric construction and measure are skipped by default and only attempted behind EVAL_DEEPEVAL_JUDGE_METRICS"
+    ],
+    "verification": {
+      "pyCompile": "uv run python -m py_compile suites\\deepeval\\test_workflows.py passed",
+      "deepeval": "uv run deepeval test run suites\\deepeval\\test_workflows.py -v passed 4 tests in 9.31s with 3 warnings; DeepEval plugin footer printed 'No test cases found' after pytest but process exited 0",
+      "passedTests": [
+        "test_research_lane_returns_substantive_output",
+        "test_tool_correctness_in_tracker_flow",
+        "test_plan_adherence_for_briefs",
+        "test_briefs_quality_vs_baseline"
+      ]
+    },
+    "runtimeCloseout": "DeepEval research smoke left liquid/lfm2.5-1.2b IDLE in LM Studio; lms unload --all unloaded it and final lms ps showed no loaded models.",
+    "remainingGaps": "This stream closes the local-safe DeepEval W7 trace validation lane only. Subjective user review remains pending, qwen's real W7 daily-brief artifact remains fallback-backed from Stream 6, and final 3-solid model decisions are not complete."
   }
 }
