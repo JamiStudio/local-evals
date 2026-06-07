@@ -1,6 +1,6 @@
 # Strict Gap Audit - Stream 21 (2026-06-07)
 
-**Status:** Internal remaining-gap audit after Streams 1-20, updated with Streams 22-27 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
+**Status:** Internal remaining-gap audit after Streams 1-20, updated with Streams 22-28 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
 
 **Runtime boundary:** Stream 21 ran no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or paid-provider calls. Live `lms ps` was used only to confirm that no models were loaded.
 
@@ -10,7 +10,7 @@
 
 The campaign has real pushed evidence across every major lane, but the original exhaustive target is not complete. The strongest covered lanes are git transparency, W7 baseline backing, local-safe DeepEval W7, and prepared human-review packet. The strongest local candidate remains qwen for specialist/W7 support, liquid remains speed/triage, and cloud/imported baselines remain the quality anchor. Those are draft roles only.
 
-Stream 22 resolved the cache-control preflight and partially refreshed throughput: installed Promptfoo exposes `--no-cache`, now env-gated in `scripts/run-matrix.mjs` via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid completed a no-cache current-suite cell; qwen timed out under the bounded no-cache cap. Stream 23 improved qwen W7 tracker tool relevance but did not close strict quality acceptance because the final brief omitted a required section. Stream 24 added one completed 26B practical row: `google/gemma-4-26b-a4b@gpu_offload`, local fallback only, `build-synthetic-smoke`, `1/1` in `76163 ms`. Stream 25 added one bounded 31B-QAT offload practical timeout: `google/gemma-4-31b-qat@gpu_offload`, local fallback only, `build-synthetic-smoke`, `eval_timeout` at `300031 ms`. Stream 26 added one completed 26B partial practical row: `google/gemma-4-26b-a4b@gpu_partial_0.39`, local fallback only, `build-synthetic-smoke`, `1/1` in `72024 ms`. Stream 27 repaired the narrow W7 section-completeness failure with one strict qwen model-final tracker run: all five sections present, no fallback, `tps=3.0`, wall `513.05s`, usage `9752/1531/11283`, and no tool failures. Quality acceptance remains user-review gated because the model's Token & Speed section used pending placeholders and the action recommendations still need human review.
+Stream 22 resolved the cache-control preflight and partially refreshed throughput: installed Promptfoo exposes `--no-cache`, now env-gated in `scripts/run-matrix.mjs` via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid completed a no-cache current-suite cell; qwen timed out under the bounded no-cache cap. Stream 23 improved qwen W7 tracker tool relevance but did not close strict quality acceptance because the final brief omitted a required section. Stream 24 added one completed 26B practical row: `google/gemma-4-26b-a4b@gpu_offload`, local fallback only, `build-synthetic-smoke`, `1/1` in `76163 ms`. Stream 25 added one bounded 31B-QAT offload practical timeout: `google/gemma-4-31b-qat@gpu_offload`, local fallback only, `build-synthetic-smoke`, `eval_timeout` at `300031 ms`. Stream 26 added one completed 26B partial practical row: `google/gemma-4-26b-a4b@gpu_partial_0.39`, local fallback only, `build-synthetic-smoke`, `1/1` in `72024 ms`. Stream 27 repaired the narrow W7 section-completeness failure with one strict qwen model-final tracker run: all five sections present, no fallback, `tps=3.0`, wall `513.05s`, usage `9752/1531/11283`, and no tool failures. Stream 28 added the missing Promptfoo task-filter pass-through and produced one completed qwen no-cache single-task surface: `qwen/qwen3.5-9b@gpu_offload`, `build-synthetic-smoke`, `eval_failed`, `0/4`, `261012 ms`, `cached=0`. Quality acceptance remains user-review gated because the model's Token & Speed section used pending placeholders and the action recommendations still need human review.
 
 The remaining gaps split into two categories:
 
@@ -24,7 +24,7 @@ The remaining gaps split into two categories:
 | All 12 models inventory | covered | `registry/models.json` lists 12 local LLMs: 26B, 12B, GLM, qwen, e2b, 31B, 31B-QAT, 12B-QAT, rnj, nemotron, liquid, e4b. | Inventory is covered; live `lms ls --json` can still drift and should be refreshed before future load-profile changes. |
 | Current-suite / Promptfoo coverage | evidence exists but not complete | Small/fit class: nemotron all 11 profiles at 9/40, e2b all 11 at 11/40, e4b all 11 at 10/40, rnj all 11 at 7/40. Qwen controls at 7/40; liquid controls at 5/40. | The full original target, all 12 models x all 11 profiles on the full current suite, is not complete. 26B/31B practical coverage is absent or timeout-only; mid-size full Promptfoo coverage remains narrow. |
 | Local fallback slices | narrowly covered | Stream 13/14 build slices for 12B/GLM/12B-QAT; Stream 18 widened to 9 gpu_offload cells across research, plan, and tool-call with 6/9; Stream 20 added 3/3 recommended partial plan cells. | Local fallback proves bounded feasibility for selected tasks only. It does not prove broad suite quality or user-accepted output quality. |
-| Load profiles and partials | evidence exists but not complete | `registry/load-profiles.json` has 11 profiles. Stream 17 tested liquid all profiles and qwen four profiles; pass rates were invariant. Stream 20 tested one recommended partial per mid-size model on one task. Stream 22 completed liquid no-cache throughput and recorded qwen no-cache timeout. Stream 16 has large estimates. | Broad partial-profile quality remains incomplete. Qwen uncached current-suite throughput remains incomplete because the bounded no-cache cell timed out before pass totals. |
+| Load profiles and partials | evidence exists but not complete | `registry/load-profiles.json` has 11 profiles. Stream 17 tested liquid all profiles and qwen four profiles; pass rates were invariant. Stream 20 tested one recommended partial per mid-size model on one task. Stream 22 completed liquid no-cache throughput and recorded qwen no-cache 40-case timeout. Stream 28 added one completed qwen no-cache single-task failure row. Stream 16 has large estimates. | Broad partial-profile quality remains incomplete. Qwen full 40-case uncached current-suite throughput remains incomplete because the bounded no-cache cell timed out before pass totals; Stream 28 closes only the narrower no completed qwen no-cache row at all gap. |
 | W7 tracker | narrowly covered | Stream 12 strict qwen artifact `results/daily-briefs/brief-20260607-100231.json` is model-final, no fallback, all required sections present, `tps=3.0`, with web/read/github tools. Stream 23 artifact `results/daily-briefs/brief-20260607-125406.json` used repo-file reads and valid GitHub fields with no tool failures but missed `Token & Speed`. Stream 27 artifact `results/daily-briefs/brief-20260607-135239.json` is strict model-final, no fallback, all five sections present, `tps=3.0`, wall `513.05s`, usage `9752/1531/11283`, and no tool failures. | Section completeness is repaired, but quality is not accepted: Stream 27's model text used pending placeholders for Token & Speed and includes review-worthy action quality caveats. User review is required. |
 | DeepEval W7 | covered | Stream 11 local-safe deterministic W7 lane passed 4/4 without requiring `OPENAI_API_KEY`. | Judge-backed DeepEval metrics remain opt-in and are not needed for the local-safe default lane. |
 | Baselines and user-review queue | pending user review | Stream 9 collected W7 baselines; qwen/liquid model-specific archives are 40/40 baseline-backed with W7 8/8. Stream 19 prepared the review packet. | Human scoring has not happened. Automation cannot mark this complete without the user. |
@@ -176,6 +176,30 @@ lms unload --all
 **Result:** `results/daily-briefs/brief-20260607-135239.json` was produced and summarized in `results/stream27-w7-section-repair.json`. It is strict/no-fallback with `fallback_used=false`, `finalization_status=model_final`, all five sections present, no missing sections, `tps=3.0`, wall `513.05s`, usage `9752/1531/11283`, tools `read_file`, `web_search`, and `github`, no tool failures, and valid `gh repo view` fields.
 
 **Assessment:** Stream 27 closes the section-completeness gap left by Stream 23. It does not close W7 quality acceptance: the model's own `Token & Speed` text uses pending placeholders even though the artifact records exact metrics, and the recommended actions include review-worthy scope issues. Treat qwen W7 as still review-gated.
+
+### Stream 28 result - Qwen no-cache single-task probe
+
+**Gap outcome:** The narrow "no completed qwen no-cache row at all" gap is closed. The full 40-case qwen no-cache current-suite throughput gap remains open.
+
+**Scope:** One Promptfoo-backed qwen cell on `build-synthetic-smoke`, using `gpu_offload`, `EVAL_PROMPTFOO_NO_CACHE=true`, `EVAL_TASK_FILTER=build-synthetic-smoke`, and `EVAL_CELL_TIMEOUT_MS=300000`.
+
+**Runner repair:** The first command showed `EVAL_TASK_FILTER` was only logged on rows and not passed to Promptfoo: `results/matrix-2026-06-07T14-02-10-218Z.jsonl` timed out at `300052 ms` after Promptfoo started 40 cases. `scripts/run-matrix.mjs` now passes the filter as `--filter-metadata taskId=<taskFilter>`.
+
+**Command run after repair:**
+
+```powershell
+$env:EVAL_PROMPTFOO_NO_CACHE='true'
+$env:EVAL_TASK_FILTER='build-synthetic-smoke'
+$env:EVAL_SMOKE_MODELS='qwen/qwen3.5-9b'
+$env:EVAL_SMOKE_PROFILES='gpu_offload'
+$env:EVAL_CELL_TIMEOUT_MS='300000'
+node scripts/run-matrix.mjs --smoke
+lms unload --all
+```
+
+**Result:** `results/stream28-qwen-uncached-single-task.json` and `results/matrix-2026-06-07T14-08-47-000Z.jsonl` record `qwen/qwen3.5-9b@gpu_offload`, `taskFilter=build-synthetic-smoke`, `status=eval_failed`, `passes=0`, `total=4`, `durationMs=261012`. `results/promptfoo-latest.json` contains 4 filtered cases with `metadata.taskId=build-synthetic-smoke`, `tokenUsage.cached=0`, and empty/error local outputs. Compare and queue archives are `results/baseline-comparison-stream28-qwen-uncached-single-task.jsonl` and `results/user-judge-queue-stream28-qwen-uncached-single-task.jsonl`, each with 4 rows.
+
+**Assessment:** This is concrete qwen no-cache latency/failure evidence for a single filtered task. It is not successful output evidence, not full current-suite throughput, and not a profile or 3-solid promotion.
 
 ## Explicitly Not Next
 

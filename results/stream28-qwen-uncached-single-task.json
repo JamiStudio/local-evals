@@ -1,0 +1,188 @@
+{
+  "stream": 28,
+  "at": "2026-06-07T14:13:47.000Z",
+  "purpose": "Narrow the qwen uncached-throughput gap without rerunning the known 40-case timeout by producing one Promptfoo no-cache single-task surface for qwen/qwen3.5-9b@gpu_offload.",
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/engineering/agents/orchestration-reliability.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md including Streams 7, 17, 22, and 27",
+    "results/stream22-uncached-throughput.json",
+    "results/stream17-profile-sensitivity.json",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/runtime-snapshot.json",
+    "scripts/run-matrix.mjs EVAL_PROMPTFOO_NO_CACHE and EVAL_TASK_FILTER support",
+    "live git pull --ff-only",
+    "live git status --short",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitPull": "Already up to date.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 227 MiB used, 7761 MiB free, 0% utilization"
+  },
+  "runnerFix": {
+    "file": "scripts/run-matrix.mjs",
+    "reason": "The first command showed EVAL_TASK_FILTER was recorded on the row but not passed into Promptfoo; stderr said Promptfoo started 40 test cases. Promptfoo eval help exposes --filter-metadata <key=value>, and suite tests use metadata.taskId.",
+    "change": "When EVAL_TASK_FILTER is set, Promptfoo now receives --filter-metadata taskId=<taskFilter>. Default unfiltered behavior is unchanged."
+  },
+  "prePatchAttempt": {
+    "matrixJsonl": "results/matrix-2026-06-07T14-02-10-218Z.jsonl",
+    "command": "EVAL_PROMPTFOO_NO_CACHE=true; EVAL_TASK_FILTER=build-synthetic-smoke; EVAL_SMOKE_MODELS=qwen/qwen3.5-9b; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=300000; node scripts/run-matrix.mjs --smoke",
+    "row": {
+      "runId": "2026-06-07T14-02-10-218Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 300052,
+      "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed.\n========================================================================================================================\n⚠️ The current version of promptfoo 0.120.27 is lower than the latest available version 0.121.15.\n\nPlease run npx promptfoo@latest or npm install -g promptfoo@latest to update.\n========================================================================================================================\n\r\nCache is disabled.\r\nStarting evaluation eval-R16-2026-06-07T14:02:16\r\nRunning 40 test cases (up to 1 at a time)..."
+    },
+    "assessment": "This is not credited as the requested single-task evidence. It exposed the missing Promptfoo filter pass-through: stderr confirms cache disabled but Promptfoo started 40 test cases and timed out at 300052 ms before pass totals."
+  },
+  "command": {
+    "env": {
+      "EVAL_PROMPTFOO_NO_CACHE": "true",
+      "EVAL_TASK_FILTER": "build-synthetic-smoke",
+      "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+      "EVAL_SMOKE_PROFILES": "gpu_offload",
+      "EVAL_CELL_TIMEOUT_MS": "300000"
+    },
+    "command": "node scripts/run-matrix.mjs --smoke"
+  },
+  "artifacts": {
+    "matrixJsonl": "results/matrix-2026-06-07T14-08-47-000Z.jsonl",
+    "promptfooLatest": "results/promptfoo-latest.json",
+    "matrixSummary": "results/matrix-summary.json",
+    "comparisonArchive": "results/baseline-comparison-stream28-qwen-uncached-single-task.jsonl",
+    "userJudgeQueueArchive": "results/user-judge-queue-stream28-qwen-uncached-single-task.jsonl"
+  },
+  "row": {
+    "runId": "2026-06-07T14-08-47-000Z",
+    "modelKey": "qwen/qwen3.5-9b",
+    "variant": "qwen/qwen3.5-9b@q4_k_m",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "eval_failed",
+    "passes": 0,
+    "total": 4,
+    "durationMs": 261012,
+    "stderr": "              \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m handleContai… \u001b[90m│\u001b[39m handleContai… \u001b[90m│\u001b[39m handleContai… \u001b[90m│\u001b[39m handleContai… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m     at        \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m runAssertion  \u001b[90m│\u001b[39m runAssertion  \u001b[90m│\u001b[39m runAssertion  \u001b[90m│\u001b[39m runAssertion  \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m               \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m (file:///C:/… \u001b[90m│\u001b[39m\n\u001b[90m└───────────────\u001b[39m\u001b[90m┴───────────────\u001b[39m\u001b[90m┴───────────────\u001b[39m\u001b[90m┴───────────────\u001b[39m\u001b[90m┴───────────────\u001b[39m\u001b[90m┴───────────────\u001b[39m\u001b[90m┴───────────────\u001b[39m\u001b[90m┴───────────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-OcW-2026-06-07T14:08:51)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\n\r\nResults: 0 passed, 0 failed, ✗ 4 errors (0%)\r\nDuration: 4m 17s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_14-08-50-725Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_14-08-50-725Z.log"
+  },
+  "promptfooStats": {
+    "evalId": "eval-OcW-2026-06-07T14:08:51",
+    "resultsLength": 4,
+    "firstTaskMetadata": {
+      "runId": "2026-06-07T14-08-47-000Z",
+      "loadProfile": "gpu_offload",
+      "subjectModel": "qwen/qwen3.5-9b",
+      "scoringMode": "deterministic-only",
+      "taskId": "build-synthetic-smoke",
+      "lane": "build"
+    },
+    "firstLatencyMs": 102667,
+    "firstSuccess": false,
+    "firstError": "TypeError: Cannot read properties of undefined (reading 'includes')\n    at handleContains (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:607:28)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n    at Object.awaitable (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:215:20)",
+    "cacheEvidence": {
+      "stderrIncludesCacheDisabled": false,
+      "cachedTokens": 0,
+      "note": "The successful filtered row stderr does not retain the Cache is disabled banner because Promptfoo returned non-timeout errors; Stream 28 command set EVAL_PROMPTFOO_NO_CACHE=true and Promptfoo tokenUsage.cached is 0."
+    },
+    "tokenUsage": {
+      "prompt": 0,
+      "completion": 0,
+      "cached": 0,
+      "total": 0,
+      "numRequests": 0,
+      "completionDetails": {
+        "reasoning": 0,
+        "acceptedPrediction": 0,
+        "rejectedPrediction": 0
+      },
+      "assertions": {
+        "total": 0,
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0,
+        "numRequests": 0,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        }
+      }
+    },
+    "stats": {
+      "successes": 0,
+      "failures": 0,
+      "errors": 4,
+      "tokenUsage": {
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0,
+        "total": 0,
+        "numRequests": 0,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 256602,
+      "evaluationDurationMs": 256602
+    }
+  },
+  "comparisonArtifacts": {
+    "generated": true,
+    "reason": "The filtered run refreshed results/promptfoo-latest.json with qwen/qwen3.5-9b@gpu_offload and taskId build-synthetic-smoke, so compare and queue were meaningful for this surface.",
+    "baselineComparisons": 4,
+    "baselineBackedRows": 4,
+    "userJudgeCases": 4,
+    "caveat": "All four local outputs were empty/error rows, so review queues are failure evidence rather than successful output quality evidence."
+  },
+  "comparisons": {
+    "stream17CachedQwen": {
+      "artifact": "results/stream17-profile-sensitivity.json",
+      "result": "qwen/qwen3.5-9b@gpu_offload and tested qwen profiles tied at 7/40; durations around 6.8-7.0s were cached Promptfoo reruns and not fresh throughput evidence."
+    },
+    "stream22QwenNoCacheFullSuite": {
+      "artifact": "results/stream22-uncached-throughput.json",
+      "result": "qwen/qwen3.5-9b@gpu_offload no-cache current-suite 40-case run timed out at 1200052 ms before pass totals; stderr confirmed cache disabled and 40 test cases started."
+    },
+    "stream28NarrowDelta": "Stream 28 adds a completed, filtered, Promptfoo no-cache qwen build-synthetic-smoke surface: eval_failed 0/4 in 261012 ms with cached tokens 0. It closes only the no completed qwen no-cache row at all evidence gap."
+  },
+  "runtimeAfter": {
+    "lmsPs": "No models are currently loaded after explicit lms unload --all.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 227 MiB used, 7761 MiB free, 0% utilization"
+  },
+  "gapOutcome": {
+    "closed": [
+      "Narrow qwen no-cache single-task evidence gap: there is now a completed Promptfoo-backed qwen no-cache build-synthetic-smoke row."
+    ],
+    "notClosed": [
+      "Full 40-case qwen no-cache current-suite throughput remains incomplete.",
+      "The Stream 28 row failed 0/4 and reported no prompt/completion tokens because Promptfoo errored on undefined output before normal scoring.",
+      "Qwen quality acceptance, final 3-solid selection, broad/full local matrix coverage, 31B/31B-QAT practical proof, broad partial-profile coverage, subjective user review, and final verifier audit remain open."
+    ]
+  }
+}

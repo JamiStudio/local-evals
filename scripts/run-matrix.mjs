@@ -112,6 +112,9 @@ function runPromptfoo(modelKey, profileId) {
   if (process.env.EVAL_PROMPTFOO_NO_CACHE === 'true') {
     promptfooArgs.push('--no-cache');
   }
+  if (taskFilter) {
+    promptfooArgs.push('--filter-metadata', `taskId=${taskFilter}`);
+  }
   const result = spawnSync(
     process.execPath,
     usePromptfoo ? promptfooArgs : ['scripts/run-local-eval.mjs'],
