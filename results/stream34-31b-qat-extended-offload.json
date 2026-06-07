@@ -1,0 +1,138 @@
+{
+  "stream": 34,
+  "at": "2026-06-07T15:31:30.000Z",
+  "scope": "One extended bounded 31B-QAT offload practical local-fallback cell; LM Studio local only; hard stop after one cell.",
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/engineering/agents/orchestration-reliability.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 16, 25, 32, 33 and Stream 34 dispatch checkpoint",
+    "docs/evals/2026-06-07-review-readiness-index.md",
+    "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+    "results/stream16-large-estimates.json",
+    "results/stream25-31b-qat-offload-practical.json",
+    "results/stream32-31b-q4-offload-practical.json",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/runtime-snapshot.json",
+    "scripts/run-matrix.mjs timeout wiring for load and eval subprocesses",
+    "live git pull --ff-only / git status --short / lms ps / nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitPull": "Already up to date.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 298 MiB used, 7690 MiB free, 4% utilization"
+  },
+  "command": "EVAL_USE_PROMPTFOO=false; EVAL_TASK_FILTER=build-synthetic-smoke; EVAL_SMOKE_MODELS=google/gemma-4-31b-qat; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=900000; node scripts/run-matrix.mjs --smoke",
+  "hardStopRule": "Exactly one google/gemma-4-31b-qat gpu_offload practical cell was run. No partial/full profile, no non-QAT 31B rerun, no 26B/qwen/liquid/mid-size model, no extra task, and no retry was attempted.",
+  "timeoutWiring": {
+    "script": "scripts/run-matrix.mjs",
+    "loadModel": "spawnSync lms load uses timeout: EVAL_CELL_TIMEOUT_MS when set.",
+    "evalCell": "spawnSync eval/local-fallback subprocess uses timeout: EVAL_CELL_TIMEOUT_MS when set.",
+    "unload": "Runner calls lms unload --all after the row; Stream 34 also performed explicit unload because the model stayed IDLE after the cell."
+  },
+  "matrixJsonl": "results/matrix-2026-06-07T15-22-52-975Z.jsonl",
+  "row": {
+    "runId": "2026-06-07T15-22-52-975Z",
+    "modelKey": "google/gemma-4-31b-qat",
+    "variant": "google/gemma-4-31b-qat@q4_0",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "eval_failed",
+    "passes": 0,
+    "total": 1,
+    "durationMs": 305466,
+    "stderr": "Task filter: build-synthetic-smoke\n-> build-synthetic-smoke\n  FAIL 0ms\n\nWrote C:\\Users\\james\\projects\\evals\\results\\promptfoo-latest.json - 0/1 passed",
+    "loadTimeout": false,
+    "evalTimeout": false,
+    "loadFailure": false,
+    "evalFailure": true
+  },
+  "promptfooLatest": {
+    "path": "results/promptfoo-latest.json",
+    "meaningfulForStream34": true,
+    "evalId": "2026-06-07T15-22-52-975Z",
+    "stats": {
+      "passes": 0,
+      "failures": 1,
+      "total": 1
+    },
+    "output": "",
+    "error": "fetch failed",
+    "assertions": [
+      {
+        "type": "contains",
+        "value": "+++",
+        "pass": false
+      },
+      {
+        "type": "javascript",
+        "value": "output.includes('reduce') || output.includes('for') || output.includes('+=')",
+        "pass": false
+      }
+    ],
+    "reason": "The row finished before the 900000 ms cap and refreshed promptfoo-latest.json, but the local-fallback output was empty and failed 0/1."
+  },
+  "comparisonArtifacts": {
+    "generated": false,
+    "reason": "The cell did not produce a completed local output. It refreshed promptfoo-latest.json with an empty-output fetch-failed surface, so archived compare/queue artifacts would not be meaningful user-review evidence for a completed model answer."
+  },
+  "stream16Comparison": {
+    "source": "results/stream16-large-estimates.json",
+    "partialAttempt": "Stream 16 ran google/gemma-4-31b-qat@gpu_partial_0.36 on build-synthetic-smoke and timed out at 300022 ms with no pass count.",
+    "offloadEstimate": "Stream 16 estimated google/gemma-4-31b-qat@gpu_offload at 72.86 MiB GPU / 18.66 GiB total.",
+    "practicalDelta": "Stream 34 adds an extended offload practical row: the row no longer timed out under a 900000 ms cap, but it failed 0/1 with empty output and fetch failed after 305466 ms."
+  },
+  "stream25Comparison": {
+    "source": "results/stream25-31b-qat-offload-practical.json",
+    "priorState": "Stream 25 google/gemma-4-31b-qat@gpu_offload timed out at 300031 ms with no pass totals under EVAL_CELL_TIMEOUT_MS=300000.",
+    "practicalDelta": "Stream 34 shows the prior 300s cap was slightly too tight to reach a terminal row, but the extended terminal row is still not a practical success: eval_failed, 0/1, empty output, fetch failed, duration 305466 ms."
+  },
+  "stream32Comparison": {
+    "source": "results/stream32-31b-q4-offload-practical.json",
+    "priorState": "Stream 32 non-QAT google/gemma-4-31b@gpu_offload completed the same local-fallback build-synthetic-smoke task 1/1 in 262464 ms.",
+    "practicalDelta": "Stream 34 31B-QAT offload took longer than the non-QAT 31B Q4 success and failed 0/1. This preserves 31B-QAT as a hardware/runtime-limited exclusion or retest decision, not a promotion candidate."
+  },
+  "runtimeAfterBeforeUnload": {
+    "lmsPs": "google/gemma-4-31b-qat was IDLE at 18.85 GB, context 4096, device Local, TTL 10m / 10m.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 7891 MiB used, 97 MiB free, 6% utilization"
+  },
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 342 MiB used, 7646 MiB free, 6% utilization"
+  },
+  "gapOutcome": "This closes only the question of whether the Stream 25 300s cap prevented a terminal offload row. With 900000 ms, the 31B-QAT offload row reached a terminal eval_failed state after 305466 ms, 0/1, empty output, and fetch failed. It does not close 31B-QAT practical success, broad 31B-QAT readiness, final selection, or user-accepted quality.",
+  "remainingGaps": [
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
+    "Broad partial-profile quality/throughput remains incomplete.",
+    "31B Q4_K_M has only one offload local-fallback success row; no partial/full or broad quality proof exists.",
+    "31B-QAT has no practical success row: partial timed out, 300s offload timed out, and extended offload failed 0/1 with empty output after 305466 ms.",
+    "Final two-verifier completion audit remains pending."
+  ],
+  "matrixSummary": {
+    "path": "results/matrix-summary.json",
+    "matrixFile": "matrix-2026-06-07T15-22-52-975Z.jsonl",
+    "runId": "2026-06-07T15-22-52-975Z",
+    "totals": {
+      "cells": 1,
+      "completed": 0,
+      "loadFailed": 0,
+      "avgPassRate": 0
+    },
+    "leaderboard": [
+      {
+        "modelKey": "google/gemma-4-31b-qat",
+        "profileId": "gpu_offload",
+        "passes": 0,
+        "total": 1,
+        "pct": 0
+      }
+    ]
+  }
+}

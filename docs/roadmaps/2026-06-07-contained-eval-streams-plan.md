@@ -629,7 +629,13 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Dispatch timestamp: 2026-06-07 after Stream 33 audit.
 - Ownership boundary: exactly one LM Studio local cell, `EVAL_USE_PROMPTFOO=false`, `EVAL_TASK_FILTER=build-synthetic-smoke`, `EVAL_CELL_TIMEOUT_MS=900000`; no 31B-QAT partial/full, no non-QAT 31B rerun, no other models, no retry.
 - Expected deliverables: `results/stream34-31b-qat-extended-offload.json`, one matrix JSONL row, targeted status updates, and this roadmap checkpoint.
-- Next coordinator action: poll in short intervals until commit+push, then audit whether the previous 300s 31B-QAT timeout was a cap artifact or remains practical limitation evidence.
+- Status: completed by Stream 34.
+- Result artifact: `results/stream34-31b-qat-extended-offload.json`; matrix JSONL: `results/matrix-2026-06-07T15-22-52-975Z.jsonl`.
+- Numeric result: `google/gemma-4-31b-qat@gpu_offload`, local fallback `build-synthetic-smoke`, `status=eval_failed`, `passes=0`, `total=1`, `durationMs=305466`, with no load timeout and no eval timeout. The refreshed `results/promptfoo-latest.json` records empty output and `error="fetch failed"`.
+- Comparison: Stream 25's 300000 ms offload cap was slightly too tight to reach a terminal row, but the extended row is not a success. It ran longer than Stream 32's non-QAT 31B Q4 offload success (`1/1` in `262464 ms`) and failed `0/1`.
+- Compare/queue: no Stream 34 compare/queue archive was generated because the row did not produce a completed model output; archiving an empty-output `fetch failed` surface would not be meaningful user-review evidence.
+- Runtime closeout: the row left `google/gemma-4-31b-qat` IDLE; explicit `lms unload --all` returned LM Studio to no loaded models.
+- Gap outcome: Stream 34 closes only the "was 300s too tight for terminal status" question. 31B-QAT still has no practical success row: partial timed out, 300s offload timed out, and extended offload failed `0/1` with empty output after `305466 ms`. Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, and final two-verifier audit remain pending.
 
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.

@@ -20,13 +20,13 @@ No final 3-solid selection is made here. The strongest current rotation is qwen 
 - **Mid-size local fallback:** 12B, GLM, and 12B-QAT have bounded local-fallback usefulness. Streams 13-14 completed `build-synthetic-smoke` 1/1 for all three on `gpu_offload`. Stream 18 widened to three local-fallback task ids with aggregate `6/9` and no timeouts. Stream 20 showed recommended partial profiles preserved `plan-synthetic-smoke` 1/1 for all three.
 - **Mid-size Promptfoo no-cache partials:** Stream 29 tried the same recommended partial profiles under Promptfoo no-cache `build-synthetic-smoke` with the Stream 28 task filter fix. All three rows timed out around 300s before pass totals. This is limitation evidence, not a quality promotion.
 - **26B:** Streams 24 and 26 prove narrow feasibility only. `google/gemma-4-26b-a4b@gpu_offload` completed `build-synthetic-smoke` 1/1 in `76163 ms`; `gpu_partial_0.39` completed the same task 1/1 in `72024 ms`. This does not prove broad 26B quality or final placement.
-- **31B / 31B-QAT:** not broadly proven. Stream 32 produced one bounded 31B Q4_K_M offload local-fallback success row: `google/gemma-4-31b@gpu_offload`, `build-synthetic-smoke`, `1/1` in `262464 ms`. That replaces the earlier estimate-timeout-only status for 31B Q4_K_M, but it is still one task and one offload placement only. 31B-QAT timed out on both `gpu_partial_0.36` and `gpu_offload` bounded practical attempts.
+- **31B / 31B-QAT:** not broadly proven. Stream 32 produced one bounded 31B Q4_K_M offload local-fallback success row: `google/gemma-4-31b@gpu_offload`, `build-synthetic-smoke`, `1/1` in `262464 ms`. That replaces the earlier estimate-timeout-only status for 31B Q4_K_M, but it is still one task and one offload placement only. 31B-QAT timed out on `gpu_partial_0.36` and under the 300s `gpu_offload` cap; Stream 34 extended the offload cap to 900s and reached a terminal row, but it failed `0/1` in `305466 ms` with empty output and `fetch failed`.
 
 ## Hardware And Runtime Conclusions
 
 - The RTX 2080 Super Max-Q 8 GiB host can produce useful contained local evidence, but broad Promptfoo no-cache rows are now the pressure point, not just load feasibility.
 - 26B can complete one local-fallback build task in both offload and recommended partial placement; both rows are about 72-76 seconds. Treat that as feasibility for bounded task probes only.
-- 31B Q4_K_M can complete one bounded offload local-fallback build task, but only barely inside the 300 second cap at `262464 ms`; treat it as exploration evidence only, not broad readiness. 31B-QAT loads enough to attempt but does not complete the practical task within 300 seconds on either partial or offload.
+- 31B Q4_K_M can complete one bounded offload local-fallback build task, but only barely inside the 300 second cap at `262464 ms`; treat it as exploration evidence only, not broad readiness. 31B-QAT loads enough to attempt and can reach a terminal offload row with a 900s cap, but the terminal Stream 34 row failed `0/1` after `305466 ms`; this remains hardware/runtime-limited evidence, not practical success.
 - Mid-size recommended partials can pass local-fallback single-task rows, but Promptfoo no-cache filtered rows timed out at 300 seconds. The harness should not extrapolate local-fallback success to Promptfoo-backed throughput.
 - Qwen no-cache full-suite throughput remains unclosed: Stream 22 timed out at `1200052 ms` before pass totals. Stream 28 only gives one failed filtered row, `0/4` in `261012 ms` with `cached=0`.
 
@@ -37,7 +37,7 @@ No final 3-solid selection is made here. The strongest current rotation is qwen 
 3. Score liquid Stream 17 / Stream 22 evidence as speed-only triage: acceptable for routing and drafts, or too weak even for that lane.
 4. Decide whether any mid-size local-fallback outputs from Stream 18/20 are good enough for bounded build/planning drafts, given Promptfoo no-cache timeouts in Stream 29.
 5. Decide whether 26B one-task feasibility is worth more bounded exploration, or whether the final set should exclude 26B until broad quality evidence exists.
-6. Decide whether the 31B Q4_K_M one-task offload success is worth further bounded exploration and whether 31B-QAT should be treated as hardware-limited on this rig for the current campaign.
+6. Decide whether the 31B Q4_K_M one-task offload success is worth further bounded exploration and whether 31B-QAT should be treated as hardware/runtime-limited on this rig for the current campaign.
 
 ## Automatable Versus Not Automatable
 

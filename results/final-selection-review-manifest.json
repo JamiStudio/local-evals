@@ -1,14 +1,15 @@
 {
   "manifestVersion": 1,
-  "stream": 33,
+  "stream": 34,
   "generatedAt": "2026-06-07T15:40:00.000Z",
   "status": "pending_user_review",
   "runtimeBoundary": {
-    "modelLoadsRun": false,
-    "matrixOrEvalCellsRun": false,
+    "modelLoadsRun": true,
+    "matrixOrEvalCellsRun": true,
     "baselineCollectionRun": false,
     "cloudApiCallsRun": false,
-    "paidProviderCallsRun": false
+    "paidProviderCallsRun": false,
+    "note": "Stream 34 updated the manifest after exactly one LM Studio local 31B-QAT offload cell."
   },
   "reviewIndex": "docs/evals/2026-06-07-review-readiness-index.md",
   "worksheet": "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
@@ -372,6 +373,21 @@
       "candidateRole": "Exclude google/gemma-4-31b-qat from final 3-solid promotion for this rig/campaign unless the user accepts further retesting",
       "artifacts": [
         {
+          "path": "results/stream34-31b-qat-extended-offload.json",
+          "kind": "json_summary",
+          "exists": true,
+          "checks": {
+            "modelKey": "google/gemma-4-31b-qat",
+            "profileId": "gpu_offload",
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 305466,
+            "output": "",
+            "error": "fetch failed"
+          }
+        },
+        {
           "path": "results/stream25-31b-qat-offload-practical.json",
           "kind": "json_summary",
           "exists": true,
@@ -398,12 +414,18 @@
           "path": "results/matrix-2026-06-07T13-16-59-439Z.jsonl",
           "kind": "matrix_jsonl",
           "exists": true
+        },
+        {
+          "path": "results/matrix-2026-06-07T15-22-52-975Z.jsonl",
+          "kind": "matrix_jsonl",
+          "exists": true
         }
       ],
       "caveats": [
-        "31B-QAT has timeout-only practical evidence on this rig after partial and offload attempts.",
+        "31B-QAT has no practical success row on this rig after partial timeout, 300s offload timeout, and extended offload failure.",
+        "Stream 34 shows the prior 300s offload cap was slightly too tight for terminal status, but the terminal row failed 0/1 with empty output and fetch failed.",
         "Exclusion is still a user decision for this campaign, not a global model judgment.",
-        "No Stream 25 compare/queue archive exists because the timeout did not refresh promptfoo-latest.json."
+        "No Stream 34 compare/queue archive exists because the row did not produce a completed model output."
       ]
     }
   ],
@@ -413,7 +435,8 @@
     "Broad/full local matrix coverage remains incomplete.",
     "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
     "Broad partial-profile quality/throughput remains incomplete.",
-    "31B/31B-QAT broad practical proof remains incomplete.",
+    "31B/31B-QAT broad practical proof remains incomplete; 31B-QAT has no success row after partial timeout, 300s offload timeout, and extended offload failure.",
     "Final two-verifier completion audit remains pending."
-  ]
+  ],
+  "updatedBy": "Contained Stream 34"
 }
