@@ -257,7 +257,8 @@
     "Stream 8 liquid current-suite control (COMPLETED + pushed ba2348d; one cell results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full eval_partial 5/40, 12.5% rounded 13%, duration 13373 ms; promptfoo 5 passed, 27 failed, 8 errors, 4703 total tokens; compared to Stream 7 qwen 7/40 in 1018924 ms, liquid is -2 passes but ~76x faster)",
     "Stream 9 W7 baseline/user-judge bounded collection (COMPLETED; W7 baselines imported for daily-brief-synthetic-smoke and interest-tracker-tool-use using only bounded task filters; refreshed compare/queue now 40/40 baseline-backed with 8/8 W7 backed)",
     "Stream 10 model-specific review queue preservation + qwen rerun after W7 baselines (COMPLETED in working stream; liquid Stream 8 and qwen Stream 10 comparison/queue archives both 40 rows, 40 baseline-backed, W7 8/8; qwen current-suite cell eval_partial 7/40 with Promptfoo cached output, runner duration 7543 ms)",
-    "Stream 11 W7 DeepEval agent-trace repair (COMPLETED in working stream; ToolCall import fixed; local-safe deterministic W7 tool/plan/brief assertions replace default OpenAI metric construction; uv run deepeval test run suites/deepeval/test_workflows.py -v passed 4/4; LM Studio liquid unloaded after research smoke)"
+    "Stream 11 W7 DeepEval agent-trace repair (COMPLETED in working stream; ToolCall import fixed; local-safe deterministic W7 tool/plan/brief assertions replace default OpenAI metric construction; uv run deepeval test run suites/deepeval/test_workflows.py -v passed 4/4; LM Studio liquid unloaded after research smoke)",
+    "Stream 12 strict qwen W7 tracker refresh (COMPLETED in working stream; artifact results/daily-briefs/brief-20260607-100231.json; strict_final=true, finalization_status=model_final, fallback_used=false, all 5 sections present, usage 5141/1393/6534, wall 457.92s, tps 3.0; one invalid GitHub tool failure and quality/freshness caveats remain; no final 3-solid claim)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -942,5 +943,156 @@
     },
     "runtimeCloseout": "DeepEval research smoke left liquid/lfm2.5-1.2b IDLE in LM Studio; lms unload --all unloaded it and final lms ps showed no loaded models.",
     "remainingGaps": "This stream closes the local-safe DeepEval W7 trace validation lane only. Subjective user review remains pending, qwen's real W7 daily-brief artifact remains fallback-backed from Stream 6, and final 3-solid model decisions are not complete."
+  },
+  "stream12StrictQwenW7TrackerRefresh": {
+    "at": "2026-06-07T10:02:31.222717Z",
+    "scope": "Strict/no-fallback qwen W7 real daily-brief tracker refresh only; no baseline collection, no cloud judge, no direct paid APIs, one qwen LM Studio load with --gpu off, at most one dry check and one real run",
+    "sourceTruthReadBeforeRun": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 6 and 9-11/current gaps",
+      "results/optimization-state.json",
+      "results/daily-briefs/brief-20260607-083746.json",
+      "scripts/daily-brief-tracker.py",
+      "live lms ps",
+      "live nvidia-smi"
+    ],
+    "liveRuntimeBeforeLoad": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "2026/06/07 05:54:31.302, RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free, 6% GPU util"
+    },
+    "loadCommand": "lms unload --all; lms load qwen/qwen3.5-9b --gpu off -y",
+    "trackerCommand": "uv run --project C:\\Users\\james\\projects\\evals python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --query \"stream 12 strict qwen specialist daily brief with W7 baselines and review queues\" --use-specialist --max-steps 3 --strict-final",
+    "dryStrictCheck": {
+      "command": "uv run --project C:\\Users\\james\\projects\\evals python scripts\\daily-brief-tracker.py --dry-run --use-specialist --strict-final --max-steps 1 --query \"stream 12 strict qwen dry check\"",
+      "artifact": "results/daily-briefs/brief-20260607-095418.json",
+      "result": "passed; dry_run true, strict_final true, simulated tps 38.4"
+    },
+    "artifact": "results/daily-briefs/brief-20260607-100231.json",
+    "strictResult": {
+      "model": "qwen/qwen3.5-9b",
+      "strictFinal": true,
+      "finalizationStatus": "model_final",
+      "fallbackUsed": false,
+      "finalBriefNonempty": true,
+      "sectionsPresent": [
+        "Web Signals",
+        "GH / Repo Activity",
+        "Harness Placement Notes",
+        "Recommended Actions",
+        "Token & Speed"
+      ],
+      "missingSections": [],
+      "usage": {
+        "prompt_tokens": 5141,
+        "completion_tokens": 1393,
+        "total_tokens": 6534
+      },
+      "wallSeconds": 457.92,
+      "tps": 3,
+      "kbLoaded": true,
+      "toolFailures": [
+        "github: GITHUB_CLI_ERROR (rc=1): Unknown JSON field: \"contents:docs/roadmaps\"\nAvailable fields:\n  archivedAt\n  assignableUsers\n  codeOfConduct\n  contactLinks\n  createdAt\n  defaultBranchRef"
+      ],
+      "toolsObserved": [
+        "web_search",
+        "read_file",
+        "github"
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "tool": "web_search",
+          "args": {
+            "query": "stream 12 qwen specialist daily brief W7 baselines review queues",
+            "max_results": 5
+          },
+          "observation_preview": "- Welcome to Steam | https://store.steampowered.com/\n  Steam is the ultimate destination for playing, discussing, and creating games.\n- Steam, The Ultimate Online Game Platform | https://store.steampowered.com/about/download\n  Steam is the ultimate destination for playing, discussing, and creating games. With nearly 30,000 games from AAA to indie and …\n- Watch TV Online, Stream Episodes and Movies"
+        },
+        {
+          "step": 1,
+          "tool": "read_file",
+          "args": {
+            "path": "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md"
+          },
+          "observation_preview": "# Local OSS Model Evals — Exhaustive End-to-End Roadmap (FULL INCLUSIVE: Every Model, Every Test, Evals, Ranking, Synthesis + Everything — All Now, No Phases, No V1/V2/V3, No Lazy Partials)\n\n**Date:** 2026-06-07 (updated for full end-to-end per explicit directive: \"every model, every test, exhaustive, no holding back, no halfway, no partials, quit making lazy plans. FULL END TO END. EVERYTHING WE "
+        },
+        {
+          "step": 1,
+          "tool": "read_file",
+          "args": {
+            "path": "baselines/manifest.json"
+          },
+          "observation_preview": "{\n  \"version\": 1,\n  \"description\": \"Imported reference outputs from subs or credit-funded endpoints. The harness never calls paid APIs to populate this.\",\n  \"tasks\": [\n    {\n      \"taskId\": \"research-synthetic-smoke\",\n      \"lane\": \"research\",\n      \"promptFile\": \"suites/promptfoo/prompts/research.txt\",\n      \"vars\": {\n        \"topic\": \"Local OSS model placement for agent research tasks\",\n        "
+        },
+        {
+          "step": 1,
+          "tool": "github",
+          "args": {
+            "args": [
+              "repo",
+              "view",
+              "JamiStudio/local-evals",
+              "--json",
+              "description,stargazerCount"
+            ]
+          },
+          "observation_preview": "{\"description\":\"\",\"stargazerCount\":0}"
+        },
+        {
+          "step": 2,
+          "tool": "web_search",
+          "args": {
+            "query": "qwen 9b eval harness local OSS model evaluation stream 12",
+            "max_results": 5
+          },
+          "observation_preview": "No web results."
+        },
+        {
+          "step": 2,
+          "tool": "read_file",
+          "args": {
+            "path": "results/optimization-state.json"
+          },
+          "observation_preview": "{\n  \"cycle\": 1,\n  \"at\": \"2026-06-06T23:43:20.763Z\",\n  \"mode\": \"smoke\",\n  \"readyForLongRunningGoal\": true,\n  \"o1MatrixAttempt\": \"2026-06-07 O1 refresh (this subagent): prereqs (unload, pnpm registry:export=12, capture:quick, pnpm verify PASS); script audit + direct `node scripts/run-matrix.mjs --full` test (printed 'Matrix run ...: 24 cells', started 26b@gpu_full load before tool kill for safety; p"
+        },
+        {
+          "step": 2,
+          "tool": "read_file",
+          "args": {
+            "path": "registry/models.json"
+          },
+          "observation_preview": "{\n  \"version\": 1,\n  \"exportedAt\": \"2026-06-06T22:39:06.234Z\",\n  \"source\": \"lms ls --json\",\n  \"llms\": [\n    {\n      \"modelKey\": \"google/gemma-4-26b-a4b\",\n      \"displayName\": \"Gemma 4 26B A4B\",\n      \"params\": \"26B-A4B\",\n      \"architecture\": \"gemma4\",\n      \"sizeGb\": 17.99,\n      \"quantization\": \"Q4_K_M\",\n      \"variants\": [\n        \"google/gemma-4-26b-a4b@q4_k_m\"\n      ],\n      \"selectedVariant\":"
+        },
+        {
+          "step": 2,
+          "tool": "github",
+          "args": {
+            "args": [
+              "repo",
+              "view",
+              "JamiStudio/local-evals",
+              "--json",
+              "contents:docs/roadmaps"
+            ]
+          },
+          "observation_preview": "GITHUB_CLI_ERROR (rc=1): Unknown JSON field: \"contents:docs/roadmaps\"\nAvailable fields:\n  archivedAt\n  assignableUsers\n  codeOfConduct\n  contactLinks\n  createdAt\n  defaultBranchRef\n  deleteBranchOnMerge\n  description\n  diskUsage\n  forkCount\n  fundingLinks\n  hasDiscussionsEnabled\n  hasIssuesEnabled\n  hasProjectsEnabled\n  has"
+        },
+        {
+          "step": 3,
+          "final": true
+        }
+      ],
+      "briefChars": 2067
+    },
+    "codeChanges": [
+      "scripts/daily-brief-tracker.py adds --strict-final to disable deterministic fallback synthesis while keeping default fallback behavior unchanged",
+      "strict artifacts record strict_final, finalization_status, model_failure_reason, fallback_used=false, sections_present, tool_failures, usage, wall seconds, tps, and trace metadata",
+      "prompt steering now lists allowed repo files and adds a final-step finalization reminder after tool observations"
+    ],
+    "assessment": "Qwen can produce a strict no-fallback W7 real tracker final brief after tools within max_steps=3. This removes the Stream 6 fallback-finalization caveat for behavior, but not the quality/review caveat: one GitHub tool call failed, web search returned unrelated results, and the final brief repeats stale stream wording about W7 baselines/user review.",
+    "postRunRuntime": "post-run lms ps showed qwen IDLE; lms unload --all unloaded it; final lms ps showed no loaded models; nvidia-smi returned to 456 MiB used / 7532 MiB free",
+    "remainingGaps": "Subjective user review remains pending; strict qwen W7 output still has quality/freshness caveats; final 3-solid model selection is not complete."
   }
 }

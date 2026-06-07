@@ -10,6 +10,7 @@ Suites use sandboxed equivalents for evals.
 - --loop: recurring (real deployments; test with --max-loops N).
 - --dry-run: full working simulation (no LM call, no net) for smoke verification / no LM conflict.
 - --use-specialist: load docs/knowledge-bank/evals-specialist.md into system.
+- --strict-final: record blank/missing-section model output without fallback synthesis.
 - Records token usage + tps (completion tokens / wall seconds).
 - Writes results/daily-briefs/brief-*.json (gitignored raw; summaries allowed in .gitignore exceptions).
 - Reusable simple ReAct-style tool-calling agent loop (see run_brief_agent).
@@ -325,6 +326,7 @@ def run_brief_agent(
     use_specialist: bool = False,
     max_steps: int = 4,
     dry_run: bool = False,
+    strict_final: bool = False,
 ) -> dict[str, Any]:
     """
     Simple reusable ReAct-style tool-calling agent loop.
@@ -355,7 +357,11 @@ def run_brief_agent(
         "### Web Signals\n...\n\n### GH / Repo Activity\n...\n\n### Harness Placement Notes\n...\n\n"
         "### Recommended Actions (plan)\n1. ...\n\n### Token & Speed\nprompt=.. completion=.. tps=.. duration_s=..\n"
         "Keep tool calls targeted: prefer one repo file read, one web_search, and one valid repo-scoped GitHub query. "
-        "After observations, finalize; do not leave the brief blank.\n"
+        "Allowed repo file reads include docs/roadmaps/2026-06-07-contained-eval-streams-plan.md, "
+        "results/optimization-state.json, baselines/manifest.json, registry/models.json, "
+        "registry/load-profiles.json, and suites/promptfoo/tests/tool-call.yaml. "
+        "After observations, finalize; do not leave the brief blank. If this is the final step, stop calling tools "
+        "and return the complete markdown brief with all five required sections.\n"
     )
 
     messages: list[dict[str, Any]] = [
@@ -417,6 +423,7 @@ def run_brief_agent(
     usage: dict[str, Any] = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     fallback_used = False
     fallback_reason = ""
+    finalization_status = "not_started"
 
     if dry_run:
         # Full working simulation path (no LM, no network) — used for smoke/dry verif
@@ -439,8 +446,18 @@ def run_brief_agent(
         )
         usage = {"prompt_tokens": 142, "completion_tokens": 265, "total_tokens": 407}
         wall = 6.9
+        finalization_status = "dry_run"
     else:
         for step in range(1, max_steps + 1):
+            if step == max_steps and any("tool" in item for item in steps_log):
+                messages.append({
+                    "role": "user",
+                    "content": (
+                        "This is the final allowed step. Do not call another tool. Return the complete final "
+                        "markdown brief now with all five required sections: Web Signals, GH / Repo Activity, "
+                        "Harness Placement Notes, Recommended Actions (plan), and Token & Speed."
+                    ),
+                })
             try:
                 resp = client.chat.completions.create(
                     model=model,
@@ -452,6 +469,7 @@ def run_brief_agent(
                 )
             except Exception as e:
                 final_brief = f"[LM ERROR after {step} steps: {e}]"
+                finalization_status = "lm_error"
                 break
 
             msg = resp.choices[0].message
@@ -494,28 +512,38 @@ def run_brief_agent(
             else:
                 final_brief = (msg.content or "").strip()
                 steps_log.append({"step": step, "final": True})
+                finalization_status = "model_final"
                 break
         else:
             fallback_reason = "max_steps reached without model finalization"
+            finalization_status = "max_steps_without_final"
         wall = time.perf_counter() - started
 
     comp_tokens = int(usage.get("completion_tokens", 0) or 0)
     tps = round(comp_tokens / max(wall, 0.001), 1) if comp_tokens > 0 else 0.0
     sections_present = section_presence(final_brief)
     if not dry_run and (not final_brief.strip() or len(sections_present) < len(REQUIRED_SECTIONS)):
-        fallback_used = True
         if not fallback_reason:
             fallback_reason = "model returned blank or missing required sections"
-        final_brief = build_fallback_brief(
-            model=model,
-            interest_query=interest_query,
-            steps_log=steps_log,
-            usage=usage,
-            wall=wall,
-            tps=tps,
-            reason=fallback_reason,
-        )
-        sections_present = section_presence(final_brief)
+        if strict_final:
+            finalization_status = (
+                "strict_blank_or_missing_sections"
+                if finalization_status == "model_final"
+                else f"strict_{finalization_status}"
+            )
+        else:
+            fallback_used = True
+            final_brief = build_fallback_brief(
+                model=model,
+                interest_query=interest_query,
+                steps_log=steps_log,
+                usage=usage,
+                wall=wall,
+                tps=tps,
+                reason=fallback_reason,
+            )
+            sections_present = section_presence(final_brief)
+            finalization_status = "fallback_synthesized"
 
     record = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -530,8 +558,11 @@ def run_brief_agent(
         "tps": tps,
         "max_steps": max_steps,
         "kb_loaded": bool(use_specialist and ("Evals Specialist Knowledge Bank" in kb or "evals-specialist" in kb.lower())),
+        "strict_final": strict_final,
+        "finalization_status": finalization_status,
         "fallback_used": fallback_used,
         "fallback_reason": fallback_reason if fallback_used else "",
+        "model_failure_reason": fallback_reason if strict_final and not fallback_used else "",
         "final_brief_nonempty": bool(final_brief.strip()),
         "sections_present": sections_present,
         "tool_failures": tool_failures(steps_log),
@@ -552,6 +583,7 @@ def main() -> None:
     parser.add_argument("--use-specialist", action="store_true", help="Load evals-specialist KB for specialist mode")
     parser.add_argument("--max-steps", type=int, default=4, help="ReAct max tool/loop steps")
     parser.add_argument("--dry-run", action="store_true", help="Simulate full run (no LM/net calls) — for smoke verification")
+    parser.add_argument("--strict-final", action="store_true", help="Disable deterministic fallback synthesis; record model finalization failures as evidence")
     parser.add_argument("--loop", action="store_true", help="Recurring mode (hourly). For test use --max-loops")
     parser.add_argument("--max-loops", type=int, default=1, help="Safety cap for --loop in tests (default 1)")
     args = parser.parse_args()
@@ -567,6 +599,7 @@ def main() -> None:
                 use_specialist=args.use_specialist,
                 max_steps=args.max_steps,
                 dry_run=args.dry_run,
+                strict_final=args.strict_final,
             )
             print(f"Brief written: {res['record_path']}")
             print(f"TPS: {res['tps']} | wall={res['wall_s']}s | usage={res['usage']}")
@@ -580,6 +613,7 @@ def main() -> None:
         use_specialist=args.use_specialist,
         max_steps=args.max_steps,
         dry_run=args.dry_run,
+        strict_final=args.strict_final,
     )
     print("\n" + "=" * 72)
     print("W7 DAILY BRIEF + INTEREST TRACKER (specialist harness)")
@@ -592,6 +626,7 @@ def main() -> None:
     print(f"Wall time: {res['wall_s']}s")
     print(f"Specialist KB: {args.use_specialist}")
     print(f"Dry-run (smoke safe): {args.dry_run}")
+    print(f"Strict final (no fallback): {args.strict_final}")
 
 
 if __name__ == "__main__":

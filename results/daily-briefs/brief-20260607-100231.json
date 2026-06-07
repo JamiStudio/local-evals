@@ -1,0 +1,118 @@
+{
+  "timestamp": "2026-06-07T10:02:31.222717+00:00",
+  "model": "qwen/qwen3.5-9b",
+  "use_specialist": true,
+  "interest_query": "stream 12 strict qwen specialist daily brief with W7 baselines and review queues",
+  "dry_run": false,
+  "brief": "## Daily Evals Interest Brief \u2014 2026-06-07\n\n### Web Signals\nNo direct web signals for stream 12 qwen specialist daily brief found in current search results. Primary signals remain internal harness telemetry and local OSS model evaluation infrastructure. Steam/Steam-powered results are unrelated to eval harness context. Focus remains on local-evals repo activity and optimization-state telemetry.\n\n### GH / Repo Activity\n- **Repository**: JamiStudio/local-evals (public, 0 stargazers)\n- **Description**: Empty in current view; primary signals come from internal telemetry and optimization-state.json\n- **Key State**: Cycle 1, smoke mode, readyForLongRunningGoal=true, o1MatrixAttempt scheduled for 2026-06-07 O1 refresh (prereqs: unload, pnpm registry:export=12, capture:quick, pnpm verify PASS)\n- **Baselines**: Imported reference outputs from subs/credit-funded endpoints; harness never calls paid APIs to populate baselines\n\n### Harness Placement Notes\n- **Stream 12**: Strict qwen specialist daily brief with W7 baselines and review queues\n- **Current Leader**: qwen/qwen3.5-9b@gpu_offload at 5/8 (63%) vs qwen full 4/8, dry specialist brief controls at tps=38.4\n- **Coverage**: Stream 2/3 covered nemotron/e2b/e4b/rnj; Stream 4 mid-size matrix hung with no cells; Stream 5 proved qwen real tools but blank final\n- **Remaining Gaps**: W7 gaps are real usable final brief, W7 baselines, and user-judge review\n- **Token Tracking**: Record prompt/completion/total tokens, wall seconds, tps, tool observations, failure modes\n\n### Recommended Actions (plan)\n1. Execute `pnpm registry:export=12` to prepare for 2026-06-07 O1 refresh matrix run\n2. Run `node scripts/run-matrix.mjs --full` with 24 cells test (printed 'Matrix run ...: 24 cells')\n3. Validate W7 baselines import from subs/credit-funded endpoints without paid API calls\n4. Queue user-judge review for qwen/qwen3.5-9b@gpu_offload smoke leader validation\n5. Monitor Stream 12 strict qwen specialist daily brief controls at tps=38.4 threshold\n\n### Token & Speed\nprompt=.. completion=.. tps=38.4 duration_s=..",
+  "steps": [
+    {
+      "step": 1,
+      "tool": "web_search",
+      "args": {
+        "query": "stream 12 qwen specialist daily brief W7 baselines review queues",
+        "max_results": 5
+      },
+      "observation_preview": "- Welcome to Steam | https://store.steampowered.com/\n  Steam is the ultimate destination for playing, discussing, and creating games.\n- Steam, The Ultimate Online Game Platform | https://store.steampowered.com/about/download\n  Steam is the ultimate destination for playing, discussing, and creating games. With nearly 30,000 games from AAA to indie and \u2026\n- Watch TV Online, Stream Episodes and Movies"
+    },
+    {
+      "step": 1,
+      "tool": "read_file",
+      "args": {
+        "path": "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md"
+      },
+      "observation_preview": "# Local OSS Model Evals \u2014 Exhaustive End-to-End Roadmap (FULL INCLUSIVE: Every Model, Every Test, Evals, Ranking, Synthesis + Everything \u2014 All Now, No Phases, No V1/V2/V3, No Lazy Partials)\n\n**Date:** 2026-06-07 (updated for full end-to-end per explicit directive: \"every model, every test, exhaustive, no holding back, no halfway, no partials, quit making lazy plans. FULL END TO END. EVERYTHING WE "
+    },
+    {
+      "step": 1,
+      "tool": "read_file",
+      "args": {
+        "path": "baselines/manifest.json"
+      },
+      "observation_preview": "{\n  \"version\": 1,\n  \"description\": \"Imported reference outputs from subs or credit-funded endpoints. The harness never calls paid APIs to populate this.\",\n  \"tasks\": [\n    {\n      \"taskId\": \"research-synthetic-smoke\",\n      \"lane\": \"research\",\n      \"promptFile\": \"suites/promptfoo/prompts/research.txt\",\n      \"vars\": {\n        \"topic\": \"Local OSS model placement for agent research tasks\",\n        "
+    },
+    {
+      "step": 1,
+      "tool": "github",
+      "args": {
+        "args": [
+          "repo",
+          "view",
+          "JamiStudio/local-evals",
+          "--json",
+          "description,stargazerCount"
+        ]
+      },
+      "observation_preview": "{\"description\":\"\",\"stargazerCount\":0}"
+    },
+    {
+      "step": 2,
+      "tool": "web_search",
+      "args": {
+        "query": "qwen 9b eval harness local OSS model evaluation stream 12",
+        "max_results": 5
+      },
+      "observation_preview": "No web results."
+    },
+    {
+      "step": 2,
+      "tool": "read_file",
+      "args": {
+        "path": "results/optimization-state.json"
+      },
+      "observation_preview": "{\n  \"cycle\": 1,\n  \"at\": \"2026-06-06T23:43:20.763Z\",\n  \"mode\": \"smoke\",\n  \"readyForLongRunningGoal\": true,\n  \"o1MatrixAttempt\": \"2026-06-07 O1 refresh (this subagent): prereqs (unload, pnpm registry:export=12, capture:quick, pnpm verify PASS); script audit + direct `node scripts/run-matrix.mjs --full` test (printed 'Matrix run ...: 24 cells', started 26b@gpu_full load before tool kill for safety; p"
+    },
+    {
+      "step": 2,
+      "tool": "read_file",
+      "args": {
+        "path": "registry/models.json"
+      },
+      "observation_preview": "{\n  \"version\": 1,\n  \"exportedAt\": \"2026-06-06T22:39:06.234Z\",\n  \"source\": \"lms ls --json\",\n  \"llms\": [\n    {\n      \"modelKey\": \"google/gemma-4-26b-a4b\",\n      \"displayName\": \"Gemma 4 26B A4B\",\n      \"params\": \"26B-A4B\",\n      \"architecture\": \"gemma4\",\n      \"sizeGb\": 17.99,\n      \"quantization\": \"Q4_K_M\",\n      \"variants\": [\n        \"google/gemma-4-26b-a4b@q4_k_m\"\n      ],\n      \"selectedVariant\":"
+    },
+    {
+      "step": 2,
+      "tool": "github",
+      "args": {
+        "args": [
+          "repo",
+          "view",
+          "JamiStudio/local-evals",
+          "--json",
+          "contents:docs/roadmaps"
+        ]
+      },
+      "observation_preview": "GITHUB_CLI_ERROR (rc=1): Unknown JSON field: \"contents:docs/roadmaps\"\nAvailable fields:\n  archivedAt\n  assignableUsers\n  codeOfConduct\n  contactLinks\n  createdAt\n  defaultBranchRef\n  deleteBranchOnMerge\n  description\n  diskUsage\n  forkCount\n  fundingLinks\n  hasDiscussionsEnabled\n  hasIssuesEnabled\n  hasProjectsEnabled\n  has"
+    },
+    {
+      "step": 3,
+      "final": true
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5141,
+    "completion_tokens": 1393,
+    "total_tokens": 6534
+  },
+  "wall_seconds": 457.92,
+  "tps": 3.0,
+  "max_steps": 3,
+  "kb_loaded": true,
+  "strict_final": true,
+  "finalization_status": "model_final",
+  "fallback_used": false,
+  "fallback_reason": "",
+  "model_failure_reason": "",
+  "final_brief_nonempty": true,
+  "sections_present": [
+    "Web Signals",
+    "GH / Repo Activity",
+    "Harness Placement Notes",
+    "Recommended Actions",
+    "Token & Speed"
+  ],
+  "tool_failures": [
+    "github: GITHUB_CLI_ERROR (rc=1): Unknown JSON field: \"contents:docs/roadmaps\"\nAvailable fields:\n  archivedAt\n  assignableUsers\n  codeOfConduct\n  contactLinks\n  createdAt\n  defaultBranchRef"
+  ],
+  "model_observation_chars": 360
+}
