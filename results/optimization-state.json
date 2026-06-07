@@ -98,8 +98,8 @@
       "nvidia/nemotron-3-nano-4b",
       "google/gemma-4-e4b"
     ],
-    "currentProfiles": ["gpu_full", "gpu_offload"],
-    "partialsImplemented": false,
+    "currentProfiles": ["gpu_full", "gpu_offload", "gpu_partial_0.3", "gpu_partial_0.35", "gpu_partial_0.36", "gpu_partial_0.39", "gpu_partial_0.5", "gpu_partial_0.7", "gpu_partial_0.88", "gpu_partial_0.9", "gpu_partial_0.95"],
+    "partialsImplemented": true,
     "newW7TasksInMatrix": 0,
     "leaderFromSmoke": "qwen/qwen3.5-9b@gpu_offload 63%",
     "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",

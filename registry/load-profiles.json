@@ -12,11 +12,114 @@
       "label": "CPU-only (gpu off)",
       "lmsGpuFlag": "off",
       "description": "`lms load --gpu off` (0% GPU). CPU RAM holds weights; use when max exceeds VRAM (e.g. gemma-4-26b @ 17.4 GiB) or measured matrix prefers it (qwen3.5-9b smoke: 63% vs 50%)."
+    },
+    "gpu_partial_0.3": {
+      "label": "GPU partial 30%",
+      "lmsGpuFlag": "0.3",
+      "description": "`lms load --gpu 0.3` (30% GPU offload). Secures ~5.25 GiB GPU layers (est) for 26B/31B-class before cpu-only fallback. Minimal GPU share for speed/quality vs pure offload on large models per placementHints."
+    },
+    "gpu_partial_0.35": {
+      "label": "GPU partial 35%",
+      "lmsGpuFlag": "0.35",
+      "description": "`lms load --gpu 0.35` (35% GPU offload). Targeted for 31B models (~ est 6.8-7 GiB GPU share). Use when 0.3 insufficient for outcome but full/max fails guard."
+    },
+    "gpu_partial_0.36": {
+      "label": "GPU partial 36%",
+      "lmsGpuFlag": "0.36",
+      "description": "`lms load --gpu 0.36` (36% GPU offload). QAT 31B variant per system placement (18.66 GiB est). Balance GPU accel vs 8GB headroom (~6.8 GiB)."
+    },
+    "gpu_partial_0.39": {
+      "label": "GPU partial 39%",
+      "lmsGpuFlag": "0.39",
+      "description": "`lms load --gpu 0.39` (39% GPU offload). Primary for 26B-A4B per system-profile placementHints (6.99 GiB est GPU). Research/partial for large to gain layers vs off (0.04 GiB); guard may still flag but measured for outcome."
+    },
+    "gpu_partial_0.5": {
+      "label": "GPU partial 50%",
+      "lmsGpuFlag": "0.5",
+      "description": "`lms load --gpu 0.5` (50% GPU offload). Mid-range for 9-12B borderline (3.7-4.9 GiB GPU on qwen/12b). Speed/quality tradeoff vs off or higher partials."
+    },
+    "gpu_partial_0.7": {
+      "label": "GPU partial 70%",
+      "lmsGpuFlag": "0.7",
+      "description": "`lms load --gpu 0.7` (70% GPU offload). Higher share for 9B-class when headroom allows (qwen ~4.93 GiB est). For tps boost on mid models vs 0.5/0.95."
+    },
+    "gpu_partial_0.88": {
+      "label": "GPU partial 88%",
+      "lmsGpuFlag": "0.88",
+      "description": "`lms load --gpu 0.88` (88% GPU offload). For GLM-4.6v-flash and 12B per placement (6.78 GiB est on 12B). Near-headroom partial for speed on 7-8GiB models."
+    },
+    "gpu_partial_0.9": {
+      "label": "GPU partial 90%",
+      "lmsGpuFlag": "0.9",
+      "description": "`lms load --gpu 0.9` (90% GPU offload). For 12B per system placementHints (6.94 GiB est). High partial for max GPU benefit while 'may load' per estimates; use before offload if guard permits."
+    },
+    "gpu_partial_0.95": {
+      "label": "GPU partial 95%",
+      "lmsGpuFlag": "0.95",
+      "description": "`lms load --gpu 0.95` (95% GPU offload). For Qwen (6.64 GiB) and 12B-QAT per placement (est). Highest partial before full; measured data for qwen prefers offload override despite est."
+    }
+  },
+  "recommendations": {
+    "liquid/lfm2.5-1.2b": {
+      "bestPreset": "gpu_full",
+      "rationale": "1.28 GiB est fits full GPU easily (1.28 GiB est at 100%); max layers for highest tps/lowest latency/speed. Smoke 38% but fastest cell (~4s). Use for triage, quick chat, brief pre-filter."
+    },
+    "nvidia/nemotron-3-nano-4b": {
+      "bestPreset": "gpu_full",
+      "rationale": "4.16 GiB est fits full (per system placement); small+full = speed king for 4B class."
+    },
+    "google/gemma-4-e2b": {
+      "bestPreset": "gpu_full",
+      "rationale": "5.75 GiB est fits full per placement; full GPU for speed on 4.6B vision/tool model."
+    },
+    "essentialai/rnj-1": {
+      "bestPreset": "gpu_full",
+      "rationale": "5.09 GiB est fits full; full for speed on 8.3B."
+    },
+    "google/gemma-4-e4b": {
+      "bestPreset": "gpu_full",
+      "rationale": "~5.9 GiB est fits full per system; full GPU speed for 7.5B."
+    },
+    "qwen/qwen3.5-9b": {
+      "bestPreset": "gpu_offload",
+      "rationale": "Smoke leader: 5/8 passes 63% (vs 50% full, 13pp offload win on plan-synthetic). Placement + measured override (max 6.85 GiB borderline); daily-briefs tps~38.4 viable. Best outcome for plan/tool/briefs/specialist vs baselines."
+    },
+    "zai-org/glm-4.6v-flash": {
+      "bestPreset": "gpu_partial_0.88",
+      "alternates": ["gpu_offload"],
+      "rationale": "7.74 GiB est; placement 0.88 for ~6.8 GiB GPU share. Partial for speed on 9.4B vision model; offload fallback."
+    },
+    "google/gemma-4-12b": {
+      "bestPreset": "gpu_partial_0.9",
+      "alternates": ["gpu_partial_0.88", "gpu_offload"],
+      "rationale": "7.57 GiB est; 0.9 yields 6.94 GiB GPU ('may' per est, near 6.8 headroom); placement suggested 0.9. Partial for outcome/speed balance on 12B vs full (7.57) or off."
+    },
+    "google/gemma-4-12b-qat": {
+      "bestPreset": "gpu_partial_0.95",
+      "alternates": ["gpu_offload"],
+      "rationale": "7.18 GiB est; placement 0.95 partial per system. High partial for QAT 12B speed."
+    },
+    "google/gemma-4-26b-a4b": {
+      "bestPreset": "gpu_partial_0.39",
+      "alternates": ["gpu_offload"],
+      "rationale": "17.43 GiB est; 0.39 ~6.99 GiB GPU (placement primary). Some GPU layers for speed/quality vs pure off (0.04 GiB, slow); guard 'fail' on est but research per Exhaustive. Off for strict safety."
+    },
+    "google/gemma-4-31b": {
+      "bestPreset": "gpu_partial_0.35",
+      "alternates": ["gpu_offload"],
+      "rationale": "19.65 GiB est; placement 0.35 (~6.8-7 GiB GPU share). Minimal partial before off for 31B."
+    },
+    "google/gemma-4-31b-qat": {
+      "bestPreset": "gpu_partial_0.36",
+      "alternates": ["gpu_offload"],
+      "rationale": "18.66 GiB est; placement 0.36. QAT variant partial for large-model GPU assist."
     }
   },
   "notes": [
-    "Profile ids are eval labels, not LM Studio defaults. Read results/system-profile.json before tuning.",
-    "Models exceeding headroom: add partial --gpu <ratio> profile after lms load --estimate-only.",
-    "Matrix serializes loads; unload between cells. Reserve ~1.2 GiB VRAM for KV/runtime beyond weight estimates."
+    "Profile ids are eval labels, not LM Studio defaults. Read results/system-profile.json (placementHints) + run lms load --estimate-only before tuning.",
+    "Partials (gpu_partial_0.XX) implemented 2026-06-07 per system-profile placementHints (0.39/0.9/0.88/0.35/0.36/0.95 etc.) + live estimates on 4 reps (lfm/qwen/12b/26b). See docs/evals/2026-06-07-configs-optimization-report.md.",
+    "Matrix serializes loads; `lms unload --all` between cells. Reserve ~1.2 GiB VRAM for KV/runtime beyond weight estimates. GPU constraint: 1 model at a time on this 8GB rig.",
+    "Per-model recommendations (bestPreset) added from estimates + measured smoke (qwen offload 63% leader) + placement. Test gpu_full + gpu_offload (or suggested partial) where model exceeds VRAM headroom.",
+    "No full inference loads during research (estimate-only only); full matrix cells via unattended `pnpm matrix:full` when GPU free."
   ]
 }
