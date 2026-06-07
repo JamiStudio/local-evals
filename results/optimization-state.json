@@ -75,7 +75,11 @@
     "worstPreset": "gpu_full by duration; all profiles tied at 9/40 pass rate",
     "profileChange": "none; one stream with tied quality does not justify changing registry/load-profiles.json",
     "postRunRuntime": "nemotron was IDLE after runner; lms unload --all unloaded it; lms ps then showed no loaded models",
-    "postSteps": ["node scripts/summarize-matrix.mjs", "pnpm compare:baseline", "pnpm judge:queue"],
+    "postSteps": [
+      "node scripts/summarize-matrix.mjs",
+      "pnpm compare:baseline",
+      "pnpm judge:queue"
+    ],
     "parserNote": "scripts/run-matrix.mjs and scripts/summarize-matrix.mjs now parse both old 'x/y passed' and current promptfoo 'Results: 9 passed, 23 failed, 8 errors' formats so pass counts are not dropped."
   },
   "stream3FitClassLocalMatrixSlice": {
@@ -134,7 +138,12 @@
     },
     "profileChange": "none; pass rates were invariant across profiles for all three models, so this stream only supports speed observations, not changing registry/load-profiles.json",
     "postRunRuntime": "google/gemma-4-e4b was IDLE after runner; lms unload --all unloaded it; lms ps then showed no loaded models",
-    "postSteps": ["pnpm summarize:matrix (returned success but did not refresh in this shell)", "node scripts/summarize-matrix.mjs", "node scripts/compare-to-baseline.mjs", "node scripts/queue-user-judge.mjs"],
+    "postSteps": [
+      "pnpm summarize:matrix (returned success but did not refresh in this shell)",
+      "node scripts/summarize-matrix.mjs",
+      "node scripts/compare-to-baseline.mjs",
+      "node scripts/queue-user-judge.mjs"
+    ],
     "parserNote": "scripts/summarize-matrix.mjs now prefers top-level row passes/total emitted by scripts/run-matrix.mjs, then falls back to stderr parsing; this prevents summary from staying on the prior JSONL when stderr parsing is insufficient."
   },
   "systemProfile": {
@@ -178,8 +187,8 @@
     "Frequent clean pushes done (multiple after streams to JamiStudio/local-evals; pyproject deps + note fixes committed)",
     "Perf tooling + captures + verify + deepeval W7 tests (ToolCall fixed) done",
     "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal",
-    "EXHAUSTIVE GAPS (2026-06-07 Results-Assessor): 20/24 cells missing (all except qwen/qwen3.5-9b + liquid/lfm2.5-1.2b on gpu_full/offload); 10 models (gemma-4-26b-a4b, gemma-4-12b, glm-4.6v-flash, gemma-4-e2b, gemma-4-31b, gemma-4-31b-qat, gemma-4-12b-qat, rnj-1, nemotron-3-nano-4b, gemma-4-e4b) × 2 presets completely untested in matrix; even tested models lack current 10-task suite (manifest now has daily-brief-synthetic-smoke + interest-tracker-tool-use) + tps capture + partials; load-profiles.json still only 2 entries (no gpu_partial_* despite system-profile placementHints 0.39/0.9/0.88/0.35 etc.); run unattended pnpm matrix:full (or node scripts/run-matrix.mjs --full) + O6 partials when GPU free (26B currently loaded); re-summarize + update state after",
-    "Add/validate partial load profiles (O6) from system-profile + estimates; targeted matrix on new W7 tasks + re-run qwen/liquid for full suite; collect baselines for the 2 new manifest tasks; user-judge review of queue; promote refined 3-solid to docs/decisions/ post-full data"
+    "Add/validate partial load profiles (O6) from system-profile + estimates; targeted matrix on new W7 tasks + re-run qwen/liquid for full suite; collect baselines for the 2 new manifest tasks; user-judge review of queue; promote refined 3-solid to docs/decisions/ post-full data",
+    "Stream 4 timeout evidence: mid-size current-suite cells for google/gemma-4-12b and GLM hung with three 0-row JSONLs; do not retry unbounded mid-size matrix until smaller task subset or timeout behavior is proven. Prefer qwen/liquid current-suite profile-filter refresh or W7 real tracker/specialist next."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -187,7 +196,10 @@
     "testedCells": 4,
     "expectedCells": 24,
     "missingCells": 20,
-    "testedModels": ["qwen/qwen3.5-9b", "liquid/lfm2.5-1.2b"],
+    "testedModels": [
+      "qwen/qwen3.5-9b",
+      "liquid/lfm2.5-1.2b"
+    ],
     "untestedModels": [
       "google/gemma-4-26b-a4b",
       "google/gemma-4-12b",
@@ -200,14 +212,26 @@
       "nvidia/nemotron-3-nano-4b",
       "google/gemma-4-e4b"
     ],
-    "currentProfiles": ["gpu_full", "gpu_offload", "gpu_partial_0.3", "gpu_partial_0.35", "gpu_partial_0.36", "gpu_partial_0.39", "gpu_partial_0.5", "gpu_partial_0.7", "gpu_partial_0.88", "gpu_partial_0.9", "gpu_partial_0.95"],
+    "currentProfiles": [
+      "gpu_full",
+      "gpu_offload",
+      "gpu_partial_0.3",
+      "gpu_partial_0.35",
+      "gpu_partial_0.36",
+      "gpu_partial_0.39",
+      "gpu_partial_0.5",
+      "gpu_partial_0.7",
+      "gpu_partial_0.88",
+      "gpu_partial_0.9",
+      "gpu_partial_0.95"
+    ],
     "partialsImplemented": true,
     "newW7TasksInMatrix": 0,
     "leaderFromSmoke": "qwen/qwen3.5-9b@gpu_offload 63%",
     "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",
     "speedNote": "qwen cells ~12min; liquid ~4s; daily-briefs dry tps=38.4 (qwen specialist); no matrix tps layer yet",
     "baselinesStatus": "8/10 tasks have vertex-gemini-3-1-pro-preview imports; 2 W7 tasks registered but no imports/cells",
-    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps: current-profile coverage still lacks large/mid models (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT) and qwen/liquid current 40-assertion + all-profile refresh; W7 baseline/user review/real tracker gaps remain. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest."
+    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps: current-profile coverage still lacks large/mid models (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT) and qwen/liquid current 40-assertion + all-profile refresh; W7 baseline/user review/real tracker gaps remain. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest. Stream 4: aborted timeout-evidence stream only; no completed cells credited. Empty JSONLs: results/matrix-2026-06-07T07-12-46-491Z.jsonl (12B gpu_full), results/matrix-2026-06-07T07-41-56-989Z.jsonl (12B filtered first cell), results/matrix-2026-06-07T07-59-50-425Z.jsonl (GLM filtered first cell). Runner now has EVAL_SMOKE_PROFILES and opt-in EVAL_CELL_TIMEOUT_MS, but the 900000 ms timeout did not fire before final redirect."
   },
   "connectivity": {
     "lmstudio": true,
@@ -217,17 +241,38 @@
   },
   "userGoal": {
     "exhaustAllLocal": true,
-    "sotaCloudBench": ["sonnet-4.6", "gemini-3.1-flash-lite", "gpt-5.4", "comparables"],
+    "sotaCloudBench": [
+      "sonnet-4.6",
+      "gemini-3.1-flash-lite",
+      "gpt-5.4",
+      "comparables"
+    ],
     "dailyBriefsTracker": true,
-    "localToolUse": ["github", "fs-read", "web-search", "planning"],
+    "localToolUse": [
+      "github",
+      "fs-read",
+      "web-search",
+      "planning"
+    ],
     "specialistHarnessAndKB": true,
     "targetSolidModels": 3,
     "githubTransparencyRepo": "https://github.com/JamiStudio/local-evals.git",
-    "perfToolingAdded": ["duckduckgo-search", "trafilatura", "httpx", "beautifulsoup4"],
+    "perfToolingAdded": [
+      "duckduckgo-search",
+      "trafilatura",
+      "httpx",
+      "beautifulsoup4"
+    ],
     "systemTurboCoolerboost": true,
     "creditsOnTap": "vertex(gcloud-active) + azure(if-env) + reasonable burn"
   },
-  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)", "Stream 2 nemotron local matrix slice (COMPLETED + pushed 4b8a7b2; 11 cells, 9/40 each, 0 load failures, latest results/matrix-2026-06-07T06-30-40-559Z.jsonl)", "Stream 3 fit-class local matrix slice (COMPLETED locally; pending final commit+push; 33 cells, e2b 11/40, e4b 10/40, rnj 7/40 across all profiles, 0 load failures, latest results/matrix-2026-06-07T06-44-52-303Z.jsonl)"],
+  "currentStreams": [
+    "O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)",
+    "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)",
+    "Stream 2 nemotron local matrix slice (COMPLETED + pushed 4b8a7b2; 11 cells, 9/40 each, 0 load failures, latest results/matrix-2026-06-07T06-30-40-559Z.jsonl)",
+    "Stream 3 fit-class local matrix slice (COMPLETED + pushed c563e9c; 33 cells, e2b 11/40, e4b 10/40, rnj 7/40 across all profiles, 0 load failures, latest results/matrix-2026-06-07T06-44-52-303Z.jsonl)",
+    "Stream 4 mid-size local matrix slice (ABORTED timeout-evidence stream; no completed cells; empty JSONLs results/matrix-2026-06-07T07-12-46-491Z.jsonl, results/matrix-2026-06-07T07-41-56-989Z.jsonl, results/matrix-2026-06-07T07-59-50-425Z.jsonl; runner gained EVAL_SMOKE_PROFILES and EVAL_CELL_TIMEOUT_MS; pushed by subagent)"
+  ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
     "5156a75: docs/roadmap + state update for user goal (second stream)",
@@ -262,10 +307,84 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "Contained fit-class local matrix slice: essentialai/rnj-1, google/gemma-4-e2b, google/gemma-4-e4b only, all current load-profiles via EVAL_SMOKE_MODELS and node scripts/run-matrix.mjs --smoke; live lms/nvidia first (dispatch had no loaded model and 7532 MiB free), no full matrix, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
+    },
+    {
+      "id": "019ea0eb-9e9f-7993-baca-b40c6c327bb5",
+      "workstream": "Stream 4",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "Contained mid-size/borderline local matrix slice: google/gemma-4-12b, google/gemma-4-12b-qat, zai-org/glm-4.6v-flash only, all current load-profiles via EVAL_SMOKE_MODELS and node scripts/run-matrix.mjs --smoke; live lms/nvidia first (dispatch had no loaded model and 7532 MiB free), no full matrix, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
     }
   ],
   "solidModelsTarget": {
     "count": 3,
     "criteria": "solid across chat/plan/tool/briefs/specialist; local primary + cloud ref; quality + usable token speed"
+  },
+  "stream4MidSizeTimeoutEvidence": {
+    "at": "2026-06-07T08:15:03-04:00",
+    "scopeOriginal": "google/gemma-4-12b, google/gemma-4-12b-qat, zai-org/glm-4.6v-flash across all current profiles",
+    "outcome": "aborted_timeout_evidence_only_no_completed_cells",
+    "cellsAdded": 0,
+    "loadFailures": 0,
+    "completedCoverageCredited": false,
+    "sourceTruthReadBeforeRun": [
+      "results/optimization-state.json",
+      "results/system-profile.json",
+      "results/matrix-summary.json",
+      "registry/models.json",
+      "registry/load-profiles.json",
+      "git show --stat --oneline 4b8a7b2",
+      "git show --stat --oneline c563e9c"
+    ],
+    "dispatchLiveState": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "2026/06/07 03:41:47.269, RTX 2080 Super Max-Q, 8192 MiB total, 492 MiB used, 7496 MiB free"
+    },
+    "aborts": [
+      {
+        "matrixJsonl": "results/matrix-2026-06-07T07-12-46-491Z.jsonl",
+        "attemptedCell": "google/gemma-4-12b@gpu_full",
+        "lengthBytes": 0,
+        "creationTimeLocal": "2026-06-07 03:12:46",
+        "lastWriteTimeLocal": "2026-06-07 03:12:46",
+        "evidenceCapturedAtLocal": "2026-06-07 03:40:00",
+        "roughElapsed": "about 27 minutes from file creation to evidence capture",
+        "lmsPs": "google/gemma-4-12b GENERATING, 7.56 GB, context 4096, parallel 4",
+        "nvidiaSmi": "2026/06/07 03:40:00.094, 8192 MiB total, 7385 MiB used, 603 MiB free, 18% GPU util",
+        "processEvidence": "repo-owned node scripts/run-matrix.mjs --smoke PID 15144 with Promptfoo child PID 35956; stopped only those PIDs, then lms unload --all"
+      },
+      {
+        "matrixJsonl": "results/matrix-2026-06-07T07-41-56-989Z.jsonl",
+        "attemptedCell": "google/gemma-4-12b@gpu_offload after EVAL_SMOKE_PROFILES filter",
+        "lengthBytes": 0,
+        "creationTimeLocal": "2026-06-07 03:41:56",
+        "lastWriteTimeLocal": "2026-06-07 03:41:56",
+        "evidenceCapturedAtLocal": "2026-06-07 03:58:46",
+        "roughElapsed": "about 17 minutes from file creation to evidence capture",
+        "lmsPs": "google/gemma-4-12b GENERATING, 7.56 GB, context 4096, parallel 4",
+        "nvidiaSmi": "2026/06/07 03:58:46.816, 8192 MiB total, 7313 MiB used, 675 MiB free, 22% GPU util",
+        "processEvidence": "repo-owned node scripts/run-matrix.mjs --smoke PID 25024 with Promptfoo child PID 22060; stopped only those PIDs, then lms unload --all"
+      },
+      {
+        "matrixJsonl": "results/matrix-2026-06-07T07-59-50-425Z.jsonl",
+        "attemptedCell": "zai-org/glm-4.6v-flash@gpu_offload in revised 12B-QAT/GLM run",
+        "lengthBytes": 0,
+        "creationTimeLocal": "2026-06-07 03:59:50",
+        "lastWriteTimeLocal": "2026-06-07 03:59:50",
+        "evidenceCapturedAtLocal": "2026-06-07 04:14:42",
+        "roughElapsed": "about 15 minutes from file creation to evidence capture; EVAL_CELL_TIMEOUT_MS=900000 had not elapsed before redirect",
+        "lmsPs": "zai-org/glm-4.6v-flash GENERATING, 7.95 GB, context 4096, parallel 4",
+        "nvidiaSmi": "2026/06/07 04:14:42.707, 8192 MiB total, 7299 MiB used, 689 MiB free, 31% GPU util",
+        "processEvidence": "repo-owned node scripts/run-matrix.mjs --smoke PID 38532 with Promptfoo child PID 32944; stopped only those PIDs, then lms unload --all"
+      }
+    ],
+    "runnerChanges": {
+      "profileFilter": "Added opt-in EVAL_SMOKE_PROFILES to scripts/run-matrix.mjs; validates profile ids and filters target profile entries without changing registry/load-profiles.json.",
+      "cellTimeout": "Added opt-in EVAL_CELL_TIMEOUT_MS to load/eval spawnSync calls; timeout rows use load_timeout/eval_timeout. In this stream, the configured 900000 ms timeout had not elapsed before user redirect, so no timeout row was written."
+    },
+    "postRunRuntime": "After stopping only the current repo-owned runner and Promptfoo child, lms unload --all unloaded GLM; post-run lms ps showed no loaded models; nvidia-smi showed 418 MiB used / 7570 MiB free.",
+    "profileChange": "none; no completed cells or pass-rate evidence, so registry/load-profiles.json was left unchanged.",
+    "remainingGaps": "No Stream 4 matrix coverage credited for google/gemma-4-12b, google/gemma-4-12b-qat, or zai-org/glm-4.6v-flash. Mid-size current-suite cells require a smaller task subset, lower LM Studio context/parallel settings, local-eval fallback, or a runner-level timeout repair proven with a short timeout before retry.",
+    "recommendedNextStream": "Avoid another unbounded mid-size attempt. Run a blocking-free qwen/liquid current-suite refresh with EVAL_SMOKE_PROFILES, or W7 real tracker/specialist evidence."
   }
 }

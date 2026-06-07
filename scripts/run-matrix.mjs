@@ -11,6 +11,7 @@ dotenv.config({ path: join(root, '.env') });
 const args = process.argv.slice(2);
 const smoke = args.includes('--smoke');
 const full = args.includes('--full');
+const cellTimeoutMs = Number(process.env.EVAL_CELL_TIMEOUT_MS ?? 0);
 
 if (!smoke && !full) {
   console.error('Usage: node scripts/run-matrix.mjs --smoke|--full');
@@ -25,17 +26,33 @@ const smokeKeys = (process.env.EVAL_SMOKE_MODELS ?? 'liquid/lfm2.5-1.2b,qwen/qwe
   .map((s) => s.trim())
   .filter(Boolean);
 
+const allProfileEntries = Object.entries(profiles.profiles);
+const smokeProfiles = (process.env.EVAL_SMOKE_PROFILES ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+const selectedProfileEntries = smokeProfiles.length
+  ? allProfileEntries.filter(([profileId]) => smokeProfiles.includes(profileId))
+  : allProfileEntries;
+
+if (smokeProfiles.length && selectedProfileEntries.length !== smokeProfiles.length) {
+  const known = new Set(allProfileEntries.map(([profileId]) => profileId));
+  const missing = smokeProfiles.filter((profileId) => !known.has(profileId));
+  console.error(`Unknown EVAL_SMOKE_PROFILES value(s): ${missing.join(', ')}`);
+  process.exit(1);
+}
+
 const targets = (smoke ? models.llms.filter((m) => smokeKeys.includes(m.modelKey)) : models.llms).flatMap(
   (model) =>
-    Object.keys(profiles.profiles).map((profileId) => ({
+    selectedProfileEntries.map(([profileId, profile]) => ({
       model,
       profileId,
-      profile: profiles.profiles[profileId],
+      profile,
     })),
 );
 
 // O1 robustness log (adjacent update for full matrix reliability per system-profile + load-profiles; aids bg/pnpm/direct diagnosis)
-console.log(`O1 matrix: smoke=${smoke} full=${full} (argv=${JSON.stringify(args)}); ${targets.length} cells (${models.llms.length} LLMs × ${Object.keys(profiles.profiles).length} profiles per registry/load-profiles). Cite results/system-profile.json for 8GB serialize + placement. LM Studio only.`);
+console.log(`O1 matrix: smoke=${smoke} full=${full} (argv=${JSON.stringify(args)}); ${targets.length} cells (${models.llms.length} LLMs × ${selectedProfileEntries.length}/${allProfileEntries.length} profiles per registry/load-profiles). Cite results/system-profile.json for 8GB serialize + placement. LM Studio only.`);
 
 const resultsDir = join(root, 'results');
 mkdirSync(resultsDir, { recursive: true });
@@ -51,9 +68,11 @@ function loadModel(modelKey, gpuFlag) {
     encoding: 'utf8',
     stdio: 'pipe',
     shell: process.platform === 'win32',
+    timeout: cellTimeoutMs > 0 ? cellTimeoutMs : undefined,
   });
   return {
     ok: result.status === 0,
+    timedOut: result.error?.code === 'ETIMEDOUT',
     stdout: result.stdout,
     stderr: result.stderr,
   };
@@ -93,14 +112,26 @@ function runPromptfoo(modelKey, profileId) {
           'results/promptfoo-latest.json',
         ]
       : ['scripts/run-local-eval.mjs'],
-    { cwd: root, env, encoding: 'utf8', stdio: 'pipe' },
+    {
+      cwd: root,
+      env,
+      encoding: 'utf8',
+      stdio: 'pipe',
+      timeout: cellTimeoutMs > 0 ? cellTimeoutMs : undefined,
+    },
   );
   const combined = `${result.stdout ?? ''}\n${result.stderr ?? ''}`.trim();
+  const timedOut = result.error?.code === 'ETIMEDOUT';
   return {
-    ok: result.status === 0,
+    ok: result.status === 0 && !timedOut,
+    timedOut,
     durationMs: Date.now() - started,
     stdout: combined.slice(-4000),
-    stderr: result.status !== 0 ? combined.slice(-2000) : '',
+    stderr: timedOut
+      ? `EVAL_CELL_TIMEOUT_MS=${cellTimeoutMs} elapsed before eval completed.\n${combined.slice(-1800)}`
+      : result.status !== 0
+        ? combined.slice(-2000)
+        : '',
   };
 }
 
@@ -122,6 +153,9 @@ function parsePassRate(output) {
 }
 
 console.log(`Matrix run ${runId}: ${targets.length} cells`);
+if (cellTimeoutMs > 0) {
+  console.log(`Per-cell timeout enabled: ${cellTimeoutMs} ms`);
+}
 writeFileSync(jsonlPath, '', 'utf8');
 
 try {
@@ -140,10 +174,11 @@ for (const { model, profileId, profile } of targets) {
       runId,
       modelKey: model.modelKey,
       profileId,
-      status: 'load_failed',
+      status: load.timedOut ? 'load_timeout' : 'load_failed',
       error: load.stderr || load.stdout,
       durationMs: Date.now() - cellStarted,
     });
+    unloadModels();
     continue;
   }
 
@@ -158,7 +193,7 @@ for (const { model, profileId, profile } of targets) {
     variant: model.selectedVariant,
     profileId,
     gpuFlag: profile.lmsGpuFlag,
-    status: evalResult.ok ? 'completed' : partial ? 'eval_partial' : 'eval_failed',
+    status: evalResult.timedOut ? 'eval_timeout' : evalResult.ok ? 'completed' : partial ? 'eval_partial' : 'eval_failed',
     passes,
     total,
     durationMs: evalResult.durationMs,
