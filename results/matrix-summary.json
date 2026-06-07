@@ -1,14 +1,17 @@
 {
-  "at": "2026-06-07T17:30:44.892Z",
-  "matrixFile": "matrix-2026-06-07T17-25-23-531Z.jsonl",
-  "runId": "2026-06-07T17-25-23-531Z",
+  "at": "2026-06-07T17:38:12.608Z",
+  "matrixFile": "matrix-2026-06-07T17-37-43-012Z.jsonl",
+  "runId": "2026-06-07T17-37-43-012Z",
   "cells": [
     {
-      "modelKey": "qwen/qwen3.5-9b",
-      "profileId": "gpu_offload",
-      "status": "eval_timeout",
-      "durationMs": 300059,
-      "passRate": null,
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "status": "eval_failed",
+      "durationMs": 9374,
+      "passRate": {
+        "passes": 0,
+        "total": 4
+      },
       "evalOk": false
     }
   ],
@@ -16,7 +19,15 @@
     "cells": 1,
     "completed": 0,
     "loadFailed": 0,
-    "avgPassRate": null
+    "avgPassRate": 0
   },
-  "leaderboard": []
+  "leaderboard": [
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "passes": 0,
+      "total": 4,
+      "pct": 0
+    }
+  ]
 }

@@ -1,51 +1,857 @@
 {
-  "evalId": "2026-06-07T15-22-52-975Z",
-  "model": "google/gemma-4-31b-qat",
-  "loadProfile": "gpu_offload",
+  "evalId": "eval-rDi-2026-06-07T17:37:47",
   "results": {
+    "version": 3,
+    "timestamp": "2026-06-07T17:37:47.893Z",
+    "prompts": [
+      {
+        "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+        "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+        "id": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 1,
+          "testErrorCount": 0,
+          "assertPassCount": 0,
+          "assertFailCount": 2,
+          "totalLatencyMs": 2981,
+          "tokenUsage": {
+            "prompt": 69,
+            "completion": 88,
+            "cached": 0,
+            "total": 157,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+        "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+        "id": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 1,
+          "testErrorCount": 0,
+          "assertPassCount": 0,
+          "assertFailCount": 2,
+          "totalLatencyMs": 791,
+          "tokenUsage": {
+            "prompt": 69,
+            "completion": 114,
+            "cached": 0,
+            "total": 183,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+        "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+        "id": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 1,
+          "testErrorCount": 0,
+          "assertPassCount": 0,
+          "assertFailCount": 2,
+          "totalLatencyMs": 422,
+          "tokenUsage": {
+            "prompt": 97,
+            "completion": 56,
+            "cached": 0,
+            "total": 153,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      },
+      {
+        "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+        "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+        "id": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
+        "metrics": {
+          "score": 0,
+          "testPassCount": 0,
+          "testFailCount": 1,
+          "testErrorCount": 0,
+          "assertPassCount": 0,
+          "assertFailCount": 2,
+          "totalLatencyMs": 319,
+          "tokenUsage": {
+            "prompt": 39,
+            "completion": 41,
+            "cached": 0,
+            "total": 80,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "cost": 0
+        }
+      }
+    ],
     "results": [
       {
-        "testCase": {
+        "cost": 0,
+        "error": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+        "gradingResult": {
+          "pass": false,
+          "score": 0,
+          "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('+++')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('+++')"
+              }
+            },
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+              }
+            }
+          ]
+        },
+        "id": "215f477e-2d06-42a8-9aad-5e8cd128c38b",
+        "latencyMs": 2981,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
+          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
+        "promptIdx": 0,
+        "provider": {
+          "id": "openai:chat:liquid/lfm2.5-1.2b",
+          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
+        },
+        "response": {
+          "tokenUsage": {
+            "total": 157,
+            "prompt": 69,
+            "completion": 88,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0
+            }
+          },
+          "cached": false,
+          "latencyMs": 2981,
+          "finishReason": "stop",
+          "guardrails": {
+            "flagged": false
+          },
           "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-allow-headers": "*",
+                "access-control-allow-origin": "*",
+                "connection": "keep-alive",
+                "content-length": "1080",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Sun, 07 Jun 2026 17:37:50 GMT",
+                "etag": "W/\"438-7HG/is8ybHB7/YkKBegSkVHrdRw\"",
+                "keep-alive": "timeout=5",
+                "x-powered-by": "Express"
+              }
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T17-37-43-012Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "liquid/lfm2.5-1.2b",
+            "scoringMode": "deterministic-only",
             "taskId": "build-synthetic-smoke",
             "lane": "build"
           },
-          "description": "build — synthetic smoke",
           "vars": {
             "task": "Add a function that sums an array of numbers",
             "file_path": "src/math.ts",
             "language": "typescript",
             "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('+++')"
+            },
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
           }
         },
+        "testIdx": 0,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T17-37-43-012Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "liquid/lfm2.5-1.2b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-allow-headers": "*",
+              "access-control-allow-origin": "*",
+              "connection": "keep-alive",
+              "content-length": "1080",
+              "content-type": "application/json; charset=utf-8",
+              "date": "Sun, 07 Jun 2026 17:37:50 GMT",
+              "etag": "W/\"438-7HG/is8ybHB7/YkKBegSkVHrdRw\"",
+              "keep-alive": "timeout=5",
+              "x-powered-by": "Express"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 1
+      },
+      {
+        "cost": 0,
+        "error": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+        "gradingResult": {
+          "pass": false,
+          "score": 0,
+          "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('+++')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('+++')"
+              }
+            },
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+              }
+            }
+          ]
+        },
+        "id": "7573323c-5fb6-45b4-a29e-f24a5d7f4b9c",
+        "latencyMs": 791,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
+          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
+        "promptIdx": 1,
         "provider": {
-          "id": "lmstudio:google/gemma-4-31b-qat",
-          "label": "google/gemma-4-31b-qat"
+          "id": "openai:chat:liquid/lfm2.5-1.2b",
+          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
         },
         "response": {
-          "output": ""
-        },
-        "latencyMs": 0,
-        "success": false,
-        "error": "fetch failed",
-        "assertResults": [
-          {
-            "type": "contains",
-            "value": "+++",
-            "pass": false
+          "tokenUsage": {
+            "total": 183,
+            "prompt": 69,
+            "completion": 114,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0
+            }
           },
-          {
-            "type": "javascript",
-            "value": "output.includes('reduce') || output.includes('for') || output.includes('+=')",
-            "pass": false
+          "cached": false,
+          "latencyMs": 791,
+          "finishReason": "stop",
+          "guardrails": {
+            "flagged": false
+          },
+          "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-allow-headers": "*",
+                "access-control-allow-origin": "*",
+                "connection": "keep-alive",
+                "content-length": "1269",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Sun, 07 Jun 2026 17:37:51 GMT",
+                "etag": "W/\"4f5-wS5vjJ55A3IUh1XItGc7168uBzY\"",
+                "keep-alive": "timeout=5",
+                "x-powered-by": "Express"
+              }
+            }
           }
-        ]
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T17-37-43-012Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "liquid/lfm2.5-1.2b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-synthetic-smoke",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Add a function that sums an array of numbers",
+            "file_path": "src/math.ts",
+            "language": "typescript",
+            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('+++')"
+            },
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 0,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T17-37-43-012Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "liquid/lfm2.5-1.2b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-allow-headers": "*",
+              "access-control-allow-origin": "*",
+              "connection": "keep-alive",
+              "content-length": "1269",
+              "content-type": "application/json; charset=utf-8",
+              "date": "Sun, 07 Jun 2026 17:37:51 GMT",
+              "etag": "W/\"4f5-wS5vjJ55A3IUh1XItGc7168uBzY\"",
+              "keep-alive": "timeout=5",
+              "x-powered-by": "Express"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 1
+      },
+      {
+        "cost": 0,
+        "error": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+        "gradingResult": {
+          "pass": false,
+          "score": 0,
+          "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('+++')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('+++')"
+              }
+            },
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+              }
+            }
+          ]
+        },
+        "id": "37fb9cc7-287b-4fa1-9af0-b2c476cb065e",
+        "latencyMs": 422,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: Add a function that sums an array of numbers\n\nFile: src/math.ts\n\n```typescript\nexport function sum(values: number[]): number {\n  return 0;\n}\n```",
+          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
+        "promptIdx": 2,
+        "provider": {
+          "id": "openai:chat:liquid/lfm2.5-1.2b",
+          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
+        },
+        "response": {
+          "tokenUsage": {
+            "total": 153,
+            "prompt": 97,
+            "completion": 56,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0
+            }
+          },
+          "cached": false,
+          "latencyMs": 422,
+          "finishReason": "stop",
+          "guardrails": {
+            "flagged": false
+          },
+          "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-allow-headers": "*",
+                "access-control-allow-origin": "*",
+                "connection": "keep-alive",
+                "content-length": "758",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Sun, 07 Jun 2026 17:37:52 GMT",
+                "etag": "W/\"2f6-orJfTIWl7GtjZ+wytU/tqgVd9hQ\"",
+                "keep-alive": "timeout=5",
+                "x-powered-by": "Express"
+              }
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T17-37-43-012Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "liquid/lfm2.5-1.2b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-synthetic-smoke",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Add a function that sums an array of numbers",
+            "file_path": "src/math.ts",
+            "language": "typescript",
+            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('+++')"
+            },
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 0,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T17-37-43-012Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "liquid/lfm2.5-1.2b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-allow-headers": "*",
+              "access-control-allow-origin": "*",
+              "connection": "keep-alive",
+              "content-length": "758",
+              "content-type": "application/json; charset=utf-8",
+              "date": "Sun, 07 Jun 2026 17:37:52 GMT",
+              "etag": "W/\"2f6-orJfTIWl7GtjZ+wytU/tqgVd9hQ\"",
+              "keep-alive": "timeout=5",
+              "x-powered-by": "Express"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 1
+      },
+      {
+        "cost": 0,
+        "error": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+        "gradingResult": {
+          "pass": false,
+          "score": 0,
+          "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('+++')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('+++')"
+              }
+            },
+            {
+              "pass": false,
+              "score": 0,
+              "reason": "Custom function threw error: (output || \"\").includes is not a function\nStack Trace: TypeError: (output || \"\").includes is not a function\n    at eval (eval at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:34), <anonymous>:3:23)\n    at handleJavascript (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:1329:92)\n    at runAssertion (file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2887:24)\n    at file:///C:/Users/james/projects/evals/node_modules/promptfoo/dist/src/evaluator-8aGyV12L.js:2930:24\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:151:38\n    at replenish (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:447:21)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:452:13\n    at Object.eachOfLimit (C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:478:36)\n    at C:\\Users\\james\\projects\\evals\\node_modules\\async\\dist\\async.js:220:25\n    at new Promise (<anonymous>)\n(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')",
+              "assertion": {
+                "type": "javascript",
+                "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+              }
+            }
+          ]
+        },
+        "id": "53d4e9a7-b819-4f23-93d9-2378f2608e17",
+        "latencyMs": 319,
+        "namedScores": {},
+        "prompt": {
+          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
+          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
+          "config": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
+        "promptIdx": 3,
+        "provider": {
+          "id": "openai:chat:liquid/lfm2.5-1.2b",
+          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
+        },
+        "response": {
+          "tokenUsage": {
+            "total": 80,
+            "prompt": 39,
+            "completion": 41,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0
+            }
+          },
+          "cached": false,
+          "latencyMs": 319,
+          "finishReason": "stop",
+          "guardrails": {
+            "flagged": false
+          },
+          "metadata": {
+            "http": {
+              "status": 200,
+              "statusText": "OK",
+              "headers": {
+                "access-control-allow-headers": "*",
+                "access-control-allow-origin": "*",
+                "connection": "keep-alive",
+                "content-length": "813",
+                "content-type": "application/json; charset=utf-8",
+                "date": "Sun, 07 Jun 2026 17:37:52 GMT",
+                "etag": "W/\"32d-0XLP57wIYVAsOENlCPVC4J2lvYM\"",
+                "keep-alive": "timeout=5",
+                "x-powered-by": "Express"
+              }
+            }
+          }
+        },
+        "score": 0,
+        "success": false,
+        "testCase": {
+          "description": "build — synthetic smoke",
+          "metadata": {
+            "runId": "2026-06-07T17-37-43-012Z",
+            "loadProfile": "gpu_full",
+            "subjectModel": "liquid/lfm2.5-1.2b",
+            "scoringMode": "deterministic-only",
+            "taskId": "build-synthetic-smoke",
+            "lane": "build"
+          },
+          "vars": {
+            "task": "Add a function that sums an array of numbers",
+            "file_path": "src/math.ts",
+            "language": "typescript",
+            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+          },
+          "assert": [
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('+++')"
+            },
+            {
+              "type": "javascript",
+              "value": "(output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')"
+            }
+          ],
+          "options": {
+            "transform": "(output) => (output || \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          }
+        },
+        "testIdx": 0,
+        "vars": {
+          "task": "Add a function that sums an array of numbers",
+          "file_path": "src/math.ts",
+          "language": "typescript",
+          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        },
+        "metadata": {
+          "runId": "2026-06-07T17-37-43-012Z",
+          "loadProfile": "gpu_full",
+          "subjectModel": "liquid/lfm2.5-1.2b",
+          "scoringMode": "deterministic-only",
+          "taskId": "build-synthetic-smoke",
+          "lane": "build",
+          "http": {
+            "status": 200,
+            "statusText": "OK",
+            "headers": {
+              "access-control-allow-headers": "*",
+              "access-control-allow-origin": "*",
+              "connection": "keep-alive",
+              "content-length": "813",
+              "content-type": "application/json; charset=utf-8",
+              "date": "Sun, 07 Jun 2026 17:37:52 GMT",
+              "etag": "W/\"32d-0XLP57wIYVAsOENlCPVC4J2lvYM\"",
+              "keep-alive": "timeout=5",
+              "x-powered-by": "Express"
+            }
+          },
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 1
       }
-    ]
+    ],
+    "stats": {
+      "successes": 0,
+      "failures": 4,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 274,
+        "completion": 299,
+        "cached": 0,
+        "total": 573,
+        "numRequests": 4,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 4695,
+      "evaluationDurationMs": 4695
+    }
   },
-  "stats": {
-    "passes": 0,
-    "failures": 1,
-    "total": 1
+  "config": {
+    "tags": {},
+    "description": "Local OSS model eval matrix — LM Studio only, no paid API calls",
+    "prompts": [
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\research.txt",
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\plan.txt",
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\build.txt",
+      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\tool-call.txt"
+    ],
+    "providers": [
+      "file://providers/lmstudio-subject.yaml"
+    ],
+    "tests": [
+      "file://tests/research.yaml",
+      "file://tests/plan.yaml",
+      "file://tests/build.yaml",
+      "file://tests/tool-call.yaml"
+    ],
+    "scenarios": [],
+    "env": {},
+    "outputPath": [
+      "results/promptfoo-latest.json"
+    ],
+    "extensions": [],
+    "metadata": {
+      "runId": "2026-06-07T17-37-43-012Z",
+      "loadProfile": "gpu_full",
+      "subjectModel": "liquid/lfm2.5-1.2b",
+      "scoringMode": "deterministic-only"
+    },
+    "evaluateOptions": {
+      "maxConcurrency": 1
+    }
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.120.27",
+    "nodeVersion": "v22.22.0",
+    "platform": "win32",
+    "arch": "x64",
+    "exportedAt": "2026-06-07T17:37:53.101Z",
+    "evaluationCreatedAt": "2026-06-07T17:37:47.893Z"
   }
 }

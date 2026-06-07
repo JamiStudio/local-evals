@@ -3521,5 +3521,109 @@
       "Qwen full current-suite no-cache throughput remains incomplete.",
       "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
     ]
+  },
+  "stream40LiquidPromptfooNormalScoringValidation": {
+    "at": "2026-06-07T17:40:00.000Z",
+    "scope": "Validate normal Promptfoo scoring after recent harness fixes with exactly one fast liquid/lfm2.5-1.2b@gpu_full filtered no-cache Promptfoo cell; no retry, no other model/profile/task.",
+    "commit": {
+      "requestedCommit": "861e709",
+      "presentAtHead": true
+    },
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 344 MiB used, 5% utilization"
+    },
+    "command": {
+      "env": {
+        "EVAL_PROMPTFOO_NO_CACHE": "true",
+        "EVAL_TASK_FILTER": "build-synthetic-smoke",
+        "EVAL_SMOKE_MODELS": "liquid/lfm2.5-1.2b",
+        "EVAL_SMOKE_PROFILES": "gpu_full",
+        "EVAL_CELL_TIMEOUT_MS": "300000"
+      },
+      "command": "node scripts/run-matrix.mjs --smoke",
+      "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no retry, no other model, profile, or task was run."
+    },
+    "artifacts": {
+      "matrixJsonl": "results/matrix-2026-06-07T17-37-43-012Z.jsonl",
+      "progressJsonl": "results/matrix-2026-06-07T17-37-43-012Z.progress.jsonl",
+      "latestProgress": "results/matrix-latest-progress.json",
+      "matrixSummary": "results/matrix-summary.json",
+      "streamArtifact": "results/stream40-liquid-promptfoo-normal-scoring-validation.json",
+      "promptfooLatest": "results/promptfoo-latest.json",
+      "comparisonArchive": null,
+      "userJudgeQueueArchive": null
+    },
+    "row": {
+      "runId": "2026-06-07T17-37-43-012Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_failed",
+      "passes": 0,
+      "total": 4,
+      "durationMs": 9374,
+      "undefinedIncludesPresent": false,
+      "otherAssertionIssue": "(output || \"\").includes is not a function"
+    },
+    "validationAnswers": {
+      "promptfooRanFourFilteredTestCases": true,
+      "promptfooLatestRefreshedByStream40": true,
+      "promptfooLatestEvalId": "eval-rDi-2026-06-07T17:37:47",
+      "undefinedIncludesPresentInStream40Row": false,
+      "undefinedIncludesPresentInStream40Progress": false,
+      "progressTelemetryReachedRunFinished": true,
+      "honestStatus": "Promptfoo refreshed a normal result surface, but the row failed 0/4 because the custom JavaScript assertions hit a distinct includes-is-not-a-function issue."
+    },
+    "stream39Comparison": {
+      "artifact": "results/stream39-null-safe-contains-validation.json",
+      "stream39Status": "eval_timeout",
+      "stream39DurationMs": 300059,
+      "stream39Passes": null,
+      "stream39Total": null,
+      "stream39PromptfooLatestRefreshed": false,
+      "delta": "Stream 40 uses liquid instead of qwen and confirms a fresh Promptfoo output surface; Stream 39 only validated absence of undefined.includes on a qwen timeout."
+    },
+    "stream22Comparison": {
+      "artifact": "results/stream22-uncached-throughput.json",
+      "stream22LiquidStatus": "eval_partial",
+      "stream22LiquidPasses": 5,
+      "stream22LiquidTotal": 40,
+      "stream22LiquidDurationMs": 31096,
+      "delta": "Stream 40 is the fast filtered 4-case no-cache liquid control: 0/4 in 9374 ms with cached tokens 0."
+    },
+    "promptfooLatestStatus": {
+      "refreshedByStream40": true,
+      "evalId": "eval-rDi-2026-06-07T17:37:47",
+      "resultCount": 4,
+      "successes": 0,
+      "failures": 4,
+      "errors": 0,
+      "cachedTokens": 0,
+      "totalTokens": 573,
+      "durationMs": 4695
+    },
+    "summaryAccounting": {
+      "matrixFile": "matrix-2026-06-07T17-37-43-012Z.jsonl",
+      "runId": "2026-06-07T17-37-43-012Z",
+      "completed": 0,
+      "leaderboardRows": 1,
+      "noPassRowsCountedCompleted": false,
+      "assessment": "summarize-matrix selected the actual Stream 40 matrix JSONL, ignored the progress sidecar, and did not count the 0/4 no-pass row as completed."
+    },
+    "runtimeAfterUnload": {
+      "action": "lms unload --all",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 359 MiB used, 6% utilization"
+    },
+    "remainingGaps": [
+      "Normal passing Promptfoo scoring is not closed because the fresh liquid row is eval_failed 0/4.",
+      "A distinct custom assertion/runtime issue remains: `(output || \"\").includes is not a function`.",
+      "Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full current-suite no-cache throughput, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
   }
 }

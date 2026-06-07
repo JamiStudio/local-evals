@@ -1,0 +1,165 @@
+{
+  "stream": 40,
+  "at": "2026-06-07T17:40:00.000Z",
+  "purpose": "Validate normal Promptfoo scoring after recent harness fixes using exactly one fast liquid filtered no-cache cell.",
+  "commitValidation": {
+    "requestedCommit": "861e709",
+    "presentAtHead": true,
+    "headShort": "861e709",
+    "gitPull": "Already up to date."
+  },
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md",
+    "results/stream39-null-safe-contains-validation.json",
+    "results/stream22-uncached-throughput.json",
+    "results/matrix-summary.json",
+    "results/optimization-state.json",
+    "docs/evals/2026-06-07-strict-gap-audit.md",
+    "scripts/run-matrix.mjs",
+    "scripts/summarize-matrix.mjs",
+    "suites/promptfoo/promptfooconfig.yaml",
+    "suites/promptfoo/tests/build.yaml",
+    "suites/promptfoo/tests/plan.yaml",
+    "suites/promptfoo/tests/research.yaml",
+    "suites/promptfoo/tests/tool-call.yaml",
+    "live git status --short",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 344 MiB used, 5% utilization"
+  },
+  "command": {
+    "env": {
+      "EVAL_PROMPTFOO_NO_CACHE": "true",
+      "EVAL_TASK_FILTER": "build-synthetic-smoke",
+      "EVAL_SMOKE_MODELS": "liquid/lfm2.5-1.2b",
+      "EVAL_SMOKE_PROFILES": "gpu_full",
+      "EVAL_CELL_TIMEOUT_MS": "300000"
+    },
+    "command": "node scripts/run-matrix.mjs --smoke",
+    "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no retry, no other model, profile, or task was run."
+  },
+  "artifacts": {
+    "matrixJsonl": "results/matrix-2026-06-07T17-37-43-012Z.jsonl",
+    "progressJsonl": "results/matrix-2026-06-07T17-37-43-012Z.progress.jsonl",
+    "latestProgress": "results/matrix-latest-progress.json",
+    "matrixSummary": "results/matrix-summary.json",
+    "promptfooLatest": "results/promptfoo-latest.json",
+    "streamArtifact": "results/stream40-liquid-promptfoo-normal-scoring-validation.json",
+    "comparisonArchive": null,
+    "userJudgeQueueArchive": null
+  },
+  "row": {
+    "runId": "2026-06-07T17-37-43-012Z",
+    "modelKey": "liquid/lfm2.5-1.2b",
+    "variant": "liquid/lfm2.5-1.2b@q8_0",
+    "profileId": "gpu_full",
+    "gpuFlag": "max",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "eval_failed",
+    "passes": 0,
+    "total": 4,
+    "durationMs": 9374
+  },
+  "promptfooLatestStatus": {
+    "refreshedByStream40": true,
+    "lastWriteTimeUtc": "2026-06-07T17:37:53Z",
+    "evalId": "eval-rDi-2026-06-07T17:37:47",
+    "resultCount": 4,
+    "taskId": "build-synthetic-smoke",
+    "subjectModel": "liquid/lfm2.5-1.2b",
+    "loadProfile": "gpu_full",
+    "successes": 0,
+    "failures": 4,
+    "errors": 0,
+    "tokenUsage": {
+      "prompt": 274,
+      "completion": 299,
+      "cached": 0,
+      "total": 573,
+      "numRequests": 4
+    },
+    "durationMs": 4695,
+    "assessment": "Promptfoo produced and wrote a fresh filtered result surface for the Stream 40 run."
+  },
+  "validationAnswers": {
+    "promptfooRanFourFilteredTestCases": true,
+    "promptfooLatestRefreshed": true,
+    "honestRowStatus": "eval_failed",
+    "honestDurationMs": 9374,
+    "honestPasses": 0,
+    "honestTotal": 4,
+    "undefinedIncludesPresentInRow": false,
+    "undefinedIncludesPresentInProgress": false,
+    "otherAssertionIssuePresent": true,
+    "otherAssertionIssue": "Promptfoo custom javascript assertions failed with `(output || \"\").includes is not a function`; this is distinct from the Stream 38 undefined.includes provider-call error.",
+    "progressTelemetryReachedRunFinished": true,
+    "summarizeMatrixSelectedActualMatrixJsonl": true,
+    "summarizeMatrixIgnoredProgressSidecar": true,
+    "summarizeMatrixNoPassRowCompleted": false
+  },
+  "comparisons": {
+    "stream39QwenTimeout": {
+      "artifact": "results/stream39-null-safe-contains-validation.json",
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_offload",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 300059,
+      "promptfooLatestRefreshed": false,
+      "undefinedIncludesPresent": false
+    },
+    "stream22LiquidNoCache": {
+      "artifact": "results/stream22-uncached-throughput.json",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 31096,
+      "promptfooLatestRefreshed": true,
+      "cachedTokens": 0
+    },
+    "stream40Delta": "Liquid produced a fresh no-cache Promptfoo result surface quickly on the filtered 4-case task, unlike Stream 39's qwen timeout/stale output. The row still failed 0/4 because the assertions errored on non-string output."
+  },
+  "summaryAccounting": {
+    "matrixFile": "matrix-2026-06-07T17-37-43-012Z.jsonl",
+    "runId": "2026-06-07T17-37-43-012Z",
+    "completed": 0,
+    "leaderboardRows": 1,
+    "leaderboardEntry": {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "passes": 0,
+      "total": 4,
+      "pct": 0
+    },
+    "assessment": "summarize-matrix selected the actual Stream 40 matrix JSONL, ignored the progress sidecar, and did not count the 0/4 no-pass row as completed."
+  },
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 359 MiB used, 6% utilization"
+  },
+  "gapOutcome": {
+    "closedOrSharpened": [
+      "The repaired Promptfoo runner path can launch a filtered liquid no-cache cell and write a fresh results/promptfoo-latest.json surface.",
+      "Promptfoo selected exactly 4 filtered build-synthetic-smoke cases and progress telemetry reached run_finished.",
+      "The Stream 38/39 undefined.includes provider-call error is absent from the Stream 40 row and progress telemetry.",
+      "summarize-matrix selected the real matrix JSONL and did not count the no-pass row as completed."
+    ],
+    "notClosed": [
+      "Normal scoring is not passing: the liquid row is eval_failed with 0/4.",
+      "Promptfoo assertions still need investigation because the custom javascript checks report `(output || \"\").includes is not a function` on this fresh surface.",
+      "Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
+  }
+}
