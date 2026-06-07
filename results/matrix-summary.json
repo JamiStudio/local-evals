@@ -1,87 +1,213 @@
 {
-  "at": "2026-06-06T23:20:39.889Z",
-  "matrixFile": "matrix-2026-06-06T22-51-56-696Z.jsonl",
-  "runId": "2026-06-06T22-51-56-696Z",
+  "at": "2026-06-07T06:37:20.554Z",
+  "matrixFile": "matrix-2026-06-07T06-30-40-559Z.jsonl",
+  "runId": "2026-06-07T06-30-40-559Z",
   "cells": [
     {
-      "modelKey": "qwen/qwen3.5-9b",
+      "modelKey": "nvidia/nemotron-3-nano-4b",
       "profileId": "gpu_full",
       "status": "eval_failed",
-      "durationMs": 731171,
+      "durationMs": 140360,
       "passRate": {
-        "passes": 4,
-        "total": 8
+        "passes": 9,
+        "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "qwen/qwen3.5-9b",
+      "modelKey": "nvidia/nemotron-3-nano-4b",
       "profileId": "gpu_offload",
       "status": "eval_failed",
-      "durationMs": 727360,
+      "durationMs": 11029,
       "passRate": {
-        "passes": 5,
-        "total": 8
+        "passes": 9,
+        "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "liquid/lfm2.5-1.2b",
-      "profileId": "gpu_full",
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.3",
       "status": "eval_failed",
-      "durationMs": 4167,
+      "durationMs": 8413,
       "passRate": {
-        "passes": 3,
-        "total": 8
+        "passes": 9,
+        "total": 40
       },
       "evalOk": true
     },
     {
-      "modelKey": "liquid/lfm2.5-1.2b",
-      "profileId": "gpu_offload",
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.35",
       "status": "eval_failed",
-      "durationMs": 4060,
+      "durationMs": 8986,
       "passRate": {
-        "passes": 3,
-        "total": 8
+        "passes": 9,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.36",
+      "status": "eval_failed",
+      "durationMs": 9456,
+      "passRate": {
+        "passes": 9,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.39",
+      "status": "eval_failed",
+      "durationMs": 8490,
+      "passRate": {
+        "passes": 9,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.5",
+      "status": "eval_failed",
+      "durationMs": 11541,
+      "passRate": {
+        "passes": 9,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.7",
+      "status": "eval_failed",
+      "durationMs": 9756,
+      "passRate": {
+        "passes": 9,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.88",
+      "status": "eval_failed",
+      "durationMs": 9426,
+      "passRate": {
+        "passes": 9,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.9",
+      "status": "eval_failed",
+      "durationMs": 9502,
+      "passRate": {
+        "passes": 9,
+        "total": 40
+      },
+      "evalOk": true
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.95",
+      "status": "eval_failed",
+      "durationMs": 9922,
+      "passRate": {
+        "passes": 9,
+        "total": 40
       },
       "evalOk": true
     }
   ],
   "totals": {
-    "cells": 4,
-    "completed": 4,
+    "cells": 11,
+    "completed": 11,
     "loadFailed": 0,
-    "avgPassRate": 0.46875
+    "avgPassRate": 0.22500000000000006
   },
   "leaderboard": [
     {
-      "modelKey": "qwen/qwen3.5-9b",
-      "profileId": "gpu_offload",
-      "passes": 5,
-      "total": 8,
-      "pct": 63
-    },
-    {
-      "modelKey": "qwen/qwen3.5-9b",
+      "modelKey": "nvidia/nemotron-3-nano-4b",
       "profileId": "gpu_full",
-      "passes": 4,
-      "total": 8,
-      "pct": 50
+      "passes": 9,
+      "total": 40,
+      "pct": 23
     },
     {
-      "modelKey": "liquid/lfm2.5-1.2b",
-      "profileId": "gpu_full",
-      "passes": 3,
-      "total": 8,
-      "pct": 38
-    },
-    {
-      "modelKey": "liquid/lfm2.5-1.2b",
+      "modelKey": "nvidia/nemotron-3-nano-4b",
       "profileId": "gpu_offload",
-      "passes": 3,
-      "total": 8,
-      "pct": 38
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.3",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.35",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.36",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.39",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.5",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.7",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.88",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.9",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "profileId": "gpu_partial_0.95",
+      "passes": 9,
+      "total": 40,
+      "pct": 23
     }
   ]
 }

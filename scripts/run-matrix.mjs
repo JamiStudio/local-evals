@@ -104,6 +104,23 @@ function runPromptfoo(modelKey, profileId) {
   };
 }
 
+function parsePassRate(output) {
+  const slash = output?.match(/(\d+)\/(\d+) passed/);
+  if (slash) {
+    return { passes: Number(slash[1]), total: Number(slash[2]) };
+  }
+
+  const summary = output?.match(/Results:\s*.*?(\d+) passed,.*?(\d+) failed,.*?(\d+) errors/s);
+  if (summary) {
+    const passes = Number(summary[1]);
+    const failed = Number(summary[2]);
+    const errors = Number(summary[3]);
+    return { passes, total: passes + failed + errors };
+  }
+
+  return null;
+}
+
 console.log(`Matrix run ${runId}: ${targets.length} cells`);
 writeFileSync(jsonlPath, '', 'utf8');
 
@@ -131,9 +148,9 @@ for (const { model, profileId, profile } of targets) {
   }
 
   const evalResult = runPromptfoo(model.modelKey, profileId);
-  const passMatch = evalResult.stderr?.match(/(\d+)\/(\d+) passed/);
-  const passes = passMatch ? Number(passMatch[1]) : null;
-  const total = passMatch ? Number(passMatch[2]) : null;
+  const passRate = parsePassRate(evalResult.stderr);
+  const passes = passRate?.passes ?? null;
+  const total = passRate?.total ?? null;
   const partial = passes != null && total != null && passes > 0 && passes < total;
   logRow({
     runId,

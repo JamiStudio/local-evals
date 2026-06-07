@@ -18,8 +18,15 @@ function latestMatrixFile() {
 
 function parsePassRate(stderr) {
   const m = stderr?.match(/(\d+)\/(\d+) passed/);
-  if (!m) return null;
-  return { passes: Number(m[1]), total: Number(m[2]) };
+  if (m) return { passes: Number(m[1]), total: Number(m[2]) };
+
+  const summary = stderr?.match(/Results:\s*.*?(\d+) passed,.*?(\d+) failed,.*?(\d+) errors/s);
+  if (!summary) return null;
+
+  const passes = Number(summary[1]);
+  const failed = Number(summary[2]);
+  const errors = Number(summary[3]);
+  return { passes, total: passes + failed + errors };
 }
 
 const matrixFile = latestMatrixFile();

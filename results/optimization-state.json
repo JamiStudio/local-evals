@@ -35,6 +35,49 @@
       "pct": 38
     }
   ],
+  "stream2NemotronLocalMatrixSlice": {
+    "at": "2026-06-07T06:37:20.554Z",
+    "scope": "nvidia/nemotron-3-nano-4b only; all 11 current registry/load-profiles.json profiles; LM Studio local only; max concurrency 1; no cloud/direct paid APIs",
+    "liveRuntimeBeforeLoad": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "513 MiB used / 8192 MiB total at 2026-06-07 02:30:29 local"
+    },
+    "latestMatrixJsonl": "results/matrix-2026-06-07T06-30-40-559Z.jsonl",
+    "summary": "results/matrix-summary.json",
+    "cellsAdded": 11,
+    "loadFailures": 0,
+    "statuses": {
+      "eval_failed": 11
+    },
+    "passRate": {
+      "passes": 9,
+      "total": 40,
+      "pct": 22.5,
+      "appliesTo": "all 11 profiles; promptfoo reported partial pass counts while process exit/status remained eval_failed because 23 failed and 8 errored"
+    },
+    "durationsMs": {
+      "total": 236881,
+      "fastestPreset": "gpu_partial_0.3",
+      "fastest": 8413,
+      "slowestPreset": "gpu_full",
+      "slowest": 140360,
+      "gpu_offload": 11029,
+      "gpu_partial_0.35": 8986,
+      "gpu_partial_0.36": 9456,
+      "gpu_partial_0.39": 8490,
+      "gpu_partial_0.5": 11541,
+      "gpu_partial_0.7": 9756,
+      "gpu_partial_0.88": 9426,
+      "gpu_partial_0.9": 9502,
+      "gpu_partial_0.95": 9922
+    },
+    "bestPreset": "gpu_partial_0.3 by duration only; all profiles tied at 9/40 pass rate",
+    "worstPreset": "gpu_full by duration; all profiles tied at 9/40 pass rate",
+    "profileChange": "none; one stream with tied quality does not justify changing registry/load-profiles.json",
+    "postRunRuntime": "nemotron was IDLE after runner; lms unload --all unloaded it; lms ps then showed no loaded models",
+    "postSteps": ["node scripts/summarize-matrix.mjs", "pnpm compare:baseline", "pnpm judge:queue"],
+    "parserNote": "scripts/run-matrix.mjs and scripts/summarize-matrix.mjs now parse both old 'x/y passed' and current promptfoo 'Results: 9 passed, 23 failed, 8 errors' formats so pass counts are not dropped."
+  },
   "systemProfile": {
     "at": "2026-06-06T23:42:16.540Z",
     "vramGb": 8,
@@ -105,7 +148,7 @@
     "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",
     "speedNote": "qwen cells ~12min; liquid ~4s; daily-briefs dry tps=38.4 (qwen specialist); no matrix tps layer yet",
     "baselinesStatus": "8/10 tasks have vertex-gemini-3-1-pro-preview imports; 2 W7 tasks registered but no imports/cells",
-    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Lock qwen offload leader + prioritize real tracker (headroom now) or cloud SOTA or larges partials per data. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest."
+    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Lock qwen offload leader + prioritize real tracker (headroom now), another small-model slice (rnj/e2b/e4b), or cloud SOTA per data. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest."
   },
   "connectivity": {
     "lmstudio": true,
@@ -125,7 +168,7 @@
     "systemTurboCoolerboost": true,
     "creditsOnTap": "vertex(gcloud-active) + azure(if-env) + reasonable burn"
   },
-  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)"],
+  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)", "Stream 2 nemotron local matrix slice (COMPLETED locally; pending final commit+push; 11 cells, 9/40 each, 0 load failures, latest results/matrix-2026-06-07T06-30-40-559Z.jsonl)"],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
     "5156a75: docs/roadmap + state update for user goal (second stream)",
@@ -146,6 +189,13 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "AUDIT/EXECUTE W7: implement tracker (real + ReAct + dry-run) + KB + loader + deepeval/promptfoo additions for tool correctness/plan/briefs-quality + tps + manifest tasks + update roadmap/state. Smoke/dry/small only. Commit+push. Live source truth only."
+    },
+    {
+      "id": "019ea0c5-1152-7f93-bd37-996ae0c0bcdc",
+      "workstream": "Stream 2",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "Contained small untested local matrix slice: nvidia/nemotron-3-nano-4b only, all current load-profiles via EVAL_SMOKE_MODELS and node scripts/run-matrix.mjs --smoke; live lms/nvidia first, unload idle model if safe, no full matrix, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
     }
   ],
   "solidModelsTarget": {
