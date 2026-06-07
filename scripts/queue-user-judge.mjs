@@ -8,8 +8,12 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 dotenv.config({ path: join(root, '.env') });
 
 const resultsDir = join(root, 'results');
-const queuePath = join(resultsDir, 'user-judge-queue.jsonl');
-const comparisonPath = join(resultsDir, 'baseline-comparison.jsonl');
+const queuePath = process.env.EVAL_USER_JUDGE_QUEUE_OUT
+  ? join(root, process.env.EVAL_USER_JUDGE_QUEUE_OUT)
+  : join(resultsDir, 'user-judge-queue.jsonl');
+const comparisonPath = process.env.EVAL_BASELINE_COMPARISON_IN
+  ? join(root, process.env.EVAL_BASELINE_COMPARISON_IN)
+  : join(resultsDir, 'baseline-comparison.jsonl');
 const reviewAll = (process.env.EVAL_USER_JUDGE_REVIEW_ALL ?? 'true') === 'true';
 
 mkdirSync(resultsDir, { recursive: true });
@@ -30,7 +34,7 @@ if (existsSync(comparisonPath)) {
     queue = queue.filter((row) => row.hasBaseline);
   }
 } else {
-  console.log('No baseline-comparison.jsonl. Run: pnpm compare:baseline');
+  console.log(`No baseline comparison found at ${comparisonPath}. Run: pnpm compare:baseline`);
 }
 
 writeFileSync(queuePath, queue.map((r) => JSON.stringify(r)).join('\n') + (queue.length ? '\n' : ''), 'utf8');

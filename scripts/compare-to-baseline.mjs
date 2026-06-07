@@ -9,7 +9,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const resultsDir = join(root, 'results');
-const outPath = join(resultsDir, 'baseline-comparison.jsonl');
+const outPath = process.env.EVAL_BASELINE_COMPARISON_OUT
+  ? join(root, process.env.EVAL_BASELINE_COMPARISON_OUT)
+  : join(resultsDir, 'baseline-comparison.jsonl');
 
 function loadJson(path) {
   return JSON.parse(readFileSync(path, 'utf8'));

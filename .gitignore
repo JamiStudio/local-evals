@@ -15,7 +15,9 @@ results/**
 !results/optimization-state.json
 !results/optimization-report-*.json
 !results/baseline-comparison.jsonl
+!results/baseline-comparison-*.jsonl
 !results/user-judge-queue.jsonl
+!results/user-judge-queue-*.jsonl
 !results/system-profile.json
 !results/runtime-snapshot.json
 !results/promptfoo-latest.json

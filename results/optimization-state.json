@@ -255,7 +255,8 @@
     "Stream 6 W7 tracker final-brief repair (COMPLETED + pushed f76f51b; real artifact results/daily-briefs/brief-20260607-083746.json nonblank with all required sections; fallback_used=true; tps 3.3, wall 150.48s, usage 2346/499/2845; qwen did not finalize within max_steps=2)",
     "Stream 7 qwen current-suite leader refresh (COMPLETED + pushed 558260b; one cell results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload eval_partial 7/40, 17.5% rounded 18%, duration 1018924 ms; promptfoo 7 passed, 25 failed, 8 errors; weakens old 5/8 leader claim on current 40-assertion suite)",
     "Stream 8 liquid current-suite control (COMPLETED + pushed ba2348d; one cell results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full eval_partial 5/40, 12.5% rounded 13%, duration 13373 ms; promptfoo 5 passed, 27 failed, 8 errors, 4703 total tokens; compared to Stream 7 qwen 7/40 in 1018924 ms, liquid is -2 passes but ~76x faster)",
-    "Stream 9 W7 baseline/user-judge bounded collection (COMPLETED; W7 baselines imported for daily-brief-synthetic-smoke and interest-tracker-tool-use using only bounded task filters; refreshed compare/queue now 40/40 baseline-backed with 8/8 W7 backed)"
+    "Stream 9 W7 baseline/user-judge bounded collection (COMPLETED; W7 baselines imported for daily-brief-synthetic-smoke and interest-tracker-tool-use using only bounded task filters; refreshed compare/queue now 40/40 baseline-backed with 8/8 W7 backed)",
+    "Stream 10 model-specific review queue preservation + qwen rerun after W7 baselines (COMPLETED in working stream; liquid Stream 8 and qwen Stream 10 comparison/queue archives both 40 rows, 40 baseline-backed, W7 8/8; qwen current-suite cell eval_partial 7/40 with Promptfoo cached output, runner duration 7543 ms)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -828,5 +829,80 @@
     },
     "remainingGaps": "W7 baseline backing is now present for both registered W7 tasks and the user-judge queue is refreshed, but subjective user review remains pending. The interest-tracker Vertex baseline is short and tool-call-shaped, so final W7 quality still needs user review and/or a no-fallback real tracker refresh before promoting qwen daily-brief quality into final 3-solid decisions.",
     "postRunRuntime": "No GPU matrix or LM Studio load was run in this stream; closeout lms ps verification showed no loaded models."
+  },
+  "stream10ModelSpecificReviewQueues": {
+    "at": "2026-06-07T09:40:00Z",
+    "scope": "Preserve model-specific baseline-comparison/user-judge evidence and rerun exactly one qwen/qwen3.5-9b@gpu_offload current-suite cell after Stream 9 W7 baselines; no baseline collection, no broad cloud, no broad or mid/large matrix, one GPU model only",
+    "sourceTruthReadBeforeRun": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Stream 9 result/current gaps",
+      "results/optimization-state.json",
+      "baselines/manifest.json",
+      "results/baseline-comparison.jsonl",
+      "results/user-judge-queue.jsonl",
+      "scripts/compare-to-baseline.mjs",
+      "scripts/queue-user-judge.mjs",
+      "scripts/run-matrix.mjs",
+      ".gitignore"
+    ],
+    "toolingChange": [
+      "scripts/compare-to-baseline.mjs now supports EVAL_BASELINE_COMPARISON_OUT while preserving default results/baseline-comparison.jsonl behavior",
+      "scripts/queue-user-judge.mjs now supports EVAL_BASELINE_COMPARISON_IN and EVAL_USER_JUDGE_QUEUE_OUT while preserving default results/user-judge-queue.jsonl behavior",
+      ".gitignore now allows tracked results/baseline-comparison-*.jsonl and results/user-judge-queue-*.jsonl archives"
+    ],
+    "liveRuntimeBeforeRun": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free"
+    },
+    "liquidArchive": {
+      "baselineComparison": "results/baseline-comparison-liquid-stream8.jsonl",
+      "userJudgeQueue": "results/user-judge-queue-liquid-stream8.jsonl",
+      "rows": 40,
+      "baselineBackedRows": 40,
+      "w7Rows": 8,
+      "w7BackedRows": 8,
+      "subject": "local:liquid/lfm2.5-1.2b (gpu_full)"
+    },
+    "command": "EVAL_SMOKE_MODELS=qwen/qwen3.5-9b EVAL_SMOKE_PROFILES=gpu_offload EVAL_CELL_TIMEOUT_MS=1200000 node scripts/run-matrix.mjs --smoke",
+    "latestMatrixJsonl": "results/matrix-2026-06-07T09-39-47-870Z.jsonl",
+    "qwenCurrentSuiteResult": {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_offload",
+      "status": "eval_partial",
+      "passes": 7,
+      "total": 40,
+      "pct": 17.5,
+      "pctRounded": 18,
+      "durationMs": 7543,
+      "promptfoo": {
+        "passed": 7,
+        "failed": 25,
+        "errors": 8,
+        "totalTokens": 39548,
+        "evalDuration": "4s",
+        "cacheNote": "Promptfoo reported 39,548 eval tokens as cached, so this stream prepares qwen review evidence after W7 baselines but does not strengthen runtime-speed evidence."
+      }
+    },
+    "qwenArchive": {
+      "baselineComparison": "results/baseline-comparison-qwen-stream10.jsonl",
+      "userJudgeQueue": "results/user-judge-queue-qwen-stream10.jsonl",
+      "rows": 40,
+      "baselineBackedRows": 40,
+      "w7Rows": 8,
+      "w7BackedRows": 8,
+      "subject": "local:qwen/qwen3.5-9b (gpu_offload)"
+    },
+    "defaultComparisonAndQueue": {
+      "baselineComparisonRows": 40,
+      "baselineBackedRows": 40,
+      "w7Rows": 8,
+      "w7BackedRows": 8,
+      "userJudgeQueueCases": 40,
+      "subject": "local:qwen/qwen3.5-9b (gpu_offload)"
+    },
+    "postRunRuntime": "Runner unloaded after the cell; post-run lms ps showed no loaded models and nvidia-smi still showed 456 MiB used / 7532 MiB free.",
+    "remainingGaps": "User review remains pending; Stream 10 only prepares and preserves model-specific baseline-backed review queues. Qwen W7 daily-brief evidence remains fallback-backed from Stream 6, and the Stream 10 promptfoo output was cached, so do not promote final 3-solid decisions from this alone."
   }
 }
