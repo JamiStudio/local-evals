@@ -1,0 +1,114 @@
+{
+  "stream": 19,
+  "at": "2026-06-07T12:00:00.000Z",
+  "purpose": "Prepare a human user-review packet and final-gap audit summary without running model loads.",
+  "runtimeBoundary": {
+    "modelLoadsRun": false,
+    "matrixCellsRun": false,
+    "baselineCollectionRun": false,
+    "cloudApiCallsRun": false,
+    "lmsPs": "No models are currently loaded."
+  },
+  "packet": "docs/evals/2026-06-07-user-review-packet.md",
+  "reviewInputs": {
+    "qwenStream17": {
+      "comparisonArtifact": "results/baseline-comparison-qwen-stream17.jsonl",
+      "queueArtifact": "results/user-judge-queue-qwen-stream17.jsonl",
+      "rows": 40,
+      "baselineBackedRows": 40,
+      "deterministic": {
+        "passes": 7,
+        "total": 40,
+        "profiles": [
+          "gpu_offload",
+          "gpu_partial_0.95",
+          "gpu_partial_0.7",
+          "gpu_full"
+        ],
+        "profileCaveat": "All tested profiles tied at 7/40; Stream 17 durations are cached Promptfoo reruns, not fresh uncached throughput evidence."
+      }
+    },
+    "liquidStream17": {
+      "comparisonArtifact": "results/baseline-comparison-liquid-stream17.jsonl",
+      "queueArtifact": "results/user-judge-queue-liquid-stream17.jsonl",
+      "rows": 40,
+      "baselineBackedRows": 40,
+      "deterministic": {
+        "passes": 5,
+        "total": 40,
+        "profiles": [
+          "gpu_full",
+          "gpu_offload",
+          "gpu_partial_0.3",
+          "gpu_partial_0.35",
+          "gpu_partial_0.36",
+          "gpu_partial_0.39",
+          "gpu_partial_0.5",
+          "gpu_partial_0.7",
+          "gpu_partial_0.88",
+          "gpu_partial_0.9",
+          "gpu_partial_0.95"
+        ],
+        "profileCaveat": "All 11 current profiles tied at 5/40; use as speed/triage evidence, not a quality-leading placement."
+      }
+    },
+    "midSizeStream18": {
+      "streamArtifact": "results/stream18-mid-size-task-slice.json",
+      "lastCellComparisonArtifact": "results/baseline-comparison-stream18-last-cell.jsonl",
+      "lastCellQueueArtifact": "results/user-judge-queue-stream18-last-cell.jsonl",
+      "lastCellQueueRows": 1,
+      "lastCellBaselineBackedRows": 1,
+      "fullSlice": {
+        "cells": 9,
+        "passes": 6,
+        "total": 9,
+        "loadFailures": 0,
+        "timeouts": 0,
+        "tasks": [
+          "research-harness-tools",
+          "plan-synthetic-smoke",
+          "tool-call-search-docs"
+        ],
+        "models": [
+          "google/gemma-4-12b",
+          "zai-org/glm-4.6v-flash",
+          "google/gemma-4-12b-qat"
+        ],
+        "profile": "gpu_offload"
+      },
+      "caveat": "The last-cell queue only reflects google/gemma-4-12b-qat@gpu_offload on tool-call-search-docs; use the stream artifact for the full 9-cell slice."
+    },
+    "w7StrictQwenTracker": {
+      "artifact": "results/daily-briefs/brief-20260607-100231.json",
+      "strictFinal": true,
+      "finalizationStatus": "model_final",
+      "fallbackUsed": false,
+      "allRequiredSectionsPresent": true,
+      "tps": 3.0,
+      "caveats": [
+        "one invalid GitHub JSON-field request",
+        "weak web-search relevance",
+        "stale wording inside the model-generated brief"
+      ]
+    },
+    "deepevalW7": {
+      "artifact": "suites/deepeval/test_workflows.py",
+      "result": "Stream 11 local-safe deterministic W7 lane passed 4/4 without requiring OPENAI_API_KEY.",
+      "caveat": "Judge-backed metrics remain opt-in."
+    },
+    "largeModelStream16": {
+      "estimateArtifact": "results/stream16-large-estimates.json",
+      "timeoutArtifact": "results/matrix-2026-06-07T10-52-18-029Z.jsonl",
+      "result": "26B and 31B-QAT estimates returned; 31B Q4_K_M estimate probes timed out; first practical 31B-QAT partial local fallback cell timed out at 300022 ms.",
+      "caveat": "No 26B/31B model has completed practical proof."
+    }
+  },
+  "remainingGaps": [
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Large 26B/31B practical proof remains incomplete.",
+    "Broad partial-profile measurements outside contained slices remain incomplete.",
+    "Final campaign completion verification remains incomplete."
+  ]
+}

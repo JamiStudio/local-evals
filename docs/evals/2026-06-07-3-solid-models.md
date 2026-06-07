@@ -1,6 +1,6 @@
 # 3 Solid Models — Current Evidence Memo (2026-06-07)
 
-**Status:** Draft evidence memo, not final completion. Streams 9-18 materially refreshed the evidence base, but subjective user review, broad/full matrix coverage, completed large-model proofs, broad uncached partial-profile measurements, and final selection remain open.
+**Status:** Draft evidence memo, not final completion. Streams 9-19 materially refreshed the evidence base and prepared a human review packet, but subjective user review, broad/full matrix coverage, completed large-model proofs, broad uncached partial-profile measurements, and final selection remain open.
 
 **Scope boundary:** This memo covers the `evals` harness only. Automated model runs are LM Studio local; cloud outputs are imported/credit-funded baselines and review anchors, not direct paid API calls from the matrix harness.
 
@@ -15,6 +15,7 @@
 - **Mid-size fallback proof:** Streams 13-14 proved a narrow local fallback path on `build-synthetic-smoke`, `gpu_offload`, `EVAL_USE_PROMPTFOO=false`: `google/gemma-4-12b` 1/1 in 71342 ms, `zai-org/glm-4.6v-flash` 1/1 in 97743 ms, and `google/gemma-4-12b-qat` 1/1 in 70425 ms. This is not broad mid-size quality coverage.
 - **Mid-size wider task slice:** Stream 18 added `results/stream18-mid-size-task-slice.json`: the same three mid-size targets ran local fallback on `gpu_offload` across `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs`. Result: 9 cells, 6/9 passed, 0 load failures, 0 timeouts. All three passed the plan task; research passed for both Gemma 12B variants but failed for GLM; tool-call-search passed only for GLM.
 - **Large-model proof slice:** Stream 16 added estimate/timeout evidence for the remaining 26B/31B gap. 26B and 31B-QAT recommended partial estimates returned, 31B Q4_K_M estimate-only probes timed out, and the first practical `google/gemma-4-31b-qat@gpu_partial_0.36` local fallback cell timed out at 300022 ms with no pass count. This is not a large-model candidate promotion.
+- **User review packet:** Stream 19 prepared `docs/evals/2026-06-07-user-review-packet.md` and `results/user-review-packet-summary.json`. The packet points to the qwen/liquid Stream 17 40-row baseline-backed queues, the Stream 18 last-cell queue plus fuller 9-cell artifact, W7 strict qwen tracker artifact, DeepEval W7 4/4 local-safe lane, and Stream 16 large-model estimate/timeout caveat. It prepares review only; it does not complete review.
 
 ## Current Rotation
 
@@ -42,7 +43,7 @@
 
 ## Remaining Gaps
 
-- User review is pending for qwen/liquid model-specific queues.
+- User review is pending for qwen/liquid model-specific queues. Use `docs/evals/2026-06-07-user-review-packet.md` as the current review packet.
 - Full/broad local matrix coverage is incomplete. Qwen/liquid now have Stream 17 profile-sensitivity evidence, but other model families and broader uncached profile measurements remain open.
 - Large 26B/31B local models remain unproven beyond Stream 16 estimate/timeout context.
 - Partial GPU profile quality and speed are not broadly measured beyond contained slices; Stream 17 qwen/liquid quality was invariant across tested profiles and qwen durations were cached.

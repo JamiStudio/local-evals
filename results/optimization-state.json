@@ -1748,5 +1748,52 @@
     "defaultSurfaceCaveat": "results/matrix-summary.json points only to the final tool-call-search-docs JSONL; results/promptfoo-latest.json, baseline-comparison.jsonl, and user-judge-queue.jsonl point only to the final google/gemma-4-12b-qat tool-call-search-docs cell. Use this artifact and the raw JSONLs for the full Stream 18 slice.",
     "assessment": "No mid-size cell timed out. The wider local fallback slice adds three non-build tasks over three mid-size models at gpu_offload. Plan lane passed for all three models; research-harness-tools passed for 12B and 12B-QAT but failed for GLM; tool-call-search-docs passed only for GLM while both Gemma 12B variants emitted tool-call-shaped text that failed the direct output assertion.",
     "remainingGaps": "This is still a small local fallback slice, not broad/full Promptfoo coverage, partial-profile coverage, subjective user review, large practical proof, final 3-solid selection, or completion verification."
+  },
+  "stream19UserReviewPacket": {
+    "at": "2026-06-07T12:00:00.000Z",
+    "scope": "User-review packet and final-gap audit prep only; no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or subjective scoring.",
+    "runtimeBoundary": {
+      "lmsPs": "No models are currently loaded.",
+      "modelLoadsRun": false,
+      "matrixCellsRun": false,
+      "baselineCollectionRun": false,
+      "cloudApiCallsRun": false
+    },
+    "packet": "docs/evals/2026-06-07-user-review-packet.md",
+    "summaryArtifact": "results/user-review-packet-summary.json",
+    "artifactCounts": {
+      "qwenStream17QueueRows": 40,
+      "qwenStream17BaselineBackedRows": 40,
+      "liquidStream17QueueRows": 40,
+      "liquidStream17BaselineBackedRows": 40,
+      "stream18LastCellQueueRows": 1,
+      "stream18LastCellBaselineBackedRows": 1,
+      "stream18FullSliceCells": 9,
+      "stream18FullSlicePasses": 6,
+      "stream18FullSliceTotal": 9
+    },
+    "reviewSources": [
+      "results/baseline-comparison-qwen-stream17.jsonl",
+      "results/user-judge-queue-qwen-stream17.jsonl",
+      "results/baseline-comparison-liquid-stream17.jsonl",
+      "results/user-judge-queue-liquid-stream17.jsonl",
+      "results/stream17-profile-sensitivity.json",
+      "results/stream18-mid-size-task-slice.json",
+      "results/baseline-comparison-stream18-last-cell.jsonl",
+      "results/user-judge-queue-stream18-last-cell.jsonl",
+      "results/daily-briefs/brief-20260607-100231.json",
+      "results/stream16-large-estimates.json",
+      "results/matrix-2026-06-07T10-52-18-029Z.jsonl",
+      "suites/deepeval/test_workflows.py"
+    ],
+    "assessment": "Stream 19 prepares a traceable human-review packet and machine-readable artifact/count summary only. It does not complete subjective review, promote final placement, or choose final 3 solid models.",
+    "remainingGaps": [
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Large 26B/31B practical proof remains incomplete.",
+      "Broad partial-profile measurements outside contained slices remain incomplete.",
+      "Final campaign completion verification remains incomplete."
+    ]
   }
 }

@@ -1,8 +1,8 @@
 # Exhaustive Results Assessment — Current Addendum (2026-06-07)
 
-**Status:** Current synthesis after Streams 9-18. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
+**Status:** Current synthesis after Streams 9-19. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
 
-**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. No cloud runs or baseline collection were performed in these streams.
+**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. No cloud runs or baseline collection were performed in these streams.
 
 ## Current Coverage
 
@@ -23,6 +23,7 @@
 - **Stream 17 archives:** `results/baseline-comparison-liquid-stream17.jsonl`, `results/user-judge-queue-liquid-stream17.jsonl`, `results/baseline-comparison-qwen-stream17.jsonl`, and `results/user-judge-queue-qwen-stream17.jsonl` each contain 40 rows / 40 baseline-backed comparisons for the final promptfoo surface of that model's Stream 17 slice.
 - **Important:** latest default compare/queue files are last-cell surfaces. After Stream 17 they point to the final qwen `gpu_full` promptfoo output, while the full profile-sensitivity evidence lives in `results/stream17-profile-sensitivity.json` and the raw Stream 17 JSONLs.
 - **Stream 18 default-surface caveat:** after Stream 18, default compare/queue point only to the final 12B-QAT `tool-call-search-docs` cell. The archived last-cell surfaces are `results/baseline-comparison-stream18-last-cell.jsonl` and `results/user-judge-queue-stream18-last-cell.jsonl`; the full Stream 18 evidence is `results/stream18-mid-size-task-slice.json` plus its raw JSONLs.
+- **Stream 19 review packet:** `docs/evals/2026-06-07-user-review-packet.md` and `results/user-review-packet-summary.json` gather qwen/liquid Stream 17 queue counts, Stream 18 last-cell/full-slice caveats, W7 strict qwen tracker, DeepEval W7, and Stream 16 large-model timeout context for human review. The packet does not record subjective scores.
 
 ### W7 Daily-Briefs / Tracker
 
@@ -55,7 +56,7 @@
 
 ## Still Missing
 
-- Subjective user review for the qwen/liquid baseline-backed queues.
+- Subjective user review for the qwen/liquid baseline-backed queues. Use `docs/evals/2026-06-07-user-review-packet.md` as the prepared packet; review is not complete.
 - Full/broad local matrix completion across all models and all relevant profiles.
 - Large 26B/31B completed practical proof beyond Stream 16 estimate/timeout evidence.
 - Broad partial GPU profile measurements outside qwen/liquid remain open, and Stream 17 qwen timings are cached rather than fresh throughput.

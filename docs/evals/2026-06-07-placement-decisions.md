@@ -1,8 +1,8 @@
 # Placement Decisions Draft — Current Evidence (2026-06-07)
 
-**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-18 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, and wider mid-size local fallback task-slice evidence, but final placement remains caveated until user review and broader local coverage are complete.
+**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-19 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, wider mid-size local fallback task-slice evidence, and human review packet, but final placement remains caveated until user review and broader local coverage are complete.
 
-**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-18 checkpoints in the active roadmap, and the W7 DeepEval suite.
+**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, `docs/evals/2026-06-07-user-review-packet.md`, `results/user-review-packet-summary.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-19 checkpoints in the active roadmap, and the W7 DeepEval suite.
 
 ## Evidence Summary
 
@@ -15,6 +15,7 @@
 - **Mid-size status:** The Stream 4 target set has bounded one-task local-fallback coverage on `build-synthetic-smoke`: 12B, GLM, and 12B-QAT each completed 1/1 on `gpu_offload`. This supports cautious expansion, not broad placement.
 - **Stream 18 mid-size task slice:** The same mid-size targets now also have a small non-build local fallback slice on `gpu_offload`: `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs`. Aggregate result was 6/9 with 0 timeouts: plan passed for all three, research passed for both Gemma 12B variants and failed for GLM, and tool-call-search passed only for GLM.
 - **Large-model status:** Stream 16 adds large-model estimate/timeout evidence only. 26B and 31B-QAT recommended partial estimates returned (`26B@gpu_partial_0.39` 6.99 GiB GPU, `31B-QAT@gpu_partial_0.36` 6.89 GiB GPU), but the first practical large cell, `31B-QAT@gpu_partial_0.36`, timed out at `300022 ms` on one `build-synthetic-smoke` local fallback task. 31B Q4_K_M estimate-only probes timed out for full, partial, and offload.
+- **User-review packet:** Stream 19 added `docs/evals/2026-06-07-user-review-packet.md` and `results/user-review-packet-summary.json` so human review can start from traceable qwen/liquid queue, mid-size last-cell, W7 tracker, DeepEval, and large-model caveat artifacts. It contains no subjective scores.
 
 ## Per-Lane Placement
 
@@ -55,7 +56,7 @@
 
 ## Current Caveats
 
-- User review is still pending.
+- User review is still pending; the current packet is `docs/evals/2026-06-07-user-review-packet.md`.
 - Latest default `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/baseline-comparison.jsonl`, and `results/user-judge-queue.jsonl` are last-cell surfaces. After Stream 18, `matrix-summary.json` points only to the final `tool-call-search-docs` JSONL, while promptfoo/compare/queue point only to the final 12B-QAT `tool-call-search-docs` cell. Use `results/stream17-profile-sensitivity.json` for Stream 17 and `results/stream18-mid-size-task-slice.json` plus raw JSONLs for the full Stream 18 slice.
 - Broad/full matrix coverage is incomplete.
 - Large 26B/31B placements are still not proven; Stream 16 provides estimate/timeout evidence, not a completed practical pass.
