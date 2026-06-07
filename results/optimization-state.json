@@ -239,7 +239,8 @@
     "Stream 33 review-readiness index is complete: docs/evals/2026-06-07-review-readiness-index.md and results/final-selection-review-manifest.json group exact artifacts and row/existence checks for seven pending review lanes. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache throughput, broad partial profiles, 31B/31B-QAT broad proof, and final verification.",
     "Stream 34 31B-QAT extended offload probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke reached a terminal row under EVAL_CELL_TIMEOUT_MS=900000, but failed 0/1 after 305466 ms with empty output and fetch failed; no compare/queue archive was generated because there was no completed model output. This shows the 300s cap was slightly too tight for terminal status, but 31B-QAT still has no practical success row.",
     "Stream 35 qwen full no-cache extended retry is complete: qwen/qwen3.5-9b@gpu_offload full current-suite Promptfoo no-cache timed out at 2400084 ms before pass totals; the abandoned zero-byte crash JSONL remains documented; no compare/queue archives were generated because promptfoo-latest stayed on Stream 34. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache completed throughput, broad partial profiles, broad 31B/31B-QAT proof, and final verification.",
-    "Stream 36 qwen assertion-hardening validation is complete: exactly one Promptfoo no-cache build-synthetic-smoke qwen@gpu_offload cell ran under EVAL_CELL_TIMEOUT_MS=300000 and completed as a runner row in 666 ms with passes/total null; the prior undefined.includes assertion error is absent from the row/progress telemetry, but promptfoo-latest stayed on Stream 34 and qwen full no-cache throughput/user-review/final selection remain open."
+    "Stream 36 qwen assertion-hardening validation is complete: exactly one Promptfoo no-cache build-synthetic-smoke qwen@gpu_offload cell ran under EVAL_CELL_TIMEOUT_MS=300000 and completed as a runner row in 666 ms with passes/total null; the prior undefined.includes assertion error is absent from the row/progress telemetry, but promptfoo-latest stayed on Stream 34 and qwen full no-cache throughput/user-review/final selection remain open.",
+    "Stream 37 runner accounting validation is complete: exactly one qwen/qwen3.5-9b@gpu_offload Promptfoo no-cache build-synthetic-smoke cell ran after commit c62f3ac; the quick Promptfoo exit 0/no refreshed result case is now status=eval_no_results in 530 ms with passes/total null, progress telemetry reached run_finished, promptfoo-latest stayed stale on Stream 34, and summarize-matrix selected the real matrix JSONL while counting completed=0. Remaining gaps: qwen full no-cache throughput, user review, final 3-solid, broad/full coverage, broad partials, broad 31B/31B-QAT proof, final verifier audit."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -3222,6 +3223,98 @@
     "remainingGaps": [
       "The row has null pass/total counts and did not refresh results/promptfoo-latest.json.",
       "No Stream 36 compare/queue archive was generated because the Promptfoo output surface stayed stale.",
+      "Qwen full current-suite no-cache throughput remains incomplete.",
+      "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
+  },
+  "stream37RunnerAccountingValidation": {
+    "at": "2026-06-07T17:05:00.000Z",
+    "scope": "Validate runner accounting fix commit c62f3ac with exactly one LM Studio local Promptfoo cell after Stream 36 exposed Promptfoo exiting 0 with no fresh results.",
+    "commit": {
+      "requestedCommit": "c62f3ac",
+      "presentOnMain": true,
+      "subject": "Reject promptfoo runs without result totals"
+    },
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 280 MiB used, 7792 MiB free, 6% utilization"
+    },
+    "command": {
+      "env": {
+        "EVAL_PROMPTFOO_NO_CACHE": "true",
+        "EVAL_TASK_FILTER": "build-synthetic-smoke",
+        "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+        "EVAL_SMOKE_PROFILES": "gpu_offload",
+        "EVAL_CELL_TIMEOUT_MS": "300000"
+      },
+      "command": "node scripts/run-matrix.mjs --smoke",
+      "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no retry, no other model, profile, or task was run."
+    },
+    "artifacts": {
+      "matrixJsonl": "results/matrix-2026-06-07T17-01-36-096Z.jsonl",
+      "progressJsonl": "results/matrix-2026-06-07T17-01-36-096Z.progress.jsonl",
+      "latestProgress": "results/matrix-latest-progress.json",
+      "matrixSummary": "results/matrix-summary.json",
+      "promptfooLatest": "results/promptfoo-latest.json",
+      "comparisonArchive": null,
+      "userJudgeQueueArchive": null
+    },
+    "row": {
+      "runId": "2026-06-07T17-01-36-096Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_no_results",
+      "passes": null,
+      "total": null,
+      "durationMs": 530,
+      "stderr": "Promptfoo exited successfully but did not emit pass totals or refresh results/promptfoo-latest.json."
+    },
+    "stream36Comparison": {
+      "artifact": "results/stream36-qwen-assertion-hardening-validation.json",
+      "stream36Row": {
+        "runId": "2026-06-07T16-48-17-033Z",
+        "modelKey": "qwen/qwen3.5-9b",
+        "variant": "qwen/qwen3.5-9b@q4_k_m",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "completed",
+        "passes": null,
+        "total": null,
+        "durationMs": 666,
+        "stderr": ""
+      },
+      "stream37Delta": "The same quick Promptfoo exit 0/no refreshed results case is now status=eval_no_results with an explicit stale-result stderr instead of status=completed.",
+      "accountingFixed": true
+    },
+    "promptfooLatestStatus": {
+      "refreshedByStream37": false,
+      "lastWriteTimeUtc": "2026-06-07T15:27:59.937Z",
+      "currentEvalId": "2026-06-07T15-22-52-975Z",
+      "currentModel": "google/gemma-4-31b-qat",
+      "assessment": "results/promptfoo-latest.json still points to the Stream 34 31B-QAT surface and was not refreshed by Stream 37."
+    },
+    "summaryAccounting": {
+      "matrixFile": "matrix-2026-06-07T17-01-36-096Z.jsonl",
+      "runId": "2026-06-07T17-01-36-096Z",
+      "ignoresProgressJsonl": true,
+      "completed": 0,
+      "leaderboardRows": 0,
+      "noPassRowsCountedCompleted": false,
+      "assessment": "summarize-matrix ignored the .progress.jsonl sidecar and did not count the eval_no_results/no-pass row as completed."
+    },
+    "runtimeAfterUnload": {
+      "action": "lms unload --all",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 280 MiB used, 7792 MiB free, 4% utilization"
+    },
+    "remainingGaps": [
+      "No Promptfoo result surface or pass totals were produced for qwen in this cell.",
       "Qwen full current-suite no-cache throughput remains incomplete.",
       "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
     ]

@@ -1,13 +1,13 @@
 {
-  "at": "2026-06-07T16:56:46.217Z",
-  "matrixFile": "matrix-2026-06-07T16-48-17-033Z.jsonl",
-  "runId": "2026-06-07T16-48-17-033Z",
+  "at": "2026-06-07T17:02:14.205Z",
+  "matrixFile": "matrix-2026-06-07T17-01-36-096Z.jsonl",
+  "runId": "2026-06-07T17-01-36-096Z",
   "cells": [
     {
       "modelKey": "qwen/qwen3.5-9b",
       "profileId": "gpu_offload",
-      "status": "completed",
-      "durationMs": 666,
+      "status": "eval_no_results",
+      "durationMs": 530,
       "passRate": null,
       "evalOk": false
     }

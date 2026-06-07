@@ -1,0 +1,158 @@
+{
+  "stream": 37,
+  "at": "2026-06-07T17:05:00.000Z",
+  "purpose": "Validate runner accounting fix commit c62f3ac with exactly one LM Studio local Promptfoo cell after Stream 36 exposed Promptfoo exiting 0 with no fresh results.",
+  "commitValidation": {
+    "requestedCommit": "c62f3ac",
+    "presentOnMain": true,
+    "subject": "Reject promptfoo runs without result totals"
+  },
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md",
+    "results/stream36-qwen-assertion-hardening-validation.json",
+    "results/matrix-summary.json",
+    "results/optimization-state.json",
+    "docs/evals/2026-06-07-strict-gap-audit.md",
+    "scripts/run-matrix.mjs",
+    "scripts/summarize-matrix.mjs",
+    "suites/promptfoo/promptfooconfig.yaml",
+    "suites/promptfoo/tests/build.yaml",
+    "suites/promptfoo/tests/plan.yaml",
+    "suites/promptfoo/tests/research.yaml",
+    "suites/promptfoo/tests/tool-call.yaml",
+    "live git status --short",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitPull": "Already up to date.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 280 MiB used, 7792 MiB free, 6% utilization"
+  },
+  "command": {
+    "env": {
+      "EVAL_PROMPTFOO_NO_CACHE": "true",
+      "EVAL_TASK_FILTER": "build-synthetic-smoke",
+      "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+      "EVAL_SMOKE_PROFILES": "gpu_offload",
+      "EVAL_CELL_TIMEOUT_MS": "300000"
+    },
+    "command": "node scripts/run-matrix.mjs --smoke",
+    "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no retry, no other model, profile, or task was run."
+  },
+  "artifacts": {
+    "matrixJsonl": "results/matrix-2026-06-07T17-01-36-096Z.jsonl",
+    "progressJsonl": "results/matrix-2026-06-07T17-01-36-096Z.progress.jsonl",
+    "latestProgress": "results/matrix-latest-progress.json",
+    "matrixSummary": "results/matrix-summary.json",
+    "promptfooLatest": "results/promptfoo-latest.json",
+    "comparisonArchive": null,
+    "userJudgeQueueArchive": null
+  },
+  "row": {
+    "runId": "2026-06-07T17-01-36-096Z",
+    "modelKey": "qwen/qwen3.5-9b",
+    "variant": "qwen/qwen3.5-9b@q4_k_m",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "eval_no_results",
+    "passes": null,
+    "total": null,
+    "durationMs": 530,
+    "stderr": "Promptfoo exited successfully but did not emit pass totals or refresh results/promptfoo-latest.json."
+  },
+  "progressTelemetry": {
+    "produced": true,
+    "events": [
+      "run_started",
+      "cell_started",
+      "load_started",
+      "load_stdout",
+      "load_finished",
+      "eval_started",
+      "eval_stdout",
+      "eval_finished",
+      "cell_finished",
+      "unload_started",
+      "unload_stdout",
+      "unload_finished",
+      "run_finished"
+    ],
+    "latest": {
+      "at": "2026-06-07T17:01:38.314Z",
+      "runId": "2026-06-07T17-01-36-096Z",
+      "event": "run_finished"
+    },
+    "evalArgs": [
+      "node_modules/promptfoo/dist/src/entrypoint.js",
+      "eval",
+      "-c",
+      "suites/promptfoo/promptfooconfig.yaml",
+      "--max-concurrency",
+      "1",
+      "-o",
+      "results/promptfoo-latest.json",
+      "--no-cache",
+      "--filter-metadata",
+      "taskId=build-synthetic-smoke"
+    ],
+    "loadDurationMs": 586,
+    "evalDurationMs": 530,
+    "unloadDurationMs": 531
+  },
+  "stream36Comparison": {
+    "artifact": "results/stream36-qwen-assertion-hardening-validation.json",
+    "stream36Row": {
+      "runId": "2026-06-07T16-48-17-033Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "completed",
+      "passes": null,
+      "total": null,
+      "durationMs": 666,
+      "stderr": ""
+    },
+    "stream37Delta": "The same quick Promptfoo exit 0/no refreshed results case is now status=eval_no_results with an explicit stale-result stderr instead of status=completed.",
+    "accountingFixed": true
+  },
+  "promptfooLatestStatus": {
+    "refreshedByStream37": false,
+    "lastWriteTimeUtc": "2026-06-07T15:27:59.937Z",
+    "currentEvalId": "2026-06-07T15-22-52-975Z",
+    "currentModel": "google/gemma-4-31b-qat",
+    "assessment": "results/promptfoo-latest.json still points to the Stream 34 31B-QAT surface and was not refreshed by Stream 37."
+  },
+  "summaryAccounting": {
+    "matrixFile": "matrix-2026-06-07T17-01-36-096Z.jsonl",
+    "runId": "2026-06-07T17-01-36-096Z",
+    "ignoresProgressJsonl": true,
+    "completed": 0,
+    "leaderboardRows": 0,
+    "noPassRowsCountedCompleted": false,
+    "assessment": "summarize-matrix ignored the .progress.jsonl sidecar and did not count the eval_no_results/no-pass row as completed."
+  },
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 280 MiB used, 7792 MiB free, 4% utilization"
+  },
+  "gapOutcome": {
+    "closedOrSharpened": [
+      "Runner accounting fix validated for the Stream 36 edge case: Promptfoo exit 0 with no fresh result totals now produces status=eval_no_results.",
+      "Progress telemetry was produced and latest progress reached run_finished.",
+      "summarize-matrix ignores .progress.jsonl and does not count no-pass rows as completed."
+    ],
+    "notClosed": [
+      "No Promptfoo result surface or pass totals were produced for qwen in this cell.",
+      "Qwen full current-suite no-cache throughput remains incomplete.",
+      "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
+  }
+}
