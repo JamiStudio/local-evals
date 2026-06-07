@@ -562,6 +562,14 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment: Stream 29 narrows the broad/full and broad partial-profile gaps only by adding exact no-cache filtered timeout evidence for the three mid-size recommended partial profiles. It does not reproduce the Stream 20 local-fallback partial successes under Promptfoo no-cache build-synthetic-smoke, and it does not close broad/full matrix coverage or broad partial-profile quality/throughput.
 - Remaining gaps: subjective user review remains pending; final 3-solid selection remains incomplete; broad/full local matrix coverage remains incomplete; qwen full 40-case no-cache current-suite throughput remains incomplete; 31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only; broad partial-profile coverage remains incomplete; final two-verifier completion audit remains pending.
 
+**Stream 30 dispatch checkpoint (contained stream, 2026-06-07):**
+- Agent: `019ea28c-7923-7441-a53c-d0500c447e2f` (`Ohm`).
+- Workstream/pass: Contained Stream 30, evidence-based readiness synthesis after Streams 1-29.
+- Dispatch timestamp: 2026-06-07 coordinator resume after compact checkpoint.
+- Ownership boundary: no LM Studio model loads, no new matrix/eval cells, no cloud/API calls; synthesize current stream evidence into a review-ready packet and update status docs/state only.
+- Expected deliverables: `docs/evals/2026-06-07-stream30-readiness-synthesis.md`, targeted updates to current eval synthesis/status docs, `results/optimization-state.json`, and this roadmap checkpoint.
+- Next coordinator action: poll in short intervals until commit+push, then audit the changed files, runtime idle state, and remaining-gap assessment before dispatching any further stream.
+
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.
 - Executed only `EVAL_SMOKE_MODELS=essentialai/rnj-1,google/gemma-4-e2b,google/gemma-4-e4b node scripts/run-matrix.mjs --smoke` after `lms unload --all`. Latest JSONL: `results/matrix-2026-06-07T06-44-52-303Z.jsonl` (raw JSONL remains ignored by current `.gitignore`; tracked transparent surfaces were refreshed).
