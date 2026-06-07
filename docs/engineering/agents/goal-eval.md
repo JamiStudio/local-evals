@@ -2,6 +2,7 @@
 
 **Date:** 2026-06-07
 **Purpose:** This is the active goal document for the current exhaustive model evaluation campaign. It replaces/supersedes previous strict rules for this specific run. The focus is real-time assessable, adjustable, contained evaluation streams so results can be interpreted and settings tweaked immediately between streams. No one massive long-running suite.
+**Working From:** `docs/roadmaps/2026-06-07-contained-eval-streams-plan.md`
 
 ## Role of the Orchestrator
 
