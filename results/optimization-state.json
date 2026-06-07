@@ -255,7 +255,7 @@
     "Stream 6 W7 tracker final-brief repair (COMPLETED + pushed f76f51b; real artifact results/daily-briefs/brief-20260607-083746.json nonblank with all required sections; fallback_used=true; tps 3.3, wall 150.48s, usage 2346/499/2845; qwen did not finalize within max_steps=2)",
     "Stream 7 qwen current-suite leader refresh (COMPLETED + pushed 558260b; one cell results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload eval_partial 7/40, 17.5% rounded 18%, duration 1018924 ms; promptfoo 7 passed, 25 failed, 8 errors; weakens old 5/8 leader claim on current 40-assertion suite)",
     "Stream 8 liquid current-suite control (COMPLETED + pushed ba2348d; one cell results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full eval_partial 5/40, 12.5% rounded 13%, duration 13373 ms; promptfoo 5 passed, 27 failed, 8 errors, 4703 total tokens; compared to Stream 7 qwen 7/40 in 1018924 ms, liquid is -2 passes but ~76x faster)",
-    "Stream 9 W7 baseline/user-judge bounded collection (DISPATCH READY; baseline scripts now support repeatable --task filters; target only daily-brief-synthetic-smoke and interest-tracker-tool-use, then refresh compare/queue and push evidence)"
+    "Stream 9 W7 baseline/user-judge bounded collection (COMPLETED; W7 baselines imported for daily-brief-synthetic-smoke and interest-tracker-tool-use using only bounded task filters; refreshed compare/queue now 40/40 baseline-backed with 8/8 W7 backed)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -766,5 +766,67 @@
       "Markdown evidence read-back via rg for Stream 8 result/checkpoint values (PASS)",
       "post-run lms unload --all then lms ps (no loaded models)"
     ]
+  },
+  "stream9W7BaselineUserJudge": {
+    "at": "2026-06-07T09:31:30Z",
+    "scope": "W7 baseline/user-judge bounded collection/readiness only; task filters daily-brief-synthetic-smoke and interest-tracker-tool-use; no GPU matrix, no LM Studio model loads, no broad baseline collection, no direct paid APIs",
+    "sourceTruthReadBeforeRun": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Stream 9 dispatch checkpoint",
+      "docs/operations/baseline-collection.md",
+      "baselines/manifest.json",
+      "scripts/collect-baselines-credits.mjs",
+      "scripts/print-baseline-prompts.mjs",
+      "results/optimization-state.json",
+      "results/baseline-comparison.jsonl",
+      "results/user-judge-queue.jsonl"
+    ],
+    "filterVerification": {
+      "pnpmPromptWrapper": "pnpm baseline:prompts -- --task daily-brief-synthetic-smoke --task interest-tracker-tool-use returned exit 0 with empty output in this shell",
+      "directPromptFallback": "node scripts/print-baseline-prompts.mjs --task daily-brief-synthetic-smoke --task interest-tracker-tool-use printed exactly the two W7 task prompts",
+      "unknownTaskReject": "node scripts/print-baseline-prompts.mjs --task definitely-not-a-task rejected with: Unknown baseline task filter(s): definitely-not-a-task"
+    },
+    "collectorReadiness": {
+      "pnpmGeminiWrapper": "pnpm gemini:models returned exit 0 with empty output in this shell",
+      "directGeminiModels": "node scripts/list-gemini-models.mjs succeeded, listing 19 text-safe models and current VERTEX_BASELINE_MODEL=gemini-3.1-pro-preview; secrets were not printed",
+      "envPresenceAfterLoad": "loadEvalEnv showed GEMINI_API_KEY, VERTEX_BASELINE_MODEL, EVAL_BASELINE_COLLECTOR, EVAL_BASELINE_SOURCE, AZURE_OPENAI_ENDPOINT, and AZURE_OPENAI_API_KEY present; values not printed"
+    },
+    "collection": {
+      "requiredPnpmCommand": "pnpm baseline:collect -- --task daily-brief-synthetic-smoke --task interest-tracker-tool-use --force returned exit 0 with empty output and no manifest changes in this shell",
+      "directBoundedCollector": "node scripts/collect-baselines-credits.mjs --task daily-brief-synthetic-smoke --task interest-tracker-tool-use --force collected via vertex source vertex-gemini-3-1-pro-preview using only the two W7 filters",
+      "dailyBriefBaseline": {
+        "path": "baselines/daily-brief-synthetic-smoke/vertex-gemini-3-1-pro-preview.json",
+        "outputChars": 2347,
+        "importedAt": "2026-06-07T09:28:18.827Z"
+      },
+      "interestTrackerBaseline": {
+        "path": "baselines/interest-tracker-tool-use/vertex-gemini-3-1-pro-preview.json",
+        "outputChars": 313,
+        "importedAt": "2026-06-07T09:31:14.254Z",
+        "note": "first direct collection returned empty output; collector now rejects empty outputs and a narrow retry of the same W7 task produced a nonempty import"
+      },
+      "scriptHardening": [
+        "scripts/collect-baselines-credits.mjs rejects empty baseline outputs",
+        "scripts/collect-baselines-credits.mjs sets a nonzero exit code when any scoped task fails",
+        "scripts/compare-to-baseline.mjs ignores empty baseline files when deciding hasBaseline"
+      ]
+    },
+    "comparisonAndQueue": {
+      "commands": [
+        "node scripts/compare-to-baseline.mjs",
+        "node scripts/queue-user-judge.mjs"
+      ],
+      "baselineComparisonRows": 40,
+      "baselineBackedRows": 40,
+      "baselineUnbackedRows": 0,
+      "w7Rows": 8,
+      "w7BackedRows": 8,
+      "w7UnbackedRows": 0,
+      "userJudgeQueueCases": 40
+    },
+    "remainingGaps": "W7 baseline backing is now present for both registered W7 tasks and the user-judge queue is refreshed, but subjective user review remains pending. The interest-tracker Vertex baseline is short and tool-call-shaped, so final W7 quality still needs user review and/or a no-fallback real tracker refresh before promoting qwen daily-brief quality into final 3-solid decisions.",
+    "postRunRuntime": "No GPU matrix or LM Studio load was run in this stream; closeout lms ps verification showed no loaded models."
   }
 }

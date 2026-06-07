@@ -59,6 +59,8 @@ if (taskFilters.size && tasks.length !== taskFilters.size) {
 
 console.log(`Task scope: ${tasks.map((task) => task.taskId).join(', ')}`);
 
+let failures = 0;
+
 for (const task of tasks) {
   const outPath = join(root, 'baselines', task.taskId, `${source}.json`);
   if (existsSync(outPath) && !process.argv.includes('--force')) {
@@ -72,6 +74,9 @@ for (const task of tasks) {
     const result = await generate(prompt);
     const output = typeof result === 'string' ? result : result.output;
     const model = typeof result === 'string' ? null : result.modelId;
+    if (!output?.trim()) {
+      throw new Error('empty baseline output');
+    }
     mkdirSync(join(root, 'baselines', task.taskId), { recursive: true });
     const entry = {
       taskId: task.taskId,
@@ -93,9 +98,14 @@ for (const task of tasks) {
     });
     console.log(`  saved ${outPath} (${output.length} chars)`);
   } catch (e) {
+    failures += 1;
     console.error(`  FAILED ${task.taskId}: ${e.message}`);
   }
 }
 
 writeFileSync(join(root, 'baselines/manifest.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 console.log('Done.');
+if (failures) {
+  console.error(`Baseline collection failed for ${failures} task(s).`);
+  process.exitCode = 1;
+}

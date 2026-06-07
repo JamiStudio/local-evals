@@ -31,9 +31,14 @@ function loadBaseline(taskId, preferredSource) {
   if (!existsSync(dir)) return null;
   const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
   if (!files.length) return null;
-  const pick = preferredSource
-    ? files.find((f) => f.replace('.json', '') === preferredSource) ?? files[0]
-    : files[0];
+  const candidates = preferredSource
+    ? [files.find((f) => f.replace('.json', '') === preferredSource), ...files].filter(Boolean)
+    : files;
+  const pick = candidates.find((file) => {
+    const baseline = loadJson(join(dir, file));
+    return Boolean(String(baseline.output ?? '').trim());
+  });
+  if (!pick) return null;
   return loadJson(join(dir, pick));
 }
 
