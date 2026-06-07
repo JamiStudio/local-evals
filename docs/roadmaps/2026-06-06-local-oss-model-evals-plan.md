@@ -275,10 +275,11 @@ Orchestrator reads leaderboard, dispatches **one** subagent per cycle:
 
 After each tuning commit: re-run **smoke or affected cells only** — not full matrix unless O1 stale.
 
-## O4: Placement Decision Memo — [ ]
+## O4: Placement Decision Memo — [~] (draft produced by Reports-Writer)
 
 - [ ] `docs/decisions/` memo: per-lane local vs cloud recommendation
 - [ ] Inputs: full matrix JSONL, user-judge queue review, baseline comparisons
+- [x] **Reports-Writer 2026-06-07 executed**: Created `docs/evals/2026-06-07-placement-decisions.md` (draft per-lane local vs cloud recs based on available smoke + W7 + system data + KB; e.g. build local strong for qwen, plan offload advantage, research/tool mixed synth/read, briefs qwen specialist viable per 11+ dry artifacts + real tracker impl + tps 38.4 + deepeval coverage). Also produced exhaustive-assessment.md (gaps 10 models/20 cells unrun, per-model quality/speed vs 100% baselines, daily-briefs perf), config-tuning-skeleton.md (O6 structure), updated 3-solid-models.md (no re-rank; smoke basis explicit). All files note "based on smoke + W7 + system; full when O1 cells + config research done". Used live results (matrix-summary 4 cells qwen-offload 63% leader etc.), rg searches, read_file on registry/system/state/suites/tracker/KB. Harness boundary preserved exactly. O4 draft ready; promote post full data + reviews per O4 inputs. See new docs/evals/2026-06-07-*.md + updated 3-solid.
 
 ## O5: Long-Running Loop — [~]
 
@@ -351,6 +352,7 @@ Dispatch: config subagent (or parallel researcher + applier if disjoint).
 5. **O4** — placement memo (with full data + refined 3-solid)
 6. **W2/W5** — expand suites and DeepEval (parallel low priority; include more from exhaustive)
 7. Reports/assessment substreams (parser, writer) — ongoing with multitasking
+   - 2026-06-07 Reports-Writer (AUDIT/EXECUTE): exhaustive-assessment.md + placement-decisions.md draft + config-tuning-skeleton.md + 3-solid-models.md refresh completed from live smoke (4 cells, qwen 63% offload leader) + W7 (tracker + KB + briefs tps 38.4 dry + suite/deepeval additions) + system-profile (8GB, hints). Roadmap + 3-solid updated. Verif planned: read mds + git diff --check + pnpm verify (docs focus, no load). Note incompleteness everywhere per O1 pending. Intentional changeset only.
 
 ## Expansion Track (not now)
 
