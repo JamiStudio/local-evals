@@ -403,3 +403,31 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+# =============================================================================
+# Windows Task Scheduler example for "hourly-ish" interest tracker (W7 daily-briefs)
+# =============================================================================
+# Since the user rig can only run one local model on GPU at a time, schedule this
+# when the rig is free (or use --dry-run for smoke/safe runs any time).
+#
+# 1. Create a .bat wrapper (e.g. run-daily-brief.bat next to this script):
+#    @echo off
+#    cd /d C:\Users\james\projects\evals
+#    uv run python scripts\daily-brief-tracker.py --query "daily evals interest scan" --use-specialist --model qwen/qwen3.5-9b >> logs\daily-brief.log 2>&1
+#
+# 2. schtasks example (run as current user, hourly, only when idle if desired):
+#    schtasks /Create /TN "EvalsDailyBrief" /TR "C:\Users\james\projects\evals\run-daily-brief.bat" /SC HOURLY /ST 09:00 /RU %USERNAME%
+#
+#    To run only when the rig is free / on AC power / etc., add conditions in Task Scheduler GUI
+#    or use /IT (interactive) + power settings.
+#
+# 3. View / delete:
+#    schtasks /Query /TN "EvalsDailyBrief"
+#    schtasks /Delete /TN "EvalsDailyBrief" /F
+#
+# The tracker itself supports --loop (internal 3600s sleep) for long-running sessions,
+# but Task Scheduler + the .bat is more robust for "set and forget" on Windows.
+# Always respect the one-GPU-model-at-a-time rule — do not schedule while another
+# model is loaded (check `lms ps` or nvidia-smi in the wrapper if you want extra guardrails).
+# =============================================================================

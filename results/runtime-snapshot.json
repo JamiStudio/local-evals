@@ -1,0 +1,642 @@
+{
+  "version": 1,
+  "at": "2026-06-07T04:03:00.383Z",
+  "host": {
+    "platform": "win32",
+    "node": "v22.22.0"
+  },
+  "nvidia": {
+    "available": true,
+    "primary": {
+      "index": 0,
+      "name": "NVIDIA GeForce RTX 2080 Super with Max-Q Design",
+      "memoryTotalMiB": 8192,
+      "memoryUsedMiB": 569,
+      "memoryFreeMiB": 7419,
+      "driverVersion": "610.47",
+      "computeCapability": "7.5",
+      "memoryTotalGiB": 8,
+      "memoryFreeGiB": 7.25
+    },
+    "gpus": [
+      {
+        "index": 0,
+        "name": "NVIDIA GeForce RTX 2080 Super with Max-Q Design",
+        "memoryTotalMiB": 8192,
+        "memoryUsedMiB": 569,
+        "memoryFreeMiB": 7419,
+        "driverVersion": "610.47",
+        "computeCapability": "7.5",
+        "memoryTotalGiB": 8,
+        "memoryFreeGiB": 7.25
+      }
+    ],
+    "vramGb": 8
+  },
+  "lmstudio": {
+    "inventory": {
+      "llmCount": 12,
+      "embeddingCount": 1,
+      "llms": [
+        {
+          "modelKey": "google/gemma-4-26b-a4b",
+          "displayName": "Gemma 4 26B A4B",
+          "sizeGiB": 16.76,
+          "maxContextLength": 262144,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "google/gemma-4-12b",
+          "displayName": "Gemma 4 12B",
+          "sizeGiB": 7.04,
+          "maxContextLength": 262144,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "zai-org/glm-4.6v-flash",
+          "displayName": "Glm 4.6v Flash",
+          "sizeGiB": 7.41,
+          "maxContextLength": 131072,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "qwen/qwen3.5-9b",
+          "displayName": "Qwen3.5 9B",
+          "sizeGiB": 6.1,
+          "maxContextLength": 262144,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "google/gemma-4-e2b",
+          "displayName": "Gemma 4 E2B",
+          "sizeGiB": 4.11,
+          "maxContextLength": 131072,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "google/gemma-4-31b",
+          "displayName": "Gemma 4 31B",
+          "sizeGiB": 18.52,
+          "maxContextLength": 262144,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "google/gemma-4-31b-qat",
+          "displayName": "Gemma 4 31B Qat",
+          "sizeGiB": 17.56,
+          "maxContextLength": 262144,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "google/gemma-4-12b-qat",
+          "displayName": "Gemma 4 12B Qat",
+          "sizeGiB": 6.66,
+          "maxContextLength": 262144,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "essentialai/rnj-1",
+          "displayName": "Rnj 1",
+          "sizeGiB": 4.76,
+          "maxContextLength": 32768,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "nvidia/nemotron-3-nano-4b",
+          "displayName": "Nemotron 3 Nano 4B",
+          "sizeGiB": 2.64,
+          "maxContextLength": 1048576,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "liquid/lfm2.5-1.2b",
+          "displayName": "Lfm2.5 1.2B",
+          "sizeGiB": 1.16,
+          "maxContextLength": 128000,
+          "trainedForToolUse": true
+        },
+        {
+          "modelKey": "google/gemma-4-e4b",
+          "displayName": "Gemma 4 E4B",
+          "sizeGiB": 5.89,
+          "maxContextLength": 131072,
+          "trainedForToolUse": true
+        }
+      ]
+    },
+    "ps": {
+      "ok": true,
+      "raw": "No models are currently loaded.\n\nTo load a model, run:\n\n    lms load <model path>",
+      "loaded": [],
+      "empty": true
+    },
+    "server": {
+      "ok": true,
+      "running": true,
+      "port": 1234,
+      "raw": "The server is running on port 1234."
+    },
+    "api": {
+      "baseUrl": "http://127.0.0.1:1234/v1",
+      "ok": true,
+      "status": 200,
+      "modelCount": 13,
+      "ids": [
+        "google/gemma-4-26b-a4b",
+        "google/gemma-4-12b",
+        "zai-org/glm-4.6v-flash",
+        "qwen/qwen3.5-9b",
+        "google/gemma-4-e2b",
+        "google/gemma-4-31b",
+        "google/gemma-4-31b-qat",
+        "google/gemma-4-12b-qat",
+        "essentialai/rnj-1",
+        "nvidia/nemotron-3-nano-4b",
+        "liquid/lfm2.5-1.2b",
+        "google/gemma-4-e4b",
+        "text-embedding-nomic-embed-text-v1.5"
+      ]
+    }
+  },
+  "estimates": [
+    {
+      "modelKey": "google/gemma-4-26b-a4b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-26b-a4b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 17.43,
+          "estimatedTotalGiB": 17.43,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-26b-a4b\nGPU Offload: 100%\nEstimated GPU Memory:   17.43 GiB\nEstimated Total Memory: 17.43 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-26b-a4b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 17.43,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-26b-a4b\nGPU Offload: 0%\nEstimated GPU Memory:   36.70 MiB\nEstimated Total Memory: 17.43 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "google/gemma-4-12b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-12b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 7.57,
+          "estimatedTotalGiB": 7.57,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "W 2 models match the provided model key on the same device. Loading the first one.\nModel: google/gemma-4-12b\nGPU Offload: 100%\nEstimated GPU Memory:   7.57 GiB\nEstimated Total Memory: 7.57 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-12b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 7.57,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "W 2 models match the provided model key on the same device. Loading the first one.\nModel: google/gemma-4-12b\nGPU Offload: 0%\nEstimated GPU Memory:   36.93 MiB\nEstimated Total Memory: 7.57 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "zai-org/glm-4.6v-flash",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 7.74,
+          "estimatedTotalGiB": 7.74,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: zai-org/glm-4.6v-flash\nGPU Offload: 100%\nEstimated GPU Memory:   7.74 GiB\nEstimated Total Memory: 7.74 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "zai-org/glm-4.6v-flash",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 7.74,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: zai-org/glm-4.6v-flash\nGPU Offload: 0%\nEstimated GPU Memory:   72.57 MiB\nEstimated Total Memory: 7.74 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "qwen/qwen3.5-9b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 6.85,
+          "estimatedTotalGiB": 6.85,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: qwen/qwen3.5-9b\nGPU Offload: 100%\nEstimated GPU Memory:   6.85 GiB\nEstimated Total Memory: 6.85 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "qwen/qwen3.5-9b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 6.85,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: qwen/qwen3.5-9b\nGPU Offload: 0%\nEstimated GPU Memory:   36.99 MiB\nEstimated Total Memory: 6.85 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "google/gemma-4-e2b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-e2b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 4.28,
+          "estimatedTotalGiB": 4.28,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-e2b\nGPU Offload: 100%\nEstimated GPU Memory:   4.28 GiB\nEstimated Total Memory: 4.28 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-e2b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 4.28,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-e2b\nGPU Offload: 0%\nEstimated GPU Memory:   18.61 MiB\nEstimated Total Memory: 4.28 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "google/gemma-4-31b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-31b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 19.65,
+          "estimatedTotalGiB": 19.65,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "W 2 models match the provided model key on the same device. Loading the first one.\nModel: google/gemma-4-31b\nGPU Offload: 100%\nEstimated GPU Memory:   19.65 GiB\nEstimated Total Memory: 19.65 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-31b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 19.65,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "W 2 models match the provided model key on the same device. Loading the first one.\nModel: google/gemma-4-31b\nGPU Offload: 0%\nEstimated GPU Memory:   72.86 MiB\nEstimated Total Memory: 19.65 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "google/gemma-4-31b-qat",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-31b-qat",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 18.66,
+          "estimatedTotalGiB": 18.66,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-31b-qat\nGPU Offload: 100%\nEstimated GPU Memory:   18.66 GiB\nEstimated Total Memory: 18.66 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-31b-qat",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 18.66,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-31b-qat\nGPU Offload: 0%\nEstimated GPU Memory:   72.86 MiB\nEstimated Total Memory: 18.66 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "google/gemma-4-12b-qat",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-12b-qat",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 7.18,
+          "estimatedTotalGiB": 7.18,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-12b-qat\nGPU Offload: 100%\nEstimated GPU Memory:   7.18 GiB\nEstimated Total Memory: 7.18 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-12b-qat",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 7.18,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-12b-qat\nGPU Offload: 0%\nEstimated GPU Memory:   36.93 MiB\nEstimated Total Memory: 7.18 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "essentialai/rnj-1",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "essentialai/rnj-1",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 5.09,
+          "estimatedTotalGiB": 5.09,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: essentialai/rnj-1\nGPU Offload: 100%\nEstimated GPU Memory:   5.09 GiB\nEstimated Total Memory: 5.09 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "essentialai/rnj-1",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 5.09,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: essentialai/rnj-1\nGPU Offload: 0%\nEstimated GPU Memory:   72.57 MiB\nEstimated Total Memory: 5.09 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "nvidia/nemotron-3-nano-4b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "nvidia/nemotron-3-nano-4b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 2.82,
+          "estimatedTotalGiB": 2.82,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: nvidia/nemotron-3-nano-4b\nGPU Offload: 100%\nEstimated GPU Memory:   2.82 GiB\nEstimated Total Memory: 2.82 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "nvidia/nemotron-3-nano-4b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 2.82,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: nvidia/nemotron-3-nano-4b\nGPU Offload: 0%\nEstimated GPU Memory:   90.14 MiB\nEstimated Total Memory: 2.82 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "liquid/lfm2.5-1.2b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 1.28,
+          "estimatedTotalGiB": 1.28,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: liquid/lfm2.5-1.2b\nGPU Offload: 100%\nEstimated GPU Memory:   1.28 GiB\nEstimated Total Memory: 1.28 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "liquid/lfm2.5-1.2b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 1.28,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: liquid/lfm2.5-1.2b\nGPU Offload: 0%\nEstimated GPU Memory:   72.10 MiB\nEstimated Total Memory: 1.28 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    },
+    {
+      "modelKey": "google/gemma-4-e4b",
+      "presets": [
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-e4b",
+          "gpuFlag": "max",
+          "gpuOffloadPct": 100,
+          "estimatedGpuGiB": 6.18,
+          "estimatedTotalGiB": 6.18,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-e4b\nGPU Offload: 100%\nEstimated GPU Memory:   6.18 GiB\nEstimated Total Memory: 6.18 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        },
+        {
+          "ok": true,
+          "modelKey": "google/gemma-4-e4b",
+          "gpuFlag": "off",
+          "gpuOffloadPct": 0,
+          "estimatedGpuGiB": null,
+          "estimatedTotalGiB": 6.18,
+          "verdict": "This model may be loaded based on your resource guardrails settings.",
+          "raw": "Model: google/gemma-4-e4b\nGPU Offload: 0%\nEstimated GPU Memory:   18.85 MiB\nEstimated Total Memory: 6.18 GiB\n\nEstimate: This model may be loaded based on your resource guardrails settings."
+        }
+      ]
+    }
+  ],
+  "recommendations": {
+    "hostVramGiB": 8,
+    "hostVramFreeGiB": 7.25,
+    "vramHeadroomForWeightsGiB": 6.8,
+    "profilePresets": {
+      "gpu_full": {
+        "lmsGpuFlag": "max",
+        "label": "GPU max offload (--gpu max)"
+      },
+      "gpu_offload": {
+        "lmsGpuFlag": "off",
+        "label": "CPU-only (--gpu off)"
+      }
+    },
+    "perModel": [
+      {
+        "modelKey": "google/gemma-4-26b-a4b",
+        "estimatedGpuMaxGiB": 17.43,
+        "estimatedTotalOffGiB": 17.43,
+        "fitsGpuMaxOnHost": false,
+        "suggestedPartialGpuRatio": 0.39,
+        "suggestedMatrixPreset": "gpu_partial_0.39",
+        "rationale": [
+          "max offload 17.43 GiB exceeds 6.8 GiB headroom",
+          "try partial --gpu 0.39 before cpu-only"
+        ]
+      },
+      {
+        "modelKey": "google/gemma-4-12b",
+        "estimatedGpuMaxGiB": 7.57,
+        "estimatedTotalOffGiB": 7.57,
+        "fitsGpuMaxOnHost": false,
+        "suggestedPartialGpuRatio": 0.9,
+        "suggestedMatrixPreset": "gpu_partial_0.9",
+        "rationale": [
+          "max offload 7.57 GiB exceeds 6.8 GiB headroom",
+          "try partial --gpu 0.9 before cpu-only"
+        ]
+      },
+      {
+        "modelKey": "zai-org/glm-4.6v-flash",
+        "estimatedGpuMaxGiB": 7.74,
+        "estimatedTotalOffGiB": 7.74,
+        "fitsGpuMaxOnHost": false,
+        "suggestedPartialGpuRatio": 0.88,
+        "suggestedMatrixPreset": "gpu_partial_0.88",
+        "rationale": [
+          "max offload 7.74 GiB exceeds 6.8 GiB headroom",
+          "try partial --gpu 0.88 before cpu-only"
+        ]
+      },
+      {
+        "modelKey": "qwen/qwen3.5-9b",
+        "estimatedGpuMaxGiB": 6.85,
+        "estimatedTotalOffGiB": 6.85,
+        "fitsGpuMaxOnHost": false,
+        "suggestedPartialGpuRatio": 0.95,
+        "suggestedMatrixPreset": "gpu_partial_0.95",
+        "rationale": [
+          "max offload 6.85 GiB exceeds 6.8 GiB headroom",
+          "try partial --gpu 0.95 before cpu-only"
+        ]
+      },
+      {
+        "modelKey": "google/gemma-4-e2b",
+        "estimatedGpuMaxGiB": 4.28,
+        "estimatedTotalOffGiB": 4.28,
+        "fitsGpuMaxOnHost": true,
+        "suggestedPartialGpuRatio": null,
+        "suggestedMatrixPreset": "gpu_full",
+        "rationale": [
+          "max offload 4.28 GiB fits 6.8 GiB headroom"
+        ]
+      },
+      {
+        "modelKey": "google/gemma-4-31b",
+        "estimatedGpuMaxGiB": 19.65,
+        "estimatedTotalOffGiB": 19.65,
+        "fitsGpuMaxOnHost": false,
+        "suggestedPartialGpuRatio": 0.35,
+        "suggestedMatrixPreset": "gpu_partial_0.35",
+        "rationale": [
+          "max offload 19.65 GiB exceeds 6.8 GiB headroom",
+          "try partial --gpu 0.35 before cpu-only"
+        ]
+      },
+      {
+        "modelKey": "google/gemma-4-31b-qat",
+        "estimatedGpuMaxGiB": 18.66,
+        "estimatedTotalOffGiB": 18.66,
+        "fitsGpuMaxOnHost": false,
+        "suggestedPartialGpuRatio": 0.36,
+        "suggestedMatrixPreset": "gpu_partial_0.36",
+        "rationale": [
+          "max offload 18.66 GiB exceeds 6.8 GiB headroom",
+          "try partial --gpu 0.36 before cpu-only"
+        ]
+      },
+      {
+        "modelKey": "google/gemma-4-12b-qat",
+        "estimatedGpuMaxGiB": 7.18,
+        "estimatedTotalOffGiB": 7.18,
+        "fitsGpuMaxOnHost": false,
+        "suggestedPartialGpuRatio": 0.95,
+        "suggestedMatrixPreset": "gpu_partial_0.95",
+        "rationale": [
+          "max offload 7.18 GiB exceeds 6.8 GiB headroom",
+          "try partial --gpu 0.95 before cpu-only"
+        ]
+      },
+      {
+        "modelKey": "essentialai/rnj-1",
+        "estimatedGpuMaxGiB": 5.09,
+        "estimatedTotalOffGiB": 5.09,
+        "fitsGpuMaxOnHost": true,
+        "suggestedPartialGpuRatio": null,
+        "suggestedMatrixPreset": "gpu_full",
+        "rationale": [
+          "max offload 5.09 GiB fits 6.8 GiB headroom"
+        ]
+      },
+      {
+        "modelKey": "nvidia/nemotron-3-nano-4b",
+        "estimatedGpuMaxGiB": 2.82,
+        "estimatedTotalOffGiB": 2.82,
+        "fitsGpuMaxOnHost": true,
+        "suggestedPartialGpuRatio": null,
+        "suggestedMatrixPreset": "gpu_full",
+        "rationale": [
+          "max offload 2.82 GiB fits 6.8 GiB headroom"
+        ]
+      },
+      {
+        "modelKey": "liquid/lfm2.5-1.2b",
+        "estimatedGpuMaxGiB": 1.28,
+        "estimatedTotalOffGiB": 1.28,
+        "fitsGpuMaxOnHost": true,
+        "suggestedPartialGpuRatio": null,
+        "suggestedMatrixPreset": "gpu_full",
+        "rationale": [
+          "max offload 1.28 GiB fits 6.8 GiB headroom"
+        ]
+      },
+      {
+        "modelKey": "google/gemma-4-e4b",
+        "estimatedGpuMaxGiB": 6.18,
+        "estimatedTotalOffGiB": 6.18,
+        "fitsGpuMaxOnHost": true,
+        "suggestedPartialGpuRatio": null,
+        "suggestedMatrixPreset": "gpu_full",
+        "rationale": [
+          "max offload 6.18 GiB fits 6.8 GiB headroom"
+        ]
+      }
+    ],
+    "serve": {
+      "serializeLoads": true,
+      "reason": "8GB-class VRAM: unload between matrix cells; never parallel model loads",
+      "contextLength": "Keep default unless cell timeouts; then reduce via lms load -c for tight models",
+      "parallel": 1,
+      "ttlSeconds": null,
+      "serverBind": "127.0.0.1",
+      "kvCache": "KV grows with context; estimates exclude long-context KV — reserve ~1.2 GiB headroom"
+    },
+    "matrixRules": [
+      "Run one loaded model at a time (lms unload --all between cells)",
+      "Use lms load --estimate-only before adding new load profiles",
+      "Prefer measured matrix-summary.json over estimates when both exist",
+      "Models > headroom: test partial --gpu <ratio> as a third profile before cpu-only"
+    ]
+  },
+  "sources": [
+    "nvidia-smi --query-gpu",
+    "lms ls --json",
+    "lms ps",
+    "lms server status",
+    "GET /v1/models",
+    "lms load --estimate-only"
+  ]
+}

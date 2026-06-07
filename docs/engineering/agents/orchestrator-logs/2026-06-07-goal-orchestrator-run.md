@@ -49,3 +49,27 @@
 **Fun level**: High. Pushing the 8GB rig + credits + local crew to see if OSS + harness can specialist daily-briefs/tooling. 3 solid models or bust (but we won't stop short).
 
 (End of start log. Appended on returns + gates.)
+## Continuation note (user reminder 2026-06-07) — single GPU model at a time
+Live state at this moment (after goal completion + verifiers PASS):
+- lms ps: google/gemma-4-26b-a4b GENERATING (17.99 GB model, context 4096, 4 parallel)
+- nvidia-smi: ~55 MiB free out of 8192 MiB (rig is at limit)
+- Server: running on 1234
+
+This is the expected and respected constraint for the entire project (8 GiB RTX 2080 Super Max-Q).
+All matrix work (O1 and any future) **must** be strictly serial:
+  lms unload --all
+  lms load <model> --gpu <flag>
+  ... one cell ...
+  lms unload --all
+
+Large models (26B/31B) are only practical on gpu_offload or partial profiles.
+Fresh system-profile + runtime-snapshot captured during this continuation (see results/).
+No new LM loads were started in this turn — only queries and docs.
+
+Unattended full O1 command (when rig is free, fans on coolerboost, time available):
+  cd C:\Users\james\projects\evals
+  pnpm matrix:full
+
+This will take many hours for the full 12x2. The harness is designed for it (serialize + unload between cells).
+Results will be pushed on next manual or scheduled continuation.
+
