@@ -3318,5 +3318,124 @@
       "Qwen full current-suite no-cache throughput remains incomplete.",
       "Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
     ]
+  },
+  "stream38PromptfooSpawnValidation": {
+    "at": "2026-06-07T17:25:00.000Z",
+    "scope": "Validate runner spawn fix commit e7d7b4d with exactly one qwen/qwen3.5-9b@gpu_offload filtered no-cache Promptfoo cell; no retry, no other model/profile/task.",
+    "commit": {
+      "requestedCommit": "e7d7b4d",
+      "presentOnMain": true,
+      "subject": "Run promptfoo without shell wrapping"
+    },
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 335 MiB used, 7857 MiB free, 5% utilization"
+    },
+    "command": {
+      "env": {
+        "EVAL_PROMPTFOO_NO_CACHE": "true",
+        "EVAL_TASK_FILTER": "build-synthetic-smoke",
+        "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+        "EVAL_SMOKE_PROFILES": "gpu_offload",
+        "EVAL_CELL_TIMEOUT_MS": "300000"
+      },
+      "command": "node scripts/run-matrix.mjs --smoke",
+      "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no retry, no other model, profile, or task was run."
+    },
+    "artifacts": {
+      "matrixJsonl": "results/matrix-2026-06-07T17-12-41-000Z.jsonl",
+      "progressJsonl": "results/matrix-2026-06-07T17-12-41-000Z.progress.jsonl",
+      "latestProgress": "results/matrix-latest-progress.json",
+      "matrixSummary": "results/matrix-summary.json",
+      "promptfooLatest": "results/promptfoo-latest.json",
+      "comparisonArchive": null,
+      "userJudgeQueueArchive": null
+    },
+    "row": {
+      "runId": "2026-06-07T17-12-41-000Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 300067,
+      "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed.\n========================================================================================================================\n⚠️ The current version of promptfoo 0.120.27 is lower than the latest available version 0.121.15.\n\nPlease run npx promptfoo@latest or npm install -g promptfoo@latest to update.\n========================================================================================================================\n\r\nCache is disabled.\r\nStarting evaluation eval-Cms-2026-06-07T17:12:46\r\nRunning 4 test cases (up to 1 at a time)...\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:qwen/qwen3.5-9b\",\n  \"providerLabel\": \"local:qwen/qwen3.5-9b (gpu_offload)\",\n  \"promptIdx\": 0,\n  \"testIdx\": 0,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}"
+    },
+    "validationAnswers": {
+      "promptfooRanSelectedFilteredTests": true,
+      "evidence": "Promptfoo stdout includes Cache is disabled, Starting evaluation eval-Cms-2026-06-07T17:12:46, and Running 4 test cases (up to 1 at a time).",
+      "promptfooLatestRefreshedByStream38": false,
+      "rowStatus": "eval_timeout",
+      "durationMs": 300067,
+      "passes": null,
+      "total": null,
+      "noFreshResultSurfaceClassification": "eval_timeout",
+      "remainsEvalNoResults": false,
+      "assessment": "The direct node.exe spawn fix changed behavior from the Stream 37 quick no-results exit to a real filtered Promptfoo run, but it did not complete or refresh results/promptfoo-latest.json under the 300000 ms cap."
+    },
+    "stream37Comparison": {
+      "artifact": "results/stream37-runner-accounting-validation.json",
+      "stream37Row": {
+        "runId": "2026-06-07T17-01-36-096Z",
+        "modelKey": "qwen/qwen3.5-9b",
+        "variant": "qwen/qwen3.5-9b@q4_k_m",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "eval_no_results",
+        "passes": null,
+        "total": null,
+        "durationMs": 530,
+        "stderr": "Promptfoo exited successfully but did not emit pass totals or refresh results/promptfoo-latest.json."
+      },
+      "stream38Delta": "Stream 37 exited in 530 ms as eval_no_results with no Promptfoo result refresh. Stream 38 started Promptfoo directly, selected 4 filtered tests, ran until the 300000 ms timeout, and wrote eval_timeout with no pass totals.",
+      "spawnFixValidatedForPromptfooLaunch": true,
+      "normalPromptfooScoringStillUnresolved": true
+    },
+    "promptfooLatestStatus": {
+      "refreshedByStream38": false,
+      "lastWriteTimeUtc": "2026-06-07T15:27:59.937Z",
+      "currentEvalId": "2026-06-07T15-22-52-975Z",
+      "currentModel": "google/gemma-4-31b-qat",
+      "assessment": "results/promptfoo-latest.json still points to the Stream 34 31B-QAT surface and was not refreshed by Stream 38."
+    },
+    "progressTelemetry": {
+      "produced": true,
+      "latest": {
+        "at": "2026-06-07T17:17:42.825Z",
+        "runId": "2026-06-07T17-12-41-000Z",
+        "event": "run_finished"
+      },
+      "latestReachedRunFinished": true,
+      "evalArgs": [
+        "node_modules/promptfoo/dist/src/entrypoint.js",
+        "eval",
+        "-c",
+        "suites/promptfoo/promptfooconfig.yaml",
+        "--max-concurrency",
+        "1",
+        "-o",
+        "results/promptfoo-latest.json",
+        "--no-cache",
+        "--filter-metadata",
+        "taskId=build-synthetic-smoke"
+      ]
+    },
+    "runtimeAfterUnload": {
+      "action": "lms unload --all",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 335 MiB used, 7857 MiB free, 5% utilization"
+    },
+    "remainingGaps": [
+      "No fresh results/promptfoo-latest.json surface was produced by Stream 38.",
+      "The filtered qwen Promptfoo cell timed out at 300067 ms with passes=null and total=null.",
+      "The prior undefined.includes provider-call failure still appears during the direct Promptfoo run.",
+      "Qwen full current-suite no-cache throughput, subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
   }
 }
