@@ -4,7 +4,8 @@
 **Purpose:** This is the active goal document for the current exhaustive model evaluation campaign. It replaces/supersedes previous strict rules for this specific run. The focus is real-time assessable, adjustable, contained evaluation streams so results can be interpreted and settings tweaked immediately between streams. No one massive long-running suite.
 
 ## Role of the Orchestrator
-You are the orchestrator. Your job is to sequence and let subagents run the actual evals in small, contained "streams". 
+
+You are the orchestrator. Your job is to sequence and let subagents run the actual evals in small, contained "streams".
 
 - Define a contained stream: a focused, limited batch of testing (e.g., "run matrix for qwen + liquid + nemotron using gpu_full + gpu_offload + gpu_partial_0.5 on current 10-task suite"; "run deepeval + real tracker for daily-briefs specialist on 2 models"; "collect baselines + compare for gemini-flash-lite and sonnet-4.6 only"; "test 3 specific partial offload ratios on the 26B and 31B models and measure tps + pass rates").
 - Dispatch a subagent for that exact stream (using reusable prompt + specific steering for what to run, scope limits via EVAL_SMOKE_MODELS or custom, which profiles, etc.).
@@ -22,7 +23,9 @@ This allows real-time interpretation and adjustment of settings (load-profiles, 
 Follow AGENTS.md for repo rules (LM Studio only for automated, no direct paid, baselines outside, user-judge primary, rg for search, live lms + system-profile as truth, Windows/pwsh, capture before tuning, etc.). Use contained scope to keep each stream small and assessable.
 
 ## All Testing to Cover (Broken into Contained Streams)
+
 The campaign must cover (via the contained streams, not one big thing):
+
 - Local OSS models: all 12 in registry (including large 26B/31B pairs on/off-gpu and partial offload styles) with various presets (gpu_full, gpu_offload, the granular partials). Built in batches by model size or preset type for real-time assessment.
 - Cloud SOTA benchmarks using credits: sonnet 4.6, gemini 3.1 flash lite, gpt 5.4 + peers. Contained baseline collection + head-to-head compare vs locals.
 - Daily-briefs / interest tracker / local tool calls: real runs of the tracker (web search, gh, fs, planning), specialist with KB, tool-use evals (deepeval + promptfoo for correctness/plan/quality), assess quality/speed in real time, unload to local models.
@@ -32,6 +35,7 @@ The campaign must cover (via the contained streams, not one big thing):
 - All in contained, assessable streams so we can tweak (profiles, scope, order, thresholds) in real time and keep rocking without one giant uninterpretable run.
 
 ## Orchestrator Rules for This Run (Specific to goal-eval.md)
+
 - Read current state (optimization-state.json, latest matrix-summary or specific stream results, system-profile, load-profiles, reports) before deciding next stream.
 - Define each stream narrowly so results are small and immediately usable for assessment/adjustment.
 - Dispatch subagent with reusable workstream prompt + explicit steering for that contained stream (scope, models/presets, what to run, output expectations, commit+push at end).
@@ -44,15 +48,18 @@ The campaign must cover (via the contained streams, not one big thing):
 - At end: 3 solid models with evidence from the streams, full testing covered incrementally, system configs optimized based on real-time data.
 
 ## Source of Truth
+
 - Live lms + system-profile + captured snapshots for hardware/placement.
 - Fresh results after each stream push for assessment.
 - registry/models.json and load-profiles.json (updated between streams as agents figure dials).
 - Previous work (W7 tracker/KB/suites, partial profiles already in load-profiles, existing smoke data, reports) is baseline to build from in contained streams.
 
 ## End Product
+
 Contained streams that together exhaust the testing (locals in batches, cloud SOTA, daily-briefs harness + tool use, config optimization with real-time tweaks, 3 solid models identified). Results are assessable and adjustable in real time between streams. No single long uninterpretable run. Subagents do the eval execution. Orchestrator drives the sequence and adjustments.
 
 ## Reusable Workstream Prompt for Subagents (for this goal-eval.md)
+
 Working from: the active contained streams plan (this goal-eval.md and `docs/roadmaps/2026-06-07-contained-eval-streams-plan.md` — the single monolithic all-inclusive exhaustive end-to-end roadmap covering every model (12 locals + SOTA cloud), every test (full matrix with 11 profiles + recs, deepeval W7 + briefs/tool, real tracker + specialist + local tools, cloud bench, config dials, ranking/synthesis, 3 solids, verification, git), contained streams execution model, orchestration, live truth cites, one-GPU constraint, no v1/v2/v3/phases/lazy — all now here). Live repo is source of truth.
 
 <APPEND SPECIFIC STREAM STEERING HERE: e.g. "Contained Stream X: Run matrix for [specific models] with [specific presets from current load-profiles] on [limited scope of tasks/suite]. Use EVAL_SMOKE_MODELS or equivalent to keep contained. Capture tps where possible, update state with results. Commit and push only the stream artifacts + any profile tweaks if data warrants.">
@@ -64,4 +71,3 @@ Please AUDIT/EXECUTE the contained stream. Subagent runs the actual evals (pnpm 
 Before final: update any adjacent (state, profiles if tweak justified by this stream's data), push, summarize for orchestrator assessment.
 
 This structure ensures every stream is small, results come back quickly for interpretation and adjustment, and we cover everything without one giant block.
-
