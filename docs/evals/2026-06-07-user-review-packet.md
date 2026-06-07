@@ -4,6 +4,8 @@
 
 **Runtime boundary:** Stream 19 did not run LM Studio model loads, matrix cells, baseline collection, or cloud/API calls. It only summarizes existing pushed artifacts and confirms `lms ps` is clean.
 
+**Next review surface:** Use `docs/evals/2026-06-07-final-selection-scoring-worksheet.md` after reading this packet. The worksheet turns these review artifacts into explicit accept/reject/conditional decisions for final 3-solid selection without changing the evidence semantics here.
+
 ## Review Sources
 
 | Review lane | Source artifacts | Deterministic evidence | Review note |

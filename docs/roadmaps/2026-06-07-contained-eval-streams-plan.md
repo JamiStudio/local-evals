@@ -584,7 +584,13 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Dispatch timestamp: 2026-06-07 after Stream 30 audit.
 - Ownership boundary: no LM Studio model loads, no matrix/eval cells, no cloud/API calls; create a user-fillable accept/reject/conditional worksheet for final 3-solid decisions and update status docs/state.
 - Expected deliverables: `docs/evals/2026-06-07-final-selection-scoring-worksheet.md`, targeted links/status updates, `results/optimization-state.json`, and this roadmap checkpoint.
-- Next coordinator action: poll in short intervals until commit+push, then audit worksheet coverage, runtime idle state, and remaining-gap assessment before deciding whether any more stream work is useful.
+- Status: completed and pushed by Stream 31.
+- Result artifact: `docs/evals/2026-06-07-final-selection-scoring-worksheet.md`.
+- Changed status surfaces: `docs/evals/2026-06-07-user-review-packet.md`, `docs/evals/2026-06-07-stream30-readiness-synthesis.md`, `results/optimization-state.json`, and this roadmap checkpoint.
+- Runtime boundary: no LM Studio model loads, matrix/eval cells, cloud/API calls, or baseline collection were run. The stream only read current docs/results, created the worksheet, and updated docs/state.
+- Key worksheet contents: explicit accept/reject/conditional lanes for qwen W7/tracker, qwen current-suite/local specialist, liquid speed/triage, imported cloud baseline/reference role, mid-size bounded fallback, 26B bounded exploration, and 31B/31B-QAT hardware-limited exclusion.
+- Remaining gaps: subjective user review, final 3-solid selection, broad/full local matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, 31B/31B-QAT practical proof, and final two-verifier completion audit.
+- Next coordinator action: audit Stream 31 commit/result state and wait for user-scored worksheet decisions before final 3-solid promotion or final verifier dispatch.
 
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.

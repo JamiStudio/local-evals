@@ -60,6 +60,6 @@ No final 3-solid selection is made here. The strongest current rotation is qwen 
 
 ## Recommended Next Action
 
-The highest-value next action is **user review of the prepared packet**, starting with `docs/evals/2026-06-07-user-review-packet.md`, the qwen/liquid Stream 17 queues, and the Stream 27 W7 artifact. If another contained stream is preferred before review, make it a no-load Stream 31 that converts this synthesis into a compact scoring worksheet and explicit accept/reject checklist for the final 3-solid decision.
+The highest-value next action is **user review of the prepared packet**, starting with `docs/evals/2026-06-07-user-review-packet.md`, the qwen/liquid Stream 17 queues, the Stream 27 W7 artifact, and the Stream 31 worksheet at `docs/evals/2026-06-07-final-selection-scoring-worksheet.md`. The worksheet converts this synthesis into a compact accept/reject/conditional checklist for the final 3-solid decision.
 
 Do not run the final verifier audit or mark the overall goal complete from the Stream 30 state.

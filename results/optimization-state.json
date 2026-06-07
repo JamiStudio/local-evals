@@ -2836,5 +2836,53 @@
       "31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only.",
       "Final two-verifier completion audit remains pending."
     ]
+  },
+  "stream31FinalSelectionWorksheet": {
+    "at": "2026-06-07T15:25:00.000Z",
+    "scope": "No-load user scoring worksheet after Stream 30 readiness synthesis; no LM Studio model loads, no matrix/eval cells, no baseline collection, no cloud/API calls, and no paid-provider calls.",
+    "sourceTruthRead": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 30-31 and remaining gaps",
+      "docs/evals/2026-06-07-stream30-readiness-synthesis.md",
+      "docs/evals/2026-06-07-user-review-packet.md",
+      "docs/evals/2026-06-07-3-solid-models.md",
+      "docs/evals/2026-06-07-placement-decisions.md",
+      "docs/evals/2026-06-07-strict-gap-audit.md",
+      "results/user-review-packet-summary.json",
+      "results/optimization-state.json"
+    ],
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 185 MiB used, 7803 MiB free, 5% utilization"
+    },
+    "deliverable": "docs/evals/2026-06-07-final-selection-scoring-worksheet.md",
+    "linkedDocsUpdated": [
+      "docs/evals/2026-06-07-user-review-packet.md",
+      "docs/evals/2026-06-07-stream30-readiness-synthesis.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md"
+    ],
+    "worksheetDecisions": [
+      "qwen W7/tracker accept/reject/conditional, citing Stream 27 and caveats",
+      "qwen current-suite/local specialist accept/reject/conditional, citing Streams 7/17/22/28",
+      "liquid speed/triage accept/reject/conditional, citing Streams 17/22",
+      "imported cloud baseline/reference role accept/reject/conditional, citing Streams 9/19 and baseline policy",
+      "mid-size local fallback bounded-role accept/reject/conditional, citing Streams 18/20/29",
+      "26B bounded exploration accept/reject/conditional, citing Streams 24/26",
+      "31B/31B-QAT hardware-limited exclusion accept/reject/conditional, citing Streams 16/25"
+    ],
+    "progressNote": "The worksheet converts Stream 30 readiness synthesis into explicit user-scored decisions needed for final 3-solid selection. It does not invent scores, complete subjective user review, or promote final 3-solid roles.",
+    "remainingGaps": [
+      "Subjective user review remains pending until worksheet decisions are filled by the user.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Qwen full 40-case no-cache current-suite throughput remains incomplete.",
+      "Broad partial-profile quality/throughput remains incomplete.",
+      "31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only.",
+      "Final two-verifier completion audit remains pending."
+    ]
   }
 }
