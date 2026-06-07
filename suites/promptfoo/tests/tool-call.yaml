@@ -7,7 +7,7 @@
   assert:
     - type: javascript
       value: |
-        (output || '').toLowerCase().includes('gpu') || (output || '').toLowerCase().includes('offload') || (output || '').toLowerCase().includes('max')
+        String(output ?? '').toLowerCase().includes('gpu') || String(output ?? '').toLowerCase().includes('offload') || String(output ?? '').toLowerCase().includes('max')
   provider:
     config:
       tools:
@@ -40,7 +40,7 @@
   assert:
     - type: javascript
       value: |
-        (output || '').includes('gpu_full') && (output || '').includes('gpu_offload')
+        String(output ?? '').includes('gpu_full') && String(output ?? '').includes('gpu_offload')
   provider:
     config:
       tools:
@@ -75,7 +75,7 @@
   assert:
     - type: javascript
       value: |
-        ((output || '').toLowerCase().includes('search') || (output || '').toLowerCase().includes('tool')) && ((output || '').toLowerCase().includes('plan') || (output || '').toLowerCase().includes('step') || (output || '').toLowerCase().includes('brief'))
+        (String(output ?? '').toLowerCase().includes('search') || String(output ?? '').toLowerCase().includes('tool')) && (String(output ?? '').toLowerCase().includes('plan') || String(output ?? '').toLowerCase().includes('step') || String(output ?? '').toLowerCase().includes('brief'))
   provider:
     config:
       tools:

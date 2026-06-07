@@ -7,9 +7,9 @@
     constraints: Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines.
   assert:
     - type: javascript
-      value: (output || '').includes('Workstream')
+      value: String(output ?? '').includes('Workstream')
     - type: javascript
-      value: (output || '').split(/\n/).filter(l => l.trim()).length >= 5
+      value: String(output ?? '').split(/\n/).filter(l => l.trim()).length >= 5
 
 - description: plan — template (voice host integration)
   metadata:
@@ -20,6 +20,6 @@
     constraints: No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback.
   assert:
     - type: javascript
-      value: (output || '').includes('gateway')
+      value: String(output ?? '').includes('gateway')
     - type: javascript
-      value: (output || '').toLowerCase().includes('host') || (output || '').toLowerCase().includes('hermes')
+      value: String(output ?? '').toLowerCase().includes('host') || String(output ?? '').toLowerCase().includes('hermes')

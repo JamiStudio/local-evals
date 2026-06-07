@@ -10,9 +10,9 @@
       - Cloud models remain stronger for long-horizon synthesis.
   assert:
     - type: javascript
-      value: (output || '').includes('VRAM')
+      value: String(output ?? '').includes('VRAM')
     - type: javascript
-      value: (output || '').includes('next')
+      value: String(output ?? '').includes('next')
 
 - description: research — template (agent harness workflow)
   metadata:
@@ -26,9 +26,9 @@
       - First prototype targets ten internal tools before breadth integrations.
   assert:
     - type: javascript
-      value: (output || '').includes('tool')
+      value: String(output ?? '').includes('tool')
     - type: javascript
-      value: (output || '').length > 200
+      value: String(output ?? '').length > 200
 
 # W7 addition: briefs quality research-style case (daily interest + specialist harness)
 # Exercises research lane for briefs quality vs baseline (taskId registered in baselines/manifest.json)
@@ -45,8 +45,8 @@
       - Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.
   assert:
     - type: javascript
-      value: (output || '').includes('qwen')
+      value: String(output ?? '').includes('qwen')
     - type: javascript
-      value: (output || '').includes('brief')
+      value: String(output ?? '').includes('brief')
     - type: javascript
-      value: (output || '').length > 180 && ((output || '').toLowerCase().includes('token') || (output || '').toLowerCase().includes('tps') || (output || '').toLowerCase().includes('plan'))
+      value: String(output ?? '').length > 180 && (String(output ?? '').toLowerCase().includes('token') || String(output ?? '').toLowerCase().includes('tps') || String(output ?? '').toLowerCase().includes('plan'))

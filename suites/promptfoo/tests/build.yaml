@@ -12,11 +12,11 @@
       }
   assert:
     - type: javascript
-      value: (output || '').includes('+++')
+      value: String(output ?? '').includes('+++')
     - type: javascript
-      value: (output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')
+      value: String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')
   options:
-    transform: '(output) => (output || "").replace(/```[\\s\\S]*?```/g, "").trim()'
+    transform: '(output) => String(output ?? "").replace(/```[\\s\\S]*?```/g, "").trim()'
 
 - description: build — template (config helper)
   metadata:
@@ -32,8 +32,8 @@
       }
   assert:
     - type: javascript
-      value: (output || '').includes('+++')
+      value: String(output ?? '').includes('+++')
     - type: javascript
-      value: (output || '').includes('30000') || (output || '').includes('30_000') || (output || '').includes('30 * 1000')
+      value: String(output ?? '').includes('30000') || String(output ?? '').includes('30_000') || String(output ?? '').includes('30 * 1000')
   options:
-    transform: '(output) => (output || "").replace(/```[\\s\\S]*?```/g, "").trim()'
+    transform: '(output) => String(output ?? "").replace(/```[\\s\\S]*?```/g, "").trim()'
