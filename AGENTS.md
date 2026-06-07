@@ -22,7 +22,7 @@ is user review against those baselines; optional Azure credit judge is off by de
 ## Where To Start
 
 - Accepted direction: `docs/research/2026-06-06-local-oss-model-evals-feasibility-report.md`
-- Active plan: `docs/roadmaps/2026-06-06-local-oss-model-evals-plan.md`
+- Active plan: `docs/roadmaps/2026-06-07-contained-eval-streams-plan.md` (the single monolithic all-inclusive exhaustive end-to-end roadmap per user directive: every model, every test, evals + ranking + synthesis + daily-briefs + specialist + config dials + 3 solids + verification + git transparency + contained streams execution — all now here, no v1/v2/v3/phases)
 - Operator guide: `docs/operations/running.md`
 - Baseline collection: `docs/operations/baseline-collection.md`
 - Standards: `docs/engineering/standards/*`, `docs/engineering/agents/orchestration-reliability.md`

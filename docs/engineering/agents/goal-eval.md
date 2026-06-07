@@ -53,7 +53,7 @@ The campaign must cover (via the contained streams, not one big thing):
 Contained streams that together exhaust the testing (locals in batches, cloud SOTA, daily-briefs harness + tool use, config optimization with real-time tweaks, 3 solid models identified). Results are assessable and adjustable in real time between streams. No single long uninterpretable run. Subagents do the eval execution. Orchestrator drives the sequence and adjustments.
 
 ## Reusable Workstream Prompt for Subagents (for this goal-eval.md)
-Working from: the active contained streams plan (this goal-eval.md and the brand new roadmap). Live repo is source of truth.
+Working from: the active contained streams plan (this goal-eval.md and `docs/roadmaps/2026-06-07-contained-eval-streams-plan.md` — the single monolithic all-inclusive exhaustive end-to-end roadmap covering every model (12 locals + SOTA cloud), every test (full matrix with 11 profiles + recs, deepeval W7 + briefs/tool, real tracker + specialist + local tools, cloud bench, config dials, ranking/synthesis, 3 solids, verification, git), contained streams execution model, orchestration, live truth cites, one-GPU constraint, no v1/v2/v3/phases/lazy — all now here). Live repo is source of truth.
 
 <APPEND SPECIFIC STREAM STEERING HERE: e.g. "Contained Stream X: Run matrix for [specific models] with [specific presets from current load-profiles] on [limited scope of tasks/suite]. Use EVAL_SMOKE_MODELS or equivalent to keep contained. Capture tps where possible, update state with results. Commit and push only the stream artifacts + any profile tweaks if data warrants.">
 
