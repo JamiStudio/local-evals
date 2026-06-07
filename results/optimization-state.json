@@ -241,7 +241,8 @@
     "Stream 35 qwen full no-cache extended retry is complete: qwen/qwen3.5-9b@gpu_offload full current-suite Promptfoo no-cache timed out at 2400084 ms before pass totals; the abandoned zero-byte crash JSONL remains documented; no compare/queue archives were generated because promptfoo-latest stayed on Stream 34. Remaining gaps: user review, final 3-solid, broad/full matrix, qwen full no-cache completed throughput, broad partial profiles, broad 31B/31B-QAT proof, and final verification.",
     "Stream 36 qwen assertion-hardening validation is complete: exactly one Promptfoo no-cache build-synthetic-smoke qwen@gpu_offload cell ran under EVAL_CELL_TIMEOUT_MS=300000 and completed as a runner row in 666 ms with passes/total null; the prior undefined.includes assertion error is absent from the row/progress telemetry, but promptfoo-latest stayed on Stream 34 and qwen full no-cache throughput/user-review/final selection remain open.",
     "Stream 37 runner accounting validation is complete: exactly one qwen/qwen3.5-9b@gpu_offload Promptfoo no-cache build-synthetic-smoke cell ran after commit c62f3ac; the quick Promptfoo exit 0/no refreshed result case is now status=eval_no_results in 530 ms with passes/total null, progress telemetry reached run_finished, promptfoo-latest stayed stale on Stream 34, and summarize-matrix selected the real matrix JSONL while counting completed=0. Remaining gaps: qwen full no-cache throughput, user review, final 3-solid, broad/full coverage, broad partials, broad 31B/31B-QAT proof, final verifier audit.",
-    "Stream 39 null-safe contains validation is complete: after commit c36e52b, exactly one qwen/qwen3.5-9b@gpu_offload Promptfoo no-cache build-synthetic-smoke cell ran 4 filtered test cases and timed out at 300059 ms with passes=null/total=null; the Stream 38 undefined.includes error is gone from row/progress telemetry, promptfoo-latest did not refresh and still points to Stream 34, and progress reached run_finished."
+    "Stream 39 null-safe contains validation is complete: after commit c36e52b, exactly one qwen/qwen3.5-9b@gpu_offload Promptfoo no-cache build-synthetic-smoke cell ran 4 filtered test cases and timed out at 300059 ms with passes=null/total=null; the Stream 38 undefined.includes error is gone from row/progress telemetry, promptfoo-latest did not refresh and still points to Stream 34, and progress reached run_finished.",
+    "Stream 41 liquid string-coercion validation is complete: commit 0d50176 was present at HEAD; exactly one liquid/lfm2.5-1.2b@gpu_full Promptfoo no-cache build-synthetic-smoke cell ran; Promptfoo refreshed 4 filtered results, row status eval_failed 0/4 in 9072 ms, cached=0, progress reached run_finished, and `(output || \"\").includes is not a function` plus undefined.includes are absent. Failures are now normal `Custom function returned false` assertion failures. Remaining gaps: user review, final 3-solid selection, broad/full matrix, qwen full current-suite no-cache throughput, broad partial profiles, 31B/31B-QAT broad proof, and final verification."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -3623,6 +3624,161 @@
     "remainingGaps": [
       "Normal passing Promptfoo scoring is not closed because the fresh liquid row is eval_failed 0/4.",
       "A distinct custom assertion/runtime issue remains: `(output || \"\").includes is not a function`.",
+      "Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full current-suite no-cache throughput, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
+  },
+  "stream41LiquidStringCoercionValidation": {
+    "at": "2026-06-07T17:50:00.000Z",
+    "scope": "Validate assertion string coercion commit 0d50176 with exactly one fast liquid filtered no-cache Promptfoo cell after Stream 40 exposed `(output || \"\").includes is not a function`.",
+    "commit": {
+      "requestedCommit": "0d50176",
+      "presentAtHead": true,
+      "subject": "Coerce promptfoo assertion outputs to strings"
+    },
+    "runtimeBefore": {
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 352 MiB used, 7636 MiB free, 7% utilization"
+    },
+    "command": {
+      "env": {
+        "EVAL_PROMPTFOO_NO_CACHE": "true",
+        "EVAL_TASK_FILTER": "build-synthetic-smoke",
+        "EVAL_SMOKE_MODELS": "liquid/lfm2.5-1.2b",
+        "EVAL_SMOKE_PROFILES": "gpu_full",
+        "EVAL_CELL_TIMEOUT_MS": "300000"
+      },
+      "command": "node scripts/run-matrix.mjs --smoke",
+      "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no retry, no other model, profile, task, cloud/API call, or baseline collection was run."
+    },
+    "artifacts": {
+      "matrixJsonl": "results/matrix-2026-06-07T17-46-46-512Z.jsonl",
+      "progressJsonl": "results/matrix-2026-06-07T17-46-46-512Z.progress.jsonl",
+      "latestProgress": "results/matrix-latest-progress.json",
+      "matrixSummary": "results/matrix-summary.json",
+      "promptfooLatest": "results/promptfoo-latest.json",
+      "streamArtifact": "results/stream41-liquid-string-coercion-validation.json",
+      "comparisonArchive": null,
+      "userJudgeQueueArchive": null
+    },
+    "row": {
+      "runId": "2026-06-07T17-46-46-512Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_failed",
+      "passes": 0,
+      "total": 4,
+      "durationMs": 9072,
+      "includesExceptionPresent": false,
+      "undefinedIncludesPresent": false
+    },
+    "promptfooLatestStatus": {
+      "refreshedByStream41": true,
+      "evalId": "eval-tq3-2026-06-07T17:46:52",
+      "runIds": [
+        "2026-06-07T17-46-46-512Z"
+      ],
+      "resultCount": 4,
+      "taskIds": [
+        "build-synthetic-smoke"
+      ],
+      "subjectModels": [
+        "liquid/lfm2.5-1.2b"
+      ],
+      "loadProfiles": [
+        "gpu_full"
+      ],
+      "successes": 0,
+      "failures": 4,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 274,
+        "completion": 299,
+        "cached": 0,
+        "total": 573,
+        "numRequests": 4,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 3879,
+      "assessment": "Promptfoo refreshed results/promptfoo-latest.json for Stream 41 with 4 filtered build-synthetic-smoke results and no cached tokens."
+    },
+    "validationAnswers": {
+      "promptfooRanFourFilteredTestCases": true,
+      "promptfooLatestRefreshed": true,
+      "honestRowStatus": "eval_failed",
+      "honestDurationMs": 9072,
+      "honestPasses": 0,
+      "honestTotal": 4,
+      "includesIsNotFunctionPresentInRowProgressOrLatest": false,
+      "undefinedIncludesPresentInRowProgressOrLatest": false,
+      "failuresAreNormalAssertionFailures": true,
+      "assertionExceptionGone": true,
+      "progressTelemetryReachedRunFinished": true,
+      "progressTelemetryPath": "run_started -> cell_started -> load_started -> load_finished -> eval_started -> eval_finished -> cell_finished -> unload_started -> unload_finished -> run_finished"
+    },
+    "stream40Comparison": {
+      "artifact": "results/stream40-liquid-promptfoo-normal-scoring-validation.json",
+      "row": {
+        "runId": "2026-06-07T17-37-43-012Z",
+        "modelKey": "liquid/lfm2.5-1.2b",
+        "variant": "liquid/lfm2.5-1.2b@q8_0",
+        "profileId": "gpu_full",
+        "gpuFlag": "max",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "eval_failed",
+        "passes": 0,
+        "total": 4,
+        "durationMs": 9374
+      },
+      "promptfooLatestStatus": {
+        "refreshedByStream40": true,
+        "lastWriteTimeUtc": "2026-06-07T17:37:53Z",
+        "evalId": "eval-rDi-2026-06-07T17:37:47",
+        "resultCount": 4,
+        "taskId": "build-synthetic-smoke",
+        "subjectModel": "liquid/lfm2.5-1.2b",
+        "loadProfile": "gpu_full",
+        "successes": 0,
+        "failures": 4,
+        "errors": 0,
+        "tokenUsage": {
+          "prompt": 274,
+          "completion": 299,
+          "cached": 0,
+          "total": 573,
+          "numRequests": 4
+        },
+        "durationMs": 4695,
+        "assessment": "Promptfoo produced and wrote a fresh filtered result surface for the Stream 40 run."
+      },
+      "delta": "Same liquid/gpu_full/build-synthetic-smoke/no-cache scope. Stream 40 refreshed Promptfoo but custom JavaScript assertions threw `(output || \"\").includes is not a function`; Stream 41 refreshed Promptfoo again and the failures are `Custom function returned false` normal assertion failures."
+    },
+    "runtimeAfterUnload": {
+      "action": "lms unload --all",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 352 MiB used, 7636 MiB free, 4% utilization"
+    },
+    "remainingGaps": [
+      "The liquid row still fails 0/4 and is not a passing normal-scoring proof.",
       "Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full current-suite no-cache throughput, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
     ]
   }

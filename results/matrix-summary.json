@@ -1,13 +1,13 @@
 {
-  "at": "2026-06-07T17:38:12.608Z",
-  "matrixFile": "matrix-2026-06-07T17-37-43-012Z.jsonl",
-  "runId": "2026-06-07T17-37-43-012Z",
+  "at": "2026-06-07T17:47:24.732Z",
+  "matrixFile": "matrix-2026-06-07T17-46-46-512Z.jsonl",
+  "runId": "2026-06-07T17-46-46-512Z",
   "cells": [
     {
       "modelKey": "liquid/lfm2.5-1.2b",
       "profileId": "gpu_full",
       "status": "eval_failed",
-      "durationMs": 9374,
+      "durationMs": 9072,
       "passRate": {
         "passes": 0,
         "total": 4

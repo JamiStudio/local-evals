@@ -1,11 +1,11 @@
 {
-  "runId": "2026-06-07T17-37-43-012Z",
-  "matrixJsonl": "C:\\Users\\james\\projects\\evals\\results\\matrix-2026-06-07T17-37-43-012Z.jsonl",
-  "progressJsonl": "C:\\Users\\james\\projects\\evals\\results\\matrix-2026-06-07T17-37-43-012Z.progress.jsonl",
-  "updatedAt": "2026-06-07T17:37:54.036Z",
+  "runId": "2026-06-07T17-46-46-512Z",
+  "matrixJsonl": "C:\\Users\\james\\projects\\evals\\results\\matrix-2026-06-07T17-46-46-512Z.jsonl",
+  "progressJsonl": "C:\\Users\\james\\projects\\evals\\results\\matrix-2026-06-07T17-46-46-512Z.progress.jsonl",
+  "updatedAt": "2026-06-07T17:46:57.354Z",
   "latest": {
-    "at": "2026-06-07T17:37:54.036Z",
-    "runId": "2026-06-07T17-37-43-012Z",
+    "at": "2026-06-07T17:46:57.354Z",
+    "runId": "2026-06-07T17-46-46-512Z",
     "event": "run_finished"
   }
 }
