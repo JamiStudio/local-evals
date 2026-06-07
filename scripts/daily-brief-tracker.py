@@ -342,7 +342,7 @@ def run_brief_agent(
         "wall_seconds": round(wall, 2),
         "tps": tps,
         "max_steps": max_steps,
-        "kb_loaded": bool(use_specialist and "Evals harness specialist" in kb[:100]),
+        "kb_loaded": bool(use_specialist and ("Evals Specialist Knowledge Bank" in kb or "evals-specialist" in kb.lower())),
     }
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
