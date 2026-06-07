@@ -7,11 +7,11 @@
   "reportPath": "results/optimization-report-1.json",
   "matrixSummary": [
     {
-      "modelKey": "qwen/qwen3.5-9b",
-      "profileId": "gpu_offload",
-      "passes": 7,
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "passes": 5,
       "total": 40,
-      "pct": 18
+      "pct": 13
     }
   ],
   "stream2NemotronLocalMatrixSlice": {
@@ -166,7 +166,7 @@
     "Frequent clean pushes done (multiple after streams to JamiStudio/local-evals; pyproject deps + note fixes committed)",
     "Perf tooling + captures + verify + deepeval W7 tests (ToolCall fixed) done",
     "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal",
-    "Add/validate partial load profiles (O6) from system-profile + estimates; qwen current-suite one-cell refresh now weakens old leader claim (Stream 7: 7/40 at gpu_offload); run liquid current-suite one-cell speed/control refresh, collect baselines for the 2 W7 manifest tasks, user-judge review of queue, and promote refined 3-solid to docs/decisions/ only after current-suite evidence.",
+    "Qwen and liquid current-suite one-cell controls are now matched: Stream 7 qwen/qwen3.5-9b@gpu_offload 7/40 (17.5%, rounded 18%) in 1018924 ms; Stream 8 liquid/lfm2.5-1.2b@gpu_full 5/40 (12.5%, rounded 13%) in 13373 ms. Liquid remains speed/control only; qwen has +2 passes but is ~76x slower on the current suite. Next: either user-judge/baseline W7 gaps or a bounded no-fallback W7 refresh before promoting 3-solid decisions.",
     "Stream 4 timeout evidence: mid-size current-suite cells for google/gemma-4-12b and GLM hung with three 0-row JSONLs; do not retry unbounded mid-size matrix until smaller task subset or timeout behavior is proven. Prefer qwen/liquid current-suite profile-filter refresh or W7 real tracker/specialist next."
   ],
   "exhaustiveResultsAssessment": {
@@ -206,11 +206,11 @@
     ],
     "partialsImplemented": true,
     "newW7TasksInMatrix": 0,
-    "leaderFromSmoke": "stale old smoke only: qwen/qwen3.5-9b@gpu_offload 5/8 (63%); current-suite Stream 7 is 7/40 (17.5%, rounded 18%) and weakens qwen leader status",
+    "leaderFromSmoke": "stale old smoke only: qwen/qwen3.5-9b@gpu_offload 5/8 (63%); current-suite Stream 7 is 7/40 (17.5%, rounded 18%) and Stream 8 liquid/lfm2.5-1.2b@gpu_full is 5/40 (12.5%, rounded 13%), so no current-suite local leader is strong yet.",
     "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",
     "speedNote": "qwen cells ~12min; liquid ~4s; daily-briefs dry tps=38.4 (qwen specialist); no matrix tps layer yet",
     "baselinesStatus": "8/10 tasks have vertex-gemini-3-1-pro-preview imports; 2 W7 tasks registered but no imports/cells",
-    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps: current-profile coverage still lacks large/mid models (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT) and qwen/liquid current 40-assertion + all-profile refresh; W7 baseline/user review/real tracker gaps remain. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest. Stream 4: aborted timeout-evidence stream only; no completed cells credited. Empty JSONLs: results/matrix-2026-06-07T07-12-46-491Z.jsonl (12B gpu_full), results/matrix-2026-06-07T07-41-56-989Z.jsonl (12B filtered first cell), results/matrix-2026-06-07T07-59-50-425Z.jsonl (GLM filtered first cell). Runner now has EVAL_SMOKE_PROFILES and opt-in EVAL_CELL_TIMEOUT_MS, but the 900000 ms timeout did not fire before final redirect. Stream 5: qwen --gpu off real tracker stream wrote dry artifacts results/daily-briefs/brief-20260607-082135.json and brief-20260607-082240.json (both dry_run true, kb_loaded true, tps 38.4, wall 6.9s, usage 142/265/407, all expected sections). Real artifacts: brief-20260607-082149.json and brief-20260607-082222.json failed before usage with qwen LM Studio tool parser \"No user query found\"; tracker fixed by adding explicit user message. brief-20260607-082434.json used read_file tools but hit 4096 context on step 2 (tps 3.0, wall 106.01s, usage 2725/313/3038); tracker capped injected tool observations. brief-20260607-082646.json completed process with read_file/web_search/github observations (tps 3.1, wall 109.1s, usage 6789/339/7128, kb_loaded true) but final brief body was blank and gh search used an invalid --json flag. No load-profile change. Remaining W7 gap: usable real final brief still needs a focused repair/refresh. Stream 7: qwen current-suite leader refresh added one cell in results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload completed as eval_partial 7/40 (17.5%, rounded 18%) in 1018924 ms, promptfoo 7 passed/25 failed/8 errors and 39548 tokens. Matrix summary now points at Stream 7; baseline comparison wrote 40 rows with 32 baseline-backed; user-judge queue has 40 cases. This weakens the stale 5/8 qwen leader claim for the current 40-assertion suite; qwen remains only a caveated W7/local specialist candidate because Stream 6 was fallback-backed."
+    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps: current-profile coverage still lacks large/mid models (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT) and qwen/liquid current 40-assertion + all-profile refresh; W7 baseline/user review/real tracker gaps remain. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest. Stream 4: aborted timeout-evidence stream only; no completed cells credited. Empty JSONLs: results/matrix-2026-06-07T07-12-46-491Z.jsonl (12B gpu_full), results/matrix-2026-06-07T07-41-56-989Z.jsonl (12B filtered first cell), results/matrix-2026-06-07T07-59-50-425Z.jsonl (GLM filtered first cell). Runner now has EVAL_SMOKE_PROFILES and opt-in EVAL_CELL_TIMEOUT_MS, but the 900000 ms timeout did not fire before final redirect. Stream 5: qwen --gpu off real tracker stream wrote dry artifacts results/daily-briefs/brief-20260607-082135.json and brief-20260607-082240.json (both dry_run true, kb_loaded true, tps 38.4, wall 6.9s, usage 142/265/407, all expected sections). Real artifacts: brief-20260607-082149.json and brief-20260607-082222.json failed before usage with qwen LM Studio tool parser \"No user query found\"; tracker fixed by adding explicit user message. brief-20260607-082434.json used read_file tools but hit 4096 context on step 2 (tps 3.0, wall 106.01s, usage 2725/313/3038); tracker capped injected tool observations. brief-20260607-082646.json completed process with read_file/web_search/github observations (tps 3.1, wall 109.1s, usage 6789/339/7128, kb_loaded true) but final brief body was blank and gh search used an invalid --json flag. No load-profile change. Remaining W7 gap: usable real final brief still needs a focused repair/refresh. Stream 7: qwen current-suite leader refresh added one cell in results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload completed as eval_partial 7/40 (17.5%, rounded 18%) in 1018924 ms, promptfoo 7 passed/25 failed/8 errors and 39548 tokens. Matrix summary now points at Stream 7; baseline comparison wrote 40 rows with 32 baseline-backed; user-judge queue has 40 cases. This weakens the stale 5/8 qwen leader claim for the current 40-assertion suite; qwen remains only a caveated W7/local specialist candidate because Stream 6 was fallback-backed. Stream 8: liquid current-suite speed/control refresh added one cell in results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full completed as eval_partial 5/40 (12.5%, rounded 13%) in 13373 ms, promptfoo 5 passed/27 failed/8 errors and 4703 tokens. Compared to Stream 7 qwen current-suite 7/40 in 1018924 ms, liquid is two passes worse but roughly 76x faster, so it remains a speed/triage control rather than an outcome leader. Matrix summary now points at Stream 8; baseline comparison wrote 40 rows with 32 baseline-backed; user-judge queue has 40 cases."
   },
   "connectivity": {
     "lmstudio": true,
@@ -253,7 +253,8 @@
     "Stream 4 mid-size local matrix slice (ABORTED timeout-evidence stream; no completed cells; empty JSONLs results/matrix-2026-06-07T07-12-46-491Z.jsonl, results/matrix-2026-06-07T07-41-56-989Z.jsonl, results/matrix-2026-06-07T07-59-50-425Z.jsonl; runner gained EVAL_SMOKE_PROFILES and EVAL_CELL_TIMEOUT_MS; pushed by subagent)",
     "Stream 5 W7 real tracker specialist evidence (COMPLETED + pushed 8b665ca; dry controls passed at 38.4 tps; real qwen tracker produced tool evidence but blank final after parser/context fixes; no usable real final brief yet)",
     "Stream 6 W7 tracker final-brief repair (COMPLETED + pushed f76f51b; real artifact results/daily-briefs/brief-20260607-083746.json nonblank with all required sections; fallback_used=true; tps 3.3, wall 150.48s, usage 2346/499/2845; qwen did not finalize within max_steps=2)",
-    "Stream 7 qwen current-suite leader refresh (COMPLETED in this stream; one cell results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload eval_partial 7/40, 17.5% rounded 18%, duration 1018924 ms; promptfoo 7 passed, 25 failed, 8 errors; weakens old 5/8 leader claim on current 40-assertion suite)"
+    "Stream 7 qwen current-suite leader refresh (COMPLETED + pushed 558260b; one cell results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload eval_partial 7/40, 17.5% rounded 18%, duration 1018924 ms; promptfoo 7 passed, 25 failed, 8 errors; weakens old 5/8 leader claim on current 40-assertion suite)",
+    "Stream 8 liquid current-suite control (COMPLETED in this stream; one cell results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full eval_partial 5/40, 12.5% rounded 13%, duration 13373 ms; promptfoo 5 passed, 27 failed, 8 errors, 4703 total tokens; compared to Stream 7 qwen 7/40 in 1018924 ms, liquid is -2 passes but ~76x faster)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -317,6 +318,13 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "Contained qwen current-suite leader refresh: run exactly one qwen/qwen3.5-9b@gpu_offload matrix cell using EVAL_SMOKE_MODELS, EVAL_SMOKE_PROFILES, and EVAL_CELL_TIMEOUT_MS=1200000; summarize/compare/judge as needed; update state+roadmap; verify; commit+push."
+    },
+    {
+      "id": "019ea15b-d778-7001-950c-44706749d727",
+      "workstream": "Stream 8",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "Contained liquid current-suite control: run exactly one liquid/lfm2.5-1.2b@gpu_full matrix cell using EVAL_SMOKE_MODELS, EVAL_SMOKE_PROFILES, and EVAL_CELL_TIMEOUT_MS=600000; summarize/compare/judge as needed; update state+roadmap with qwen-vs-liquid comparison; verify; commit+push."
     }
   ],
   "solidModelsTarget": {
@@ -665,5 +673,90 @@
     "postRunRuntime": "lms unload --all unloaded qwen; post-run lms ps showed no loaded models.",
     "remainingGaps": "qwen/liquid still need all-profile current-suite refreshes; mid/large models remain blocked by Stream 4 timeout behavior; W7 baselines and user-judge review remain open.",
     "recommendedNextStream": "Run liquid/lfm2.5-1.2b@gpu_full as a matching one-cell current-suite speed/control refresh, then compare qwen vs liquid before another bounded mid-size or W7 no-fallback stream."
+  },
+  "stream8LiquidCurrentSuiteControl": {
+    "at": "2026-06-07T09:15:30.847Z",
+    "scope": "liquid/lfm2.5-1.2b only; gpu_full only; exactly one current-suite matrix cell; LM Studio local only; no cloud/direct paid APIs; no full matrix; no second model",
+    "sourceTruthReadBeforeRun": [
+      "results/optimization-state.json",
+      "latest results/matrix-summary.json",
+      "registry/models.json",
+      "registry/load-profiles.json",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Stream 7/8 checkpoints",
+      "scripts/run-matrix.mjs"
+    ],
+    "liveRuntimeBeforeRun": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "2026/06/07 05:14:25.191, RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free, 5% GPU util"
+    },
+    "command": "EVAL_SMOKE_MODELS=liquid/lfm2.5-1.2b EVAL_SMOKE_PROFILES=gpu_full EVAL_CELL_TIMEOUT_MS=600000 node scripts/run-matrix.mjs --smoke",
+    "latestMatrixJsonl": "results/matrix-2026-06-07T09-14-50-921Z.jsonl",
+    "summary": "results/matrix-summary.json",
+    "cellsAdded": 1,
+    "loadFailures": 0,
+    "statuses": {
+      "eval_partial": 1
+    },
+    "liquidCurrentSuiteResult": {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "pct": 12.5,
+      "pctRounded": 13,
+      "durationMs": 13373,
+      "promptfoo": {
+        "passed": 5,
+        "failed": 27,
+        "errors": 8,
+        "totalTokens": 4703,
+        "evalDuration": "10s"
+      }
+    },
+    "qwenVsLiquidCurrentSuite": {
+      "qwen": {
+        "modelKey": "qwen/qwen3.5-9b",
+        "profileId": "gpu_offload",
+        "passes": 7,
+        "total": 40,
+        "pct": 17.5,
+        "pctRounded": 18,
+        "durationMs": 1018924,
+        "status": "eval_partial"
+      },
+      "liquid": {
+        "modelKey": "liquid/lfm2.5-1.2b",
+        "profileId": "gpu_full",
+        "passes": 5,
+        "total": 40,
+        "pct": 12.5,
+        "pctRounded": 13,
+        "durationMs": 13373,
+        "status": "eval_partial"
+      },
+      "assessment": "Qwen is +2 passes (+5 percentage points) on the current 40-assertion suite, but liquid is roughly 76x faster by cell duration. Neither result supports a strong local outcome leader; liquid stays a speed/triage control, qwen stays caveated by low current-suite pass rate and fallback-backed W7 evidence."
+    },
+    "postSteps": [
+      "node scripts/summarize-matrix.mjs",
+      "node scripts/compare-to-baseline.mjs",
+      "node scripts/queue-user-judge.mjs"
+    ],
+    "comparisonAndQueue": {
+      "baselineComparisonRows": 40,
+      "baselineBackedRows": 32,
+      "userJudgeQueueCases": 40
+    },
+    "profileChange": "none; this stream only refreshed one liquid full cell and produced no profile-comparison evidence.",
+    "remainingGaps": "qwen/liquid still need all-profile current-suite refreshes if profile sensitivity matters; mid/large models remain blocked by Stream 4 timeout behavior; W7 baselines, no-fallback W7 refresh, and user-judge review remain open.",
+    "recommendedNextStream": "Run W7 baseline/user-judge collection or one bounded no-fallback W7 tracker refresh before promoting 3-solid decisions; avoid unbounded mid-size retries until timeout/subset behavior is proven.",
+    "postRunRuntime": "Initial post-run lms ps showed liquid/lfm2.5-1.2b IDLE with 8m TTL; lms unload --all unloaded it. Final post-run lms ps showed no loaded models.",
+    "verification": [
+      "pnpm verify (PASS)",
+      "git diff --check (PASS; line-ending warnings only)",
+      "JSON read-back for results/optimization-state.json, results/matrix-summary.json, results/promptfoo-latest.json (PASS)",
+      "Markdown evidence read-back via rg for Stream 8 result/checkpoint values (PASS)",
+      "post-run lms unload --all then lms ps (no loaded models)"
+    ]
   }
 }

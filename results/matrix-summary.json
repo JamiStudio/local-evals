@@ -1,15 +1,15 @@
 {
-  "at": "2026-06-07T09:08:25.977Z",
-  "matrixFile": "matrix-2026-06-07T08-43-29-893Z.jsonl",
-  "runId": "2026-06-07T08-43-29-893Z",
+  "at": "2026-06-07T09:15:30.847Z",
+  "matrixFile": "matrix-2026-06-07T09-14-50-921Z.jsonl",
+  "runId": "2026-06-07T09-14-50-921Z",
   "cells": [
     {
-      "modelKey": "qwen/qwen3.5-9b",
-      "profileId": "gpu_offload",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
       "status": "eval_partial",
-      "durationMs": 1018924,
+      "durationMs": 13373,
       "passRate": {
-        "passes": 7,
+        "passes": 5,
         "total": 40
       },
       "evalOk": true
@@ -19,15 +19,15 @@
     "cells": 1,
     "completed": 1,
     "loadFailed": 0,
-    "avgPassRate": 0.175
+    "avgPassRate": 0.125
   },
   "leaderboard": [
     {
-      "modelKey": "qwen/qwen3.5-9b",
-      "profileId": "gpu_offload",
-      "passes": 7,
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "passes": 5,
       "total": 40,
-      "pct": 18
+      "pct": 13
     }
   ]
 }
