@@ -592,6 +592,14 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: subjective user review, final 3-solid selection, broad/full local matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, 31B/31B-QAT practical proof, and final two-verifier completion audit.
 - Next coordinator action: audit Stream 31 commit/result state and wait for user-scored worksheet decisions before final 3-solid promotion or final verifier dispatch.
 
+**Stream 32 dispatch checkpoint (contained stream, 2026-06-07):**
+- Agent: `019ea299-8912-7d50-8a75-3f6219ee0fad` (`Pauli`).
+- Workstream/pass: Contained Stream 32, one bounded `google/gemma-4-31b@gpu_offload` practical local-fallback probe.
+- Dispatch timestamp: 2026-06-07 after Stream 31 audit.
+- Ownership boundary: exactly one LM Studio local cell, `EVAL_USE_PROMPTFOO=false`, `EVAL_TASK_FILTER=build-synthetic-smoke`, `EVAL_CELL_TIMEOUT_MS=300000`; no 31B partial/full, no 31B-QAT, no other models, no retry.
+- Expected deliverables: `results/stream32-31b-q4-offload-practical.json`, one matrix JSONL row, targeted status updates, and this roadmap checkpoint.
+- Next coordinator action: poll in short intervals until commit+push, then audit whether 31B Q4 moved from estimate-timeout-only to direct bounded practical success/failure evidence.
+
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.
 - Executed only `EVAL_SMOKE_MODELS=essentialai/rnj-1,google/gemma-4-e2b,google/gemma-4-e4b node scripts/run-matrix.mjs --smoke` after `lms unload --all`. Latest JSONL: `results/matrix-2026-06-07T06-44-52-303Z.jsonl` (raw JSONL remains ignored by current `.gitignore`; tracked transparent surfaces were refreshed).
