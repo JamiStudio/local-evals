@@ -1,0 +1,92 @@
+{
+  "stream": 24,
+  "at": "2026-06-07T13:05:30.000Z",
+  "scope": "One bounded 26B offload practical retry; LM Studio local fallback only; no cloud/API/baseline collection; hard stop after one large-model cell.",
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/engineering/agents/orchestration-reliability.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 16, 21, 23",
+    "docs/evals/2026-06-07-strict-gap-audit.md Stream 24 recommendation",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/models.json",
+    "registry/load-profiles.json",
+    "results/stream16-large-estimates.json",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "2026/06/07 09:02:47.202, NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 435 MiB used, 7553 MiB free, 6% utilization"
+  },
+  "command": "EVAL_USE_PROMPTFOO=false; EVAL_TASK_FILTER=build-synthetic-smoke; EVAL_SMOKE_MODELS=google/gemma-4-26b-a4b; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=300000; node scripts/run-matrix.mjs --smoke",
+  "hardStopRule": "Exactly one practical large-model cell was run. No additional large model, profile, or task was attempted after this result.",
+  "matrixJsonl": "results/matrix-2026-06-07T13-03-06-317Z.jsonl",
+  "row": {
+    "runId": "2026-06-07T13-03-06-317Z",
+    "modelKey": "google/gemma-4-26b-a4b",
+    "variant": "google/gemma-4-26b-a4b@q4_k_m",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "completed",
+    "passes": 1,
+    "total": 1,
+    "durationMs": 76163,
+    "timeoutMs": 300000,
+    "loadFailed": false,
+    "timedOut": false,
+    "stderr": ""
+  },
+  "promptfooLatest": {
+    "path": "results/promptfoo-latest.json",
+    "stats": {
+      "passes": 1,
+      "failures": 0,
+      "total": 1
+    },
+    "latencyMs": 76001
+  },
+  "stream16Comparison": {
+    "source": "results/stream16-large-estimates.json",
+    "estimateFor26bOffload": {
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "estimatedGpuMemory": "36.70 MiB",
+      "estimatedTotalMemory": "17.43 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    },
+    "estimateFor26bPartial": {
+      "profileId": "gpu_partial_0.39",
+      "gpuFlag": "0.39",
+      "estimatedGpuMemory": "6.99 GiB",
+      "estimatedTotalMemory": "17.43 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    },
+    "practicalDelta": "Stream 16 had 26B estimate-only evidence and no practical 26B row. Stream 24 adds one completed 26B gpu_offload local-fallback build-synthetic-smoke row."
+  },
+  "comparisonArtifacts": {
+    "defaultComparison": "results/baseline-comparison.jsonl",
+    "defaultUserJudgeQueue": "results/user-judge-queue.jsonl",
+    "streamComparisonArchive": "results/baseline-comparison-stream24-26b-offload.jsonl",
+    "streamUserJudgeQueueArchive": "results/user-judge-queue-stream24-26b-offload.jsonl",
+    "rows": 1,
+    "baselineBackedRows": 1
+  },
+  "runtimeAfter": {
+    "lmsPs": "No models are currently loaded after explicit lms unload --all.",
+    "nvidiaSmi": "2026/06/07 09:04:37.257, NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 435 MiB used, 7553 MiB free, 5% utilization"
+  },
+  "defaultSurfaceCaveat": "results/matrix-summary.json, results/promptfoo-latest.json, results/baseline-comparison.jsonl, and results/user-judge-queue.jsonl point only to this single google/gemma-4-26b-a4b@gpu_offload build-synthetic-smoke cell. Use this artifact and the raw JSONL for Stream 24.",
+  "assessment": "This closes the narrow gap that 26B had no practical row: the 26B offload local-fallback build cell completed 1/1 within the 300000 ms cap. It does not prove broad 26B quality, 26B partial performance, 31B/31B-QAT practicality, full Promptfoo coverage, subjective user review, final 3-solid selection, or final completion.",
+  "remainingGaps": [
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Large-model proof remains narrow: 26B has one completed offload build cell only; 31B has estimate-timeout evidence only; 31B-QAT has timeout-only practical evidence.",
+    "Qwen uncached current-suite throughput remains incomplete.",
+    "Broad partial-profile measurements remain incomplete.",
+    "Final two-verifier completion audit remains pending."
+  ]
+}

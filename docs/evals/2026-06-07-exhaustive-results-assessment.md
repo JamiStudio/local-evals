@@ -1,10 +1,10 @@
 # Exhaustive Results Assessment — Current Addendum (2026-06-07)
 
-**Status:** Current synthesis after Streams 9-23. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
+**Status:** Current synthesis after Streams 9-24. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
 
-**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. Stream 20 added one bounded mid-size partial-profile task slice only. Stream 21 audited remaining gaps only. Stream 22 added a safe Promptfoo no-cache pass-through plus one completed liquid no-cache cell and one qwen no-cache timeout. Stream 23 ran one improved strict qwen W7 tracker quality refresh. No cloud runs or baseline collection were performed in Streams 16-23.
+**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. Stream 20 added one bounded mid-size partial-profile task slice only. Stream 21 audited remaining gaps only. Stream 22 added a safe Promptfoo no-cache pass-through plus one completed liquid no-cache cell and one qwen no-cache timeout. Stream 23 ran one improved strict qwen W7 tracker quality refresh. Stream 24 ran exactly one 26B offload local-fallback practical cell. No cloud runs or baseline collection were performed in Streams 16-24.
 
 ## Current Coverage
 
@@ -51,7 +51,8 @@
 
 - **Stream 16 estimates:** `results/stream16-large-estimates.json` records fresh large-model gates. `google/gemma-4-26b-a4b` returned estimates for full, `gpu_partial_0.39`, and offload; the recommended partial estimate was 6.99 GiB GPU / 17.43 GiB total. `google/gemma-4-31b-qat` returned estimates for full, `gpu_partial_0.36`, and offload; the recommended partial estimate was 6.89 GiB GPU / 18.66 GiB total. `google/gemma-4-31b` estimate-only probes for full, `gpu_partial_0.35`, and offload each timed out at 120000 ms.
 - **Stream 16 practical attempt:** the first practical large cell was `google/gemma-4-31b-qat@gpu_partial_0.36`, local fallback only, `build-synthetic-smoke`, with `EVAL_CELL_TIMEOUT_MS=300000`. It wrote `results/matrix-2026-06-07T10-52-18-029Z.jsonl` with `status=eval_timeout`, `durationMs=300022`, and no pass count.
-- **Caveat:** this narrows the large-model evidence gap but does not prove practical large-model quality. The run stopped after the first practical timeout, so 26B and 31B Q4_K_M have no completed practical cells.
+- **Stream 24 practical retry:** the next bounded large cell was `google/gemma-4-26b-a4b@gpu_offload`, local fallback only, `build-synthetic-smoke`, with `EVAL_CELL_TIMEOUT_MS=300000`. It wrote `results/matrix-2026-06-07T13-03-06-317Z.jsonl` and `results/stream24-26b-offload-practical.json`: `status=completed`, `passes=1`, `total=1`, `durationMs=76163`, no timeout, and no load failure.
+- **Caveat:** Stream 24 closes only the narrow "26B has no practical row" gap. It does not prove broad 26B quality, 26B partial performance, 31B Q4_K_M practicality, or 31B-QAT practicality.
 
 ## What Is No Longer Accurate
 
@@ -68,7 +69,7 @@
 - Subjective user review for the qwen/liquid baseline-backed queues. Use `docs/evals/2026-06-07-user-review-packet.md` as the prepared packet; review is not complete.
 - W7 tracker quality acceptance. Stream 23 improved tool relevance, but the strict output missed a required section; user review and/or a later bounded repair remain open.
 - Full/broad local matrix completion across all models and all relevant profiles.
-- Large 26B/31B completed practical proof beyond Stream 16 estimate/timeout evidence.
+- Large 26B/31B completed practical proof beyond the narrow Stream 24 26B offload build row. 31B Q4_K_M remains estimate-timeout only, and 31B-QAT remains timeout-only for practical evidence.
 - Broad partial GPU profile measurements remain open: Stream 17 covers qwen/liquid profile sensitivity, and Stream 20 covers one mid-size task on recommended partials only. Stream 22 closes liquid no-cache throughput, but qwen no-cache throughput remains incomplete after timeout.
 - Wider mid-size task coverage beyond `build-synthetic-smoke` is narrowed by Stream 18, and one-task mid-size partial-profile coverage is narrowed by Stream 20, but broad mid-size suite/profile coverage remains open.
 - SOTA peer imports beyond the current Vertex baseline lane where policy requires them.
@@ -82,5 +83,6 @@ The campaign has progressed from stale smoke-only/W7-dry evidence to a much stro
 - liquid is the speed/triage control with fully backed review archives, but weaker deterministic score. Stream 17 did not show a pass-rate win for any liquid profile, so `gpu_full` remains speed/fit driven; Stream 22 adds completed no-cache timing for that placement.
 - cloud baselines remain the review ceiling and comparison anchor.
 - mid-size models have a repaired bounded local-fallback path for one build task, a small non-build task slice, and a one-task recommended-partial slice. This supports cautious incremental expansion, not broad quality claims.
+- 26B now has one completed bounded offload build row. This is useful feasibility evidence, not a candidate promotion or broad large-model proof.
 
 Do not promote final completion or final 3-solid decisions from this state.

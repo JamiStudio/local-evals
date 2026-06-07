@@ -1,0 +1,1 @@
+{"runId":"2026-06-07T13-03-06-317Z","modelKey":"google/gemma-4-26b-a4b","variant":"google/gemma-4-26b-a4b@q4_k_m","profileId":"gpu_offload","gpuFlag":"off","taskFilter":"build-synthetic-smoke","status":"completed","passes":1,"total":1,"durationMs":76163,"stderr":""}

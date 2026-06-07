@@ -100,7 +100,7 @@
       "estimateArtifact": "results/stream16-large-estimates.json",
       "timeoutArtifact": "results/matrix-2026-06-07T10-52-18-029Z.jsonl",
       "result": "26B and 31B-QAT estimates returned; 31B Q4_K_M estimate probes timed out; first practical 31B-QAT partial local fallback cell timed out at 300022 ms.",
-      "caveat": "No 26B/31B model has completed practical proof."
+      "caveat": "Stream 16 is estimate/timeout context; Stream 24 adds only one narrow 26B practical row."
     },
     "w7StrictQwenTrackerStream23": {
       "artifact": "results/daily-briefs/brief-20260607-125406.json",
@@ -126,6 +126,24 @@
         "final brief cut off during Recommended Actions",
         "does not complete W7 quality acceptance"
       ]
+    },
+    "largeModelStream24": {
+      "artifact": "results/stream24-26b-offload-practical.json",
+      "matrixJsonl": "results/matrix-2026-06-07T13-03-06-317Z.jsonl",
+      "comparisonArtifact": "results/baseline-comparison-stream24-26b-offload.jsonl",
+      "queueArtifact": "results/user-judge-queue-stream24-26b-offload.jsonl",
+      "modelKey": "google/gemma-4-26b-a4b",
+      "profileId": "gpu_offload",
+      "taskFilter": "build-synthetic-smoke",
+      "deterministic": {
+        "passes": 1,
+        "total": 1,
+        "durationMs": 76163,
+        "status": "completed",
+        "loadFailures": 0,
+        "timeouts": 0
+      },
+      "caveat": "One completed 26B offload build cell only; not broad 26B quality, not 26B partial proof, and not 31B/31B-QAT practical proof."
     }
   },
   "remainingGaps": [
@@ -133,7 +151,7 @@
     "Subjective user review remains pending.",
     "Final 3-solid selection remains incomplete.",
     "Broad/full local matrix coverage remains incomplete.",
-    "Large 26B/31B practical proof remains incomplete.",
+    "Large 26B/31B proof remains narrow: Stream 24 adds one completed 26B offload build row, while 26B partial, 31B Q4_K_M, and 31B-QAT practical usefulness remain incomplete.",
     "Broad partial-profile measurements outside contained slices remain incomplete.",
     "Final campaign completion verification remains incomplete."
   ]
