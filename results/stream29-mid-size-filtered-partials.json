@@ -1,0 +1,337 @@
+{
+  "stream": 29,
+  "at": "2026-06-07T14:38:30.000Z",
+  "purpose": "Use the Stream 28 Promptfoo metadata filter fix to run three mid-size recommended-partial, no-cache, filtered Promptfoo cells for build-synthetic-smoke.",
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/engineering/agents/orchestration-reliability.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md including Streams 18, 20, and 28",
+    "results/stream18-mid-size-task-slice.json",
+    "results/stream20-mid-size-partial-profile.json",
+    "results/stream28-qwen-uncached-single-task.json",
+    "results/optimization-state.json",
+    "results/system-profile.json",
+    "registry/runtime-snapshot.json",
+    "scripts/run-matrix.mjs EVAL_TASK_FILTER / --filter-metadata support",
+    "live git pull --ff-only",
+    "live git status --short",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runnerFilterConfirmation": {
+    "file": "scripts/run-matrix.mjs",
+    "behavior": "EVAL_PROMPTFOO_NO_CACHE=true appends --no-cache, and EVAL_TASK_FILTER appends --filter-metadata taskId=<taskFilter> before Promptfoo is spawned."
+  },
+  "runtimeBefore": {
+    "gitPull": "Already up to date.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 227 MiB used, 7761 MiB free, 0% utilization"
+  },
+  "constraintsHonored": {
+    "cellsRun": 3,
+    "exactlyRequestedCells": true,
+    "noFullSuite": true,
+    "noOffloadOrFullProfiles": true,
+    "noQwenLiquid26BOr31B": true,
+    "noRetriesAfterTimeouts": true,
+    "serialLoads": true
+  },
+  "matrixJsonls": [
+    "results/matrix-2026-06-07T14-21-42-814Z.jsonl",
+    "results/matrix-2026-06-07T14-27-16-266Z.jsonl",
+    "results/matrix-2026-06-07T14-32-53-076Z.jsonl"
+  ],
+  "cells": [
+    {
+      "command": {
+        "env": {
+          "EVAL_PROMPTFOO_NO_CACHE": "true",
+          "EVAL_TASK_FILTER": "build-synthetic-smoke",
+          "EVAL_SMOKE_MODELS": "google/gemma-4-12b",
+          "EVAL_SMOKE_PROFILES": "gpu_partial_0.9",
+          "EVAL_CELL_TIMEOUT_MS": "300000"
+        },
+        "command": "node scripts/run-matrix.mjs --smoke"
+      },
+      "artifact": "results/matrix-2026-06-07T14-21-42-814Z.jsonl",
+      "runId": "2026-06-07T14-21-42-814Z",
+      "modelKey": "google/gemma-4-12b",
+      "variant": "google/gemma-4-12b@q4_k_m",
+      "profileId": "gpu_partial_0.9",
+      "gpuFlag": "0.9",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 300033,
+      "timeout": true,
+      "loadFailure": false,
+      "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed.\n========================================================================================================================\n⚠️ The current version of promptfoo 0.120.27 is lower than the latest available version 0.121.15.\n\nPlease run npx promptfoo@latest or npm install -g promptfoo@latest to update.\n========================================================================================================================\n\r\nCache is disabled.\r\nStarting evaluation eval-ZV6-2026-06-07T14:21:46\r\nRunning 4 test cases (up to 1 at a time)...\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:google/gemma-4-12b\",\n  \"providerLabel\": \"local:google/gemma-4-12b (gpu_partial_0.9)\",\n  \"promptIdx\": 0,\n  \"testIdx\": 0,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}",
+      "promptfooEvidence": {
+        "promptfooBacked": true,
+        "noCacheRequested": true,
+        "stderrIncludesCacheDisabled": true,
+        "taskFilterApplied": true,
+        "promptfooStartedFourFilteredCases": true,
+        "tokenStatsAvailable": false,
+        "cachedTokens": null,
+        "note": "The cell timed out before Promptfoo wrote a fresh results/promptfoo-latest.json, so per-cell token usage/cache fields are unavailable. Stderr confirms --no-cache and the 4-case metadata-filtered task surface started."
+      },
+      "stream18OffloadLocalFallbackComparison": {
+        "sourceArtifact": "results/stream18-mid-size-task-slice.json",
+        "profileId": "gpu_offload",
+        "scope": "local fallback, three non-build task ids: research-harness-tools, plan-synthetic-smoke, tool-call-search-docs",
+        "cells": 3,
+        "passes": 2,
+        "total": 3,
+        "evalTimeout": 0,
+        "taskResults": {
+          "research-harness-tools": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 108166
+          },
+          "plan-synthetic-smoke": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 132757
+          },
+          "tool-call-search-docs": {
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 25036
+          }
+        },
+        "comparisonNote": "Stream 18 used local fallback, gpu_offload, and non-build task ids. Stream 29 used Promptfoo, no-cache, recommended partials, and build-synthetic-smoke. The scopes are not direct quality or throughput equivalents."
+      },
+      "stream20PartialLocalFallbackComparison": {
+        "sourceArtifact": "results/stream20-mid-size-partial-profile.json",
+        "scope": "local fallback, plan-synthetic-smoke, recommended partial profile",
+        "row": {
+          "profileId": "gpu_partial_0.9",
+          "taskFilter": "plan-synthetic-smoke",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 132311
+        },
+        "stream29Delta": {
+          "sameRecommendedPartialProfile": true,
+          "statusChangedFromCompletedToTimeout": true,
+          "durationDeltaMs": 167722
+        },
+        "comparisonNote": "Stream 20 proved the same recommended partial profile on one local-fallback plan task. Stream 29 did not preserve that success under Promptfoo no-cache build-synthetic-smoke; all rows timed out before pass totals."
+      }
+    },
+    {
+      "command": {
+        "env": {
+          "EVAL_PROMPTFOO_NO_CACHE": "true",
+          "EVAL_TASK_FILTER": "build-synthetic-smoke",
+          "EVAL_SMOKE_MODELS": "zai-org/glm-4.6v-flash",
+          "EVAL_SMOKE_PROFILES": "gpu_partial_0.88",
+          "EVAL_CELL_TIMEOUT_MS": "300000"
+        },
+        "command": "node scripts/run-matrix.mjs --smoke"
+      },
+      "artifact": "results/matrix-2026-06-07T14-27-16-266Z.jsonl",
+      "runId": "2026-06-07T14-27-16-266Z",
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "variant": "zai-org/glm-4.6v-flash@q4_k_m",
+      "profileId": "gpu_partial_0.88",
+      "gpuFlag": "0.88",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 300058,
+      "timeout": true,
+      "loadFailure": false,
+      "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed.\n========================================================================================================================\n⚠️ The current version of promptfoo 0.120.27 is lower than the latest available version 0.121.15.\n\nPlease run npx promptfoo@latest or npm install -g promptfoo@latest to update.\n========================================================================================================================\n\r\nCache is disabled.\r\nStarting evaluation eval-Syf-2026-06-07T14:27:20\r\nRunning 4 test cases (up to 1 at a time)...\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:zai-org/glm-4.6v-flash\",\n  \"providerLabel\": \"local:zai-org/glm-4.6v-flash (gpu_partial_0.88)\",\n  \"promptIdx\": 0,\n  \"testIdx\": 0,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}\r\nProvider call failed during eval\n{\n  \"providerId\": \"openai:chat:zai-org/glm-4.6v-flash\",\n  \"providerLabel\": \"local:zai-org/glm-4.6v-flash (gpu_partial_0.88)\",\n  \"promptIdx\": 1,\n  \"testIdx\": 0,\n  \"error\": {\n    \"name\": \"TypeError\",\n    \"message\": \"Cannot read properties of undefined (reading 'includes')\"\n  }\n}",
+      "promptfooEvidence": {
+        "promptfooBacked": true,
+        "noCacheRequested": true,
+        "stderrIncludesCacheDisabled": true,
+        "taskFilterApplied": true,
+        "promptfooStartedFourFilteredCases": true,
+        "tokenStatsAvailable": false,
+        "cachedTokens": null,
+        "note": "The cell timed out before Promptfoo wrote a fresh results/promptfoo-latest.json, so per-cell token usage/cache fields are unavailable. Stderr confirms --no-cache and the 4-case metadata-filtered task surface started."
+      },
+      "stream18OffloadLocalFallbackComparison": {
+        "sourceArtifact": "results/stream18-mid-size-task-slice.json",
+        "profileId": "gpu_offload",
+        "scope": "local fallback, three non-build task ids: research-harness-tools, plan-synthetic-smoke, tool-call-search-docs",
+        "cells": 3,
+        "passes": 2,
+        "total": 3,
+        "evalTimeout": 0,
+        "taskResults": {
+          "research-harness-tools": {
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 86508
+          },
+          "plan-synthetic-smoke": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 91615
+          },
+          "tool-call-search-docs": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 140808
+          }
+        },
+        "comparisonNote": "Stream 18 used local fallback, gpu_offload, and non-build task ids. Stream 29 used Promptfoo, no-cache, recommended partials, and build-synthetic-smoke. The scopes are not direct quality or throughput equivalents."
+      },
+      "stream20PartialLocalFallbackComparison": {
+        "sourceArtifact": "results/stream20-mid-size-partial-profile.json",
+        "scope": "local fallback, plan-synthetic-smoke, recommended partial profile",
+        "row": {
+          "profileId": "gpu_partial_0.88",
+          "taskFilter": "plan-synthetic-smoke",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 96438
+        },
+        "stream29Delta": {
+          "sameRecommendedPartialProfile": true,
+          "statusChangedFromCompletedToTimeout": true,
+          "durationDeltaMs": 203620
+        },
+        "comparisonNote": "Stream 20 proved the same recommended partial profile on one local-fallback plan task. Stream 29 did not preserve that success under Promptfoo no-cache build-synthetic-smoke; all rows timed out before pass totals."
+      }
+    },
+    {
+      "command": {
+        "env": {
+          "EVAL_PROMPTFOO_NO_CACHE": "true",
+          "EVAL_TASK_FILTER": "build-synthetic-smoke",
+          "EVAL_SMOKE_MODELS": "google/gemma-4-12b-qat",
+          "EVAL_SMOKE_PROFILES": "gpu_partial_0.95",
+          "EVAL_CELL_TIMEOUT_MS": "300000"
+        },
+        "command": "node scripts/run-matrix.mjs --smoke"
+      },
+      "artifact": "results/matrix-2026-06-07T14-32-53-076Z.jsonl",
+      "runId": "2026-06-07T14-32-53-076Z",
+      "modelKey": "google/gemma-4-12b-qat",
+      "variant": "google/gemma-4-12b-qat@q4_0",
+      "profileId": "gpu_partial_0.95",
+      "gpuFlag": "0.95",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 300053,
+      "timeout": true,
+      "loadFailure": false,
+      "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed.\n========================================================================================================================\n⚠️ The current version of promptfoo 0.120.27 is lower than the latest available version 0.121.15.\n\nPlease run npx promptfoo@latest or npm install -g promptfoo@latest to update.\n========================================================================================================================\n\r\nCache is disabled.\r\nStarting evaluation eval-znl-2026-06-07T14:32:58\r\nRunning 4 test cases (up to 1 at a time)...",
+      "promptfooEvidence": {
+        "promptfooBacked": true,
+        "noCacheRequested": true,
+        "stderrIncludesCacheDisabled": true,
+        "taskFilterApplied": true,
+        "promptfooStartedFourFilteredCases": true,
+        "tokenStatsAvailable": false,
+        "cachedTokens": null,
+        "note": "The cell timed out before Promptfoo wrote a fresh results/promptfoo-latest.json, so per-cell token usage/cache fields are unavailable. Stderr confirms --no-cache and the 4-case metadata-filtered task surface started."
+      },
+      "stream18OffloadLocalFallbackComparison": {
+        "sourceArtifact": "results/stream18-mid-size-task-slice.json",
+        "profileId": "gpu_offload",
+        "scope": "local fallback, three non-build task ids: research-harness-tools, plan-synthetic-smoke, tool-call-search-docs",
+        "cells": 3,
+        "passes": 2,
+        "total": 3,
+        "evalTimeout": 0,
+        "taskResults": {
+          "research-harness-tools": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 122693
+          },
+          "plan-synthetic-smoke": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 131545
+          },
+          "tool-call-search-docs": {
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 18645
+          }
+        },
+        "comparisonNote": "Stream 18 used local fallback, gpu_offload, and non-build task ids. Stream 29 used Promptfoo, no-cache, recommended partials, and build-synthetic-smoke. The scopes are not direct quality or throughput equivalents."
+      },
+      "stream20PartialLocalFallbackComparison": {
+        "sourceArtifact": "results/stream20-mid-size-partial-profile.json",
+        "scope": "local fallback, plan-synthetic-smoke, recommended partial profile",
+        "row": {
+          "profileId": "gpu_partial_0.95",
+          "taskFilter": "plan-synthetic-smoke",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 126922
+        },
+        "stream29Delta": {
+          "sameRecommendedPartialProfile": true,
+          "statusChangedFromCompletedToTimeout": true,
+          "durationDeltaMs": 173131
+        },
+        "comparisonNote": "Stream 20 proved the same recommended partial profile on one local-fallback plan task. Stream 29 did not preserve that success under Promptfoo no-cache build-synthetic-smoke; all rows timed out before pass totals."
+      }
+    }
+  ],
+  "totals": {
+    "cells": 3,
+    "completed": 0,
+    "evalFailed": 0,
+    "evalTimeout": 3,
+    "loadFailures": 0,
+    "passes": 0,
+    "total": 0
+  },
+  "promptfooLatestCaveat": {
+    "promptfooLatestPath": "results/promptfoo-latest.json",
+    "staleEvalId": "eval-OcW-2026-06-07T14:08:51",
+    "staleSurface": "Stream 28 qwen/qwen3.5-9b@gpu_offload build-synthetic-smoke no-cache failure surface",
+    "reason": "All Stream 29 cells timed out before Promptfoo wrote a fresh output file."
+  },
+  "comparisonArtifacts": {
+    "generated": false,
+    "reason": "No Stream 29 cell refreshed results/promptfoo-latest.json. Running compare-to-baseline or queue-user-judge would archive the stale Stream 28 qwen surface, not Stream 29.",
+    "perCellArchivePossibleWithoutRerun": false,
+    "limitation": "Promptfoo writes a single configured output path, and each Stream 29 timed-out subprocess exited before writing a usable per-cell Promptfoo output file."
+  },
+  "runtimeAfter": {
+    "lmsPs": "No models are currently loaded after explicit lms unload --all after timeout rows.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 185 MiB used, 7803 MiB free, 5% utilization"
+  },
+  "gapOutcome": {
+    "narrowed": [
+      "Adds three exact Promptfoo-backed, no-cache, metadata-filtered recommended-partial timeout rows for mid-size models on build-synthetic-smoke.",
+      "Confirms the Stream 28 task filter fix applies to these mid-size Promptfoo cells: stderr shows cache disabled and 4 filtered test cases for each row."
+    ],
+    "notClosed": [
+      "Broad/full local matrix coverage remains incomplete.",
+      "Broad mid-size partial-profile quality and throughput remain incomplete because all three Promptfoo rows timed out before pass totals.",
+      "The successful Stream 20 local-fallback partial rows were not reproduced under Promptfoo no-cache build-synthetic-smoke.",
+      "Subjective user review, final 3-solid selection, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, and final verifier audit remain open."
+    ]
+  }
+}

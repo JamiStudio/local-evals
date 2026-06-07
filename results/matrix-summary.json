@@ -1,33 +1,22 @@
 {
-  "at": "2026-06-07T14:17:53.969Z",
-  "matrixFile": "matrix-2026-06-07T14-08-47-000Z.jsonl",
-  "runId": "2026-06-07T14-08-47-000Z",
+  "at": "2026-06-07T14:43:09.092Z",
+  "matrixFile": "matrix-2026-06-07T14-32-53-076Z.jsonl",
+  "runId": "2026-06-07T14-32-53-076Z",
   "cells": [
     {
-      "modelKey": "qwen/qwen3.5-9b",
-      "profileId": "gpu_offload",
-      "status": "eval_failed",
-      "durationMs": 261012,
-      "passRate": {
-        "passes": 0,
-        "total": 4
-      },
-      "evalOk": false
+      "modelKey": "google/gemma-4-12b-qat",
+      "profileId": "gpu_partial_0.95",
+      "status": "eval_timeout",
+      "durationMs": 300053,
+      "passRate": null,
+      "evalOk": null
     }
   ],
   "totals": {
     "cells": 1,
     "completed": 0,
     "loadFailed": 0,
-    "avgPassRate": 0
+    "avgPassRate": null
   },
-  "leaderboard": [
-    {
-      "modelKey": "qwen/qwen3.5-9b",
-      "profileId": "gpu_offload",
-      "passes": 0,
-      "total": 4,
-      "pct": 0
-    }
-  ]
+  "leaderboard": []
 }

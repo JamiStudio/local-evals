@@ -231,7 +231,8 @@
     "Stream 25 31B-QAT offload practical probe is complete: google/gemma-4-31b-qat@gpu_offload local fallback build-synthetic-smoke timed out at 300031 ms with no pass totals; promptfoo-latest was not refreshed, so no Stream 25 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
     "Stream 26 26B partial practical probe is complete: google/gemma-4-26b-a4b@gpu_partial_0.39 local fallback build-synthetic-smoke completed 1/1 in 72024 ms with no timeout/load failure; default summary/promptfoo/compare/queue point to this one-cell surface and stream26 compare/queue archives were generated. Remaining gaps: user review, final 3-solid, broad/full matrix, 31B/31B-QAT practical proof, broad partial profiles, qwen uncached throughput, and final verification.",
     "Stream 27 W7 section repair is complete: qwen strict tracker wrote a no-fallback model_final artifact with all five required sections present, tps=3.0, wall 513.05s, usage 9752/1531/11283, and no tool failures; this repairs the Stream 23 Token & Speed omission but W7 quality acceptance remains user-review gated because the model text used pending speed placeholders and action-quality caveats remain.",
-    "Stream 28 qwen no-cache single-task probe is complete: after adding Promptfoo --filter-metadata taskId pass-through for EVAL_TASK_FILTER, qwen/qwen3.5-9b@gpu_offload build-synthetic-smoke ran no-cache and completed as eval_failed 0/4 in 261012 ms with cached tokens 0; this closes only the no completed qwen no-cache row at all evidence gap, while full 40-case no-cache throughput remains incomplete."
+    "Stream 28 qwen no-cache single-task probe is complete: after adding Promptfoo --filter-metadata taskId pass-through for EVAL_TASK_FILTER, qwen/qwen3.5-9b@gpu_offload build-synthetic-smoke ran no-cache and completed as eval_failed 0/4 in 261012 ms with cached tokens 0; this closes only the no completed qwen no-cache row at all evidence gap, while full 40-case no-cache throughput remains incomplete.",
+    "Stream 29 mid-size filtered partials is complete: google/gemma-4-12b@gpu_partial_0.9, zai-org/glm-4.6v-flash@gpu_partial_0.88, and google/gemma-4-12b-qat@gpu_partial_0.95 ran Promptfoo no-cache build-synthetic-smoke with the Stream 28 metadata filter fix; all three timed out at ~300s before pass totals while stderr confirmed cache disabled and 4 filtered cases. No compare/queue archives were generated because promptfoo-latest remained the stale Stream 28 surface. Remaining gaps: user review, final 3-solid, broad/full matrix, broad partial profiles, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, and final verification."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -2675,5 +2676,81 @@
       "The Stream 28 row failed 0/4 and reported no prompt/completion tokens because Promptfoo errored on undefined output before normal scoring.",
       "Qwen quality acceptance, final 3-solid selection, broad/full local matrix coverage, 31B/31B-QAT practical proof, broad partial-profile coverage, subjective user review, and final verifier audit remain open."
     ]
+  },
+  "stream29MidSizeFilteredPartials": {
+    "at": "2026-06-07T14:38:30.000Z",
+    "scope": "Three exact Promptfoo-backed, no-cache, metadata-filtered build-synthetic-smoke cells for mid-size recommended partial profiles only.",
+    "sourceTruthReadBeforeLoad": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Streams 18, 20, 28 and remaining broad/full + partial-profile gaps",
+      "results/stream18-mid-size-task-slice.json",
+      "results/stream20-mid-size-partial-profile.json",
+      "results/stream28-qwen-uncached-single-task.json",
+      "results/optimization-state.json",
+      "results/system-profile.json",
+      "registry/runtime-snapshot.json",
+      "scripts/run-matrix.mjs EVAL_TASK_FILTER pass-through",
+      "live git pull --ff-only, git status --short, lms ps, nvidia-smi"
+    ],
+    "runtimeBefore": {
+      "gitPull": "Already up to date.",
+      "gitStatusShort": "",
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 227 MiB used, 7761 MiB free, 0% utilization"
+    },
+    "matrixJsonls": [
+      "results/matrix-2026-06-07T14-21-42-814Z.jsonl",
+      "results/matrix-2026-06-07T14-27-16-266Z.jsonl",
+      "results/matrix-2026-06-07T14-32-53-076Z.jsonl"
+    ],
+    "cells": [
+      {
+        "modelKey": "google/gemma-4-12b",
+        "profileId": "gpu_partial_0.9",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "eval_timeout",
+        "passes": null,
+        "total": null,
+        "durationMs": 300033
+      },
+      {
+        "modelKey": "zai-org/glm-4.6v-flash",
+        "profileId": "gpu_partial_0.88",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "eval_timeout",
+        "passes": null,
+        "total": null,
+        "durationMs": 300058
+      },
+      {
+        "modelKey": "google/gemma-4-12b-qat",
+        "profileId": "gpu_partial_0.95",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "eval_timeout",
+        "passes": null,
+        "total": null,
+        "durationMs": 300053
+      }
+    ],
+    "totals": {
+      "cells": 3,
+      "completed": 0,
+      "evalTimeout": 3,
+      "loadFailures": 0,
+      "passes": 0,
+      "total": 0
+    },
+    "promptfooEvidence": "Each stderr shows Cache is disabled and Running 4 test cases, confirming --no-cache plus --filter-metadata taskId=build-synthetic-smoke reached Promptfoo. All rows timed out before Promptfoo wrote fresh token/cache stats.",
+    "comparisonArtifacts": {
+      "generated": false,
+      "reason": "results/promptfoo-latest.json remained the Stream 28 qwen surface, so compare/queue archives would be stale and were intentionally not generated."
+    },
+    "runtimeAfter": {
+      "lmsPs": "No models are currently loaded after explicit unloads.",
+      "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 185 MiB used, 7803 MiB free, 5% utilization"
+    },
+    "gapOutcome": "Narrows broad/full and broad partial-profile gaps only by adding three exact no-cache filtered timeout rows. It does not close broad/full matrix coverage, broad partial-profile quality/throughput, subjective user review, final 3-solid selection, qwen full 40-case no-cache throughput, 31B/31B-QAT practical proof, or final verifier audit."
   }
 }
