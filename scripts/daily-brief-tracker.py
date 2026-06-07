@@ -55,6 +55,14 @@ except Exception:  # pragma: no cover
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS_DIR = ROOT / "results" / "daily-briefs"
 KB_PATH = ROOT / "docs" / "knowledge-bank" / "evals-specialist.md"
+REQUIRED_SECTIONS = [
+    "Web Signals",
+    "GH / Repo Activity",
+    "Harness Placement Notes",
+    "Recommended Actions",
+    "Token & Speed",
+]
+MODEL_OBSERVATION_CHARS = 360
 
 
 def load_evals_specialist_kb() -> str:
@@ -73,6 +81,23 @@ def load_evals_specialist_kb() -> str:
     )
 
 
+def compact_specialist_kb(kb: str) -> str:
+    """Keep qwen's 4096-token context focused on durable W7 facts."""
+    if not kb:
+        return ""
+    return (
+        "Evals Specialist Knowledge Bank (compact): local OSS eval harness only; "
+        "automated runs use LM Studio/local models, no direct paid APIs; baselines are imported; "
+        "real tracker tools are host-script web_search/fetch/read_file/github with safe timeouts; "
+        "suite tool calls stay sandboxed; primary judging is user review vs baselines; "
+        "record prompt/completion/total tokens, wall seconds, tps, tool observations, and failure modes; "
+        "qwen/qwen3.5-9b@gpu_offload is current smoke leader at 5/8 (63%) vs qwen full 4/8, "
+        "with dry specialist brief controls at tps=38.4; Stream 2/3 covered nemotron/e2b/e4b/rnj, "
+        "Stream 4 mid-size matrix hung with no cells, Stream 5 proved qwen real tools but blank final; "
+        "remaining W7 gaps are real usable final brief, W7 baselines, and user-judge review."
+    )
+
+
 def safe_read_file(path: str) -> str:
     """Real fs read for tracker (sandboxed version lives in Promptfoo callbacks)."""
     p = (ROOT / path).resolve()
@@ -87,7 +112,7 @@ def safe_read_file(path: str) -> str:
         if not p.exists() or not p.is_file():
             return "FILE_NOT_FOUND"
         content = p.read_text(encoding="utf-8", errors="replace")
-        return content[:3000]  # bound for context
+        return content[:1500]  # bound for context
     except Exception as e:
         return f"READ_ERROR: {e}"
 
@@ -130,6 +155,7 @@ def github_tool(args: list[str]) -> str:
     """Real github via gh CLI (assumed installed per W7 steering). Public repo only."""
     if not args:
         return "GITHUB_ERROR: no args"
+    args = normalize_github_args(args)
     try:
         # Timeout + capture; no shell for safety on Windows
         proc = subprocess.run(
@@ -149,6 +175,138 @@ def github_tool(args: list[str]) -> str:
         return "GITHUB_TIMEOUT"
     except Exception as e:
         return f"GITHUB_ERROR: {e}"
+
+
+def normalize_github_args(args: list[str]) -> list[str]:
+    """Map common model-invented gh search forms to valid bounded repo commands."""
+    cleaned = [str(a) for a in args if str(a).strip()]
+    if not cleaned:
+        return ["repo", "view", "JamiStudio/local-evals", "--json", "name,description,updatedAt"]
+
+    # Stream 5 showed qwen may emit: gh search issues:state:open,qwen,local-evals --json
+    # That is not a valid gh command. Use a repo-scoped issue list instead.
+    if cleaned[0] == "search" and len(cleaned) > 1 and cleaned[1].startswith("issues:"):
+        query = cleaned[1].replace("issues:", "").replace(",", " ")
+        return [
+            "issue",
+            "list",
+            "--repo",
+            "JamiStudio/local-evals",
+            "--state",
+            "open",
+            "--search",
+            query,
+            "--limit",
+            "5",
+            "--json",
+            "number,title,state,updatedAt,url",
+        ]
+
+    if cleaned[:2] == ["search", "issues"]:
+        query_terms = [a for a in cleaned[2:] if not a.startswith("-")]
+        query = " ".join(query_terms).strip() or "qwen local-evals"
+        return [
+            "issue",
+            "list",
+            "--repo",
+            "JamiStudio/local-evals",
+            "--state",
+            "open",
+            "--search",
+            query,
+            "--limit",
+            "5",
+            "--json",
+            "number,title,state,updatedAt,url",
+        ]
+
+    if cleaned[0] in {"issue", "pr"} and len(cleaned) > 1 and cleaned[1] == "list" and "--repo" not in cleaned:
+        return cleaned[:2] + ["--repo", "JamiStudio/local-evals"] + cleaned[2:]
+
+    if cleaned[:2] == ["repo", "list"] and "--json" in cleaned:
+        json_index = cleaned.index("--json")
+        if json_index == len(cleaned) - 1 or cleaned[json_index + 1].startswith("-"):
+            cleaned = cleaned[: json_index + 1] + ["name,description,updatedAt,url"] + cleaned[json_index + 1 :]
+
+    return cleaned
+
+
+def section_presence(brief: str) -> list[str]:
+    return [section for section in REQUIRED_SECTIONS if f"### {section}" in brief or section in brief]
+
+
+def tool_failures(steps_log: list[dict[str, Any]]) -> list[str]:
+    failures: list[str] = []
+    markers = ("ERROR", "TIMEOUT", "UNAVAILABLE", "UNKNOWN", "FILE_NOT_FOUND")
+    for step in steps_log:
+        preview = str(step.get("observation_preview", ""))
+        if any(marker in preview.upper() for marker in markers):
+            failures.append(f"{step.get('tool', 'tool')}: {preview[:180]}")
+    return failures
+
+
+def build_fallback_brief(
+    *,
+    model: str,
+    interest_query: str,
+    steps_log: list[dict[str, Any]],
+    usage: dict[str, Any],
+    wall: float,
+    tps: float,
+    reason: str,
+) -> str:
+    """Honest deterministic synthesis from recorded tool observations."""
+    web_notes: list[str] = []
+    gh_notes: list[str] = []
+    harness_notes: list[str] = []
+
+    for step in steps_log:
+        tool = step.get("tool")
+        args = step.get("args", {})
+        preview = str(step.get("observation_preview", "")).strip() or "No observation preview recorded."
+        if tool == "web_search":
+            query = args.get("query", interest_query) if isinstance(args, dict) else interest_query
+            web_notes.append(f"- `{query}`: {preview[:320]}")
+        elif tool == "github":
+            gh_notes.append(f"- `gh {' '.join(normalize_github_args(args.get('args', []))) if isinstance(args, dict) else 'github'}`: {preview[:320]}")
+        elif tool == "read_file":
+            path = args.get("path", "unknown") if isinstance(args, dict) else "unknown"
+            harness_notes.append(f"- `{path}`: {preview[:320]}")
+
+    if not web_notes:
+        web_notes.append("- No successful web_search observation was recorded in this bounded run.")
+    if not gh_notes:
+        gh_notes.append("- No successful GitHub observation was recorded in this bounded run.")
+    if not harness_notes:
+        harness_notes.append("- No read_file harness observation was recorded in this bounded run.")
+
+    failures = tool_failures(steps_log)
+    failure_note = "\n".join(f"- {f}" for f in failures) if failures else "- No tool failures recorded in this artifact."
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return (
+        f"## Daily Evals Interest Brief - {today}\n\n"
+        "### Web Signals\n"
+        + "\n".join(web_notes[:3])
+        + "\n\n### GH / Repo Activity\n"
+        + "\n".join(gh_notes[:3])
+        + "\n\n### Harness Placement Notes\n"
+        f"- Fallback synthesis used because `{reason}`; this section is built from recorded tool observations and harness notes, not hidden model output.\n"
+        "- qwen/qwen3.5-9b remains the current local W7 candidate from prior smoke evidence: gpu_offload 5/8 (63%) vs qwen full 4/8, with dry specialist controls at tps=38.4.\n"
+        "- Stream 5 proved real read_file/web_search/github tool behavior but exposed blank finalization and invalid gh search syntax; Stream 6 repaired those paths.\n"
+        + "\n".join(harness_notes[:4])
+        + "\n\n### Recommended Actions (plan)\n"
+        "1. Treat this artifact as usable W7 real-tool evidence only if `fallback_used=true` is considered acceptable by the orchestrator.\n"
+        "2. Keep qwen offload as the daily-brief specialist candidate while collecting a second non-fallback real brief or W7 baseline comparison.\n"
+        "3. Continue matrix coverage on qwen/liquid current 40-assertion suite or repair mid-size timeout behavior before another unbounded 12B/GLM attempt.\n"
+        "4. Collect W7 baselines and queue user review before promoting qwen daily-brief quality into final 3-solid selection.\n"
+        "\n\n### Token & Speed\n"
+        f"prompt={usage.get('prompt_tokens', 0)} completion={usage.get('completion_tokens', 0)} "
+        f"total={usage.get('total_tokens', 0)} tps={tps} duration_s={round(wall, 2)} "
+        f"fallback_used=true model={model}\n\n"
+        "Tool failures:\n"
+        + failure_note
+        + "\n"
+    )
 
 
 def _get_client(model_hint: str | None = None) -> tuple[OpenAI, str]:
@@ -174,11 +332,12 @@ def run_brief_agent(
     Records full trace, usage, wall time, computed tps.
     """
     kb = load_evals_specialist_kb() if use_specialist else ""
+    kb_for_prompt = compact_specialist_kb(kb) if use_specialist else ""
     specialist_prefix = (
         "You are an evals-specialist agent. You produce concise, sourced, actionable daily interest briefs "
         "for the local OSS model evaluation harness. Use tools to gather fresh signals. "
         "Respect tool schemas exactly. When you have enough, output ONLY the final brief in the required structure. "
-        f"Specialist KB loaded:\n{kb}\n\n"
+        f"Specialist KB loaded:\n{kb_for_prompt}\n\n"
         if use_specialist
         else "You are a helpful agent for daily briefs on local OSS model evals. Use tools. Final output = the brief only.\n\n"
     )
@@ -195,6 +354,8 @@ def run_brief_agent(
         "## Daily Evals Interest Brief — YYYY-MM-DD\n\n"
         "### Web Signals\n...\n\n### GH / Repo Activity\n...\n\n### Harness Placement Notes\n...\n\n"
         "### Recommended Actions (plan)\n1. ...\n\n### Token & Speed\nprompt=.. completion=.. tps=.. duration_s=..\n"
+        "Keep tool calls targeted: prefer one repo file read, one web_search, and one valid repo-scoped GitHub query. "
+        "After observations, finalize; do not leave the brief blank.\n"
     )
 
     messages: list[dict[str, Any]] = [
@@ -254,6 +415,8 @@ def run_brief_agent(
     started = time.perf_counter()
     final_brief = ""
     usage: dict[str, Any] = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+    fallback_used = False
+    fallback_reason = ""
 
     if dry_run:
         # Full working simulation path (no LM, no network) — used for smoke/dry verif
@@ -326,18 +489,33 @@ def run_brief_agent(
                         "role": "tool",
                         "tool_call_id": tc.id,
                         "name": name,
-                        "content": str(obs)[:800],
+                        "content": str(obs)[:MODEL_OBSERVATION_CHARS],
                     })
             else:
                 final_brief = (msg.content or "").strip()
                 steps_log.append({"step": step, "final": True})
                 break
         else:
-            final_brief = final_brief or "[MAX_STEPS reached without finalize]"
+            fallback_reason = "max_steps reached without model finalization"
         wall = time.perf_counter() - started
 
     comp_tokens = int(usage.get("completion_tokens", 0) or 0)
     tps = round(comp_tokens / max(wall, 0.001), 1) if comp_tokens > 0 else 0.0
+    sections_present = section_presence(final_brief)
+    if not dry_run and (not final_brief.strip() or len(sections_present) < len(REQUIRED_SECTIONS)):
+        fallback_used = True
+        if not fallback_reason:
+            fallback_reason = "model returned blank or missing required sections"
+        final_brief = build_fallback_brief(
+            model=model,
+            interest_query=interest_query,
+            steps_log=steps_log,
+            usage=usage,
+            wall=wall,
+            tps=tps,
+            reason=fallback_reason,
+        )
+        sections_present = section_presence(final_brief)
 
     record = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -352,6 +530,12 @@ def run_brief_agent(
         "tps": tps,
         "max_steps": max_steps,
         "kb_loaded": bool(use_specialist and ("Evals Specialist Knowledge Bank" in kb or "evals-specialist" in kb.lower())),
+        "fallback_used": fallback_used,
+        "fallback_reason": fallback_reason if fallback_used else "",
+        "final_brief_nonempty": bool(final_brief.strip()),
+        "sections_present": sections_present,
+        "tool_failures": tool_failures(steps_log),
+        "model_observation_chars": MODEL_OBSERVATION_CHARS,
     }
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)

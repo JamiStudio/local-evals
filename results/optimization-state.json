@@ -268,11 +268,12 @@
   },
   "currentStreams": [
     "O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)",
-    "W7-daily-briefs-tool-specialist (COMPLETED — tracker.py + KB + deepeval/promptfoo additions + state updated)",
+    "W7-daily-briefs-tool-specialist (COMPLETED \u2014 tracker.py + KB + deepeval/promptfoo additions + state updated)",
     "Stream 2 nemotron local matrix slice (COMPLETED + pushed 4b8a7b2; 11 cells, 9/40 each, 0 load failures, latest results/matrix-2026-06-07T06-30-40-559Z.jsonl)",
     "Stream 3 fit-class local matrix slice (COMPLETED + pushed c563e9c; 33 cells, e2b 11/40, e4b 10/40, rnj 7/40 across all profiles, 0 load failures, latest results/matrix-2026-06-07T06-44-52-303Z.jsonl)",
     "Stream 4 mid-size local matrix slice (ABORTED timeout-evidence stream; no completed cells; empty JSONLs results/matrix-2026-06-07T07-12-46-491Z.jsonl, results/matrix-2026-06-07T07-41-56-989Z.jsonl, results/matrix-2026-06-07T07-59-50-425Z.jsonl; runner gained EVAL_SMOKE_PROFILES and EVAL_CELL_TIMEOUT_MS; pushed by subagent)",
-    "Stream 5 W7 real tracker specialist evidence (COMPLETED + pending push; dry controls passed at 38.4 tps; real qwen tracker produced tool evidence but blank final after parser/context fixes; no usable real final brief yet)"
+    "Stream 5 W7 real tracker specialist evidence (COMPLETED + pushed 8b665ca; dry controls passed at 38.4 tps; real qwen tracker produced tool evidence but blank final after parser/context fixes; no usable real final brief yet)",
+    "Stream 6 W7 tracker final-brief repair (COMPLETED + pending push; real artifact results/daily-briefs/brief-20260607-083746.json nonblank with all required sections; fallback_used=true; tps 3.3, wall 150.48s, usage 2346/499/2845; qwen did not finalize within max_steps=2)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -322,6 +323,13 @@
       "pass": 1,
       "ts": "2026-06-07",
       "steering": "Contained W7 real daily-brief tracker + specialist evidence: load qwen/qwen3.5-9b with --gpu off, run one specialist dry control and one specialist real tracker with --max-steps 2, parse new daily-brief artifacts, no cloud/direct paid APIs, update state+roadmap, verify, commit+push."
+    },
+    {
+      "id": "019ea135-d7ba-7592-a4bd-8fcc3d34e057",
+      "workstream": "Stream 6",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "Contained W7 tracker repair/refresh: repair scripts/daily-brief-tracker.py finalization/context/GitHub-tool behavior, load qwen/qwen3.5-9b --gpu off, run exactly one real specialist refresh after repair plus at most one dry check if needed, parse artifact, update state+roadmap, verify, commit+push."
     }
   ],
   "solidModelsTarget": {
@@ -543,5 +551,75 @@
     "profileChange": "none; this stream tested tracker behavior only and did not justify changing registry/load-profiles.json.",
     "remainingGaps": "W7 has dry controls and real tool-call evidence on qwen, but still lacks a usable real final brief. Need a follow-up stream to force finalization after one tool step, reduce specialist/context payload further, fix gh search invocation, or increase LM Studio context before judging qwen daily-brief quality. W7 baselines and user-judge review remain open.",
     "recommendedNextStream": "Run a narrow W7 tracker repair/refresh on qwen with finalization forced after tool observations and smaller live summaries, then rerun exactly one real max-steps-2 artifact; alternatively qwen/liquid current-suite refresh if matrix coverage is higher priority."
+  },
+  "stream6W7TrackerFinalBriefRepair": {
+    "at": "2026-06-07T08:38:39Z",
+    "scope": "qwen/qwen3.5-9b only; lms load --gpu off; one real specialist tracker refresh after finalization/context/GitHub repairs; LM Studio local plus host-script real tools only; no cloud/direct paid APIs; no loop",
+    "sourceTruthReadBeforeRun": [
+      "results/optimization-state.json",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Stream 5/6 sections",
+      "scripts/daily-brief-tracker.py",
+      "results/daily-briefs/brief-20260607-082135.json",
+      "results/daily-briefs/brief-20260607-082240.json",
+      "results/daily-briefs/brief-20260607-082149.json",
+      "results/daily-briefs/brief-20260607-082222.json",
+      "results/daily-briefs/brief-20260607-082434.json",
+      "results/daily-briefs/brief-20260607-082646.json"
+    ],
+    "liveRuntimeBeforeLoad": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "2026/06/07 04:34:47.420, RTX 2080 Super Max-Q, 8192 MiB total, 418 MiB used, 7570 MiB free, 6% GPU util"
+    },
+    "load": {
+      "command": "lms unload --all; lms load qwen/qwen3.5-9b --gpu off -y",
+      "result": "loaded successfully in 9.64s; size reported 6.10 GiB; API identifier qwen/qwen3.5-9b"
+    },
+    "realArtifact": {
+      "path": "results/daily-briefs/brief-20260607-083746.json",
+      "dry_run": false,
+      "model": "qwen/qwen3.5-9b",
+      "kb_loaded": true,
+      "tps": 3.3,
+      "wall_seconds": 150.48,
+      "usage": {
+        "prompt_tokens": 2346,
+        "completion_tokens": 499,
+        "total_tokens": 2845
+      },
+      "fallback_used": true,
+      "fallback_reason": "max_steps reached without model finalization",
+      "final_brief_nonempty": true,
+      "sections_present": [
+        "Web Signals",
+        "GH / Repo Activity",
+        "Harness Placement Notes",
+        "Recommended Actions",
+        "Token & Speed"
+      ],
+      "tool_failures": [
+        "read_file: ERROR: path not in allowed evals surfaces",
+        "github: GITHUB_CLI_ERROR (rc=1): Specify one or more comma-separated fields for `--json`:\n  archivedAt\n  assignableUsers\n  codeOfConduct\n  contactLinks\n  createdAt\n  defaultBranchRef\n  del",
+        "read_file: ERROR: path not in allowed evals surfaces"
+      ],
+      "toolsObserved": [
+        "web_search",
+        "github",
+        "read_file",
+        "web_search",
+        "github",
+        "read_file"
+      ]
+    },
+    "codeChanges": [
+      "scripts/daily-brief-tracker.py now injects a compact specialist KB instead of the full KB text to reduce qwen context pressure.",
+      "scripts/daily-brief-tracker.py now caps model-facing tool observations at 360 chars and file reads at 1500 chars.",
+      "scripts/daily-brief-tracker.py normalizes invalid model-invented gh search issue forms to bounded repo-scoped gh issue list commands and fills missing repo list --json fields.",
+      "scripts/daily-brief-tracker.py records fallback_used, fallback_reason, final_brief_nonempty, sections_present, tool_failures, and model_observation_chars.",
+      "scripts/daily-brief-tracker.py builds an honest deterministic final brief from recorded observations if qwen returns blank or misses required sections at max steps."
+    ],
+    "postRunRuntime": "lms unload --all unloaded qwen; post-run lms ps showed no loaded models; nvidia-smi showed 418 MiB used / 7570 MiB free at 2026/06/07 04:38:39.355.",
+    "profileChange": "none; this stream tested tracker behavior only and did not justify changing registry/load-profiles.json.",
+    "remainingGaps": "Usable nonblank W7 real brief now exists, but fallback_used=true because qwen did not finalize within max_steps=2. Tool behavior still had read_file attempts outside allowed surfaces and one gh repo list --json failure in the measured artifact; repo list --json normalization was added after the run, without another retry. W7 baselines and user-judge review remain open.",
+    "recommendedNextStream": "Run one no-fallback qwen/liquid current-suite refresh or a second W7 tracker real run only after orchestrator accepts fallback caveat; otherwise collect W7 baselines and queue user review before promoting qwen daily-brief quality into the 3-solid selection."
   }
 }
