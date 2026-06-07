@@ -638,12 +638,13 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 34 closes only the "was 300s too tight for terminal status" question. 31B-QAT still has no practical success row: partial timed out, 300s offload timed out, and extended offload failed `0/1` with empty output after `305466 ms`. Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, and final two-verifier audit remain pending.
 
 **Stream 35 dispatch checkpoint (contained stream, 2026-06-07):**
-- Agent: `019ea2be-e1b2-7760-ab79-a16783f3db71` (`Kierkegaard`).
+- Original agent `019ea2be-e1b2-7760-ab79-a16783f3db71` (`Kierkegaard`) crashed before producing a row; `results/matrix-2026-06-07T15-42-34-484Z.jsonl` remained 0 bytes and is treated as abandoned crash evidence only.
+- Replacement agent: `019ea2ca-69ed-76b2-80a6-09b6f021f67b` (`Curie`).
 - Workstream/pass: Contained Stream 35, one extended qwen full current-suite no-cache Promptfoo cell.
 - Dispatch timestamp: 2026-06-07 after Stream 34 audit.
 - Ownership boundary: exactly one LM Studio local Promptfoo cell, `EVAL_PROMPTFOO_NO_CACHE=true`, no `EVAL_TASK_FILTER`, `EVAL_SMOKE_MODELS=qwen/qwen3.5-9b`, `EVAL_SMOKE_PROFILES=gpu_offload`, `EVAL_CELL_TIMEOUT_MS=2400000`; no other qwen profile, no other models, no retry.
 - Expected deliverables: `results/stream35-qwen-full-no-cache-extended.json`, one full-suite matrix JSONL row, targeted status updates, and this roadmap checkpoint.
-- Next coordinator action: poll in short intervals until commit+push, then audit whether qwen full 40-case no-cache moved from Stream 22 timeout-only evidence to a terminal pass/fail/timeout row under the longer cap.
+- Next coordinator action: poll Curie in short intervals until commit+push, then audit whether qwen full 40-case no-cache moved from Stream 22 timeout-only evidence to a terminal pass/fail/timeout row under the longer cap.
 
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.
