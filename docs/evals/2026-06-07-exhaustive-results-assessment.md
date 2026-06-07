@@ -1,8 +1,8 @@
 # Exhaustive Results Assessment — Current Addendum (2026-06-07)
 
-**Status:** Current synthesis after Streams 9-14. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
+**Status:** Current synthesis after Streams 9-16. This report corrects older pre-Stream-9 language. It does not claim final exhaustive completion.
 
-**Boundary:** Docs/report/state synthesis only. No model loads, matrix runs, cloud runs, or baseline collection were performed in Stream 15.
+**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. No cloud runs or baseline collection were performed in either stream.
 
 ## Current Coverage
 
@@ -34,6 +34,12 @@
 - **Stream 14:** bounded local fallback proof for `zai-org/glm-4.6v-flash@gpu_offload`, `1/1`, `97743 ms`, and `google/gemma-4-12b-qat@gpu_offload`, `1/1`, `70425 ms`.
 - **Caveat:** this proves only a narrow one-task `gpu_offload` local fallback path. It does not prove Promptfoo full-suite behavior, partial GPU profiles, wider task subsets, or quality ranking.
 
+### Large 26B / 31B Practical Slice
+
+- **Stream 16 estimates:** `results/stream16-large-estimates.json` records fresh large-model gates. `google/gemma-4-26b-a4b` returned estimates for full, `gpu_partial_0.39`, and offload; the recommended partial estimate was 6.99 GiB GPU / 17.43 GiB total. `google/gemma-4-31b-qat` returned estimates for full, `gpu_partial_0.36`, and offload; the recommended partial estimate was 6.89 GiB GPU / 18.66 GiB total. `google/gemma-4-31b` estimate-only probes for full, `gpu_partial_0.35`, and offload each timed out at 120000 ms.
+- **Stream 16 practical attempt:** the first practical large cell was `google/gemma-4-31b-qat@gpu_partial_0.36`, local fallback only, `build-synthetic-smoke`, with `EVAL_CELL_TIMEOUT_MS=300000`. It wrote `results/matrix-2026-06-07T10-52-18-029Z.jsonl` with `status=eval_timeout`, `durationMs=300022`, and no pass count.
+- **Caveat:** this narrows the large-model evidence gap but does not prove practical large-model quality. The run stopped after the first practical timeout, so 26B and 31B Q4_K_M have no completed practical cells.
+
 ## What Is No Longer Accurate
 
 - W7 baselines are not 0 imports anymore.
@@ -46,7 +52,7 @@
 
 - Subjective user review for the qwen/liquid baseline-backed queues.
 - Full/broad local matrix completion across all models and all relevant profiles.
-- Large 26B/31B practical proof.
+- Large 26B/31B completed practical proof beyond Stream 16 estimate/timeout evidence.
 - Broad partial GPU profile measurements.
 - Wider mid-size task coverage beyond `build-synthetic-smoke`.
 - SOTA peer imports beyond the current Vertex baseline lane where policy requires them.

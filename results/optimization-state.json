@@ -261,7 +261,8 @@
     "Stream 12 strict qwen W7 tracker refresh (COMPLETED in working stream; artifact results/daily-briefs/brief-20260607-100231.json; strict_final=true, finalization_status=model_final, fallback_used=false, all 5 sections present, usage 5141/1393/6534, wall 457.92s, tps 3.0; one invalid GitHub tool failure and quality/freshness caveats remain; no final 3-solid claim)",
     "Stream 13 bounded mid-size local fallback proof (COMPLETED in working stream; google/gemma-4-12b@gpu_offload with EVAL_TASK_FILTER=build-synthetic-smoke, EVAL_USE_PROMPTFOO=false, EVAL_CELL_TIMEOUT_MS=300000 completed 1/1 in 71342 ms; local fallback filter/transform/pass-count parsing repaired; no broad mid-size coverage claim)",
     "Stream 14 remaining Stream 4 target bounded fallback proof (COMPLETED in working stream; zai-org/glm-4.6v-flash@gpu_offload completed 1/1 in 97743 ms and google/gemma-4-12b-qat@gpu_offload completed 1/1 in 70425 ms on EVAL_TASK_FILTER=build-synthetic-smoke with EVAL_USE_PROMPTFOO=false and EVAL_CELL_TIMEOUT_MS=300000; no broad mid-size coverage claim)",
-    "Stream 15 synthesis/report refresh (COMPLETED in working stream; docs/evals 3-solid, placement, exhaustive-results, and exhaustive-assessment reports refreshed against Streams 9-14 evidence; no model loads/cloud/baseline runs; user review, broad/full matrix, 26B/31B proof, partial-profile measurements, and final 3-solid completion remain open)"
+    "Stream 15 synthesis/report refresh (COMPLETED in working stream; docs/evals 3-solid, placement, exhaustive-results, and exhaustive-assessment reports refreshed against Streams 9-14 evidence; no model loads/cloud/baseline runs; user review, broad/full matrix, 26B/31B proof, partial-profile measurements, and final 3-solid completion remain open)",
+    "Stream 16 large-model practical proof slice (COMPLETED in working stream; estimates returned for 26B and 31B-QAT recommended partial/offload/full probes, google/gemma-4-31b estimate probes timed out at 120000 ms, first practical google/gemma-4-31b-qat@gpu_partial_0.36 build-synthetic-smoke local fallback cell timed out at 300022 ms; no completed large practical proof or final 3-solid claim)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -1274,5 +1275,137 @@
       "Final 3-solid decision and completion verification remain incomplete."
     ],
     "assessment": "Reports now reflect Streams 9-14 evidence while keeping the qwen/liquid/cloud rotation explicitly draft/current-evidence only. No final completion or final 3-solid promotion is claimed."
+  },
+  "stream16LargeModelPracticalProofSlice": {
+    "workstream": "Stream 16",
+    "title": "large-model practical proof slice for remaining 26B/31B gap",
+    "at": "2026-06-07T10:58:00Z",
+    "scope": "Large remaining local models only; estimate-only probes for recommended practical profiles and full/offload guards; at most bounded local fallback cells if estimates/headroom were sane; no cloud runs, no direct paid API calls, one GPU model at a time.",
+    "sourceTruthReads": [
+      "AGENTS.md",
+      "docs/engineering/agents/goal-eval.md",
+      "docs/engineering/agents/orchestration-reliability.md",
+      "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md Stream 15 and remaining gaps",
+      "results/optimization-state.json Stream 15/current summaries",
+      "results/system-profile.json",
+      "registry/models.json",
+      "registry/load-profiles.json",
+      "results/matrix-summary.json",
+      "results/promptfoo-latest.json",
+      "live lms ps and nvidia-smi"
+    ],
+    "runtimeRefresh": {
+      "command": "pnpm capture:system:quick",
+      "result": "completed before large-model probes; results/system-profile.json and registry/runtime-snapshot.json refreshed",
+      "liveBeforeLoad": {
+        "lmsPs": "No models are currently loaded.",
+        "nvidiaSmi": "2026/06/07 06:37:59, RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free, 6% GPU util"
+      }
+    },
+    "estimateArtifact": "results/stream16-large-estimates.json",
+    "estimateResults": [
+      {
+        "modelKey": "google/gemma-4-26b-a4b",
+        "profileId": "gpu_full",
+        "gpuFlag": "max",
+        "status": "estimate_returned",
+        "estimatedGpuMemory": "17.43 GiB",
+        "estimatedTotalMemory": "17.43 GiB",
+        "verdict": "may load per LM Studio guardrails"
+      },
+      {
+        "modelKey": "google/gemma-4-26b-a4b",
+        "profileId": "gpu_partial_0.39",
+        "gpuFlag": "0.39",
+        "status": "estimate_returned",
+        "estimatedGpuMemory": "6.99 GiB",
+        "estimatedTotalMemory": "17.43 GiB",
+        "verdict": "may load per LM Studio guardrails"
+      },
+      {
+        "modelKey": "google/gemma-4-26b-a4b",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "status": "estimate_returned",
+        "estimatedGpuMemory": "36.70 MiB",
+        "estimatedTotalMemory": "17.43 GiB",
+        "verdict": "may load per LM Studio guardrails"
+      },
+      {
+        "modelKey": "google/gemma-4-31b",
+        "profileId": "gpu_full",
+        "gpuFlag": "max",
+        "status": "estimate_timeout",
+        "timeoutMs": 120000
+      },
+      {
+        "modelKey": "google/gemma-4-31b",
+        "profileId": "gpu_partial_0.35",
+        "gpuFlag": "0.35",
+        "status": "estimate_timeout",
+        "timeoutMs": 120000
+      },
+      {
+        "modelKey": "google/gemma-4-31b",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "status": "estimate_timeout",
+        "timeoutMs": 120000
+      },
+      {
+        "modelKey": "google/gemma-4-31b-qat",
+        "profileId": "gpu_full",
+        "gpuFlag": "max",
+        "status": "estimate_returned",
+        "estimatedGpuMemory": "18.66 GiB",
+        "estimatedTotalMemory": "18.66 GiB",
+        "verdict": "may load per LM Studio guardrails"
+      },
+      {
+        "modelKey": "google/gemma-4-31b-qat",
+        "profileId": "gpu_partial_0.36",
+        "gpuFlag": "0.36",
+        "status": "estimate_returned",
+        "estimatedGpuMemory": "6.89 GiB",
+        "estimatedTotalMemory": "18.66 GiB",
+        "verdict": "may load per LM Studio guardrails"
+      },
+      {
+        "modelKey": "google/gemma-4-31b-qat",
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "status": "estimate_returned",
+        "estimatedGpuMemory": "72.86 MiB",
+        "estimatedTotalMemory": "18.66 GiB",
+        "verdict": "may load per LM Studio guardrails"
+      }
+    ],
+    "practicalAttempt": {
+      "selectionReason": "google/gemma-4-31b-qat@gpu_partial_0.36 had the lowest returned practical partial GPU estimate (6.89 GiB) and stable estimate path; google/gemma-4-31b estimates timed out, and 26B partial was slightly higher at 6.99 GiB.",
+      "command": "EVAL_USE_PROMPTFOO=false EVAL_TASK_FILTER=build-synthetic-smoke EVAL_SMOKE_MODELS=google/gemma-4-31b-qat EVAL_SMOKE_PROFILES=gpu_partial_0.36 EVAL_CELL_TIMEOUT_MS=300000 node scripts/run-matrix.mjs --smoke",
+      "timeoutChoice": "300000 ms reused from Streams 13-14 bounded local fallback proofs to prevent an unbounded large-model cell.",
+      "matrixJsonl": "results/matrix-2026-06-07T10-52-18-029Z.jsonl",
+      "result": {
+        "modelKey": "google/gemma-4-31b-qat",
+        "variant": "google/gemma-4-31b-qat@q4_0",
+        "profileId": "gpu_partial_0.36",
+        "gpuFlag": "0.36",
+        "taskFilter": "build-synthetic-smoke",
+        "status": "eval_timeout",
+        "passes": null,
+        "total": null,
+        "durationMs": 300022,
+        "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed."
+      }
+    },
+    "refreshedArtifacts": {
+      "matrixSummary": "results/matrix-summary.json now points at Stream 16 timeout row with cells=1, completed=0, loadFailed=0, avgPassRate=null, leaderboard=[]",
+      "promptfooLatest": "unchanged from Stream 14 because the Stream 16 timeout produced no promptfoo/local result artifact",
+      "baselineComparison": "results/baseline-comparison.jsonl was regenerated but still reflects the retained Stream 14 12B-QAT promptfoo-latest cell, not Stream 16 large-model quality evidence",
+      "userJudgeQueue": "results/user-judge-queue.jsonl was regenerated but still reflects the retained Stream 14 12B-QAT promptfoo-latest cell, not Stream 16 large-model quality evidence"
+    },
+    "postRunRuntime": "The timeout left google/gemma-4-31b-qat IDLE; lms unload --all unloaded it. Final lms ps showed no models loaded and nvidia-smi showed 435 MiB used / 7553 MiB free.",
+    "assessment": "Large-model practical proof remains incomplete. Stream 16 narrows evidence with fresh 26B/31B-QAT estimates, 31B Q4_K_M estimate-timeout evidence, and a bounded 31B-QAT practical timeout. Because the first practical cell timed out, no further practical large cells were run.",
+    "remainingGaps": "No completed practical large-model cell exists for 26B, 31B, or 31B-QAT. User review, broad/full matrix, broad partial-profile measurements, final 3-solid selection, and completion verification remain open."
   }
 }

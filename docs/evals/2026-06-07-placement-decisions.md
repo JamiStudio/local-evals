@@ -1,8 +1,8 @@
 # Placement Decisions Draft — Current Evidence (2026-06-07)
 
-**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-14 refreshed the W7, queue, DeepEval, and mid-size fallback evidence, but final placement remains caveated until user review and broader local coverage are complete.
+**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-16 refreshed the W7, queue, DeepEval, mid-size fallback, and large-model estimate/timeout evidence, but final placement remains caveated until user review and broader local coverage are complete.
 
-**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-14 checkpoints in the active roadmap, and the W7 DeepEval suite.
+**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-16 checkpoints in the active roadmap, and the W7 DeepEval suite.
 
 ## Evidence Summary
 
@@ -12,6 +12,7 @@
 - **W7 tracker status:** Qwen has a strict no-fallback real tracker artifact with all sections and real tool use. The artifact is model-final and nonblank, but quality/freshness caveats remain.
 - **DeepEval W7 status:** Local-safe deterministic W7 tests pass 4/4 by default; cloud/judge-backed metrics remain opt-in.
 - **Mid-size status:** The Stream 4 target set has bounded one-task local-fallback coverage on `build-synthetic-smoke`: 12B, GLM, and 12B-QAT each completed 1/1 on `gpu_offload`. This supports cautious expansion, not broad placement.
+- **Large-model status:** Stream 16 adds large-model estimate/timeout evidence only. 26B and 31B-QAT recommended partial estimates returned (`26B@gpu_partial_0.39` 6.99 GiB GPU, `31B-QAT@gpu_partial_0.36` 6.89 GiB GPU), but the first practical large cell, `31B-QAT@gpu_partial_0.36`, timed out at `300022 ms` on one `build-synthetic-smoke` local fallback task. 31B Q4_K_M estimate-only probes timed out for full, partial, and offload.
 
 ## Per-Lane Placement
 
@@ -55,6 +56,6 @@
 - User review is still pending.
 - Latest default `results/baseline-comparison.jsonl` and `results/user-judge-queue.jsonl` are last-cell Stream 14 surfaces, while qwen/liquid 40-row evidence lives in archived `*-stream8` and `*-stream10` files.
 - Broad/full matrix coverage is incomplete.
-- Large 26B/31B and broad partial-profile placements are not proven.
+- Large 26B/31B placements are still not proven; Stream 16 provides estimate/timeout evidence, not a completed practical pass.
 - Mid-size fallback coverage is only one build task on `gpu_offload`.
 - This draft should stay under `docs/evals/` until completion criteria and verifiers pass.

@@ -1,0 +1,91 @@
+{
+  "stream": "Stream 16",
+  "at": "2026-06-07T10:52:00Z",
+  "scope": "Large-model estimate-only probes for 26B/31B practical proof gating.",
+  "liveRuntimeBefore": {
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "2026/06/07 06:37:59.778, RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free, 6% GPU util"
+  },
+  "notes": [
+    "An initial combined estimate sweep timed out before writing an artifact; follow-up single-probe calls produced the evidence below.",
+    "The google/gemma-4-31b Q4_K_M estimate-only path timed out on full, recommended partial, and offload probes at 120000 ms each, so no practical 31B Q4_K_M cell was attempted.",
+    "LM Studio estimate verdicts are recorded verbatim; practical loading was still bounded by the one-GPU rule and EVAL_CELL_TIMEOUT_MS."
+  ],
+  "probes": [
+    {
+      "modelKey": "google/gemma-4-26b-a4b",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "status": "estimate_returned",
+      "estimatedGpuMemory": "17.43 GiB",
+      "estimatedTotalMemory": "17.43 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    },
+    {
+      "modelKey": "google/gemma-4-26b-a4b",
+      "profileId": "gpu_partial_0.39",
+      "gpuFlag": "0.39",
+      "status": "estimate_returned",
+      "estimatedGpuMemory": "6.99 GiB",
+      "estimatedTotalMemory": "17.43 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    },
+    {
+      "modelKey": "google/gemma-4-26b-a4b",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "status": "estimate_returned",
+      "estimatedGpuMemory": "36.70 MiB",
+      "estimatedTotalMemory": "17.43 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    },
+    {
+      "modelKey": "google/gemma-4-31b",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "status": "estimate_timeout",
+      "timeoutMs": 120000
+    },
+    {
+      "modelKey": "google/gemma-4-31b",
+      "profileId": "gpu_partial_0.35",
+      "gpuFlag": "0.35",
+      "status": "estimate_timeout",
+      "timeoutMs": 120000
+    },
+    {
+      "modelKey": "google/gemma-4-31b",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "status": "estimate_timeout",
+      "timeoutMs": 120000
+    },
+    {
+      "modelKey": "google/gemma-4-31b-qat",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "status": "estimate_returned",
+      "estimatedGpuMemory": "18.66 GiB",
+      "estimatedTotalMemory": "18.66 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    },
+    {
+      "modelKey": "google/gemma-4-31b-qat",
+      "profileId": "gpu_partial_0.36",
+      "gpuFlag": "0.36",
+      "status": "estimate_returned",
+      "estimatedGpuMemory": "6.89 GiB",
+      "estimatedTotalMemory": "18.66 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    },
+    {
+      "modelKey": "google/gemma-4-31b-qat",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "status": "estimate_returned",
+      "estimatedGpuMemory": "72.86 MiB",
+      "estimatedTotalMemory": "18.66 GiB",
+      "verdict": "This model may be loaded based on your resource guardrails settings."
+    }
+  ]
+}

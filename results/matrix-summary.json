@@ -1,51 +1,22 @@
 {
-  "at": "2026-06-07T10:23:24.187Z",
-  "matrixFile": "matrix-2026-06-07T10-20-16-337Z.jsonl",
-  "runId": "2026-06-07T10-20-16-337Z",
+  "at": "2026-06-07T10:58:00.125Z",
+  "matrixFile": "matrix-2026-06-07T10-52-18-029Z.jsonl",
+  "runId": "2026-06-07T10-52-18-029Z",
   "cells": [
     {
-      "modelKey": "zai-org/glm-4.6v-flash",
-      "profileId": "gpu_offload",
-      "status": "completed",
-      "durationMs": 97743,
-      "passRate": {
-        "passes": 1,
-        "total": 1
-      },
-      "evalOk": true
-    },
-    {
-      "modelKey": "google/gemma-4-12b-qat",
-      "profileId": "gpu_offload",
-      "status": "completed",
-      "durationMs": 70425,
-      "passRate": {
-        "passes": 1,
-        "total": 1
-      },
-      "evalOk": true
+      "modelKey": "google/gemma-4-31b-qat",
+      "profileId": "gpu_partial_0.36",
+      "status": "eval_timeout",
+      "durationMs": 300022,
+      "passRate": null,
+      "evalOk": null
     }
   ],
   "totals": {
-    "cells": 2,
-    "completed": 2,
+    "cells": 1,
+    "completed": 0,
     "loadFailed": 0,
-    "avgPassRate": 1
+    "avgPassRate": null
   },
-  "leaderboard": [
-    {
-      "modelKey": "zai-org/glm-4.6v-flash",
-      "profileId": "gpu_offload",
-      "passes": 1,
-      "total": 1,
-      "pct": 100
-    },
-    {
-      "modelKey": "google/gemma-4-12b-qat",
-      "profileId": "gpu_offload",
-      "passes": 1,
-      "total": 1,
-      "pct": 100
-    }
-  ]
+  "leaderboard": []
 }
