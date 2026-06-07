@@ -95,10 +95,20 @@
     "systemTurboCoolerboost": true,
     "creditsOnTap": "vertex(gcloud-active) + azure(if-env) + reasonable burn"
   },
-  "currentStreams": ["O1-full-matrix-exhaust", "W7-daily-briefs-tool-specialist"],
+  "currentStreams": ["O1-full-matrix-exhaust (dispatched subagent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea)", "W7-daily-briefs-tool-specialist (pending post O1)"],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
-    "5156a75: docs/roadmap + state update for user goal (second stream)"
+    "5156a75: docs/roadmap + state update for user goal (second stream)",
+    "24ee2b3: docs+state+log user goal expansion (third stream)"
+  ],
+  "dispatches": [
+    {
+      "id": "019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea",
+      "workstream": "O1",
+      "pass": 1,
+      "ts": "2026-06-07",
+      "steering": "full matrix exhaust all 12 x 2 presets; cite system-profile; update results/state; commit+push; note best local for specialist"
+    }
   ],
   "solidModelsTarget": {
     "count": 3,

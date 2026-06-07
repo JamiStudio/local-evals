@@ -21,9 +21,12 @@
 
 ## Dispatches Planned / Executed (one load-serial, poll, gate, checkpoint)
 1. O1 full matrix exhaust (all 12 × 2 presets; background spawn with reusable + steering; cite system-profile + registry + load-profiles; update summaries/state; commit+push).
+   - Dispatched: subagent_id=019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea (background). Steering: full matrix pnpm matrix:full, respect 8GB serialize + profiles, update results + state, commit+push to JamiStudio/local-evals, note best local for W7. Poll next with get_command_or_subagent_output.
 2. W7 daily-briefs + tracker + local tools + specialist (post O1 or sequenced; implement scripts for local LM (lms :1234/v1) + ddgs/trafilatura + gh/fs loops + planning; specialist KB for best OSS (qwen or measured); add deepeval/promptfoo coverage + speed metrics; baselines for new tasks; commit+push).
 3. SOTA cloud + 3 models (dispatch baseline/collect or compare sub; gemini flash via vertex, sonnet/gpt via azure if ready or import; head-to-head; select/document 3 solid; update docs/decisions + roadmap).
 4. Verifiers + audit at end (2 fresh full-toolset spawn_subagent: CODE REVIEWER + QA TESTER with verbatim canonical prompts; read /tmp/goal-verifier-*.md ; fix all issues until both PASS fresh on latest; only then update_goal completed).
+
+**O1 dispatch checkpoint (immediate post-spawn, per reliability.md)**: agent 019ea042-f2ad-77c3-a9fc-16f5e3c8a4ea , workstream O1/pass1 , dispatched after 24ee2b3 push, ownership: matrix + results + push. Next coordinator: poll (get sub output, 60-120s), on terminal read git show --stat on its SHA, numeric gate + A/B/C classify, checkpoint return, dispatch W7 or next per cycle.
 
 ## Checkpoints (roadmap + state + logs updated live)
 - Roadmap: Current Phase + new "This Goal Run" section + W7/O6 + user directives + github + 3-model target.
