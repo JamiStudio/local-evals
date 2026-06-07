@@ -1,0 +1,82 @@
+{
+  "cycle": 1,
+  "at": "2026-06-06T23:43:20.763Z",
+  "mode": "smoke",
+  "readyForLongRunningGoal": true,
+  "o1MatrixAttempt": "2026-06-06 — subagent ran pnpm matrix:full (background); exited early no new cells; see docs/evals/2026-06-06-o1-full-matrix-execution-report.md for command + smoke synthesis",
+  "reportPath": "results/optimization-report-1.json",
+  "matrixSummary": [
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_offload",
+      "passes": 5,
+      "total": 8,
+      "pct": 63
+    },
+    {
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_full",
+      "passes": 4,
+      "total": 8,
+      "pct": 50
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_full",
+      "passes": 3,
+      "total": 8,
+      "pct": 38
+    },
+    {
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "profileId": "gpu_offload",
+      "passes": 3,
+      "total": 8,
+      "pct": 38
+    }
+  ],
+  "systemProfile": {
+    "at": "2026-06-06T23:42:16.540Z",
+    "vramGb": 8,
+    "llmCount": 12,
+    "serverRunning": true,
+    "placementHints": [
+      {
+        "modelKey": "google/gemma-4-26b-a4b",
+        "suggestedMatrixPreset": "gpu_partial_0.39",
+        "fitsGpuMaxOnHost": false
+      },
+      {
+        "modelKey": "google/gemma-4-12b",
+        "suggestedMatrixPreset": "gpu_partial_0.9",
+        "fitsGpuMaxOnHost": false
+      },
+      {
+        "modelKey": "zai-org/glm-4.6v-flash",
+        "suggestedMatrixPreset": "gpu_partial_0.88",
+        "fitsGpuMaxOnHost": false
+      },
+      {
+        "modelKey": "qwen/qwen3.5-9b",
+        "suggestedMatrixPreset": "gpu_offload",
+        "fitsGpuMaxOnHost": false
+      },
+      {
+        "modelKey": "google/gemma-4-e2b",
+        "suggestedMatrixPreset": "gpu_full",
+        "fitsGpuMaxOnHost": true
+      }
+    ]
+  },
+  "nextActions": [
+    "Tune thresholds using leader qwen/qwen3.5-9b@gpu_offload (63% pass)",
+    "Review results/user-judge-queue.jsonl",
+    "Tune suites/promptfoo/tests/*.yaml thresholds and matrix presets"
+  ],
+  "connectivity": {
+    "lmstudio": true,
+    "vertexBaselines": true,
+    "langfuse": false,
+    "dockerRequiredForLangfuse": true
+  }
+}
