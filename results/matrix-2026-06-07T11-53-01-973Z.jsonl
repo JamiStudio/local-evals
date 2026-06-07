@@ -1,0 +1,1 @@
+{"runId":"2026-06-07T11-53-01-973Z","modelKey":"zai-org/glm-4.6v-flash","variant":"zai-org/glm-4.6v-flash@q4_k_m","profileId":"gpu_partial_0.88","gpuFlag":"0.88","taskFilter":"plan-synthetic-smoke","status":"completed","passes":1,"total":1,"durationMs":96438,"stderr":""}

@@ -1,0 +1,171 @@
+{
+  "stream": 20,
+  "at": "2026-06-07T11:58:00.000Z",
+  "purpose": "Mid-size partial-profile comparison on the best-behaved Stream 18 task, plan-synthetic-smoke.",
+  "scope": "LM Studio local fallback only; one bounded cell per mid-size model using the recommended partial profile.",
+  "runtimeBefore": {
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "2026/06/07 07:50:04.678, NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 435 MiB used, 7553 MiB free, 6% utilization"
+  },
+  "runtimeAfter": {
+    "lmsPs": "No models are currently loaded after explicit lms unload --all after each cell.",
+    "nvidiaSmi": "2026/06/07 07:57:22.470, NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 435 MiB used, 7553 MiB free, 5% utilization"
+  },
+  "commandShape": "EVAL_USE_PROMPTFOO=false; EVAL_TASK_FILTER=plan-synthetic-smoke; EVAL_CELL_TIMEOUT_MS=300000; EVAL_SMOKE_MODELS=<one model>; EVAL_SMOKE_PROFILES=<recommended partial>; node scripts/run-matrix.mjs --smoke",
+  "timeoutMs": 300000,
+  "taskFilter": "plan-synthetic-smoke",
+  "targetPairs": [
+    {
+      "modelKey": "google/gemma-4-12b",
+      "profileId": "gpu_partial_0.9",
+      "profilePresent": true
+    },
+    {
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "profileId": "gpu_partial_0.88",
+      "profilePresent": true
+    },
+    {
+      "modelKey": "google/gemma-4-12b-qat",
+      "profileId": "gpu_partial_0.95",
+      "profilePresent": true
+    }
+  ],
+  "matrixJsonls": [
+    "results/matrix-2026-06-07T11-50-34-088Z.jsonl",
+    "results/matrix-2026-06-07T11-53-01-973Z.jsonl",
+    "results/matrix-2026-06-07T11-54-53-937Z.jsonl"
+  ],
+  "rows": [
+    {
+      "artifact": "results/matrix-2026-06-07T11-50-34-088Z.jsonl",
+      "runId": "2026-06-07T11-50-34-088Z",
+      "modelKey": "google/gemma-4-12b",
+      "variant": "google/gemma-4-12b@q4_k_m",
+      "profileId": "gpu_partial_0.9",
+      "gpuFlag": "0.9",
+      "taskFilter": "plan-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 132311,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-53-01-973Z.jsonl",
+      "runId": "2026-06-07T11-53-01-973Z",
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "variant": "zai-org/glm-4.6v-flash@q4_k_m",
+      "profileId": "gpu_partial_0.88",
+      "gpuFlag": "0.88",
+      "taskFilter": "plan-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 96438,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-54-53-937Z.jsonl",
+      "runId": "2026-06-07T11-54-53-937Z",
+      "modelKey": "google/gemma-4-12b-qat",
+      "variant": "google/gemma-4-12b-qat@q4_0",
+      "profileId": "gpu_partial_0.95",
+      "gpuFlag": "0.95",
+      "taskFilter": "plan-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 126922,
+      "stderr": ""
+    }
+  ],
+  "stream18Comparison": {
+    "sourceArtifact": "results/stream18-mid-size-task-slice.json",
+    "sourceRows": "plan-synthetic-smoke rows at gpu_offload",
+    "comparisons": [
+      {
+        "modelKey": "google/gemma-4-12b",
+        "taskFilter": "plan-synthetic-smoke",
+        "stream18Offload": {
+          "profileId": "gpu_offload",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 132757
+        },
+        "stream20Partial": {
+          "profileId": "gpu_partial_0.9",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 132311
+        },
+        "passPreserved": true,
+        "durationDeltaMs": -446,
+        "durationDeltaPct": -0.34,
+        "durationDirection": "partial_faster"
+      },
+      {
+        "modelKey": "zai-org/glm-4.6v-flash",
+        "taskFilter": "plan-synthetic-smoke",
+        "stream18Offload": {
+          "profileId": "gpu_offload",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 91615
+        },
+        "stream20Partial": {
+          "profileId": "gpu_partial_0.88",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 96438
+        },
+        "passPreserved": true,
+        "durationDeltaMs": 4823,
+        "durationDeltaPct": 5.26,
+        "durationDirection": "partial_slower"
+      },
+      {
+        "modelKey": "google/gemma-4-12b-qat",
+        "taskFilter": "plan-synthetic-smoke",
+        "stream18Offload": {
+          "profileId": "gpu_offload",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 131545
+        },
+        "stream20Partial": {
+          "profileId": "gpu_partial_0.95",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 126922
+        },
+        "passPreserved": true,
+        "durationDeltaMs": -4623,
+        "durationDeltaPct": -3.51,
+        "durationDirection": "partial_faster"
+      }
+    ]
+  },
+  "totals": {
+    "cells": 3,
+    "completed": 3,
+    "evalFailed": 0,
+    "evalTimeout": 0,
+    "loadFailures": 0,
+    "passes": 3,
+    "total": 3
+  },
+  "defaultSurfaceCaveat": "results/matrix-summary.json, results/promptfoo-latest.json, baseline-comparison.jsonl, and user-judge-queue.jsonl point only to the final google/gemma-4-12b-qat@gpu_partial_0.95 plan-synthetic-smoke cell. Use this artifact and raw JSONLs for the full Stream 20 three-cell slice.",
+  "comparisonArtifacts": {
+    "lastCellComparison": "results/baseline-comparison-stream20-last-cell.jsonl",
+    "lastCellUserJudgeQueue": "results/user-judge-queue-stream20-last-cell.jsonl"
+  },
+  "assessment": "All three recommended partial-profile cells completed 1/1 with no timeout and preserved the Stream 18 gpu_offload pass result on plan-synthetic-smoke. Duration deltas are small-to-moderate on a single local-fallback task: 12B partial was 446 ms faster, GLM partial was 6438 ms slower, and 12B-QAT partial was 4623 ms faster. Treat duration comparison as weak single-task evidence, not a broad throughput ranking.",
+  "remainingGaps": "This narrows mid-size partial-profile coverage only for one task and one recommended partial per model. Broad/full matrix coverage, mid-size partials on other tasks, large practical proof, subjective user review, final 3-solid selection, and completion verification remain open."
+}

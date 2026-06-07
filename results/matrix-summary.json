@@ -1,69 +1,33 @@
 {
-  "at": "2026-06-07T11:35:19.382Z",
-  "matrixFile": "matrix-2026-06-07T11-31-25-946Z.jsonl",
-  "runId": "2026-06-07T11-31-25-946Z",
+  "at": "2026-06-07T11:57:32.279Z",
+  "matrixFile": "matrix-2026-06-07T11-54-53-937Z.jsonl",
+  "runId": "2026-06-07T11-54-53-937Z",
   "cells": [
     {
-      "modelKey": "google/gemma-4-12b",
-      "profileId": "gpu_offload",
-      "status": "eval_failed",
-      "durationMs": 25036,
-      "passRate": {
-        "passes": 0,
-        "total": 1
-      },
-      "evalOk": false
-    },
-    {
-      "modelKey": "zai-org/glm-4.6v-flash",
-      "profileId": "gpu_offload",
+      "modelKey": "google/gemma-4-12b-qat",
+      "profileId": "gpu_partial_0.95",
       "status": "completed",
-      "durationMs": 140808,
+      "durationMs": 126922,
       "passRate": {
         "passes": 1,
         "total": 1
       },
       "evalOk": true
-    },
-    {
-      "modelKey": "google/gemma-4-12b-qat",
-      "profileId": "gpu_offload",
-      "status": "eval_failed",
-      "durationMs": 18645,
-      "passRate": {
-        "passes": 0,
-        "total": 1
-      },
-      "evalOk": false
     }
   ],
   "totals": {
-    "cells": 3,
+    "cells": 1,
     "completed": 1,
     "loadFailed": 0,
-    "avgPassRate": 0.3333333333333333
+    "avgPassRate": 1
   },
   "leaderboard": [
     {
-      "modelKey": "zai-org/glm-4.6v-flash",
-      "profileId": "gpu_offload",
+      "modelKey": "google/gemma-4-12b-qat",
+      "profileId": "gpu_partial_0.95",
       "passes": 1,
       "total": 1,
       "pct": 100
-    },
-    {
-      "modelKey": "google/gemma-4-12b",
-      "profileId": "gpu_offload",
-      "passes": 0,
-      "total": 1,
-      "pct": 0
-    },
-    {
-      "modelKey": "google/gemma-4-12b-qat",
-      "profileId": "gpu_offload",
-      "passes": 0,
-      "total": 1,
-      "pct": 0
     }
   ]
 }

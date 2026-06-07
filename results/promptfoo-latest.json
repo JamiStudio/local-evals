@@ -1,18 +1,19 @@
 {
-  "evalId": "2026-06-07T11-31-25-946Z",
+  "evalId": "2026-06-07T11-54-53-937Z",
   "model": "google/gemma-4-12b-qat",
-  "loadProfile": "gpu_offload",
+  "loadProfile": "gpu_partial_0.95",
   "results": {
     "results": [
       {
         "testCase": {
           "metadata": {
-            "taskId": "tool-call-search-docs",
-            "lane": "tool-call"
+            "taskId": "plan-synthetic-smoke",
+            "lane": "plan"
           },
-          "description": "tool-call — search then summarize (synthetic)",
+          "description": "plan — synthetic smoke",
           "vars": {
-            "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+            "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+            "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
           }
         },
         "provider": {
@@ -20,24 +21,29 @@
           "label": "google/gemma-4-12b-qat"
         },
         "response": {
-          "output": "<|tool_call>call:default_api:search_docs{query: \"load profile\"}<tool_call|>"
+          "output": "# Implementation Plan: Local Evaluation Harness\n\n### Workstream 1: Infrastructure & Observability Foundation\n**Goal:** Establish the core environment and logging stack required for evaluation tracking.\n*   Deploy Langfuse on the Windows host and configure environment variables for telemetry.\n*   Install and configure the hybrid Promptfoo and DeepEval libraries to ensure compatibility with local hardware constraints.\n\n### Workstream 2: Registry & Baseline Integration\n**Goal:** Centralize all evaluation assets and ground truth data into a unified registry.\n*   Develop a Registry system to manage versioned prompts, model configurations, and test datasets.\n*   Migrate and format imported baselines into the Registry to serve as the ground truth for all suites.\n\n### Workstream 3: Evaluation Suite & Metric Mapping\n**Goal:** Define the specific test logic and success criteria for the evaluation harness.\n*   Construct evaluation suites by mapping DeepEval metrics to specific use cases within the Registry.\n*   Configure Promptfoo test cases to pull dynamically from the Registry's baseline data.\n\n### Workstream 4: Matrix Runner & Execution Pipeline\n**Goal:** Automate multi-dimensional testing and synchronize results with the observability layer.\n*   Build the Matrix Runner to iterate through model/prompt combinations while managing 8GB VRAM limits.\n*   Implement the final pipeline to push execution results from the Matrix Runner to Langfuse for visualization."
         },
-        "latencyMs": 18496,
-        "success": false,
+        "latencyMs": 126783,
+        "success": true,
         "error": null,
         "assertResults": [
           {
+            "type": "contains",
+            "value": "Workstream",
+            "pass": true
+          },
+          {
             "type": "javascript",
-            "value": "output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().includes('max')\n",
-            "pass": false
+            "value": "output.split(/\\n/).filter(l => l.trim()).length >= 5",
+            "pass": true
           }
         ]
       }
     ]
   },
   "stats": {
-    "passes": 0,
-    "failures": 1,
+    "passes": 1,
+    "failures": 0,
     "total": 1
   }
 }

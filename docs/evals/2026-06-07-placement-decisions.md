@@ -1,8 +1,8 @@
 # Placement Decisions Draft — Current Evidence (2026-06-07)
 
-**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-19 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, wider mid-size local fallback task-slice evidence, and human review packet, but final placement remains caveated until user review and broader local coverage are complete.
+**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-20 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, wider mid-size local fallback task-slice evidence, human review packet, and one-task mid-size partial-profile evidence, but final placement remains caveated until user review and broader local coverage are complete.
 
-**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, `docs/evals/2026-06-07-user-review-packet.md`, `results/user-review-packet-summary.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-19 checkpoints in the active roadmap, and the W7 DeepEval suite.
+**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, `results/stream20-mid-size-partial-profile.json`, `docs/evals/2026-06-07-user-review-packet.md`, `results/user-review-packet-summary.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-20 checkpoints in the active roadmap, and the W7 DeepEval suite.
 
 ## Evidence Summary
 
@@ -14,6 +14,7 @@
 - **DeepEval W7 status:** Local-safe deterministic W7 tests pass 4/4 by default; cloud/judge-backed metrics remain opt-in.
 - **Mid-size status:** The Stream 4 target set has bounded one-task local-fallback coverage on `build-synthetic-smoke`: 12B, GLM, and 12B-QAT each completed 1/1 on `gpu_offload`. This supports cautious expansion, not broad placement.
 - **Stream 18 mid-size task slice:** The same mid-size targets now also have a small non-build local fallback slice on `gpu_offload`: `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs`. Aggregate result was 6/9 with 0 timeouts: plan passed for all three, research passed for both Gemma 12B variants and failed for GLM, and tool-call-search passed only for GLM.
+- **Stream 20 mid-size partial-profile slice:** The best-behaved Stream 18 task, `plan-synthetic-smoke`, was rerun with recommended partial profiles: `google/gemma-4-12b@gpu_partial_0.9`, `zai-org/glm-4.6v-flash@gpu_partial_0.88`, and `google/gemma-4-12b-qat@gpu_partial_0.95`. All three preserved the Stream 18 `1/1` pass result with no timeouts. Duration deltas versus Stream 18 offload were weak single-task evidence: 12B -446 ms, GLM +6438 ms, and 12B-QAT -4623 ms.
 - **Large-model status:** Stream 16 adds large-model estimate/timeout evidence only. 26B and 31B-QAT recommended partial estimates returned (`26B@gpu_partial_0.39` 6.99 GiB GPU, `31B-QAT@gpu_partial_0.36` 6.89 GiB GPU), but the first practical large cell, `31B-QAT@gpu_partial_0.36`, timed out at `300022 ms` on one `build-synthetic-smoke` local fallback task. 31B Q4_K_M estimate-only probes timed out for full, partial, and offload.
 - **User-review packet:** Stream 19 added `docs/evals/2026-06-07-user-review-packet.md` and `results/user-review-packet-summary.json` so human review can start from traceable qwen/liquid queue, mid-size last-cell, W7 tracker, DeepEval, and large-model caveat artifacts. It contains no subjective scores.
 
@@ -33,7 +34,7 @@
 
 ### Build
 
-- **Local placement:** Mid-size local fallback proof is strongest here: `google/gemma-4-12b`, `zai-org/glm-4.6v-flash`, and `google/gemma-4-12b-qat` each completed `build-synthetic-smoke` 1/1 under bounded local fallback. Stream 18 adds that all three also passed `plan-synthetic-smoke`, while research/tool-call results were mixed. Smaller fit-class and prior qwen/liquid controls also show build and bounded planning are viable local lanes.
+- **Local placement:** Mid-size local fallback proof is strongest here: `google/gemma-4-12b`, `zai-org/glm-4.6v-flash`, and `google/gemma-4-12b-qat` each completed `build-synthetic-smoke` 1/1 under bounded local fallback. Stream 18 adds that all three also passed `plan-synthetic-smoke` at `gpu_offload`, and Stream 20 confirms the same plan task passes on each model's recommended partial profile. Research/tool-call results remain mixed. Smaller fit-class and prior qwen/liquid controls also show build and bounded planning are viable local lanes.
 - **Cloud placement:** Still useful for review or complex edits.
 - **Draft decision:** local models can own bounded build drafts; do not extrapolate the one-task proof to broad build quality yet.
 
@@ -57,8 +58,8 @@
 ## Current Caveats
 
 - User review is still pending; the current packet is `docs/evals/2026-06-07-user-review-packet.md`.
-- Latest default `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/baseline-comparison.jsonl`, and `results/user-judge-queue.jsonl` are last-cell surfaces. After Stream 18, `matrix-summary.json` points only to the final `tool-call-search-docs` JSONL, while promptfoo/compare/queue point only to the final 12B-QAT `tool-call-search-docs` cell. Use `results/stream17-profile-sensitivity.json` for Stream 17 and `results/stream18-mid-size-task-slice.json` plus raw JSONLs for the full Stream 18 slice.
+- Latest default `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/baseline-comparison.jsonl`, and `results/user-judge-queue.jsonl` are last-cell surfaces. After Stream 20, they point only to the final `google/gemma-4-12b-qat@gpu_partial_0.95` `plan-synthetic-smoke` cell. Use `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, and `results/stream20-mid-size-partial-profile.json` plus raw JSONLs for full slice evidence.
 - Broad/full matrix coverage is incomplete.
 - Large 26B/31B placements are still not proven; Stream 16 provides estimate/timeout evidence, not a completed practical pass.
-- Mid-size fallback coverage is still bounded, but no longer only one build task: Stream 18 adds three non-build task cells per mid-size target on `gpu_offload`.
+- Mid-size fallback coverage is still bounded, but no longer only one build task: Stream 18 adds three non-build task cells per mid-size target on `gpu_offload`, and Stream 20 adds one recommended-partial `plan-synthetic-smoke` cell per mid-size target.
 - This draft should stay under `docs/evals/` until completion criteria and verifiers pass.

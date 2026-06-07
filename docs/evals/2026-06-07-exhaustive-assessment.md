@@ -1,6 +1,6 @@
 # Exhaustive Assessment — Current Snapshot (2026-06-07)
 
-**Status:** Current snapshot aligned to Streams 9-18. This is a synthesis aid, not a completion certificate.
+**Status:** Current snapshot aligned to Streams 9-20. This is a synthesis aid, not a completion certificate.
 
 ## Current Facts
 
@@ -12,14 +12,15 @@
 - Stream 16 added large-model estimate/timeout evidence: 26B and 31B-QAT recommended partial estimates returned, 31B Q4_K_M estimate probes timed out, and the first practical 31B-QAT partial local fallback cell timed out at `300022 ms`.
 - Stream 17 added qwen/liquid current-suite profile-sensitivity evidence: liquid ran all 11 profiles at `5/40`; qwen ran `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full` at `7/40`. No final placement winner changed.
 - Stream 18 added bounded mid-size local fallback task coverage beyond `build-synthetic-smoke`: 12B, GLM, and 12B-QAT ran `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs` on `gpu_offload`, with 9 cells, 6/9 passed, 0 timeouts, and 0 load failures.
+- Stream 20 added bounded mid-size recommended-partial coverage for the best-behaved Stream 18 task: 12B `gpu_partial_0.9`, GLM `gpu_partial_0.88`, and 12B-QAT `gpu_partial_0.95` each passed `plan-synthetic-smoke` 1/1 with no timeout.
 
 ## Current Non-Completion Facts
 
 - User review is pending.
 - Broad/full matrix coverage remains incomplete.
 - Large 26B/31B practical runs are not completed; Stream 16 proves timeout behavior for the first bounded 31B-QAT partial cell, not success.
-- Partial GPU profiles are not broadly measured outside contained slices; Stream 17 qwen/liquid quality was invariant and qwen durations were cached reruns, not uncached throughput.
-- Mid-size coverage is not broad; it is one build proof plus a small three-task local fallback slice on one profile/path only.
+- Partial GPU profiles are not broadly measured outside contained slices; Stream 17 qwen/liquid quality was invariant and qwen durations were cached reruns, not uncached throughput. Stream 20 covers only one mid-size task on one recommended partial profile per model.
+- Mid-size coverage is not broad; it is one build proof, a small three-task local fallback slice on `gpu_offload`, and one recommended-partial plan-task slice only.
 - Final 3-solid model selection is not complete.
 
 Use `docs/evals/2026-06-07-exhaustive-results-assessment.md`, `docs/evals/2026-06-07-placement-decisions.md`, and `docs/evals/2026-06-07-3-solid-models.md` for the current detailed draft evidence.

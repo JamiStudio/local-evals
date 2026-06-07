@@ -1,0 +1,1 @@
+{"runId":"2026-06-07T11-50-34-088Z","modelKey":"google/gemma-4-12b","variant":"google/gemma-4-12b@q4_k_m","profileId":"gpu_partial_0.9","gpuFlag":"0.9","taskFilter":"plan-synthetic-smoke","status":"completed","passes":1,"total":1,"durationMs":132311,"stderr":""}
