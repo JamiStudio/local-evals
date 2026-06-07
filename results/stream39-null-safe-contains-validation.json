@@ -1,0 +1,149 @@
+{
+  "stream": 39,
+  "at": "2026-06-07T17:31:00.000Z",
+  "purpose": "Validate null-safe contains assertion commit c36e52b with exactly one LM Studio local Promptfoo cell after Stream 38 still showed undefined.includes from built-in contains assertions.",
+  "commitValidation": {
+    "requestedCommit": "c36e52b",
+    "presentOnMain": true,
+    "subject": "Make promptfoo contains checks null safe"
+  },
+  "sourceTruthReadBeforeLoad": [
+    "AGENTS.md",
+    "docs/engineering/agents/goal-eval.md",
+    "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md",
+    "suites/promptfoo/tests/build.yaml",
+    "suites/promptfoo/tests/plan.yaml",
+    "suites/promptfoo/tests/research.yaml",
+    "suites/promptfoo/tests/tool-call.yaml",
+    "results/stream38-promptfoo-spawn-validation.json",
+    "results/matrix-summary.json",
+    "results/optimization-state.json",
+    "docs/evals/2026-06-07-strict-gap-audit.md",
+    "scripts/run-matrix.mjs",
+    "live git status --short",
+    "live lms ps",
+    "live nvidia-smi"
+  ],
+  "runtimeBefore": {
+    "gitPull": "Already up to date.",
+    "gitStatusShort": "",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 335 MiB used, 7653 MiB free, 5% utilization"
+  },
+  "command": {
+    "env": {
+      "EVAL_PROMPTFOO_NO_CACHE": "true",
+      "EVAL_TASK_FILTER": "build-synthetic-smoke",
+      "EVAL_SMOKE_MODELS": "qwen/qwen3.5-9b",
+      "EVAL_SMOKE_PROFILES": "gpu_offload",
+      "EVAL_CELL_TIMEOUT_MS": "300000"
+    },
+    "command": "node scripts/run-matrix.mjs --smoke",
+    "scopeGuard": "Exactly one LM Studio local Promptfoo cell; no retry, no other model, profile, or task was run."
+  },
+  "artifacts": {
+    "matrixJsonl": "results/matrix-2026-06-07T17-25-23-531Z.jsonl",
+    "progressJsonl": "results/matrix-2026-06-07T17-25-23-531Z.progress.jsonl",
+    "latestProgress": "results/matrix-latest-progress.json",
+    "matrixSummary": "results/matrix-summary.json",
+    "promptfooLatest": "results/promptfoo-latest.json",
+    "comparisonArchive": null,
+    "userJudgeQueueArchive": null
+  },
+  "row": {
+    "runId": "2026-06-07T17-25-23-531Z",
+    "modelKey": "qwen/qwen3.5-9b",
+    "variant": "qwen/qwen3.5-9b@q4_k_m",
+    "profileId": "gpu_offload",
+    "gpuFlag": "off",
+    "taskFilter": "build-synthetic-smoke",
+    "status": "eval_timeout",
+    "passes": null,
+    "total": null,
+    "durationMs": 300059,
+    "stderr": "EVAL_CELL_TIMEOUT_MS=300000 elapsed before eval completed.\n========================================================================================================================\n⚠️ The current version of promptfoo 0.120.27 is lower than the latest available version 0.121.15.\n\nPlease run npx promptfoo@latest or npm install -g promptfoo@latest to update.\n========================================================================================================================\n\r\nCache is disabled.\r\nStarting evaluation eval-BbB-2026-06-07T17:25:29\r\nRunning 4 test cases (up to 1 at a time)..."
+  },
+  "validationAnswers": {
+    "promptfooRanFourFilteredTestCases": true,
+    "evidence": "Promptfoo stdout/stderr includes Cache is disabled, Starting evaluation eval-BbB-2026-06-07T17:25:29, and Running 4 test cases (up to 1 at a time).",
+    "undefinedIncludesPresentInStream39Row": false,
+    "undefinedIncludesPresentInStream39Progress": false,
+    "rowStatus": "eval_timeout",
+    "durationMs": 300059,
+    "passes": null,
+    "total": null,
+    "honestStatus": "The null-safe contains assertion error disappeared, but the cell still timed out before pass totals and did not create a normal Promptfoo scoring surface.",
+    "promptfooLatestRefreshedByStream39": false,
+    "progressTelemetryReachedRunFinished": true
+  },
+  "stream38Comparison": {
+    "artifact": "results/stream38-promptfoo-spawn-validation.json",
+    "stream38Row": {
+      "runId": "2026-06-07T17-12-41-000Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "profileId": "gpu_offload",
+      "taskFilter": "build-synthetic-smoke",
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 300067,
+      "undefinedIncludesPresent": true
+    },
+    "stream39Delta": "Stream 39 used the same one-cell scope and still timed out near 300s with no pass totals, but the row/progress surfaces no longer contain Cannot read properties of undefined (reading 'includes').",
+    "nullSafeContainsFixValidatedForThisSurface": true,
+    "normalPromptfooScoringStillUnresolved": true
+  },
+  "promptfooLatestStatus": {
+    "refreshedByStream39": false,
+    "lastWriteTimeUtc": "2026-06-07T15:27:59.937Z",
+    "currentEvalId": "2026-06-07T15-22-52-975Z",
+    "currentModel": "google/gemma-4-31b-qat",
+    "assessment": "results/promptfoo-latest.json still points to the Stream 34 31B-QAT surface and was not refreshed by Stream 39."
+  },
+  "progressTelemetry": {
+    "produced": true,
+    "latest": {
+      "at": "2026-06-07T17:30:25.525Z",
+      "runId": "2026-06-07T17-25-23-531Z",
+      "event": "run_finished"
+    },
+    "latestReachedRunFinished": true,
+    "evalArgs": [
+      "node_modules/promptfoo/dist/src/entrypoint.js",
+      "eval",
+      "-c",
+      "suites/promptfoo/promptfooconfig.yaml",
+      "--max-concurrency",
+      "1",
+      "-o",
+      "results/promptfoo-latest.json",
+      "--no-cache",
+      "--filter-metadata",
+      "taskId=build-synthetic-smoke"
+    ]
+  },
+  "summaryAccounting": {
+    "matrixFile": "matrix-2026-06-07T17-25-23-531Z.jsonl",
+    "runId": "2026-06-07T17-25-23-531Z",
+    "completed": 0,
+    "leaderboardRows": 0,
+    "assessment": "summarize-matrix selected the Stream 39 matrix JSONL, ignored the progress sidecar, and did not count the timeout/no-pass row as completed."
+  },
+  "runtimeAfterUnload": {
+    "action": "lms unload --all",
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "NVIDIA GeForce RTX 2080 Super with Max-Q Design, 8192 MiB total, 305 MiB used, 7683 MiB free, 5% utilization"
+  },
+  "gapOutcome": {
+    "closedOrSharpened": [
+      "Commit c36e52b is validated for the requested single-cell surface: the Stream 38 undefined.includes provider-call assertion error is gone.",
+      "Promptfoo still starts, disables cache, applies taskId=build-synthetic-smoke, and selects 4 test cases.",
+      "Progress telemetry was produced and latest progress reached run_finished."
+    ],
+    "notClosed": [
+      "No fresh results/promptfoo-latest.json surface was produced by Stream 39.",
+      "The filtered qwen Promptfoo cell timed out at 300059 ms with passes=null and total=null.",
+      "Qwen full current-suite no-cache throughput, subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain open."
+    ]
+  }
+}
