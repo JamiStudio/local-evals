@@ -99,20 +99,22 @@ function runPromptfoo(modelKey, profileId) {
   const usePromptfoo =
     process.env.EVAL_USE_PROMPTFOO === 'true' ||
     (process.env.EVAL_USE_PROMPTFOO !== 'false' && existsSync(sqliteBinding));
+  const promptfooArgs = [
+    'node_modules/promptfoo/dist/src/entrypoint.js',
+    'eval',
+    '-c',
+    'suites/promptfoo/promptfooconfig.yaml',
+    '--max-concurrency',
+    '1',
+    '-o',
+    'results/promptfoo-latest.json',
+  ];
+  if (process.env.EVAL_PROMPTFOO_NO_CACHE === 'true') {
+    promptfooArgs.push('--no-cache');
+  }
   const result = spawnSync(
     process.execPath,
-    usePromptfoo
-      ? [
-          'node_modules/promptfoo/dist/src/entrypoint.js',
-          'eval',
-          '-c',
-          'suites/promptfoo/promptfooconfig.yaml',
-          '--max-concurrency',
-          '1',
-          '-o',
-          'results/promptfoo-latest.json',
-        ]
-      : ['scripts/run-local-eval.mjs'],
+    usePromptfoo ? promptfooArgs : ['scripts/run-local-eval.mjs'],
     {
       cwd: root,
       env,

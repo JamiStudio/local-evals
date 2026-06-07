@@ -224,7 +224,8 @@
     "Use the Stream 13/14/18 bounded local-fallback evidence for any next mid-size retry: keep EVAL_TASK_FILTER small, one GPU model at a time, and expand only after each cell writes a completed/non-timeout row. Stream 18 widens mid-size gpu_offload local-fallback coverage to three non-build task ids with aggregate 6/9 and no timeouts; broader suites/profiles remain unproven.",
     "Stream 17 qwen/liquid profile-sensitivity slice is complete: liquid all 11 profiles tied at 5/40, qwen gpu_offload/gpu_partial_0.95/gpu_partial_0.7/gpu_full tied at 7/40; archives added for stream17; no final 3-solid claim. Remaining gaps: user review, broad/full matrix, large practical proof, uncached qwen/liquid throughput, broad partial-profile measurements, and final completion verification.",
     "Stream 18 mid-size task slice is complete: 9 gpu_offload local-fallback cells across 12B, GLM, and 12B-QAT on research-harness-tools, plan-synthetic-smoke, and tool-call-search-docs; no timeouts; aggregate 6/9 with task/model caveats. Remaining gaps: user review, broad/full matrix, partial profiles for mid-size, large practical proof, final 3-solid selection, and completion verification.",
-    "Stream 20 mid-size partial-profile comparison is complete: google/gemma-4-12b@gpu_partial_0.9, zai-org/glm-4.6v-flash@gpu_partial_0.88, and google/gemma-4-12b-qat@gpu_partial_0.95 each completed plan-synthetic-smoke 1/1 with no timeouts; partials preserved Stream 18 gpu_offload pass results with weak single-task duration deltas. Remaining gaps: user review, broad/full matrix, broader mid-size partial tasks, large practical proof, final 3-solid selection, and completion verification."
+    "Stream 20 mid-size partial-profile comparison is complete: google/gemma-4-12b@gpu_partial_0.9, zai-org/glm-4.6v-flash@gpu_partial_0.88, and google/gemma-4-12b-qat@gpu_partial_0.95 each completed plan-synthetic-smoke 1/1 with no timeouts; partials preserved Stream 18 gpu_offload pass results with weak single-task duration deltas. Remaining gaps: user review, broad/full matrix, broader mid-size partial tasks, large practical proof, final 3-solid selection, and completion verification.",
+    "Stream 22 uncached qwen/liquid throughput refresh is complete: Promptfoo --no-cache is supported and now env-gated via EVAL_PROMPTFOO_NO_CACHE; liquid@gpu_full completed uncached 5/40 in 31096 ms with cached tokens 0; qwen@gpu_offload timed out at 1200052 ms before pass totals, so qwen uncached throughput remains incomplete under the bounded cap."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -2023,5 +2024,91 @@
     },
     "assessment": "All three recommended partial-profile cells completed 1/1 with no timeout and preserved the Stream 18 gpu_offload pass result on plan-synthetic-smoke. Duration deltas are small-to-moderate on a single local-fallback task: 12B partial was 446 ms faster, GLM partial was 6438 ms slower, and 12B-QAT partial was 4623 ms faster. Treat duration comparison as weak single-task evidence, not a broad throughput ranking.",
     "remainingGaps": "This narrows mid-size partial-profile coverage only for one task and one recommended partial per model. Broad/full matrix coverage, mid-size partials on other tasks, large practical proof, subjective user review, final 3-solid selection, and completion verification remain open."
+  },
+  "stream22UncachedThroughput": {
+    "at": "2026-06-07T12:36:00.000Z",
+    "scope": "Safe uncached qwen/liquid throughput refresh if Promptfoo exposes a non-destructive no-cache path.",
+    "cachePreflight": {
+      "promptfooVersionObserved": "0.120.27",
+      "helpCommand": "node node_modules/promptfoo/dist/src/entrypoint.js eval --help",
+      "supportedNoCachePath": true,
+      "supportedEvidence": "--no-cache: Do not read or write results to disk cache",
+      "localSearchEvidence": "rg found no repo-owned no-cache pass-through before this stream; Promptfoo dist code exposes cache helpers and the installed eval help exposes --no-cache.",
+      "destructiveActionsAvoided": [
+        "Did not delete global Promptfoo cache.",
+        "Did not delete .promptfoo or user home cache.",
+        "Did not delete unrelated artifacts."
+      ],
+      "repoChange": "scripts/run-matrix.mjs now appends --no-cache only when EVAL_PROMPTFOO_NO_CACHE=true."
+    },
+    "runtimeBefore": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "2026/06/07 08:12:29.757, RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 6% utilization"
+    },
+    "runtimeAfter": {
+      "lmsPs": "No models are currently loaded after explicit lms unload --all.",
+      "nvidiaSmi": "2026/06/07 08:34:30.854, RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 5% utilization"
+    },
+    "artifacts": {
+      "liquidMatrixJsonl": "results/matrix-2026-06-07T12-13-20-405Z.jsonl",
+      "qwenMatrixJsonl": "results/matrix-2026-06-07T12-14-13-926Z.jsonl",
+      "liquidPromptfooLatest": "results/promptfoo-latest.json",
+      "matrixSummary": "results/matrix-summary.json",
+      "liquidComparisonArchive": "results/baseline-comparison-liquid-stream22.jsonl",
+      "liquidUserJudgeQueueArchive": "results/user-judge-queue-liquid-stream22.jsonl"
+    },
+    "results": {
+      "liquid": {
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 31096,
+        "promptfooDurationMs": 25117,
+        "tokenUsage": {
+          "prompt": 2337,
+          "completion": 2374,
+          "cached": 0,
+          "total": 4711,
+          "numRequests": 32,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          },
+          "assertions": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            }
+          }
+        }
+      },
+      "qwen": {
+        "status": "eval_timeout",
+        "passes": null,
+        "total": null,
+        "durationMs": 1200052,
+        "timeoutMs": 1200000
+      }
+    },
+    "assessment": {
+      "liquid": "No-cache liquid preserved 5/40 and took 31096 ms runner duration; Promptfoo reported 28s and tokenUsage.cached=0 for 4711 total eval tokens. This is fresh current-suite throughput evidence and slower than Stream 17 cached 9283 ms / 4s, and slower than Stream 8 historical 13373 ms.",
+      "qwen": "No-cache qwen did not complete within the 1200000 ms cap. The row is eval_timeout with no pass totals. Stderr confirms Cache is disabled and evaluation started 40 test cases. This leaves qwen uncached current-suite throughput incomplete under the bounded cap; do not replace Stream 7 pass-rate evidence with this timeout."
+    },
+    "defaultSurfaceCaveat": "results/matrix-summary.json points to the qwen timeout row. results/promptfoo-latest.json and the stream22 compare/queue archives point to the completed liquid no-cache surface because the qwen timeout did not produce a Promptfoo output file.",
+    "remainingGaps": [
+      "Qwen uncached current-suite throughput remains incomplete because the bounded no-cache cell timed out before pass totals.",
+      "Subjective user review remains pending.",
+      "Final 3-solid selection remains incomplete.",
+      "Broad/full local matrix coverage remains incomplete.",
+      "Large practical proof remains incomplete.",
+      "Final two-verifier completion audit remains pending."
+    ]
   }
 }

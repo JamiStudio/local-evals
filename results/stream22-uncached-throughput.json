@@ -1,0 +1,146 @@
+{
+  "stream": 22,
+  "at": "2026-06-07T12:36:00.000Z",
+  "purpose": "Safe uncached qwen/liquid throughput refresh if Promptfoo exposes a non-destructive no-cache path.",
+  "cachePreflight": {
+    "promptfooVersionObserved": "0.120.27",
+    "helpCommand": "node node_modules/promptfoo/dist/src/entrypoint.js eval --help",
+    "supportedNoCachePath": true,
+    "supportedEvidence": "--no-cache: Do not read or write results to disk cache",
+    "localSearchEvidence": "rg found no repo-owned no-cache pass-through before this stream; Promptfoo dist code exposes cache helpers and the installed eval help exposes --no-cache.",
+    "destructiveActionsAvoided": [
+      "Did not delete global Promptfoo cache.",
+      "Did not delete .promptfoo or user home cache.",
+      "Did not delete unrelated artifacts."
+    ],
+    "repoChange": "scripts/run-matrix.mjs now appends --no-cache only when EVAL_PROMPTFOO_NO_CACHE=true."
+  },
+  "runtimeBefore": {
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "2026/06/07 08:12:29.757, RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 6% utilization"
+  },
+  "commands": [
+    {
+      "label": "liquid no-cache current-suite cell",
+      "command": "EVAL_PROMPTFOO_NO_CACHE=true; EVAL_USE_PROMPTFOO=true; EVAL_SMOKE_MODELS=liquid/lfm2.5-1.2b; EVAL_SMOKE_PROFILES=gpu_full; EVAL_CELL_TIMEOUT_MS=300000; node scripts/run-matrix.mjs --smoke",
+      "result": "completed with partial pass count"
+    },
+    {
+      "label": "qwen no-cache current-suite cell",
+      "command": "EVAL_PROMPTFOO_NO_CACHE=true; EVAL_USE_PROMPTFOO=true; EVAL_SMOKE_MODELS=qwen/qwen3.5-9b; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=1200000; node scripts/run-matrix.mjs --smoke",
+      "result": "eval_timeout at bounded 1200000 ms cap before pass totals"
+    }
+  ],
+  "artifacts": {
+    "liquidMatrixJsonl": "results/matrix-2026-06-07T12-13-20-405Z.jsonl",
+    "qwenMatrixJsonl": "results/matrix-2026-06-07T12-14-13-926Z.jsonl",
+    "liquidPromptfooLatest": "results/promptfoo-latest.json",
+    "matrixSummary": "results/matrix-summary.json",
+    "liquidComparisonArchive": "results/baseline-comparison-liquid-stream22.jsonl",
+    "liquidUserJudgeQueueArchive": "results/user-judge-queue-liquid-stream22.jsonl"
+  },
+  "rows": {
+    "liquid": {
+      "runId": "2026-06-07T12-13-20-405Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 31096,
+      "stderr": "t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-xKr-2026-06-07T12:13:24)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,711\r\n  Eval: 4,711 (2,337 prompt, 2,374 completion)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 28s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_12-13-24-024Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_12-13-24-024Z.log"
+    },
+    "qwen": {
+      "runId": "2026-06-07T12-14-13-926Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": null,
+      "status": "eval_timeout",
+      "passes": null,
+      "total": null,
+      "durationMs": 1200052,
+      "stderr": "EVAL_CELL_TIMEOUT_MS=1200000 elapsed before eval completed.\n========================================================================================================================\n⚠️ The current version of promptfoo 0.120.27 is lower than the latest available version 0.121.15.\n\nPlease run npx promptfoo@latest or npm install -g promptfoo@latest to update.\n========================================================================================================================\n\r\nCache is disabled.\r\nStarting evaluation eval-3vK-2026-06-07T12:14:18\r\nRunning 40 test cases (up to 1 at a time)..."
+    }
+  },
+  "promptfooLatestLiquidStats": {
+    "evalId": "eval-xKr-2026-06-07T12:13:24",
+    "successes": 5,
+    "failures": 27,
+    "errors": 8,
+    "tokenUsage": {
+      "prompt": 2337,
+      "completion": 2374,
+      "cached": 0,
+      "total": 4711,
+      "numRequests": 32,
+      "completionDetails": {
+        "reasoning": 0,
+        "acceptedPrediction": 0,
+        "rejectedPrediction": 0
+      },
+      "assertions": {
+        "total": 0,
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0,
+        "numRequests": 0,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        }
+      }
+    },
+    "durationMs": 25117,
+    "evaluationDurationMs": 25117,
+    "cachedTokens": 0
+  },
+  "comparisons": {
+    "stream17Cached": {
+      "liquidGpuFull": {
+        "profileId": "gpu_full",
+        "gpuFlag": "max",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 9283,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      "qwenGpuOffload": {
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "status": "eval_partial",
+        "passes": 7,
+        "total": 40,
+        "durationMs": 6852,
+        "artifact": "results/matrix-2026-06-07T11-08-01-420Z.jsonl"
+      }
+    },
+    "historicalUncached": {
+      "liquidStream8": "Stream 8 liquid/lfm2.5-1.2b@gpu_full completed 5/40 in 13373 ms on the current suite.",
+      "qwenStream7": "Stream 7 qwen/qwen3.5-9b@gpu_offload completed 7/40 in 1018924 ms on the current suite."
+    },
+    "stream22Assessment": {
+      "liquid": "No-cache liquid preserved 5/40 and took 31096 ms runner duration; Promptfoo reported 28s and tokenUsage.cached=0 for 4711 total eval tokens. This is fresh current-suite throughput evidence and slower than Stream 17 cached 9283 ms / 4s, and slower than Stream 8 historical 13373 ms.",
+      "qwen": "No-cache qwen did not complete within the 1200000 ms cap. The row is eval_timeout with no pass totals. Stderr confirms Cache is disabled and evaluation started 40 test cases. This leaves qwen uncached current-suite throughput incomplete under the bounded cap; do not replace Stream 7 pass-rate evidence with this timeout."
+    }
+  },
+  "defaultSurfaceCaveat": "results/matrix-summary.json points to the qwen timeout row. results/promptfoo-latest.json and the stream22 compare/queue archives point to the completed liquid no-cache surface because the qwen timeout did not produce a Promptfoo output file.",
+  "runtimeAfter": {
+    "lmsPs": "No models are currently loaded after explicit lms unload --all.",
+    "nvidiaSmi": "2026/06/07 08:34:30.854, RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 5% utilization"
+  },
+  "remainingGaps": [
+    "Qwen uncached current-suite throughput remains incomplete because the bounded no-cache cell timed out before pass totals.",
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Large practical proof remains incomplete.",
+    "Final two-verifier completion audit remains pending."
+  ]
+}

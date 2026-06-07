@@ -21,7 +21,7 @@
 - User review is pending.
 - Broad/full matrix coverage remains incomplete.
 - Large 26B/31B practical runs are not completed; Stream 16 proves timeout behavior for the first bounded 31B-QAT partial cell, not success.
-- Partial GPU profiles are not broadly measured outside contained slices; Stream 17 qwen/liquid quality was invariant and qwen durations were cached reruns, not uncached throughput. Stream 20 covers only one mid-size task on one recommended partial profile per model.
+- Partial GPU profiles are not broadly measured outside contained slices; Stream 17 qwen/liquid quality was invariant and qwen durations were cached reruns, not uncached throughput. Stream 22 closes liquid no-cache throughput only; qwen no-cache current-suite throughput timed out before pass totals. Stream 20 covers only one mid-size task on one recommended partial profile per model.
 - Mid-size coverage is not broad; it is one build proof, a small three-task local fallback slice on `gpu_offload`, and one recommended-partial plan-task slice only.
 - Final 3-solid model selection is not complete.
 

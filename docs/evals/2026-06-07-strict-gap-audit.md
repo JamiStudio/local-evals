@@ -1,6 +1,6 @@
 # Strict Gap Audit - Stream 21 (2026-06-07)
 
-**Status:** Internal remaining-gap audit after Streams 1-20. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
+**Status:** Internal remaining-gap audit after Streams 1-20, updated with Stream 22 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
 
 **Runtime boundary:** Stream 21 ran no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or paid-provider calls. Live `lms ps` was used only to confirm that no models were loaded.
 
@@ -9,6 +9,8 @@
 ## Verdict Summary
 
 The campaign has real pushed evidence across every major lane, but the original exhaustive target is not complete. The strongest covered lanes are git transparency, W7 baseline backing, local-safe DeepEval W7, and prepared human-review packet. The strongest local candidate remains qwen for specialist/W7 support, liquid remains speed/triage, and cloud/imported baselines remain the quality anchor. Those are draft roles only.
+
+Stream 22 resolved the cache-control preflight and partially refreshed throughput: installed Promptfoo exposes `--no-cache`, now env-gated in `scripts/run-matrix.mjs` via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid completed a no-cache current-suite cell; qwen timed out under the bounded no-cache cap.
 
 The remaining gaps split into two categories:
 
@@ -22,7 +24,7 @@ The remaining gaps split into two categories:
 | All 12 models inventory | covered | `registry/models.json` lists 12 local LLMs: 26B, 12B, GLM, qwen, e2b, 31B, 31B-QAT, 12B-QAT, rnj, nemotron, liquid, e4b. | Inventory is covered; live `lms ls --json` can still drift and should be refreshed before future load-profile changes. |
 | Current-suite / Promptfoo coverage | evidence exists but not complete | Small/fit class: nemotron all 11 profiles at 9/40, e2b all 11 at 11/40, e4b all 11 at 10/40, rnj all 11 at 7/40. Qwen controls at 7/40; liquid controls at 5/40. | The full original target, all 12 models x all 11 profiles on the full current suite, is not complete. 26B/31B practical coverage is absent or timeout-only; mid-size full Promptfoo coverage remains narrow. |
 | Local fallback slices | narrowly covered | Stream 13/14 build slices for 12B/GLM/12B-QAT; Stream 18 widened to 9 gpu_offload cells across research, plan, and tool-call with 6/9; Stream 20 added 3/3 recommended partial plan cells. | Local fallback proves bounded feasibility for selected tasks only. It does not prove broad suite quality or user-accepted output quality. |
-| Load profiles and partials | evidence exists but not complete | `registry/load-profiles.json` has 11 profiles. Stream 17 tested liquid all profiles and qwen four profiles; pass rates were invariant. Stream 20 tested one recommended partial per mid-size model on one task. Stream 16 has large estimates. | Broad partial-profile quality and uncached throughput remain incomplete, especially for mid-size tasks beyond `plan-synthetic-smoke` and large models. |
+| Load profiles and partials | evidence exists but not complete | `registry/load-profiles.json` has 11 profiles. Stream 17 tested liquid all profiles and qwen four profiles; pass rates were invariant. Stream 20 tested one recommended partial per mid-size model on one task. Stream 22 completed liquid no-cache throughput and recorded qwen no-cache timeout. Stream 16 has large estimates. | Broad partial-profile quality remains incomplete. Qwen uncached current-suite throughput remains incomplete because the bounded no-cache cell timed out before pass totals. |
 | W7 tracker | narrowly covered | Stream 12 strict qwen artifact `results/daily-briefs/brief-20260607-100231.json` is model-final, no fallback, all required sections present, `tps=3.0`, with web/read/github tools. | Quality is not accepted: stale wording, weak web-search relevance, and one invalid GitHub field request remain. User review is required. |
 | DeepEval W7 | covered | Stream 11 local-safe deterministic W7 lane passed 4/4 without requiring `OPENAI_API_KEY`. | Judge-backed DeepEval metrics remain opt-in and are not needed for the local-safe default lane. |
 | Baselines and user-review queue | pending user review | Stream 9 collected W7 baselines; qwen/liquid model-specific archives are 40/40 baseline-backed with W7 8/8. Stream 19 prepared the review packet. | Human scoring has not happened. Automation cannot mark this complete without the user. |
@@ -36,30 +38,33 @@ The remaining gaps split into two categories:
 
 These streams reduce real gaps without pretending that user review is done and without launching an unbounded full matrix.
 
-### Recommended Stream 22 - Uncached qwen/liquid runtime refresh
+### Stream 22 result - Uncached qwen/liquid runtime refresh
 
-**Gap closed:** qwen/liquid throughput currently has cached Promptfoo timings in Stream 17; qwen/liquid quality profile sensitivity is known, but fresh runtime is not.
+**Gap outcome:** Promptfoo cache control is confirmed and liquid now has fresh no-cache current-suite throughput. Qwen no-cache current-suite throughput is still incomplete under the bounded cap.
 
 **Scope:** One qwen cell and one liquid cell on the current full Promptfoo suite using the already selected draft profiles.
 
-**Preflight:** Confirm a safe cache-disabling path before running. `rg` found no repo-owned Promptfoo cache flag in scripts. The subagent should run `node node_modules/promptfoo/dist/src/entrypoint.js eval --help` and inspect for a supported no-cache/cache-control option. If no supported option exists, do not delete global Promptfoo state or unrelated artifacts; use `EVAL_USE_PROMPTFOO=false` only for a clearly labeled local-runner throughput fallback.
+**Preflight verdict:** `node node_modules/promptfoo/dist/src/entrypoint.js eval --help` exposes `--no-cache` as "Do not read or write results to disk cache." No global Promptfoo cache, `.promptfoo`, user home cache, or unrelated artifact was deleted. `scripts/run-matrix.mjs` now appends the documented flag only when `EVAL_PROMPTFOO_NO_CACHE=true`.
 
-**Proposed commands if Promptfoo exposes a safe no-cache flag:**
+**Commands run:**
 
 ```powershell
+$env:EVAL_PROMPTFOO_NO_CACHE='true'
+$env:EVAL_USE_PROMPTFOO='true'
 $env:EVAL_SMOKE_MODELS='liquid/lfm2.5-1.2b'
 $env:EVAL_SMOKE_PROFILES='gpu_full'
 $env:EVAL_CELL_TIMEOUT_MS='300000'
-# add the confirmed Promptfoo no-cache flag inside scripts/run-matrix.mjs or via a temporary env-supported path only if documented by --help
 node scripts/run-matrix.mjs --smoke
 
+$env:EVAL_PROMPTFOO_NO_CACHE='true'
+$env:EVAL_USE_PROMPTFOO='true'
 $env:EVAL_SMOKE_MODELS='qwen/qwen3.5-9b'
 $env:EVAL_SMOKE_PROFILES='gpu_offload'
 $env:EVAL_CELL_TIMEOUT_MS='1200000'
 node scripts/run-matrix.mjs --smoke
 ```
 
-**Risk:** Medium. Qwen full current-suite run previously took about 17 minutes uncached. The risk is only time, not subjective quality. Avoid destructive cache cleanup.
+**Result:** `results/stream22-uncached-throughput.json` records both rows. Liquid `gpu_full` completed `5/40` with runner duration `31096 ms`; Promptfoo reported `28s`, `4711` total eval tokens, and `cached=0`. Qwen `gpu_offload` timed out at `1200052 ms` before pass totals; stderr confirms "Cache is disabled" and the 40-case evaluation had started. `results/matrix-summary.json` points to the qwen timeout row, while `results/promptfoo-latest.json` and Stream 22 compare/queue archives point to the completed liquid no-cache surface.
 
 ### Recommended Stream 23 - Improved strict qwen W7 tracker quality refresh
 

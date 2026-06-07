@@ -4,7 +4,7 @@
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
 
-**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. Stream 20 added one bounded mid-size partial-profile task slice only. No cloud runs or baseline collection were performed in these streams.
+**Boundary:** Stream 15 was docs/report/state synthesis only. Stream 16 added large-model estimate-only probes and one bounded practical timeout cell. Stream 17 added qwen/liquid current-suite profile-sensitivity cells only. Stream 18 added a bounded mid-size local fallback task slice only. Stream 19 prepared the human review packet only. Stream 20 added one bounded mid-size partial-profile task slice only. Stream 21 audited remaining gaps only. Stream 22 added a safe Promptfoo no-cache pass-through plus one completed liquid no-cache cell and one qwen no-cache timeout. No cloud runs or baseline collection were performed in these streams.
 
 ## Current Coverage
 
@@ -15,6 +15,7 @@
 - **Stream 7:** qwen current-suite control, `qwen/qwen3.5-9b@gpu_offload`, `7/40` (17.5%, rounded 18%).
 - **Stream 8 / 10 archive:** liquid current-suite control, `liquid/lfm2.5-1.2b@gpu_full`, `5/40` (12.5%, rounded 13%).
 - **Stream 17:** qwen/liquid current-suite profile-sensitivity slice. Liquid ran all 11 current profiles in `results/matrix-2026-06-07T11-05-50-387Z.jsonl`; every profile was `5/40`, `eval_partial`, with no load failures or timeouts. Qwen ran `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full` across four one-cell JSONLs; every tested profile was `7/40`, `eval_partial`, with no timeouts. The qwen Stream 17 durations are cached Promptfoo reruns, not fresh uncached throughput.
+- **Stream 22:** no-cache current-suite throughput refresh. `results/stream22-uncached-throughput.json` records the cache preflight and two bounded cells. Promptfoo help exposes `--no-cache`, now env-gated via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid `gpu_full` completed uncached at `5/40`, runner duration `31096 ms`, Promptfoo duration `28s`, `4711` total tokens, and `cached=0`. Qwen `gpu_offload` timed out at `1200052 ms` before pass totals; stderr confirms cache was disabled and the 40-case evaluation started.
 
 ### Baseline And Review Queues
 
@@ -23,6 +24,7 @@
   - `results/baseline-comparison-liquid-stream8.jsonl` and `results/user-judge-queue-liquid-stream8.jsonl`: 40 rows, 40 backed, W7 8/8.
   - `results/baseline-comparison-qwen-stream10.jsonl` and `results/user-judge-queue-qwen-stream10.jsonl`: 40 rows, 40 backed, W7 8/8.
 - **Stream 17 archives:** `results/baseline-comparison-liquid-stream17.jsonl`, `results/user-judge-queue-liquid-stream17.jsonl`, `results/baseline-comparison-qwen-stream17.jsonl`, and `results/user-judge-queue-qwen-stream17.jsonl` each contain 40 rows / 40 baseline-backed comparisons for the final promptfoo surface of that model's Stream 17 slice.
+- **Stream 22 archives:** `results/baseline-comparison-liquid-stream22.jsonl` has 40 rows / 40 baseline-backed comparisons for the completed liquid no-cache surface. `results/user-judge-queue-liquid-stream22.jsonl` contains the generated review queue for that surface. No qwen Stream 22 compare/queue archive exists because the no-cache qwen cell timed out before producing a Promptfoo output file.
 - **Important:** latest default compare/queue files are last-cell surfaces. After Stream 17 they point to the final qwen `gpu_full` promptfoo output, while the full profile-sensitivity evidence lives in `results/stream17-profile-sensitivity.json` and the raw Stream 17 JSONLs.
 - **Stream 18 default-surface caveat:** after Stream 18, default compare/queue point only to the final 12B-QAT `tool-call-search-docs` cell. The archived last-cell surfaces are `results/baseline-comparison-stream18-last-cell.jsonl` and `results/user-judge-queue-stream18-last-cell.jsonl`; the full Stream 18 evidence is `results/stream18-mid-size-task-slice.json` plus its raw JSONLs.
 - **Stream 19 review packet:** `docs/evals/2026-06-07-user-review-packet.md` and `results/user-review-packet-summary.json` gather qwen/liquid Stream 17 queue counts, Stream 18 last-cell/full-slice caveats, W7 strict qwen tracker, DeepEval W7, and Stream 16 large-model timeout context for human review. The packet does not record subjective scores.
@@ -63,7 +65,7 @@
 - Subjective user review for the qwen/liquid baseline-backed queues. Use `docs/evals/2026-06-07-user-review-packet.md` as the prepared packet; review is not complete.
 - Full/broad local matrix completion across all models and all relevant profiles.
 - Large 26B/31B completed practical proof beyond Stream 16 estimate/timeout evidence.
-- Broad partial GPU profile measurements remain open: Stream 17 covers qwen/liquid profile sensitivity, and Stream 20 covers one mid-size task on recommended partials only. Stream 17 qwen timings are cached rather than fresh throughput.
+- Broad partial GPU profile measurements remain open: Stream 17 covers qwen/liquid profile sensitivity, and Stream 20 covers one mid-size task on recommended partials only. Stream 22 closes liquid no-cache throughput, but qwen no-cache throughput remains incomplete after timeout.
 - Wider mid-size task coverage beyond `build-synthetic-smoke` is narrowed by Stream 18, and one-task mid-size partial-profile coverage is narrowed by Stream 20, but broad mid-size suite/profile coverage remains open.
 - SOTA peer imports beyond the current Vertex baseline lane where policy requires them.
 - Final evidence-backed 3-solid selection and strict completion verification.
@@ -72,8 +74,8 @@
 
 The campaign has progressed from stale smoke-only/W7-dry evidence to a much stronger but still incomplete state:
 
-- qwen is the local specialist candidate with strict W7 finalization and baseline-backed review evidence, but weak 40-assertion deterministic score and quality caveats. Stream 17 did not show a pass-rate win for full or partial profiles over offload.
-- liquid is the speed/triage control with fully backed review archives, but weaker deterministic score. Stream 17 did not show a pass-rate win for any liquid profile, so `gpu_full` remains speed/fit driven.
+- qwen is the local specialist candidate with strict W7 finalization and baseline-backed review evidence, but weak 40-assertion deterministic score and quality caveats. Stream 17 did not show a pass-rate win for full or partial profiles over offload, and Stream 22 timed out before completing qwen no-cache throughput.
+- liquid is the speed/triage control with fully backed review archives, but weaker deterministic score. Stream 17 did not show a pass-rate win for any liquid profile, so `gpu_full` remains speed/fit driven; Stream 22 adds completed no-cache timing for that placement.
 - cloud baselines remain the review ceiling and comparison anchor.
 - mid-size models have a repaired bounded local-fallback path for one build task, a small non-build task slice, and a one-task recommended-partial slice. This supports cautious incremental expansion, not broad quality claims.
 

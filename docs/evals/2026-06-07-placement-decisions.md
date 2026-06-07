@@ -1,6 +1,6 @@
 # Placement Decisions Draft — Current Evidence (2026-06-07)
 
-**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-20 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, wider mid-size local fallback task-slice evidence, human review packet, and one-task mid-size partial-profile evidence, but final placement remains caveated until user review and broader local coverage are complete.
+**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-22 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, liquid no-cache throughput, wider mid-size local fallback task-slice evidence, human review packet, and one-task mid-size partial-profile evidence, but final placement remains caveated until user review and broader local coverage are complete.
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
 
@@ -11,6 +11,7 @@
 - **Qwen current-suite:** `qwen/qwen3.5-9b@gpu_offload` has archived qwen comparison/review queues with 40 rows, 40 baseline-backed, W7 8/8 backed. The current deterministic control is `7/40`; useful specialist evidence exists, but broad quality remains weak.
 - **Liquid current-suite:** `liquid/lfm2.5-1.2b@gpu_full` has archived liquid comparison/review queues with 40 rows, 40 baseline-backed, W7 8/8 backed. The current deterministic control is `5/40`; use it for speed/triage, not deep quality.
 - **Stream 17 profile sensitivity:** Liquid ran all 11 profiles and tied at `5/40` on every profile. Qwen ran `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full`; all tied at `7/40`. This supports quality invariance for the tested profiles, not a new profile winner. Qwen Stream 17 durations are cached Promptfoo reruns, not fresh uncached throughput.
+- **Stream 22 no-cache throughput:** Promptfoo `--no-cache` is supported and env-gated via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid `gpu_full` completed uncached at `5/40`, `31096 ms` runner duration, Promptfoo `28s`, `4711` total tokens, and `cached=0`. Qwen `gpu_offload` timed out at `1200052 ms` before pass totals, so qwen uncached current-suite throughput remains incomplete.
 - **W7 baseline status:** The W7 tasks are baseline-backed as of Stream 9. Obsolete `W7 0 baseline` wording no longer applies.
 - **W7 tracker status:** Qwen has a strict no-fallback real tracker artifact with all sections and real tool use. The artifact is model-final and nonblank, but quality/freshness caveats remain.
 - **DeepEval W7 status:** Local-safe deterministic W7 tests pass 4/4 by default; cloud/judge-backed metrics remain opt-in.
@@ -24,7 +25,7 @@
 
 ### Research And Synthesis
 
-- **Local placement:** Qwen can support harness-aware research drafting and daily interest synthesis when paired with the specialist KB and tracker. Stream 17 did not distinguish qwen profile quality, so keep `gpu_offload` as the draft local placement based on W7/tracker and earlier offload evidence. The strict W7 artifact proves model-final behavior after tools, but its stale wording and weak web/GitHub tool results mean human review remains required.
+- **Local placement:** Qwen can support harness-aware research drafting and daily interest synthesis when paired with the specialist KB and tracker. Stream 17 did not distinguish qwen profile quality, and Stream 22 did not complete qwen no-cache throughput under the bounded cap, so keep `gpu_offload` as the draft local placement based on W7/tracker and earlier offload evidence. The strict W7 artifact proves model-final behavior after tools, but its stale wording and weak web/GitHub tool results mean human review remains required.
 - **Cloud placement:** Cloud baselines remain the quality ceiling and review anchor for long-horizon synthesis and final judgement.
 - **Draft decision:** qwen for local draft/specialist support; cloud for final or high-stakes synthesis; liquid only for fast triage.
 
@@ -54,7 +55,7 @@
 
 ### Speed / Triage
 
-- **Local placement:** liquid remains the speed model. Stream 17 found all 11 liquid profiles tied at `5/40`, so `gpu_full` stays preferred because it fits the host easily and is the speed-oriented recommendation, not because pass rate was better.
+- **Local placement:** liquid remains the speed model. Stream 17 found all 11 liquid profiles tied at `5/40`, so `gpu_full` stays preferred because it fits the host easily and is the speed-oriented recommendation, not because pass rate was better. Stream 22 gives a fresh no-cache current-suite timing for that placement: `5/40`, `31096 ms` runner duration, `cached=0`.
 - **Draft decision:** liquid for fast triage/routing/light drafts; qwen for specialist depth; cloud for quality ceiling.
 
 ## Current Caveats
