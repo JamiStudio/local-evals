@@ -9,7 +9,7 @@
     - type: contains
       value: Workstream
     - type: javascript
-      value: output.split(/\n/).filter(l => l.trim()).length >= 5
+      value: (output || '').split(/\n/).filter(l => l.trim()).length >= 5
 
 - description: plan — template (voice host integration)
   metadata:
@@ -22,4 +22,4 @@
     - type: contains
       value: gateway
     - type: javascript
-      value: output.toLowerCase().includes('host') || output.toLowerCase().includes('hermes')
+      value: (output || '').toLowerCase().includes('host') || (output || '').toLowerCase().includes('hermes')

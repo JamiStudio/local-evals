@@ -14,7 +14,7 @@
     - type: contains
       value: '+++'
     - type: javascript
-      value: output.includes('reduce') || output.includes('for') || output.includes('+=')
+      value: (output || '').includes('reduce') || (output || '').includes('for') || (output || '').includes('+=')
   options:
     transform: '(output) => (output || "").replace(/```[\\s\\S]*?```/g, "").trim()'
 
@@ -34,6 +34,6 @@
     - type: contains
       value: '+++'
     - type: javascript
-      value: output.includes('30000') || output.includes('30_000') || output.includes('30 * 1000')
+      value: (output || '').includes('30000') || (output || '').includes('30_000') || (output || '').includes('30 * 1000')
   options:
     transform: '(output) => (output || "").replace(/```[\\s\\S]*?```/g, "").trim()'

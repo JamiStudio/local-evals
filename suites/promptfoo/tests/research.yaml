@@ -28,7 +28,7 @@
     - type: contains
       value: tool
     - type: javascript
-      value: output.length > 200
+      value: (output || '').length > 200
 
 # W7 addition: briefs quality research-style case (daily interest + specialist harness)
 # Exercises research lane for briefs quality vs baseline (taskId registered in baselines/manifest.json)
@@ -49,4 +49,4 @@
     - type: contains
       value: brief
     - type: javascript
-      value: output.length > 180 && (output.toLowerCase().includes('token') || output.toLowerCase().includes('tps') || output.toLowerCase().includes('plan'))
+      value: (output || '').length > 180 && ((output || '').toLowerCase().includes('token') || (output || '').toLowerCase().includes('tps') || (output || '').toLowerCase().includes('plan'))

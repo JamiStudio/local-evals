@@ -7,7 +7,7 @@
   assert:
     - type: javascript
       value: |
-        output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().includes('max')
+        (output || '').toLowerCase().includes('gpu') || (output || '').toLowerCase().includes('offload') || (output || '').toLowerCase().includes('max')
   provider:
     config:
       tools:
@@ -40,7 +40,7 @@
   assert:
     - type: javascript
       value: |
-        output.includes('gpu_full') && output.includes('gpu_offload')
+        (output || '').includes('gpu_full') && (output || '').includes('gpu_offload')
   provider:
     config:
       tools:
@@ -75,7 +75,7 @@
   assert:
     - type: javascript
       value: |
-        (output.toLowerCase().includes('search') || output.toLowerCase().includes('tool')) && (output.toLowerCase().includes('plan') || output.toLowerCase().includes('step') || output.toLowerCase().includes('brief'))
+        ((output || '').toLowerCase().includes('search') || (output || '').toLowerCase().includes('tool')) && ((output || '').toLowerCase().includes('plan') || (output || '').toLowerCase().includes('step') || (output || '').toLowerCase().includes('brief'))
   provider:
     config:
       tools:
