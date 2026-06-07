@@ -1,6 +1,6 @@
 # 3 Solid Models — Current Evidence Memo (2026-06-07)
 
-**Status:** Draft evidence memo, not final completion. Streams 9-22 materially refreshed the evidence base and prepared a human review packet, but subjective user review, broad/full matrix coverage, completed large-model proofs, qwen uncached current-suite throughput, broad partial-profile measurements, and final selection remain open.
+**Status:** Draft evidence memo, not final completion. Streams 9-23 materially refreshed the evidence base and prepared a human review packet, but subjective user review, broad/full matrix coverage, completed large-model proofs, qwen uncached current-suite throughput, broad partial-profile measurements, and final selection remain open.
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
 
@@ -14,6 +14,7 @@
 - **Stream 22 no-cache throughput:** Promptfoo exposes a safe `--no-cache` path, now env-gated through `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid `gpu_full` completed the current suite uncached at `5/40` with runner duration `31096 ms`, Promptfoo duration `28s`, `4711` total eval tokens, and `cached=0`. Qwen `gpu_offload` no-cache timed out at `1200052 ms` before pass totals, so qwen uncached current-suite throughput remains incomplete under the bounded cap.
 - **W7 baselines:** Stream 9 imported W7 baselines for `daily-brief-synthetic-smoke` and `interest-tracker-tool-use`. The qwen and liquid model-specific queues are now 40/40 baseline-backed with W7 8/8 backed. User review is still pending.
 - **W7 real tracker:** Stream 12 produced strict qwen artifact `results/daily-briefs/brief-20260607-100231.json`: `strict_final=true`, `finalization_status=model_final`, `fallback_used=false`, all five required sections present, tools used `web_search`, `read_file`, and `github`, usage `5141/1393/6534`, wall `457.92s`, `tps=3.0`. Caveats: one invalid GitHub JSON-field request, poor web-search relevance, and stale wording inside the model-generated brief.
+- **Stream 23 W7 quality refresh:** `results/daily-briefs/brief-20260607-125406.json` and `results/stream23-w7-quality-refresh.json` show the tightened tracker path: current repo-file reads, a valid `gh repo view` observation, no tool failures, no unrelated web search, `tps=3.0`, usage `9338/1852/11190`, wall `612.87s`. It did not close W7 quality acceptance because strict mode recorded `finalization_status=strict_blank_or_missing_sections`; the model omitted `Token & Speed` and cut off during `Recommended Actions`.
 - **DeepEval W7 lane:** Stream 11 repaired the local-safe W7 DeepEval lane. `uv run deepeval test run suites\deepeval\test_workflows.py -v` passed 4/4 without requiring `OPENAI_API_KEY`; judge-backed metrics remain opt-in.
 - **Mid-size fallback proof:** Streams 13-14 proved a narrow local fallback path on `build-synthetic-smoke`, `gpu_offload`, `EVAL_USE_PROMPTFOO=false`: `google/gemma-4-12b` 1/1 in 71342 ms, `zai-org/glm-4.6v-flash` 1/1 in 97743 ms, and `google/gemma-4-12b-qat` 1/1 in 70425 ms. This is not broad mid-size quality coverage.
 - **Mid-size wider task slice:** Stream 18 added `results/stream18-mid-size-task-slice.json`: the same three mid-size targets ran local fallback on `gpu_offload` across `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs`. Result: 9 cells, 6/9 passed, 0 load failures, 0 timeouts. All three passed the plan task; research passed for both Gemma 12B variants but failed for GLM; tool-call-search passed only for GLM.
@@ -38,7 +39,7 @@
 ## What Changed Since The Older Memo
 
 - W7 baseline backing is no longer missing: qwen/liquid review archives are 40/40 baseline-backed and W7 8/8 backed.
-- W7 qwen tracker evidence is no longer dry-only or fallback-only: Stream 12 has a strict model-final, no-fallback artifact.
+- W7 qwen tracker evidence is no longer dry-only or fallback-only: Stream 12 has a strict model-final, no-fallback artifact. Stream 23 improved tool relevance and GitHub handling, but the strict artifact is missing one required section, so it does not replace Stream 12 as finalization evidence or complete quality acceptance.
 - DeepEval W7 is no longer broken/smoke-only in default local mode: deterministic W7 tests pass 4/4.
 - Mid-size Stream 4 targets are no longer only zero-row timeout evidence: they have one-task bounded local-fallback proof, but no broad suite/profile claim.
 - The old qwen `5/8` smoke-leader claim is stale for ranking. Current qwen/liquid control data is 40 assertions: qwen 7/40, liquid 5/40.
@@ -49,6 +50,7 @@
 ## Remaining Gaps
 
 - User review is pending for qwen/liquid model-specific queues. Use `docs/evals/2026-06-07-user-review-packet.md` as the current review packet.
+- W7 tracker quality remains pending. Stream 23 improved repo-file/GitHub relevance but produced a strict missing-section artifact, so human review and/or a later bounded repair are still required before promoting qwen daily-brief quality.
 - Full/broad local matrix coverage is incomplete. Qwen/liquid now have Stream 17 profile-sensitivity evidence, but other model families and broader uncached profile measurements remain open.
 - Large 26B/31B local models remain unproven beyond Stream 16 estimate/timeout context.
 - Partial GPU profile quality and speed are not broadly measured beyond contained slices; Stream 17 qwen/liquid quality was invariant across tested profiles, Stream 22 liquid no-cache throughput is complete, and Stream 22 qwen no-cache throughput timed out.

@@ -1,10 +1,10 @@
 # Placement Decisions Draft — Current Evidence (2026-06-07)
 
-**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-22 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, liquid no-cache throughput, wider mid-size local fallback task-slice evidence, human review packet, and one-task mid-size partial-profile evidence, but final placement remains caveated until user review and broader local coverage are complete.
+**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-23 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, liquid no-cache throughput, wider mid-size local fallback task-slice evidence, human review packet, one-task mid-size partial-profile evidence, and W7 tracker quality-refresh evidence, but final placement remains caveated until user review and broader local coverage are complete.
 
 **Strict gap audit:** See `docs/evals/2026-06-07-strict-gap-audit.md` for the Stream 21 classification table and recommended next bounded streams.
 
-**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, `results/stream20-mid-size-partial-profile.json`, `docs/evals/2026-06-07-user-review-packet.md`, `results/user-review-packet-summary.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-20 checkpoints in the active roadmap, and the W7 DeepEval suite.
+**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, `results/stream20-mid-size-partial-profile.json`, `results/stream23-w7-quality-refresh.json`, `docs/evals/2026-06-07-user-review-packet.md`, `results/user-review-packet-summary.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, `results/daily-briefs/brief-20260607-125406.json`, Stream 9-23 checkpoints in the active roadmap, and the W7 DeepEval suite.
 
 ## Evidence Summary
 
@@ -14,6 +14,7 @@
 - **Stream 22 no-cache throughput:** Promptfoo `--no-cache` is supported and env-gated via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid `gpu_full` completed uncached at `5/40`, `31096 ms` runner duration, Promptfoo `28s`, `4711` total tokens, and `cached=0`. Qwen `gpu_offload` timed out at `1200052 ms` before pass totals, so qwen uncached current-suite throughput remains incomplete.
 - **W7 baseline status:** The W7 tasks are baseline-backed as of Stream 9. Obsolete `W7 0 baseline` wording no longer applies.
 - **W7 tracker status:** Qwen has a strict no-fallback real tracker artifact with all sections and real tool use. The artifact is model-final and nonblank, but quality/freshness caveats remain.
+- **Stream 23 W7 quality refresh:** The improved strict qwen tracker run used repo-file evidence and a valid `gh repo view` call with no tool failures and no unrelated web result. It did not complete strict quality acceptance: `results/daily-briefs/brief-20260607-125406.json` is `strict_blank_or_missing_sections`, missing `Token & Speed`, with the final brief cut off during `Recommended Actions`.
 - **DeepEval W7 status:** Local-safe deterministic W7 tests pass 4/4 by default; cloud/judge-backed metrics remain opt-in.
 - **Mid-size status:** The Stream 4 target set has bounded one-task local-fallback coverage on `build-synthetic-smoke`: 12B, GLM, and 12B-QAT each completed 1/1 on `gpu_offload`. This supports cautious expansion, not broad placement.
 - **Stream 18 mid-size task slice:** The same mid-size targets now also have a small non-build local fallback slice on `gpu_offload`: `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs`. Aggregate result was 6/9 with 0 timeouts: plan passed for all three, research passed for both Gemma 12B variants and failed for GLM, and tool-call-search passed only for GLM.
@@ -25,7 +26,7 @@
 
 ### Research And Synthesis
 
-- **Local placement:** Qwen can support harness-aware research drafting and daily interest synthesis when paired with the specialist KB and tracker. Stream 17 did not distinguish qwen profile quality, and Stream 22 did not complete qwen no-cache throughput under the bounded cap, so keep `gpu_offload` as the draft local placement based on W7/tracker and earlier offload evidence. The strict W7 artifact proves model-final behavior after tools, but its stale wording and weak web/GitHub tool results mean human review remains required.
+- **Local placement:** Qwen can support harness-aware research drafting and daily interest synthesis when paired with the specialist KB and tracker. Stream 17 did not distinguish qwen profile quality, and Stream 22 did not complete qwen no-cache throughput under the bounded cap, so keep `gpu_offload` as the draft local placement based on W7/tracker and earlier offload evidence. Stream 23 improved repo-file and GitHub relevance compared with Stream 12, but the strict output missed a required section, so human review and W7 quality caveats remain required.
 - **Cloud placement:** Cloud baselines remain the quality ceiling and review anchor for long-horizon synthesis and final judgement.
 - **Draft decision:** qwen for local draft/specialist support; cloud for final or high-stakes synthesis; liquid only for fast triage.
 
@@ -49,7 +50,7 @@
 
 ### Daily Briefs / Interest Tracker
 
-- **Local placement:** qwen is the current W7 local specialist candidate. Stream 12 resolved the fallback-finalization caveat: the model produced a no-fallback final brief with all sections at `tps=3.0`.
+- **Local placement:** qwen is the current W7 local specialist candidate. Stream 12 resolved the fallback-finalization caveat: the model produced a no-fallback final brief with all sections at `tps=3.0`. Stream 23 improved tool relevance but produced a strict missing-section artifact, so it does not promote qwen daily-brief quality.
 - **Cloud placement:** Stream 9 W7 baselines provide the quality reference. User review still decides whether local qwen is acceptable for daily-brief quality.
 - **Draft decision:** qwen can run local W7 daily-brief drafts; cloud/user review remains the approval lane.
 
@@ -65,4 +66,5 @@
 - Broad/full matrix coverage is incomplete.
 - Large 26B/31B placements are still not proven; Stream 16 provides estimate/timeout evidence, not a completed practical pass.
 - Mid-size fallback coverage is still bounded, but no longer only one build task: Stream 18 adds three non-build task cells per mid-size target on `gpu_offload`, and Stream 20 adds one recommended-partial `plan-synthetic-smoke` cell per mid-size target.
+- W7 tracker quality is still not accepted: Stream 23 removed the invalid GitHub/weak web-search caveats from that run, but the strict model output omitted `Token & Speed`.
 - This draft should stay under `docs/evals/` until completion criteria and verifiers pass.

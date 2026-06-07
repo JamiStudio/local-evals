@@ -1,6 +1,6 @@
 # Strict Gap Audit - Stream 21 (2026-06-07)
 
-**Status:** Internal remaining-gap audit after Streams 1-20, updated with Stream 22 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
+**Status:** Internal remaining-gap audit after Streams 1-20, updated with Streams 22-23 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.
 
 **Runtime boundary:** Stream 21 ran no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or paid-provider calls. Live `lms ps` was used only to confirm that no models were loaded.
 
@@ -10,11 +10,11 @@
 
 The campaign has real pushed evidence across every major lane, but the original exhaustive target is not complete. The strongest covered lanes are git transparency, W7 baseline backing, local-safe DeepEval W7, and prepared human-review packet. The strongest local candidate remains qwen for specialist/W7 support, liquid remains speed/triage, and cloud/imported baselines remain the quality anchor. Those are draft roles only.
 
-Stream 22 resolved the cache-control preflight and partially refreshed throughput: installed Promptfoo exposes `--no-cache`, now env-gated in `scripts/run-matrix.mjs` via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid completed a no-cache current-suite cell; qwen timed out under the bounded no-cache cap.
+Stream 22 resolved the cache-control preflight and partially refreshed throughput: installed Promptfoo exposes `--no-cache`, now env-gated in `scripts/run-matrix.mjs` via `EVAL_PROMPTFOO_NO_CACHE=true`. Liquid completed a no-cache current-suite cell; qwen timed out under the bounded no-cache cap. Stream 23 improved qwen W7 tracker tool relevance but did not close strict quality acceptance because the final brief omitted a required section.
 
 The remaining gaps split into two categories:
 
-- **Actionable with bounded streams:** uncached qwen/liquid runtime refresh, one improved strict qwen W7 tracker refresh, and one safer large-model 26B offload or lower-GPU retry.
+- **Actionable with bounded streams:** one safer large-model 26B offload or lower-GPU retry, plus any future W7 tracker repair only if the orchestrator wants to address Stream 23's missing-section failure before user review.
 - **Not automatable by this harness:** subjective user review and final 3-solid promotion.
 
 ## Dimension Classification
@@ -25,7 +25,7 @@ The remaining gaps split into two categories:
 | Current-suite / Promptfoo coverage | evidence exists but not complete | Small/fit class: nemotron all 11 profiles at 9/40, e2b all 11 at 11/40, e4b all 11 at 10/40, rnj all 11 at 7/40. Qwen controls at 7/40; liquid controls at 5/40. | The full original target, all 12 models x all 11 profiles on the full current suite, is not complete. 26B/31B practical coverage is absent or timeout-only; mid-size full Promptfoo coverage remains narrow. |
 | Local fallback slices | narrowly covered | Stream 13/14 build slices for 12B/GLM/12B-QAT; Stream 18 widened to 9 gpu_offload cells across research, plan, and tool-call with 6/9; Stream 20 added 3/3 recommended partial plan cells. | Local fallback proves bounded feasibility for selected tasks only. It does not prove broad suite quality or user-accepted output quality. |
 | Load profiles and partials | evidence exists but not complete | `registry/load-profiles.json` has 11 profiles. Stream 17 tested liquid all profiles and qwen four profiles; pass rates were invariant. Stream 20 tested one recommended partial per mid-size model on one task. Stream 22 completed liquid no-cache throughput and recorded qwen no-cache timeout. Stream 16 has large estimates. | Broad partial-profile quality remains incomplete. Qwen uncached current-suite throughput remains incomplete because the bounded no-cache cell timed out before pass totals. |
-| W7 tracker | narrowly covered | Stream 12 strict qwen artifact `results/daily-briefs/brief-20260607-100231.json` is model-final, no fallback, all required sections present, `tps=3.0`, with web/read/github tools. | Quality is not accepted: stale wording, weak web-search relevance, and one invalid GitHub field request remain. User review is required. |
+| W7 tracker | narrowly covered | Stream 12 strict qwen artifact `results/daily-briefs/brief-20260607-100231.json` is model-final, no fallback, all required sections present, `tps=3.0`, with web/read/github tools. Stream 23 artifact `results/daily-briefs/brief-20260607-125406.json` used repo-file reads and valid GitHub fields with no tool failures. | Quality is not accepted: Stream 12 has stale/weak tool relevance caveats, and Stream 23 improved those but failed strict section completeness by omitting `Token & Speed`. User review is required. |
 | DeepEval W7 | covered | Stream 11 local-safe deterministic W7 lane passed 4/4 without requiring `OPENAI_API_KEY`. | Judge-backed DeepEval metrics remain opt-in and are not needed for the local-safe default lane. |
 | Baselines and user-review queue | pending user review | Stream 9 collected W7 baselines; qwen/liquid model-specific archives are 40/40 baseline-backed with W7 8/8. Stream 19 prepared the review packet. | Human scoring has not happened. Automation cannot mark this complete without the user. |
 | Cloud/imported baselines and no-direct-paid boundary | narrowly covered | Current Vertex baseline lane and W7 imported baselines exist; no direct paid matrix/API calls were run in Streams 16-21. | Additional SOTA peers beyond current imported baseline lane are not broadly imported. Do not run cloud/API collection unless explicitly scoped and credit-gated. |
@@ -66,22 +66,26 @@ node scripts/run-matrix.mjs --smoke
 
 **Result:** `results/stream22-uncached-throughput.json` records both rows. Liquid `gpu_full` completed `5/40` with runner duration `31096 ms`; Promptfoo reported `28s`, `4711` total eval tokens, and `cached=0`. Qwen `gpu_offload` timed out at `1200052 ms` before pass totals; stderr confirms "Cache is disabled" and the 40-case evaluation had started. `results/matrix-summary.json` points to the qwen timeout row, while `results/promptfoo-latest.json` and Stream 22 compare/queue archives point to the completed liquid no-cache surface.
 
-### Recommended Stream 23 - Improved strict qwen W7 tracker quality refresh
+### Stream 23 result - Improved strict qwen W7 tracker quality refresh
 
-**Gap closed:** W7 no-fallback behavior is proven, but the quality caveats are unresolved.
+**Gap outcome:** Tool relevance improved, but W7 quality acceptance remains unresolved.
 
-**Scope:** One strict qwen tracker run with tighter query/tool constraints and no fallback. Keep one model loaded at a time; no cloud calls.
+**Scope:** One strict qwen tracker run with tighter query/tool constraints and no fallback. One qwen model load only; no cloud calls.
 
-**Proposed command:**
+**Code/prompt repair:** `scripts/daily-brief-tracker.py` now refreshes the compact specialist facts, includes current `docs/evals` and `results/user-review-packet-summary.json` surfaces in allowed prompt reads, and normalizes `gh repo view --json` requests to valid bounded fields.
+
+**Command run:**
 
 ```powershell
 lms unload --all
 lms load qwen/qwen3.5-9b --gpu off -y
-uv run python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --use-specialist --strict-final --max-steps 4 --query "JamiStudio/local-evals Stream 21 gap audit qwen liquid mid-size large model evidence June 7 2026; use repo files and valid gh repo view only"
+uv run python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --use-specialist --strict-final --max-steps 4 --query "JamiStudio/local-evals current Stream 23 quality refresh: summarize exact pushed evidence from Streams 16-22; use repo files under docs/evals and results only plus valid gh repo view fields; do not use stale Stream 9-only wording"
 lms unload --all
 ```
 
-**Risk:** Medium. Prior strict run took 457.92 seconds and may still produce stale or weak tool output. A better artifact materially helps W7 review; a worse artifact is still honest evidence.
+**Result:** `results/daily-briefs/brief-20260607-125406.json` was produced and summarized in `results/stream23-w7-quality-refresh.json`. It is strict/no-fallback with `fallback_used=false`, `tps=3.0`, wall `612.87s`, usage `9338/1852/11190`, real tools `read_file` and `github`, no tool failures, and no unrelated web-search observation. It did not pass strict section completeness: `finalization_status=strict_blank_or_missing_sections`, sections present were Web Signals, GH / Repo Activity, Harness Placement Notes, and Recommended Actions; `Token & Speed` was missing and the brief cut off during Recommended Actions.
+
+**Assessment:** Stream 23 materially improves GitHub handling and repo-file targeting versus Stream 12, but it does not close W7 quality acceptance. Treat qwen W7 as still review-gated and caveated.
 
 ### Recommended Stream 24 - 26B offload or lower-partial one-task practical retry
 

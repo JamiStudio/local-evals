@@ -1,0 +1,69 @@
+{
+  "stream": 23,
+  "at": "2026-06-07T12:54:06.161054+00:00",
+  "purpose": "Improved strict qwen W7 tracker quality refresh after Stream 12 quality caveats and Stream 22 qwen no-cache timeout.",
+  "scope": "One real qwen/qwen3.5-9b specialist tracker run with --strict-final and no fallback synthesis; LM Studio local only; no direct paid API calls.",
+  "codeChanges": [
+    "Refreshed compact specialist KB facts to remove pre-Stream-9/12 stale W7 wording.",
+    "Allowed current docs/evals review and gap-audit files plus results/user-review-packet-summary.json in the tracker prompt.",
+    "Normalized gh repo view --json requests to valid bounded JamiStudio/local-evals fields."
+  ],
+  "dryRun": {
+    "artifact": "results/daily-briefs/brief-20260607-124316.json",
+    "strictFinal": true,
+    "result": "dry_run smoke passed before qwen load"
+  },
+  "realRun": {
+    "command": "uv run python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --use-specialist --strict-final --max-steps 4 --query \"JamiStudio/local-evals current Stream 23 quality refresh: summarize exact pushed evidence from Streams 16-22; use repo files under docs/evals and results only plus valid gh repo view fields; do not use stale Stream 9-only wording\"",
+    "artifact": "results/daily-briefs/brief-20260607-125406.json",
+    "strictFinal": true,
+    "fallbackUsed": false,
+    "finalizationStatus": "strict_blank_or_missing_sections",
+    "modelFailureReason": "model returned blank or missing required sections",
+    "finalBriefNonempty": true,
+    "sectionsPresent": [
+      "Web Signals",
+      "GH / Repo Activity",
+      "Harness Placement Notes",
+      "Recommended Actions"
+    ],
+    "missingSections": [
+      "Token & Speed"
+    ],
+    "tps": 3.0,
+    "wallSeconds": 612.87,
+    "usage": {
+      "promptTokens": 9338,
+      "completionTokens": 1852,
+      "totalTokens": 11190
+    },
+    "toolsObserved": [
+      "read_file",
+      "github"
+    ],
+    "toolFailures": [],
+    "webSearchUsed": false,
+    "githubObservation": "Valid gh repo view fields returned name, description, stargazerCount, updatedAt, and url."
+  },
+  "qualityAssessment": {
+    "improved": [
+      "No invalid GitHub JSON-field request reached gh CLI.",
+      "No weak unrelated web-search result was included; the run focused on repo files.",
+      "The artifact cited current Stream 21/22 audit and review-packet surfaces rather than only Stream 9-era wording."
+    ],
+    "notImproved": [
+      "The strict model output omitted the Token & Speed section and was cut off during Recommended Actions.",
+      "It mislabeled some current qwen evidence as Stream 9 legacy wording.",
+      "It still cannot be accepted as final W7 quality evidence without user review."
+    ],
+    "verdict": "Stream 23 improves tool relevance and GitHub handling but does not close W7 strict quality acceptance."
+  },
+  "remainingGaps": [
+    "Subjective user review remains pending.",
+    "Final 3-solid selection remains incomplete.",
+    "Broad/full local matrix coverage remains incomplete.",
+    "Large practical proof remains incomplete.",
+    "Qwen uncached current-suite throughput remains incomplete.",
+    "Final two-verifier completion audit remains pending."
+  ]
+}

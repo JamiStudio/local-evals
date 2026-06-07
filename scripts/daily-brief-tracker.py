@@ -92,10 +92,13 @@ def compact_specialist_kb(kb: str) -> str:
         "real tracker tools are host-script web_search/fetch/read_file/github with safe timeouts; "
         "suite tool calls stay sandboxed; primary judging is user review vs baselines; "
         "record prompt/completion/total tokens, wall seconds, tps, tool observations, and failure modes; "
-        "qwen/qwen3.5-9b@gpu_offload is current smoke leader at 5/8 (63%) vs qwen full 4/8, "
-        "with dry specialist brief controls at tps=38.4; Stream 2/3 covered nemotron/e2b/e4b/rnj, "
-        "Stream 4 mid-size matrix hung with no cells, Stream 5 proved qwen real tools but blank final; "
-        "remaining W7 gaps are real usable final brief, W7 baselines, and user-judge review."
+        "current qwen Promptfoo evidence is 7/40 on the 40-assertion suite across tested profiles, "
+        "with qwen no-cache full-suite throughput still incomplete after a 1200000 ms timeout; "
+        "liquid is speed/triage evidence at 5/40 with a completed no-cache cell; "
+        "Stream 9 collected W7 baselines, Stream 11 DeepEval W7 passed 4/4 locally, "
+        "Stream 12 proved strict qwen model-final/no-fallback behavior but had stale wording, weak web relevance, "
+        "and one invalid GitHub JSON-field request; Streams 18/20 added bounded mid-size task/profile slices; "
+        "remaining gaps are subjective user review, final 3-solid selection, broad/full matrix, and large practical proof."
     )
 
 
@@ -183,6 +186,37 @@ def normalize_github_args(args: list[str]) -> list[str]:
     cleaned = [str(a) for a in args if str(a).strip()]
     if not cleaned:
         return ["repo", "view", "JamiStudio/local-evals", "--json", "name,description,updatedAt"]
+
+    if cleaned[:2] == ["repo", "view"]:
+        normalized = cleaned[:]
+        if len(normalized) < 3 or normalized[2].startswith("-"):
+            normalized = ["repo", "view", "JamiStudio/local-evals"] + normalized[2:]
+        if normalized[2] != "JamiStudio/local-evals":
+            normalized[2] = "JamiStudio/local-evals"
+        if "--json" in normalized:
+            json_index = normalized.index("--json")
+            allowed_fields = {
+                "description",
+                "stargazerCount",
+                "updatedAt",
+                "url",
+                "name",
+                "owner",
+                "isPrivate",
+                "pushedAt",
+                "defaultBranchRef",
+            }
+            if json_index == len(normalized) - 1 or normalized[json_index + 1].startswith("-"):
+                fields = ["name", "description", "stargazerCount", "updatedAt", "url"]
+            else:
+                requested = [
+                    field.strip()
+                    for field in normalized[json_index + 1].split(",")
+                    if field.strip() in allowed_fields
+                ]
+                fields = requested or ["name", "description", "stargazerCount", "updatedAt", "url"]
+            return normalized[: json_index + 1] + [",".join(fields)]
+        return normalized
 
     # Stream 5 showed qwen may emit: gh search issues:state:open,qwen,local-evals --json
     # That is not a valid gh command. Use a repo-scoped issue list instead.
@@ -358,8 +392,13 @@ def run_brief_agent(
         "### Recommended Actions (plan)\n1. ...\n\n### Token & Speed\nprompt=.. completion=.. tps=.. duration_s=..\n"
         "Keep tool calls targeted: prefer one repo file read, one web_search, and one valid repo-scoped GitHub query. "
         "Allowed repo file reads include docs/roadmaps/2026-06-07-contained-eval-streams-plan.md, "
-        "results/optimization-state.json, baselines/manifest.json, registry/models.json, "
-        "registry/load-profiles.json, and suites/promptfoo/tests/tool-call.yaml. "
+        "docs/evals/2026-06-07-strict-gap-audit.md, docs/evals/2026-06-07-user-review-packet.md, "
+        "results/optimization-state.json, results/user-review-packet-summary.json, baselines/manifest.json, "
+        "registry/models.json, registry/load-profiles.json, and suites/promptfoo/tests/tool-call.yaml. "
+        "For GitHub, use only repo-scoped commands such as "
+        "['repo','view','JamiStudio/local-evals','--json','name,description,stargazerCount,updatedAt,url']; "
+        "do not request file contents through gh repo view JSON fields. "
+        "If the user query asks for repo-file evidence, prioritize read_file observations over public web search snippets. "
         "After observations, finalize; do not leave the brief blank. If this is the final step, stop calling tools "
         "and return the complete markdown brief with all five required sections.\n"
     )

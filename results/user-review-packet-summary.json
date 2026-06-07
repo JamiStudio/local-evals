@@ -84,7 +84,7 @@
       "finalizationStatus": "model_final",
       "fallbackUsed": false,
       "allRequiredSectionsPresent": true,
-      "tps": 3.0,
+      "tps": 3,
       "caveats": [
         "one invalid GitHub JSON-field request",
         "weak web-search relevance",
@@ -101,9 +101,35 @@
       "timeoutArtifact": "results/matrix-2026-06-07T10-52-18-029Z.jsonl",
       "result": "26B and 31B-QAT estimates returned; 31B Q4_K_M estimate probes timed out; first practical 31B-QAT partial local fallback cell timed out at 300022 ms.",
       "caveat": "No 26B/31B model has completed practical proof."
+    },
+    "w7StrictQwenTrackerStream23": {
+      "artifact": "results/daily-briefs/brief-20260607-125406.json",
+      "summaryArtifact": "results/stream23-w7-quality-refresh.json",
+      "strictFinal": true,
+      "finalizationStatus": "strict_blank_or_missing_sections",
+      "fallbackUsed": false,
+      "allRequiredSectionsPresent": false,
+      "sectionsPresent": [
+        "Web Signals",
+        "GH / Repo Activity",
+        "Harness Placement Notes",
+        "Recommended Actions"
+      ],
+      "missingSections": [
+        "Token & Speed"
+      ],
+      "tps": 3,
+      "toolFailures": 0,
+      "caveats": [
+        "improved valid GitHub/repo-file targeting versus Stream 12",
+        "final brief omitted Token & Speed",
+        "final brief cut off during Recommended Actions",
+        "does not complete W7 quality acceptance"
+      ]
     }
   },
   "remainingGaps": [
+    "W7 tracker quality acceptance remains incomplete after Stream 23 strict missing-section artifact.",
     "Subjective user review remains pending.",
     "Final 3-solid selection remains incomplete.",
     "Broad/full local matrix coverage remains incomplete.",

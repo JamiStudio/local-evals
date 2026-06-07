@@ -1,0 +1,123 @@
+{
+  "timestamp": "2026-06-07T12:54:06.161054+00:00",
+  "model": "qwen/qwen3.5-9b",
+  "use_specialist": true,
+  "interest_query": "JamiStudio/local-evals current Stream 23 quality refresh: summarize exact pushed evidence from Streams 16-22; use repo files under docs/evals and results only plus valid gh repo view fields; do not use stale Stream 9-only wording",
+  "dry_run": false,
+  "brief": "## Daily Evals Interest Brief \u2014 2026-06-07\n\n### Web Signals\nNo external web signals captured today; focus remains on internal repo evidence from Streams 16\u201322. All harness operations use LM Studio/local models only\u2014no paid APIs or cloud calls. Baselines are imported, not collected via external endpoints.\n\n### GH / Repo Activity\n- **Repo:** `JamiStudio/local-evals` (0 stars, updated 2026-06-07T12:39:45Z)\n- **Stream 21 Strict Gap Audit** (docs/evals/2026-06-07-strict-gap-audit.md): Internal remaining-gap audit after Streams 1\u201320; no LM Studio model loads, matrix cells, baseline collection, or cloud/API calls. Updated with Stream 22 evidence.\n- **Stream 19 User Review Packet** (results/user-review-packet-summary.json): Prepared for human review without running model loads; runtime boundary shows no models loaded.\n- **Optimization State** (results/optimization-state.json): Cycle 1, smoke mode, readyForLongRunningGoal=true; stream21StrictGapAudit recorded at 2026-06-07T12:25:00Z.\n- **Baselines Manifest** (baselines/manifest.json): Version 1, imported reference outputs from subs/credit-funded endpoints\u2014harness never calls paid APIs.\n- **Models Registry** (registry/models.json): Exported at 2026-06-06T22:39:06Z; includes `google/gemma-4-26b-a4b` (Q4_K_M, 17.99 GiB).\n- **Load Profiles** (registry/load-profiles.json): vRAM=8GB (RTX 2080 Super Max-Q); profiles include `gpu_full` (max offload) and `gpu_offload`.\n- **Tool-Call Suite** (suites/promptfoo/tests/tool-call.yaml): Synthetic tool-call search/summarize test; asserts output includes 'gpu' or 'offload'.\n\n### Harness Placement Notes\n- **Stream 9 legacy**: qwen Promptfoo evidence 7/40 on 40-assertion suite; no-cache full-suite throughput incomplete after 1200000ms timeout.\n- **Liquid**: Speed/triage evidence at 5/40 with completed no-cache cell.\n- **Stream 11 DeepEval W7**: Passed 4/4 locally.\n- **Stream 12**: Proved strict qwen model-final/no-fallback behavior but had stale wording, weak web relevance, and one invalid GitHub JSON-field request.\n- **Streams 18/20**: Added bounded mid-size task/profile slices.\n- **Remaining gaps**: Subjective user review, final 3-solid selection, broad/full matrix, large practical proof.\n- **Stream 21\u201322**: Strict gap audit and evidence refresh; no LM Studio loads or baseline collection.\n\n### Recommended Actions (plan)\n1. **Finalize Stream 23 quality refresh**: Synthesize exact pushed evidence from Streams 16\u201322 into a single matrix cell summary.\n2. **Complete subjective user review packet**: Convert Stream 19 prepared packet into completed human-review verdicts.\n3. **Execute final 3-solid selection",
+  "steps": [
+    {
+      "step": 1,
+      "tool": "read_file",
+      "args": {
+        "path": "docs/roadmaps/2026-06-07-contained-eval-streams-plan.md"
+      },
+      "observation_preview": "# Local OSS Model Evals \u2014 Exhaustive End-to-End Roadmap (FULL INCLUSIVE: Every Model, Every Test, Evals, Ranking, Synthesis + Everything \u2014 All Now, No Phases, No V1/V2/V3, No Lazy Partials)\n\n**Date:** 2026-06-07 (updated for full end-to-end per explicit directive: \"every model, every test, exhaustive, no holding back, no halfway, no partials, quit making lazy plans. FULL END TO END. EVERYTHING WE "
+    },
+    {
+      "step": 1,
+      "tool": "read_file",
+      "args": {
+        "path": "docs/evals/2026-06-07-strict-gap-audit.md"
+      },
+      "observation_preview": "# Strict Gap Audit - Stream 21 (2026-06-07)\n\n**Status:** Internal remaining-gap audit after Streams 1-20, updated with Stream 22 evidence. This is not the final two-verifier completion audit and does not claim completion, final 3-solid selection, or subjective user review.\n\n**Runtime boundary:** Stream 21 ran no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or paid-pro"
+    },
+    {
+      "step": 1,
+      "tool": "read_file",
+      "args": {
+        "path": "results/optimization-state.json"
+      },
+      "observation_preview": "{\n  \"cycle\": 1,\n  \"at\": \"2026-06-06T23:43:20.763Z\",\n  \"mode\": \"smoke\",\n  \"readyForLongRunningGoal\": true,\n  \"stream21StrictGapAudit\": {\n    \"at\": \"2026-06-07T12:25:00.000Z\",\n    \"scope\": \"Strict remaining-gap audit and next-stream recommendation after Streams 1-20; no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or direct paid calls.\",\n    \"audit\": \"docs/evals/2026-06"
+    },
+    {
+      "step": 1,
+      "tool": "github",
+      "args": {
+        "args": [
+          "repo",
+          "view",
+          "JamiStudio/local-evals",
+          "--json",
+          "name,description,stargazerCount,updatedAt,url"
+        ]
+      },
+      "observation_preview": "{\"description\":\"\",\"name\":\"local-evals\",\"stargazerCount\":0,\"updatedAt\":\"2026-06-07T12:39:45Z\",\"url\":\"https://github.com/JamiStudio/local-evals\"}"
+    },
+    {
+      "step": 2,
+      "tool": "read_file",
+      "args": {
+        "path": "results/user-review-packet-summary.json"
+      },
+      "observation_preview": "{\n  \"stream\": 19,\n  \"at\": \"2026-06-07T12:00:00.000Z\",\n  \"purpose\": \"Prepare a human user-review packet and final-gap audit summary without running model loads.\",\n  \"runtimeBoundary\": {\n    \"modelLoadsRun\": false,\n    \"matrixCellsRun\": false,\n    \"baselineCollectionRun\": false,\n    \"cloudApiCallsRun\": false,\n    \"lmsPs\": \"No models are currently loaded.\"\n  },\n  \"packet\": \"docs/evals/2026-06-07-user"
+    },
+    {
+      "step": 2,
+      "tool": "read_file",
+      "args": {
+        "path": "baselines/manifest.json"
+      },
+      "observation_preview": "{\n  \"version\": 1,\n  \"description\": \"Imported reference outputs from subs or credit-funded endpoints. The harness never calls paid APIs to populate this.\",\n  \"tasks\": [\n    {\n      \"taskId\": \"research-synthetic-smoke\",\n      \"lane\": \"research\",\n      \"promptFile\": \"suites/promptfoo/prompts/research.txt\",\n      \"vars\": {\n        \"topic\": \"Local OSS model placement for agent research tasks\",\n        "
+    },
+    {
+      "step": 2,
+      "tool": "read_file",
+      "args": {
+        "path": "registry/models.json"
+      },
+      "observation_preview": "{\n  \"version\": 1,\n  \"exportedAt\": \"2026-06-06T22:39:06.234Z\",\n  \"source\": \"lms ls --json\",\n  \"llms\": [\n    {\n      \"modelKey\": \"google/gemma-4-26b-a4b\",\n      \"displayName\": \"Gemma 4 26B A4B\",\n      \"params\": \"26B-A4B\",\n      \"architecture\": \"gemma4\",\n      \"sizeGb\": 17.99,\n      \"quantization\": \"Q4_K_M\",\n      \"variants\": [\n        \"google/gemma-4-26b-a4b@q4_k_m\"\n      ],\n      \"selectedVariant\":"
+    },
+    {
+      "step": 2,
+      "tool": "read_file",
+      "args": {
+        "path": "registry/load-profiles.json"
+      },
+      "observation_preview": "{\n  \"version\": 1,\n  \"vramGb\": 8,\n  \"vramSource\": \"nvidia-smi 2026-06-06 \u2014 RTX 2080 Super Max-Q 8192 MiB\",\n  \"profiles\": {\n    \"gpu_full\": {\n      \"label\": \"GPU max offload\",\n      \"lmsGpuFlag\": \"max\",\n      \"description\": \"`lms load --gpu max` (100% GPU offload). Weights on GPU; best throughput when estimated GPU memory fits host headroom (~6.8 GiB for qwen3.5-9b on this host).\"\n    },\n    \"gpu_of"
+    },
+    {
+      "step": 3,
+      "tool": "read_file",
+      "args": {
+        "path": "docs/evals/2026-06-07-user-review-packet.md"
+      },
+      "observation_preview": "# User Review Packet - Stream 19 (2026-06-07)\n\n**Status:** Prepared for human review. This packet does not mark subjective review complete and does not promote final 3-solid model decisions.\n\n**Runtime boundary:** Stream 19 did not run LM Studio model loads, matrix cells, baseline collection, or cloud/API calls. It only summarizes existing pushed artifacts and confirms `lms ps` is clean.\n\n## Revie"
+    },
+    {
+      "step": 3,
+      "tool": "read_file",
+      "args": {
+        "path": "suites/promptfoo/tests/tool-call.yaml"
+      },
+      "observation_preview": "- description: tool-call \u2014 search then summarize (synthetic)\n  metadata:\n    taskId: tool-call-search-docs\n    lane: tool-call\n  vars:\n    request: Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload.\n  assert:\n    - type: javascript\n      value: |\n        output.toLowerCase().includes('gpu') || output.toLowerCase().includes('offload') || output.toLowerCase().inc"
+    },
+    {
+      "step": 4,
+      "final": true
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 9338,
+    "completion_tokens": 1852,
+    "total_tokens": 11190
+  },
+  "wall_seconds": 612.87,
+  "tps": 3.0,
+  "max_steps": 4,
+  "kb_loaded": true,
+  "strict_final": true,
+  "finalization_status": "strict_blank_or_missing_sections",
+  "fallback_used": false,
+  "fallback_reason": "",
+  "model_failure_reason": "model returned blank or missing required sections",
+  "final_brief_nonempty": true,
+  "sections_present": [
+    "Web Signals",
+    "GH / Repo Activity",
+    "Harness Placement Notes",
+    "Recommended Actions"
+  ],
+  "tool_failures": [],
+  "model_observation_chars": 360
+}
