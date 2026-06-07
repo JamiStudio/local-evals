@@ -1,8 +1,8 @@
 # Placement Decisions Draft — Current Evidence (2026-06-07)
 
-**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-17 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, and qwen/liquid profile-sensitivity evidence, but final placement remains caveated until user review and broader local coverage are complete.
+**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-18 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, qwen/liquid profile-sensitivity, and wider mid-size local fallback task-slice evidence, but final placement remains caveated until user review and broader local coverage are complete.
 
-**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-17 checkpoints in the active roadmap, and the W7 DeepEval suite.
+**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-18 checkpoints in the active roadmap, and the W7 DeepEval suite.
 
 ## Evidence Summary
 
@@ -13,6 +13,7 @@
 - **W7 tracker status:** Qwen has a strict no-fallback real tracker artifact with all sections and real tool use. The artifact is model-final and nonblank, but quality/freshness caveats remain.
 - **DeepEval W7 status:** Local-safe deterministic W7 tests pass 4/4 by default; cloud/judge-backed metrics remain opt-in.
 - **Mid-size status:** The Stream 4 target set has bounded one-task local-fallback coverage on `build-synthetic-smoke`: 12B, GLM, and 12B-QAT each completed 1/1 on `gpu_offload`. This supports cautious expansion, not broad placement.
+- **Stream 18 mid-size task slice:** The same mid-size targets now also have a small non-build local fallback slice on `gpu_offload`: `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs`. Aggregate result was 6/9 with 0 timeouts: plan passed for all three, research passed for both Gemma 12B variants and failed for GLM, and tool-call-search passed only for GLM.
 - **Large-model status:** Stream 16 adds large-model estimate/timeout evidence only. 26B and 31B-QAT recommended partial estimates returned (`26B@gpu_partial_0.39` 6.99 GiB GPU, `31B-QAT@gpu_partial_0.36` 6.89 GiB GPU), but the first practical large cell, `31B-QAT@gpu_partial_0.36`, timed out at `300022 ms` on one `build-synthetic-smoke` local fallback task. 31B Q4_K_M estimate-only probes timed out for full, partial, and offload.
 
 ## Per-Lane Placement
@@ -31,13 +32,13 @@
 
 ### Build
 
-- **Local placement:** Mid-size local fallback proof is strongest here: `google/gemma-4-12b`, `zai-org/glm-4.6v-flash`, and `google/gemma-4-12b-qat` each completed `build-synthetic-smoke` 1/1 under bounded local fallback. Smaller fit-class and prior qwen/liquid controls also show build is one of the more viable local lanes.
+- **Local placement:** Mid-size local fallback proof is strongest here: `google/gemma-4-12b`, `zai-org/glm-4.6v-flash`, and `google/gemma-4-12b-qat` each completed `build-synthetic-smoke` 1/1 under bounded local fallback. Stream 18 adds that all three also passed `plan-synthetic-smoke`, while research/tool-call results were mixed. Smaller fit-class and prior qwen/liquid controls also show build and bounded planning are viable local lanes.
 - **Cloud placement:** Still useful for review or complex edits.
 - **Draft decision:** local models can own bounded build drafts; do not extrapolate the one-task proof to broad build quality yet.
 
 ### Tool Use
 
-- **Local placement:** Qwen real tracker used `web_search`, `read_file`, and `github`, and DeepEval validates W7 tool/plan/brief assertions locally. The strict artifact also contains one invalid GitHub JSON-field call, so tool precision is not fully solved.
+- **Local placement:** Qwen real tracker used `web_search`, `read_file`, and `github`, and DeepEval validates W7 tool/plan/brief assertions locally. Stream 18's mid-size tool-call-search slice was mixed: GLM passed, while both Gemma 12B variants emitted tool-call-shaped text that failed the direct output assertion. Tool precision is not fully solved.
 - **Cloud placement:** Cloud remains primary where incorrect tool arguments or stale interpretation would be costly.
 - **Draft decision:** qwen for local tool-assisted drafts and harness brief generation with review; cloud for high-stakes tool execution.
 
@@ -55,8 +56,8 @@
 ## Current Caveats
 
 - User review is still pending.
-- Latest default `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/baseline-comparison.jsonl`, and `results/user-judge-queue.jsonl` are last-cell surfaces. After Stream 17 they point to the final qwen `gpu_full` cell; use `results/stream17-profile-sensitivity.json` plus the `*-stream17` archives for the full qwen/liquid profile slice.
+- Latest default `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/baseline-comparison.jsonl`, and `results/user-judge-queue.jsonl` are last-cell surfaces. After Stream 18, `matrix-summary.json` points only to the final `tool-call-search-docs` JSONL, while promptfoo/compare/queue point only to the final 12B-QAT `tool-call-search-docs` cell. Use `results/stream17-profile-sensitivity.json` for Stream 17 and `results/stream18-mid-size-task-slice.json` plus raw JSONLs for the full Stream 18 slice.
 - Broad/full matrix coverage is incomplete.
 - Large 26B/31B placements are still not proven; Stream 16 provides estimate/timeout evidence, not a completed practical pass.
-- Mid-size fallback coverage is only one build task on `gpu_offload`.
+- Mid-size fallback coverage is still bounded, but no longer only one build task: Stream 18 adds three non-build task cells per mid-size target on `gpu_offload`.
 - This draft should stay under `docs/evals/` until completion criteria and verifiers pass.

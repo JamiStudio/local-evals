@@ -167,8 +167,9 @@
     "Perf tooling + captures + verify + deepeval W7 tests (ToolCall fixed) done",
     "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal",
     "Qwen and liquid current-suite one-cell controls are now matched: Stream 7 qwen/qwen3.5-9b@gpu_offload 7/40 (17.5%, rounded 18%) in 1018924 ms; Stream 8 liquid/lfm2.5-1.2b@gpu_full 5/40 (12.5%, rounded 13%) in 13373 ms. Liquid remains speed/control only; qwen has +2 passes but is ~76x slower on the current suite. Next: either user-judge/baseline W7 gaps or a bounded no-fallback W7 refresh before promoting 3-solid decisions.",
-    "Use the Stream 13/14 bounded local-fallback path for any next mid-size retry: keep EVAL_TASK_FILTER small, one GPU model at a time, and expand from one task/profile only after each cell writes a completed row. Stream 4's three named mid-size targets now have one-task gpu_offload local-fallback coverage only; broader suites/profiles remain unproven.",
-    "Stream 17 qwen/liquid profile-sensitivity slice is complete: liquid all 11 profiles tied at 5/40, qwen gpu_offload/gpu_partial_0.95/gpu_partial_0.7/gpu_full tied at 7/40; archives added for stream17; no final 3-solid claim. Remaining gaps: user review, broad/full matrix, large practical proof, uncached qwen/liquid throughput, broad partial-profile measurements, and final completion verification."
+    "Use the Stream 13/14/18 bounded local-fallback evidence for any next mid-size retry: keep EVAL_TASK_FILTER small, one GPU model at a time, and expand only after each cell writes a completed/non-timeout row. Stream 18 widens mid-size gpu_offload local-fallback coverage to three non-build task ids with aggregate 6/9 and no timeouts; broader suites/profiles remain unproven.",
+    "Stream 17 qwen/liquid profile-sensitivity slice is complete: liquid all 11 profiles tied at 5/40, qwen gpu_offload/gpu_partial_0.95/gpu_partial_0.7/gpu_full tied at 7/40; archives added for stream17; no final 3-solid claim. Remaining gaps: user review, broad/full matrix, large practical proof, uncached qwen/liquid throughput, broad partial-profile measurements, and final completion verification.",
+    "Stream 18 mid-size task slice is complete: 9 gpu_offload local-fallback cells across 12B, GLM, and 12B-QAT on research-harness-tools, plan-synthetic-smoke, and tool-call-search-docs; no timeouts; aggregate 6/9 with task/model caveats. Remaining gaps: user review, broad/full matrix, partial profiles for mid-size, large practical proof, final 3-solid selection, and completion verification."
   ],
   "exhaustiveResultsAssessment": {
     "report": "docs/evals/2026-06-07-exhaustive-results-assessment.md",
@@ -211,7 +212,7 @@
     "qualityNote": "build lane strongest; research/plan/tool mixed (specific FAILs on synthetic/voice/read-file); 3-5/8 deterministic vs baselines for tested",
     "speedNote": "qwen cells ~12min; liquid ~4s; daily-briefs dry tps=38.4 (qwen specialist); no matrix tps layer yet",
     "baselinesStatus": "8/10 tasks have vertex-gemini-3-1-pro-preview imports; 2 W7 tasks registered but no imports/cells",
-    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps after Stream 17: current-profile coverage still lacks broad large/mid model coverage (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT), broad partial-profile measurements outside contained slices, and uncached qwen/liquid throughput; user review remains pending. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest. Stream 4: aborted timeout-evidence stream only; no completed cells credited. Empty JSONLs: results/matrix-2026-06-07T07-12-46-491Z.jsonl (12B gpu_full), results/matrix-2026-06-07T07-41-56-989Z.jsonl (12B filtered first cell), results/matrix-2026-06-07T07-59-50-425Z.jsonl (GLM filtered first cell). Runner now has EVAL_SMOKE_PROFILES and opt-in EVAL_CELL_TIMEOUT_MS, but the 900000 ms timeout did not fire before final redirect. Stream 5: qwen --gpu off real tracker stream wrote dry artifacts results/daily-briefs/brief-20260607-082135.json and brief-20260607-082240.json (both dry_run true, kb_loaded true, tps 38.4, wall 6.9s, usage 142/265/407, all expected sections). Real artifacts: brief-20260607-082149.json and brief-20260607-082222.json failed before usage with qwen LM Studio tool parser \"No user query found\"; tracker fixed by adding explicit user message. brief-20260607-082434.json used read_file tools but hit 4096 context on step 2 (tps 3.0, wall 106.01s, usage 2725/313/3038); tracker capped injected tool observations. brief-20260607-082646.json completed process with read_file/web_search/github observations (tps 3.1, wall 109.1s, usage 6789/339/7128, kb_loaded true) but final brief body was blank and gh search used an invalid --json flag. No load-profile change. Remaining W7 gap: usable real final brief still needs a focused repair/refresh. Stream 7: qwen current-suite leader refresh added one cell in results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload completed as eval_partial 7/40 (17.5%, rounded 18%) in 1018924 ms, promptfoo 7 passed/25 failed/8 errors and 39548 tokens. Matrix summary now points at Stream 7; baseline comparison wrote 40 rows with 32 baseline-backed; user-judge queue has 40 cases. This weakens the stale 5/8 qwen leader claim for the current 40-assertion suite; qwen remains only a caveated W7/local specialist candidate because Stream 6 was fallback-backed. Stream 8: liquid current-suite speed/control refresh added one cell in results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full completed as eval_partial 5/40 (12.5%, rounded 13%) in 13373 ms, promptfoo 5 passed/27 failed/8 errors and 4703 tokens. Compared to Stream 7 qwen current-suite 7/40 in 1018924 ms, liquid is two passes worse but roughly 76x faster, so it remains a speed/triage control rather than an outcome leader. Matrix summary now points at Stream 8; baseline comparison wrote 40 rows with 32 baseline-backed; user-judge queue has 40 cases.",
+    "dailyBriefs": "18 dry-run artifacts (qwen specialist, tps=38.4, Specialist KB: True in 12+); 0 real matrix cells for new W7 tasks. Stream 1 (baseline re-assess + assessable non-load): 4 cells re-verified/confirmed, 18 briefs, tps observed 38.4, Specialist KB True, gaps 20 confirmed with exact untested 10 models list, GPU status from live lms/nvidia (initial 12b occupied ~594 MiB free; later liquid idle 6.2GiB free); safe est 'may' on liquid (1.28GiB) + nemotron (4.16GiB) per cite. Stream 2: nemotron local matrix slice added 11 profile cells in results/matrix-2026-06-07T06-30-40-559Z.jsonl; all profiles reported 9/40 (22.5%) with eval_failed status and no load failures; fastest gpu_partial_0.3 8413ms, slowest gpu_full 140360ms; no load-profile change justified. Stream 3: fit-class slice added 33 profile cells in results/matrix-2026-06-07T06-44-52-303Z.jsonl; e2b 11/40 all profiles (27.5%, rounded 28%), e4b 10/40 all profiles (25%), rnj 7/40 all profiles (17.5%, rounded 18%), 0 load failures; only duration varied, so no load-profile change justified. Remaining local matrix gaps after Stream 17: current-profile coverage still lacks broad large/mid model coverage (26B, 12B, GLM, 31B, 31B-QAT, 12B-QAT), broad partial-profile measurements outside contained slices, and uncached qwen/liquid throughput; user review remains pending. Lock qwen offload leader + prioritize mid/large partial slice or real tracker/specialist depending orchestrator priority. pnpm capture:quick+registry:export+verify, deepeval W7 collect/test focused run (smoke fails env/key expected), tracker dry+new brief, node parsers (cells/missing/profiles 11+recs/llms12/leader), rg+reads+offsets, narrow verify. No unrelated. 'may'/'fail' honest. Stream 4: aborted timeout-evidence stream only; no completed cells credited. Empty JSONLs: results/matrix-2026-06-07T07-12-46-491Z.jsonl (12B gpu_full), results/matrix-2026-06-07T07-41-56-989Z.jsonl (12B filtered first cell), results/matrix-2026-06-07T07-59-50-425Z.jsonl (GLM filtered first cell). Runner now has EVAL_SMOKE_PROFILES and opt-in EVAL_CELL_TIMEOUT_MS, but the 900000 ms timeout did not fire before final redirect. Stream 5: qwen --gpu off real tracker stream wrote dry artifacts results/daily-briefs/brief-20260607-082135.json and brief-20260607-082240.json (both dry_run true, kb_loaded true, tps 38.4, wall 6.9s, usage 142/265/407, all expected sections). Real artifacts: brief-20260607-082149.json and brief-20260607-082222.json failed before usage with qwen LM Studio tool parser \"No user query found\"; tracker fixed by adding explicit user message. brief-20260607-082434.json used read_file tools but hit 4096 context on step 2 (tps 3.0, wall 106.01s, usage 2725/313/3038); tracker capped injected tool observations. brief-20260607-082646.json completed process with read_file/web_search/github observations (tps 3.1, wall 109.1s, usage 6789/339/7128, kb_loaded true) but final brief body was blank and gh search used an invalid --json flag. No load-profile change. Remaining W7 gap: usable real final brief still needs a focused repair/refresh. Stream 7: qwen current-suite leader refresh added one cell in results/matrix-2026-06-07T08-43-29-893Z.jsonl; qwen/qwen3.5-9b@gpu_offload completed as eval_partial 7/40 (17.5%, rounded 18%) in 1018924 ms, promptfoo 7 passed/25 failed/8 errors and 39548 tokens. Matrix summary now points at Stream 7; baseline comparison wrote 40 rows with 32 baseline-backed; user-judge queue has 40 cases. This weakens the stale 5/8 qwen leader claim for the current 40-assertion suite; qwen remains only a caveated W7/local specialist candidate because Stream 6 was fallback-backed. Stream 8: liquid current-suite speed/control refresh added one cell in results/matrix-2026-06-07T09-14-50-921Z.jsonl; liquid/lfm2.5-1.2b@gpu_full completed as eval_partial 5/40 (12.5%, rounded 13%) in 13373 ms, promptfoo 5 passed/27 failed/8 errors and 4703 tokens. Compared to Stream 7 qwen current-suite 7/40 in 1018924 ms, liquid is two passes worse but roughly 76x faster, so it remains a speed/triage control rather than an outcome leader. Matrix summary now points at Stream 8; baseline comparison wrote 40 rows with 32 baseline-backed; user-judge queue has 40 cases. Stream 18: mid-size local fallback task slice widened beyond build-synthetic-smoke with 9 cells across 12B, GLM, and 12B-QAT at gpu_offload on research-harness-tools, plan-synthetic-smoke, and tool-call-search-docs; aggregate 6/9, 0 timeouts, 0 load failures. This narrows wider mid-size task coverage but broad/full matrix, partial profiles, and user-reviewed quality remain open.",
     "profileSensitivityStatus": "Stream 17: liquid/lfm2.5-1.2b all 11 current profiles tied at 5/40; qwen/qwen3.5-9b bounded subset gpu_offload,gpu_partial_0.95,gpu_partial_0.7,gpu_full tied at 7/40. Qwen/liquid current-suite profile-sensitivity gap narrowed; broad/full matrix and other-model partial coverage remain open."
   },
   "connectivity": {
@@ -265,7 +266,8 @@
     "Stream 14 remaining Stream 4 target bounded fallback proof (COMPLETED in working stream; zai-org/glm-4.6v-flash@gpu_offload completed 1/1 in 97743 ms and google/gemma-4-12b-qat@gpu_offload completed 1/1 in 70425 ms on EVAL_TASK_FILTER=build-synthetic-smoke with EVAL_USE_PROMPTFOO=false and EVAL_CELL_TIMEOUT_MS=300000; no broad mid-size coverage claim)",
     "Stream 15 synthesis/report refresh (COMPLETED in working stream; docs/evals 3-solid, placement, exhaustive-results, and exhaustive-assessment reports refreshed against Streams 9-14 evidence; no model loads/cloud/baseline runs; user review, broad/full matrix, 26B/31B proof, partial-profile measurements, and final 3-solid completion remain open)",
     "Stream 16 large-model practical proof slice (COMPLETED in working stream; estimates returned for 26B and 31B-QAT recommended partial/offload/full probes, google/gemma-4-31b estimate probes timed out at 120000 ms, first practical google/gemma-4-31b-qat@gpu_partial_0.36 build-synthetic-smoke local fallback cell timed out at 300022 ms; no completed large practical proof or final 3-solid claim)",
-    "Stream 17 qwen/liquid current-suite profile-sensitivity slice (COMPLETED in working stream; liquid all 11 current profiles eval_partial 5/40 each in results/matrix-2026-06-07T11-05-50-387Z.jsonl; qwen gpu_offload/gpu_partial_0.95/gpu_partial_0.7/gpu_full eval_partial 7/40 each across four one-cell JSONLs; stream17 comparison/queue archives written; matrix-summary and promptfoo-latest point to final qwen gpu_full cell only; no final 3-solid claim)"
+    "Stream 17 qwen/liquid current-suite profile-sensitivity slice (COMPLETED in working stream; liquid all 11 current profiles eval_partial 5/40 each in results/matrix-2026-06-07T11-05-50-387Z.jsonl; qwen gpu_offload/gpu_partial_0.95/gpu_partial_0.7/gpu_full eval_partial 7/40 each across four one-cell JSONLs; stream17 comparison/queue archives written; matrix-summary and promptfoo-latest point to final qwen gpu_full cell only; no final 3-solid claim)",
+    "Stream 18 mid-size local fallback task slice (COMPLETED; 9 gpu_offload local-fallback cells across google/gemma-4-12b, zai-org/glm-4.6v-flash, and google/gemma-4-12b-qat on research-harness-tools, plan-synthetic-smoke, and tool-call-search-docs; aggregate 6/9, 0 timeouts, 0 load failures; artifact results/stream18-mid-size-task-slice.json; no broad suite/profile or final 3-solid claim)"
   ],
   "githubPushes": [
     "5477ab0: init harness + state (first stream)",
@@ -1502,5 +1504,249 @@
       "nvidiaSmi": "435 MiB used / 7553 MiB free / 5% utilization"
     },
     "remainingGaps": "User review, broad/full matrix, large practical proof, uncached qwen/liquid throughput, broad partial-profile measurement across other models, and final 3-solid selection remain incomplete."
+  },
+  "stream18MidSizeTaskSlice": {
+    "at": "2026-06-07T11:36:21.689Z",
+    "scope": "Mid-size local fallback task coverage beyond build-synthetic-smoke; three models, three lane-representative task ids, gpu_offload only, LM Studio local only.",
+    "commandShape": "EVAL_USE_PROMPTFOO=false; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=300000; EVAL_SMOKE_MODELS=google/gemma-4-12b,google/gemma-4-12b-qat,zai-org/glm-4.6v-flash; node scripts/run-matrix.mjs --smoke",
+    "taskSelection": {
+      "requestedSuggested": [
+        "research-harness-tools",
+        "plan-build-ordering",
+        "tool-search-docs"
+      ],
+      "used": [
+        "research-harness-tools",
+        "plan-synthetic-smoke",
+        "tool-call-search-docs"
+      ],
+      "note": "plan-build-ordering and tool-search-docs were not manifest task ids; plan-synthetic-smoke and tool-call-search-docs are valid lane-equivalent ids in baselines/manifest.json and suites/promptfoo/tests."
+    },
+    "runtimeBefore": {
+      "lmsPs": "No models are currently loaded.",
+      "nvidiaSmi": "2026/06/07 07:17:40.890, RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 5% utilization"
+    },
+    "runtimeAfter": {
+      "lmsPs": "No models are currently loaded after explicit lms unload --all.",
+      "nvidiaSmi": "2026/06/07 07:35:21.867, 435 MiB used, 7553 MiB free, 5% utilization"
+    },
+    "artifacts": [
+      "results/matrix-2026-06-07T11-18-54-078Z.jsonl",
+      "results/matrix-2026-06-07T11-24-51-998Z.jsonl",
+      "results/matrix-2026-06-07T11-31-25-946Z.jsonl",
+      "results/stream18-mid-size-task-slice.json",
+      "results/baseline-comparison-stream18-last-cell.jsonl",
+      "results/user-judge-queue-stream18-last-cell.jsonl",
+      "results/matrix-summary.json",
+      "results/promptfoo-latest.json"
+    ],
+    "totals": {
+      "cells": 9,
+      "completed": 6,
+      "evalFailed": 3,
+      "evalTimeout": 0,
+      "loadFailures": 0,
+      "passes": 6,
+      "total": 9
+    },
+    "byTask": {
+      "research-harness-tools": {
+        "cells": 3,
+        "completed": 2,
+        "evalFailed": 1,
+        "evalTimeout": 0,
+        "passes": 2,
+        "total": 3,
+        "rows": [
+          {
+            "modelKey": "google/gemma-4-12b",
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 108166
+          },
+          {
+            "modelKey": "zai-org/glm-4.6v-flash",
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 86508
+          },
+          {
+            "modelKey": "google/gemma-4-12b-qat",
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 122693
+          }
+        ]
+      },
+      "plan-synthetic-smoke": {
+        "cells": 3,
+        "completed": 3,
+        "evalFailed": 0,
+        "evalTimeout": 0,
+        "passes": 3,
+        "total": 3,
+        "rows": [
+          {
+            "modelKey": "google/gemma-4-12b",
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 132757
+          },
+          {
+            "modelKey": "zai-org/glm-4.6v-flash",
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 91615
+          },
+          {
+            "modelKey": "google/gemma-4-12b-qat",
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 131545
+          }
+        ]
+      },
+      "tool-call-search-docs": {
+        "cells": 3,
+        "completed": 1,
+        "evalFailed": 2,
+        "evalTimeout": 0,
+        "passes": 1,
+        "total": 3,
+        "rows": [
+          {
+            "modelKey": "google/gemma-4-12b",
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 25036
+          },
+          {
+            "modelKey": "zai-org/glm-4.6v-flash",
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 140808
+          },
+          {
+            "modelKey": "google/gemma-4-12b-qat",
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 18645
+          }
+        ]
+      }
+    },
+    "byModel": {
+      "google/gemma-4-12b": {
+        "cells": 3,
+        "completed": 2,
+        "evalFailed": 1,
+        "evalTimeout": 0,
+        "passes": 2,
+        "total": 3,
+        "durationsMs": {
+          "research-harness-tools": 108166,
+          "plan-synthetic-smoke": 132757,
+          "tool-call-search-docs": 25036
+        },
+        "taskResults": {
+          "research-harness-tools": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 108166
+          },
+          "plan-synthetic-smoke": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 132757
+          },
+          "tool-call-search-docs": {
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 25036
+          }
+        }
+      },
+      "zai-org/glm-4.6v-flash": {
+        "cells": 3,
+        "completed": 2,
+        "evalFailed": 1,
+        "evalTimeout": 0,
+        "passes": 2,
+        "total": 3,
+        "durationsMs": {
+          "research-harness-tools": 86508,
+          "plan-synthetic-smoke": 91615,
+          "tool-call-search-docs": 140808
+        },
+        "taskResults": {
+          "research-harness-tools": {
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 86508
+          },
+          "plan-synthetic-smoke": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 91615
+          },
+          "tool-call-search-docs": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 140808
+          }
+        }
+      },
+      "google/gemma-4-12b-qat": {
+        "cells": 3,
+        "completed": 2,
+        "evalFailed": 1,
+        "evalTimeout": 0,
+        "passes": 2,
+        "total": 3,
+        "durationsMs": {
+          "research-harness-tools": 122693,
+          "plan-synthetic-smoke": 131545,
+          "tool-call-search-docs": 18645
+        },
+        "taskResults": {
+          "research-harness-tools": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 122693
+          },
+          "plan-synthetic-smoke": {
+            "status": "completed",
+            "passes": 1,
+            "total": 1,
+            "durationMs": 131545
+          },
+          "tool-call-search-docs": {
+            "status": "eval_failed",
+            "passes": 0,
+            "total": 1,
+            "durationMs": 18645
+          }
+        }
+      }
+    },
+    "defaultSurfaceCaveat": "results/matrix-summary.json points only to the final tool-call-search-docs JSONL; results/promptfoo-latest.json, baseline-comparison.jsonl, and user-judge-queue.jsonl point only to the final google/gemma-4-12b-qat tool-call-search-docs cell. Use this artifact and the raw JSONLs for the full Stream 18 slice.",
+    "assessment": "No mid-size cell timed out. The wider local fallback slice adds three non-build tasks over three mid-size models at gpu_offload. Plan lane passed for all three models; research-harness-tools passed for 12B and 12B-QAT but failed for GLM; tool-call-search-docs passed only for GLM while both Gemma 12B variants emitted tool-call-shaped text that failed the direct output assertion.",
+    "remainingGaps": "This is still a small local fallback slice, not broad/full Promptfoo coverage, partial-profile coverage, subjective user review, large practical proof, final 3-solid selection, or completion verification."
   }
 }

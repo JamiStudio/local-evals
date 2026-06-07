@@ -1,6 +1,6 @@
 # 3 Solid Models — Current Evidence Memo (2026-06-07)
 
-**Status:** Draft evidence memo, not final completion. Streams 9-17 materially refreshed the evidence base, but subjective user review, broad/full matrix coverage, completed large-model proofs, broad uncached partial-profile measurements, and final selection remain open.
+**Status:** Draft evidence memo, not final completion. Streams 9-18 materially refreshed the evidence base, but subjective user review, broad/full matrix coverage, completed large-model proofs, broad uncached partial-profile measurements, and final selection remain open.
 
 **Scope boundary:** This memo covers the `evals` harness only. Automated model runs are LM Studio local; cloud outputs are imported/credit-funded baselines and review anchors, not direct paid API calls from the matrix harness.
 
@@ -13,6 +13,7 @@
 - **W7 real tracker:** Stream 12 produced strict qwen artifact `results/daily-briefs/brief-20260607-100231.json`: `strict_final=true`, `finalization_status=model_final`, `fallback_used=false`, all five required sections present, tools used `web_search`, `read_file`, and `github`, usage `5141/1393/6534`, wall `457.92s`, `tps=3.0`. Caveats: one invalid GitHub JSON-field request, poor web-search relevance, and stale wording inside the model-generated brief.
 - **DeepEval W7 lane:** Stream 11 repaired the local-safe W7 DeepEval lane. `uv run deepeval test run suites\deepeval\test_workflows.py -v` passed 4/4 without requiring `OPENAI_API_KEY`; judge-backed metrics remain opt-in.
 - **Mid-size fallback proof:** Streams 13-14 proved a narrow local fallback path on `build-synthetic-smoke`, `gpu_offload`, `EVAL_USE_PROMPTFOO=false`: `google/gemma-4-12b` 1/1 in 71342 ms, `zai-org/glm-4.6v-flash` 1/1 in 97743 ms, and `google/gemma-4-12b-qat` 1/1 in 70425 ms. This is not broad mid-size quality coverage.
+- **Mid-size wider task slice:** Stream 18 added `results/stream18-mid-size-task-slice.json`: the same three mid-size targets ran local fallback on `gpu_offload` across `research-harness-tools`, `plan-synthetic-smoke`, and `tool-call-search-docs`. Result: 9 cells, 6/9 passed, 0 load failures, 0 timeouts. All three passed the plan task; research passed for both Gemma 12B variants but failed for GLM; tool-call-search passed only for GLM.
 - **Large-model proof slice:** Stream 16 added estimate/timeout evidence for the remaining 26B/31B gap. 26B and 31B-QAT recommended partial estimates returned, 31B Q4_K_M estimate-only probes timed out, and the first practical `google/gemma-4-31b-qat@gpu_partial_0.36` local fallback cell timed out at 300022 ms with no pass count. This is not a large-model candidate promotion.
 
 ## Current Rotation
@@ -37,6 +38,7 @@
 - Mid-size Stream 4 targets are no longer only zero-row timeout evidence: they have one-task bounded local-fallback proof, but no broad suite/profile claim.
 - The old qwen `5/8` smoke-leader claim is stale for ranking. Current qwen/liquid control data is 40 assertions: qwen 7/40, liquid 5/40.
 - Stream 17 closes the narrow qwen/liquid current-suite profile-sensitivity gap: liquid has all-profile current-suite evidence, and qwen has a bounded required-profile subset. It does not close broad/full matrix or uncached throughput gaps.
+- Stream 18 closes the narrow "wider mid-size task coverage beyond build-synthetic-smoke" gap for a small local fallback slice only. It does not close broad/full Promptfoo coverage, mid-size partial-profile coverage, or user-reviewed quality.
 
 ## Remaining Gaps
 
@@ -44,5 +46,5 @@
 - Full/broad local matrix coverage is incomplete. Qwen/liquid now have Stream 17 profile-sensitivity evidence, but other model families and broader uncached profile measurements remain open.
 - Large 26B/31B local models remain unproven beyond Stream 16 estimate/timeout context.
 - Partial GPU profile quality and speed are not broadly measured beyond contained slices; Stream 17 qwen/liquid quality was invariant across tested profiles and qwen durations were cached.
-- Mid-size evidence is only `build-synthetic-smoke` local fallback on `gpu_offload`.
+- Mid-size evidence is now `build-synthetic-smoke` plus a small three-task local fallback slice on `gpu_offload`; it is still not broad suite/profile coverage.
 - Final 3-solid selection is not complete; this is the current candidate rotation, not a promoted decision.

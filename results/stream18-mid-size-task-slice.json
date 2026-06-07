@@ -1,0 +1,379 @@
+{
+  "stream": 18,
+  "at": "2026-06-07T11:36:21.689Z",
+  "purpose": "Widen mid-size local fallback task coverage beyond build-synthetic-smoke.",
+  "runtimeBefore": {
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "2026/06/07 07:17:40.890, RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 5% utilization"
+  },
+  "runtimeAfter": {
+    "lmsPs": "No models are currently loaded after explicit lms unload --all.",
+    "nvidiaSmi": "2026/06/07 07:35:21.867, 435 MiB used, 7553 MiB free, 5% utilization"
+  },
+  "commandShape": "EVAL_USE_PROMPTFOO=false; EVAL_SMOKE_PROFILES=gpu_offload; EVAL_CELL_TIMEOUT_MS=300000; EVAL_SMOKE_MODELS=google/gemma-4-12b,google/gemma-4-12b-qat,zai-org/glm-4.6v-flash; node scripts/run-matrix.mjs --smoke",
+  "taskSelection": {
+    "requestedSuggested": [
+      "research-harness-tools",
+      "plan-build-ordering",
+      "tool-search-docs"
+    ],
+    "used": [
+      "research-harness-tools",
+      "plan-synthetic-smoke",
+      "tool-call-search-docs"
+    ],
+    "note": "plan-build-ordering and tool-search-docs were not manifest task ids; plan-synthetic-smoke and tool-call-search-docs are valid lane-equivalent ids in baselines/manifest.json and suites/promptfoo/tests."
+  },
+  "models": [
+    "google/gemma-4-12b",
+    "zai-org/glm-4.6v-flash",
+    "google/gemma-4-12b-qat"
+  ],
+  "profile": "gpu_offload",
+  "timeoutMs": 300000,
+  "matrixJsonls": [
+    "results/matrix-2026-06-07T11-18-54-078Z.jsonl",
+    "results/matrix-2026-06-07T11-24-51-998Z.jsonl",
+    "results/matrix-2026-06-07T11-31-25-946Z.jsonl"
+  ],
+  "rows": [
+    {
+      "artifact": "results/matrix-2026-06-07T11-18-54-078Z.jsonl",
+      "runId": "2026-06-07T11-18-54-078Z",
+      "modelKey": "google/gemma-4-12b",
+      "variant": "google/gemma-4-12b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "research-harness-tools",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 108166,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-18-54-078Z.jsonl",
+      "runId": "2026-06-07T11-18-54-078Z",
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "variant": "zai-org/glm-4.6v-flash@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "research-harness-tools",
+      "status": "eval_failed",
+      "passes": 0,
+      "total": 1,
+      "durationMs": 86508,
+      "stderr": "Task filter: research-harness-tools\n→ research-harness-tools\n  FAIL 86366ms\n\nWrote C:\\Users\\james\\projects\\evals\\results\\promptfoo-latest.json — 0/1 passed"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-18-54-078Z.jsonl",
+      "runId": "2026-06-07T11-18-54-078Z",
+      "modelKey": "google/gemma-4-12b-qat",
+      "variant": "google/gemma-4-12b-qat@q4_0",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "research-harness-tools",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 122693,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-24-51-998Z.jsonl",
+      "runId": "2026-06-07T11-24-51-998Z",
+      "modelKey": "google/gemma-4-12b",
+      "variant": "google/gemma-4-12b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "plan-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 132757,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-24-51-998Z.jsonl",
+      "runId": "2026-06-07T11-24-51-998Z",
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "variant": "zai-org/glm-4.6v-flash@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "plan-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 91615,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-24-51-998Z.jsonl",
+      "runId": "2026-06-07T11-24-51-998Z",
+      "modelKey": "google/gemma-4-12b-qat",
+      "variant": "google/gemma-4-12b-qat@q4_0",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "plan-synthetic-smoke",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 131545,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-31-25-946Z.jsonl",
+      "runId": "2026-06-07T11-31-25-946Z",
+      "modelKey": "google/gemma-4-12b",
+      "variant": "google/gemma-4-12b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "tool-call-search-docs",
+      "status": "eval_failed",
+      "passes": 0,
+      "total": 1,
+      "durationMs": 25036,
+      "stderr": "Task filter: tool-call-search-docs\n→ tool-call-search-docs\n  FAIL 24880ms\n\nWrote C:\\Users\\james\\projects\\evals\\results\\promptfoo-latest.json — 0/1 passed"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-31-25-946Z.jsonl",
+      "runId": "2026-06-07T11-31-25-946Z",
+      "modelKey": "zai-org/glm-4.6v-flash",
+      "variant": "zai-org/glm-4.6v-flash@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "tool-call-search-docs",
+      "status": "completed",
+      "passes": 1,
+      "total": 1,
+      "durationMs": 140808,
+      "stderr": ""
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-31-25-946Z.jsonl",
+      "runId": "2026-06-07T11-31-25-946Z",
+      "modelKey": "google/gemma-4-12b-qat",
+      "variant": "google/gemma-4-12b-qat@q4_0",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": "tool-call-search-docs",
+      "status": "eval_failed",
+      "passes": 0,
+      "total": 1,
+      "durationMs": 18645,
+      "stderr": "Task filter: tool-call-search-docs\n→ tool-call-search-docs\n  FAIL 18496ms\n\nWrote C:\\Users\\james\\projects\\evals\\results\\promptfoo-latest.json — 0/1 passed"
+    }
+  ],
+  "byTask": {
+    "research-harness-tools": {
+      "cells": 3,
+      "completed": 2,
+      "evalFailed": 1,
+      "evalTimeout": 0,
+      "passes": 2,
+      "total": 3,
+      "rows": [
+        {
+          "modelKey": "google/gemma-4-12b",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 108166
+        },
+        {
+          "modelKey": "zai-org/glm-4.6v-flash",
+          "status": "eval_failed",
+          "passes": 0,
+          "total": 1,
+          "durationMs": 86508
+        },
+        {
+          "modelKey": "google/gemma-4-12b-qat",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 122693
+        }
+      ]
+    },
+    "plan-synthetic-smoke": {
+      "cells": 3,
+      "completed": 3,
+      "evalFailed": 0,
+      "evalTimeout": 0,
+      "passes": 3,
+      "total": 3,
+      "rows": [
+        {
+          "modelKey": "google/gemma-4-12b",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 132757
+        },
+        {
+          "modelKey": "zai-org/glm-4.6v-flash",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 91615
+        },
+        {
+          "modelKey": "google/gemma-4-12b-qat",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 131545
+        }
+      ]
+    },
+    "tool-call-search-docs": {
+      "cells": 3,
+      "completed": 1,
+      "evalFailed": 2,
+      "evalTimeout": 0,
+      "passes": 1,
+      "total": 3,
+      "rows": [
+        {
+          "modelKey": "google/gemma-4-12b",
+          "status": "eval_failed",
+          "passes": 0,
+          "total": 1,
+          "durationMs": 25036
+        },
+        {
+          "modelKey": "zai-org/glm-4.6v-flash",
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 140808
+        },
+        {
+          "modelKey": "google/gemma-4-12b-qat",
+          "status": "eval_failed",
+          "passes": 0,
+          "total": 1,
+          "durationMs": 18645
+        }
+      ]
+    }
+  },
+  "byModel": {
+    "google/gemma-4-12b": {
+      "cells": 3,
+      "completed": 2,
+      "evalFailed": 1,
+      "evalTimeout": 0,
+      "passes": 2,
+      "total": 3,
+      "durationsMs": {
+        "research-harness-tools": 108166,
+        "plan-synthetic-smoke": 132757,
+        "tool-call-search-docs": 25036
+      },
+      "taskResults": {
+        "research-harness-tools": {
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 108166
+        },
+        "plan-synthetic-smoke": {
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 132757
+        },
+        "tool-call-search-docs": {
+          "status": "eval_failed",
+          "passes": 0,
+          "total": 1,
+          "durationMs": 25036
+        }
+      }
+    },
+    "zai-org/glm-4.6v-flash": {
+      "cells": 3,
+      "completed": 2,
+      "evalFailed": 1,
+      "evalTimeout": 0,
+      "passes": 2,
+      "total": 3,
+      "durationsMs": {
+        "research-harness-tools": 86508,
+        "plan-synthetic-smoke": 91615,
+        "tool-call-search-docs": 140808
+      },
+      "taskResults": {
+        "research-harness-tools": {
+          "status": "eval_failed",
+          "passes": 0,
+          "total": 1,
+          "durationMs": 86508
+        },
+        "plan-synthetic-smoke": {
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 91615
+        },
+        "tool-call-search-docs": {
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 140808
+        }
+      }
+    },
+    "google/gemma-4-12b-qat": {
+      "cells": 3,
+      "completed": 2,
+      "evalFailed": 1,
+      "evalTimeout": 0,
+      "passes": 2,
+      "total": 3,
+      "durationsMs": {
+        "research-harness-tools": 122693,
+        "plan-synthetic-smoke": 131545,
+        "tool-call-search-docs": 18645
+      },
+      "taskResults": {
+        "research-harness-tools": {
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 122693
+        },
+        "plan-synthetic-smoke": {
+          "status": "completed",
+          "passes": 1,
+          "total": 1,
+          "durationMs": 131545
+        },
+        "tool-call-search-docs": {
+          "status": "eval_failed",
+          "passes": 0,
+          "total": 1,
+          "durationMs": 18645
+        }
+      }
+    }
+  },
+  "totals": {
+    "cells": 9,
+    "completed": 6,
+    "evalFailed": 3,
+    "evalTimeout": 0,
+    "loadFailures": 0,
+    "passes": 6,
+    "total": 9
+  },
+  "defaultSurfaceCaveat": "results/matrix-summary.json points only to the final tool-call-search-docs JSONL; results/promptfoo-latest.json, baseline-comparison.jsonl, and user-judge-queue.jsonl point only to the final google/gemma-4-12b-qat tool-call-search-docs cell. Use this artifact and the raw JSONLs for the full Stream 18 slice.",
+  "comparisonArtifacts": {
+    "lastCellComparison": "results/baseline-comparison-stream18-last-cell.jsonl",
+    "lastCellUserJudgeQueue": "results/user-judge-queue-stream18-last-cell.jsonl"
+  },
+  "assessment": "No mid-size cell timed out. The wider local fallback slice adds three non-build tasks over three mid-size models at gpu_offload. Plan lane passed for all three models; research-harness-tools passed for 12B and 12B-QAT but failed for GLM; tool-call-search-docs passed only for GLM while both Gemma 12B variants emitted tool-call-shaped text that failed the direct output assertion.",
+  "remainingGaps": "This is still a small local fallback slice, not broad/full Promptfoo coverage, partial-profile coverage, subjective user review, large practical proof, final 3-solid selection, or completion verification."
+}
