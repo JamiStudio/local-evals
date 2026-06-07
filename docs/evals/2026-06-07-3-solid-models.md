@@ -1,49 +1,45 @@
-# 3 Solid Models — Selection for Local Evals Workflows (2026-06-07)
+# 3 Solid Models — Current Evidence Memo (2026-06-07)
 
-**Goal context**: User goal run — exhaust evals (local + SOTA cloud via credits), optimize, daily-briefs interest tracker unloaded to local (with tool calls + planning), specialist harness + KB for OSS, 3 solid models that work "in some way" across tasks (chat, planning, tool use, briefs, specialist). Time not issue; token speed req for some. Push system (8GB RTX 2080 Super Max-Q, turbo/coolerboost), credits on tap, full access. Public transparency pushes to https://github.com/JamiStudio/local-evals.git after streams. Per goal.md (orchestrator), roadmap Phase B, AGENTS.md, feasibility (hybrid Promptfoo+DeepEval, LM Studio only, 2 presets, user-judge primary, baselines from credits outside).
+**Status:** Draft evidence memo, not final completion. Streams 9-14 materially refreshed the evidence base, but subjective user review, broad/full matrix coverage, large-model proofs, partial-profile measurements, and final selection remain open.
 
-**Data sources (live, no fakes)**:
-- Smoke matrix (matrix-summary.json + JSONL): qwen/qwen3.5-9b @ gpu_offload 5/8 (63%), gpu_full 4/8 (50%); liquid/lfm2.5-1.2b 3/8 (38%) both profiles. "eval_failed" status in some cells but pass rates + evalOk recorded.
-- optimization-state + O3 report: qwen offload leader, offload win on plan lane (13pp), build 100% both, tool-call mixed (search PASS, read-file FAIL), research mixed.
-- System profile (refreshed pnpm capture + lm-runtime-snapshot): 8 GiB VRAM, lms server :1234, 12 LLMs (gemma 26B/31B large need offload/partial; qwen 9B ~6.8GiB est; smalls fit full), no current loads, estimates + placement hints (qwen -> gpu_offload preferred measured).
-- W7 subagent (dispatched + completed 90f7b3d): produced working `scripts/daily-brief-tracker.py` (real LM Studio calls + free web (ddgs+trafilatura) + gh/fs + planning ReAct-style loop + --specialist + tps recording 38+ in dry, artifacts in results/daily-briefs/), `docs/knowledge-bank/evals-specialist.md` (KB for qwen leader + harness facts + brief criteria + ReAct/tool patterns + loader), suite extensions (promptfoo briefs/tool cases + deepeval ToolCorrectness/PlanAdherence/TaskCompletion for tracker flow), manifest new tasks, roadmap/state updates. Dry-run success with specialist path, tps, brief output.
-- O1 full matrix: dispatched (subagent 019ea042-... still running at checkpoint; will exhaust all 12x2 for complete local data; prior attempt early exit per O1 report).
-- Baselines: 8 tasks on vertex-gemini-3-1-pro-preview (baselines/ + manifest + comparison.jsonl + judge queue). gcloud vertex active; gemini:models/path for flash lite etc; azure-openai support + import for sonnet/gpt.
-- Git: 5+ clean pushes (init 5477ab0 ... W7 90f7b3d, checkpoints); remote JamiStudio/local-evals public.
-- Tooling: uv add duckduckgo-search trafilatura httpx bs4 (free web for tracker); pnpm/uv/lms/gh verified; .env present (secrets untouched).
+**Scope boundary:** This memo covers the `evals` harness only. Automated model runs are LM Studio local; cloud outputs are imported/credit-funded baselines and review anchors, not direct paid API calls from the matrix harness.
 
-**Selection (3 solid, mix, across tasks; "reach" SOTA with local crew + harness)**:
-1. **qwen/qwen3.5-9b @ gpu_offload (primary local solid / specialist)**  
-   - Evidence: smoke leader 63% (offload > full), consistent offload advantage on plan/research, build 100%, tool search PASS. 9B class, tool-trained, ~6.5-7GB, fits 8GB host with headroom via offload (measured preferred over full per O3 + profile).  
-   - W7 specialist: now has dedicated KB (evals-specialist.md) + harness (tracker uses --use-specialist mode for briefs/planning/tool). tps ~38 in dry (usable).  
-   - Use: daily local chat/planning/tool (gh/fs/web via tracker script), specialist for evals/briefs/interest (load KB + loop), general research/plan/build. Token speed good for interactive.  
-   - Limits: not SOTA reasoning on hard cross-file or high-stakes; use cloud ref for final.
+## Current Evidence Inputs
 
-2. **liquid/lfm2.5-1.2b @ gpu_full (speed/triage solid)**  
-   - Evidence: smallest/fastest (1.2B Q8_0, 1.25GB, full GPU fit per estimates), 38% on smoke (usable baseline), tool-trained, high context (128k). Full GPU = best throughput/latency on host.  
-   - Use: local chat (fast responses), quick triage/routing/classification, speed-critical planning stubs or tool arg drafting, daily-briefs light pre-filter before specialist. Tracker can target it for low-latency mode.  
-   - Limits: lower quality on complex (research synthetic FAILs), not for specialist depth. Pair with offload qwen or cloud.
+- **Qwen current-suite control:** Stream 10 archived qwen review evidence at `results/baseline-comparison-qwen-stream10.jsonl` and `results/user-judge-queue-qwen-stream10.jsonl`: 40 rows, 40 baseline-backed, W7 8/8 backed. The qwen cell is `qwen/qwen3.5-9b@gpu_offload`, `7/40` (17.5%, rounded 18%). Promptfoo reported `7 passed`, `25 failed`, `8 errors`; the run used cached eval tokens, so it is review evidence more than fresh runtime evidence.
+- **Liquid current-suite control:** Stream 10 preserved Stream 8 liquid archives at `results/baseline-comparison-liquid-stream8.jsonl` and `results/user-judge-queue-liquid-stream8.jsonl`: 40 rows, 40 baseline-backed, W7 8/8 backed. Liquid is `liquid/lfm2.5-1.2b@gpu_full`, `5/40` (12.5%, rounded 13%), much faster than the uncached Stream 7 qwen cell but weaker on deterministic outcome.
+- **W7 baselines:** Stream 9 imported W7 baselines for `daily-brief-synthetic-smoke` and `interest-tracker-tool-use`. The qwen and liquid model-specific queues are now 40/40 baseline-backed with W7 8/8 backed. User review is still pending.
+- **W7 real tracker:** Stream 12 produced strict qwen artifact `results/daily-briefs/brief-20260607-100231.json`: `strict_final=true`, `finalization_status=model_final`, `fallback_used=false`, all five required sections present, tools used `web_search`, `read_file`, and `github`, usage `5141/1393/6534`, wall `457.92s`, `tps=3.0`. Caveats: one invalid GitHub JSON-field request, poor web-search relevance, and stale wording inside the model-generated brief.
+- **DeepEval W7 lane:** Stream 11 repaired the local-safe W7 DeepEval lane. `uv run deepeval test run suites\deepeval\test_workflows.py -v` passed 4/4 without requiring `OPENAI_API_KEY`; judge-backed metrics remain opt-in.
+- **Mid-size fallback proof:** Streams 13-14 proved a narrow local fallback path on `build-synthetic-smoke`, `gpu_offload`, `EVAL_USE_PROMPTFOO=false`: `google/gemma-4-12b` 1/1 in 71342 ms, `zai-org/glm-4.6v-flash` 1/1 in 97743 ms, and `google/gemma-4-12b-qat` 1/1 in 70425 ms. This is not broad mid-size quality coverage.
 
-3. **Cloud SOTA ref (vertex-gemini-3-1-pro-preview or gemini-3.1-flash-lite; "reach" target + quality anchor)**  
-   - Evidence: 100% on all 8 baseline tasks (reference lane). gcloud active, vertexBaselines true in state, pnpm gemini:models + baseline:collect path ready (flash lite for cheaper/faster SOTA variant; pro for max quality). Azure support (lib + optional judge) for sonnet 4.6 / gpt 5.4 equivalents if creds in .env (or manual import per baseline-collection.md).  
-   - Use: head-to-head "can local crew reach?" (W7 tracker + specialist vs cloud baseline), high-stakes briefs/plans, final review, when local tps/quality insufficient. Burn credits only for new/changed (policy).  
-   - Sonnet 4.6 / gpt 5.4: same via azure-openai or vertex anthropic/openai deploys + baseline import/collect; not direct pay-per-token from harness.
+## Current Rotation
 
-**Why these 3 (not deterred by SOTA gaps)**: Cover quality leader + specialist (qwen + W7 harness/KB), speed/ubiquitous local (liquid full), SOTA ref/ceiling (cloud credits). Smoke + W7 real impl + system facts + prior O3/O1 reports give decision-grade evidence. Full O1 exhaust (dispatched) + SOTA cloud bench (W7 tasks + credit paths) will refine. All tasks exercised: chat (tracker loop), planning (ReAct + briefs), tool (gh/fs/web + evals), briefs (W7 core), specialist (KB + mode).
+1. **qwen/qwen3.5-9b @ gpu_offload — local specialist candidate**
 
-**How to use (no user steps left)**:
-- Local chat/planning: lms load qwen/qwen3.5-9b --gpu off -y (or full for small); use LM Studio UI or openai-compat client to :1234/v1.
-- Daily-briefs + interest tracker + tools: `uv run python scripts/daily-brief-tracker.py --query "your topic" --use-specialist --model qwen/qwen3.5-9b` (real web + LM + gh/fs + KB; --loop for hourly-ish; --dry-run for smoke; outputs results/daily-briefs/brief-*.json with tps). Specialist mode loads KB.
-- Specialist harness: read docs/knowledge-bank/evals-specialist.md ; tracker --use-specialist or custom loader in evals code.
-- Evals: pnpm matrix:smoke (or full O1), pnpm eval:deepeval -k "tool_correctness or briefs or plan", pnpm compare:baseline, pnpm judge:queue. New W7 tasks in manifest for baselines.
-- 3 solid in rotation: speed (liquid) for interactive, qwen-specialist for briefs/plans/tools, cloud for quality ceiling.
-- Optimize further: post full O1 data + new matrix-summary, dispatch config sub per Phase B cycle (cite system + results).
-- Git: changes pushed; pull from JamiStudio/local-evals for transparency.
+   Qwen remains the best-supported local specialist candidate because it has the strict no-fallback W7 real tracker artifact, baseline-backed W7 review queues, and local-safe DeepEval W7 validation. The current-suite deterministic score is weak at 7/40, so qwen is not a finished overall local winner. Its current role is daily-briefs, harness-aware planning, local tool-assisted drafting, and specialist work with review caveats.
 
-**Risks / next (per roadmap) + hardware note (user reminder 2026-06-07)**: This rig **can only run one local model on GPU at a time** (8 GiB RTX 2080 Super Max-Q — live example during continuation: gemma-4-26b-a4b GENERATING, ~55 MiB free). All matrix work (O1 and future) strictly serializes: `lms unload --all` before every new load, one cell at a time, offload profiles for anything > ~6.8 GiB headroom. O1 full matrix support completed by sub (5d8437b; 24-cell path + load wiring + post-steps + best local note exercised; no new full cells in agent turn — long-running on 8GB for large 26B/31B first per system-profile + O1 reports; operator unattended `pnpm matrix:full` (or direct node) outside session required for complete local exhaust data per O1 sub + reliability.md). W7 baselines task registration complete (manifest + suite cases); actual collect via `pnpm baseline:collect -- --force` (or import) by operator when credits/key ready per credit policy + baseline-collection.md (W7 sub avoided auto burn). SOTA cloud beyond gemini (sonnet 4.6 / gpt 5.4) via azure-openai lib + import path or vertex if available. 3 models decision memo can promote to docs/decisions/ after full data. No Langfuse/Docker required. Verifiers spawned + reviewed (code FAIL on snapshot gaps; fixes + resume applied for loop to PASS).
+2. **liquid/lfm2.5-1.2b @ gpu_full — speed and triage control**
 
-**Verdict**: 3 solid identified + harnessed + tested (W7 real impl + smoke data + system). Local crew can "reach" useful quality for many tasks with specialist KB + tracker; cloud for the rest. Fun had, system pushed (credits, large models, tooling, transparency pushes, verifiers next).
+   Liquid remains useful as the fast local control. Its archived queue is fully baseline-backed and W7-backed, but its current-suite deterministic score is only 5/40. Treat it as a speed-first triage, routing, and lightweight draft model, not a quality leader.
 
-**2026-06-07 Reports-Writer update (AUDIT/EXECUTE)**: Data basis remains smoke 4-cells (qwen offload 63% leader, liquid 38%; build 100% for qwen, plan offload win, research/tool mixed per jsonl stderr) + W7 dry-runs (11+ briefs on qwen+specialist, consistent tps=38.4 simulated, harness-aware structure per KB) + system-profile (8GB Max-Q, placementHints, current loads, serialize). No new cells (O1 full pending unattended `pnpm matrix:full`), no real (non-dry) briefs tps/multi-model, no W7 baseline imports or user-judge reviews yet (per policy). **3 models unchanged** (insufficient new data for re-rank or refinement). See new `docs/evals/2026-06-07-exhaustive-assessment.md` (gaps, per-lane, briefs perf) + `docs/evals/2026-06-07-placement-decisions.md` (draft) + `docs/evals/2026-06-07-config-tuning-skeleton.md`. Full refinement + state update when O1 cells + config research (O6 partials/estimates) done. All per live files (read via read_file + rg); harness boundary preserved.
+3. **Cloud SOTA baseline/ref — quality ceiling and review anchor**
 
-See: results/ (matrix-summary, optimization-state, daily-briefs/), docs/knowledge-bank/evals-specialist.md, scripts/daily-brief-tracker.py, W7 commit 90f7b3d, O1 sub 019ea042-..., roadmap + state updates. New exhaustive + placement + skeleton for cohesion.
+   The cloud role remains the imported/credit-funded reference lane, especially `vertex-gemini-3-1-pro-preview` in current artifacts. Stream 9 made W7 baseline backing current. This lane anchors comparison and user review; it is not a direct paid matrix provider. Additional cloud peers may be imported when credit-gated baseline policy says they are needed.
+
+## What Changed Since The Older Memo
+
+- W7 baseline backing is no longer missing: qwen/liquid review archives are 40/40 baseline-backed and W7 8/8 backed.
+- W7 qwen tracker evidence is no longer dry-only or fallback-only: Stream 12 has a strict model-final, no-fallback artifact.
+- DeepEval W7 is no longer broken/smoke-only in default local mode: deterministic W7 tests pass 4/4.
+- Mid-size Stream 4 targets are no longer only zero-row timeout evidence: they have one-task bounded local-fallback proof, but no broad suite/profile claim.
+- The old qwen `5/8` smoke-leader claim is stale for ranking. Current qwen/liquid control data is 40 assertions: qwen 7/40, liquid 5/40.
+
+## Remaining Gaps
+
+- User review is pending for qwen/liquid model-specific queues.
+- Full/broad local matrix coverage is incomplete, including current-suite all-profile reruns.
+- Large 26B/31B local models remain unproven beyond estimates/timeout context.
+- Partial GPU profile quality and speed are not broadly measured.
+- Mid-size evidence is only `build-synthetic-smoke` local fallback on `gpu_offload`.
+- Final 3-solid selection is not complete; this is the current candidate rotation, not a promoted decision.
