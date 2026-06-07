@@ -1,13 +1,14 @@
 # Placement Decisions Draft — Current Evidence (2026-06-07)
 
-**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-16 refreshed the W7, queue, DeepEval, mid-size fallback, and large-model estimate/timeout evidence, but final placement remains caveated until user review and broader local coverage are complete.
+**Status:** Draft placement memo under `docs/evals/`, not a promoted decision. Streams 9-17 refreshed the W7, queue, DeepEval, mid-size fallback, large-model estimate/timeout, and qwen/liquid profile-sensitivity evidence, but final placement remains caveated until user review and broader local coverage are complete.
 
-**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-16 checkpoints in the active roadmap, and the W7 DeepEval suite.
+**Current source surfaces:** `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, model-specific baseline comparison and user-judge archives, `results/daily-briefs/brief-20260607-100231.json`, Stream 9-17 checkpoints in the active roadmap, and the W7 DeepEval suite.
 
 ## Evidence Summary
 
 - **Qwen current-suite:** `qwen/qwen3.5-9b@gpu_offload` has archived qwen comparison/review queues with 40 rows, 40 baseline-backed, W7 8/8 backed. The current deterministic control is `7/40`; useful specialist evidence exists, but broad quality remains weak.
 - **Liquid current-suite:** `liquid/lfm2.5-1.2b@gpu_full` has archived liquid comparison/review queues with 40 rows, 40 baseline-backed, W7 8/8 backed. The current deterministic control is `5/40`; use it for speed/triage, not deep quality.
+- **Stream 17 profile sensitivity:** Liquid ran all 11 profiles and tied at `5/40` on every profile. Qwen ran `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full`; all tied at `7/40`. This supports quality invariance for the tested profiles, not a new profile winner. Qwen Stream 17 durations are cached Promptfoo reruns, not fresh uncached throughput.
 - **W7 baseline status:** The W7 tasks are baseline-backed as of Stream 9. Obsolete `W7 0 baseline` wording no longer applies.
 - **W7 tracker status:** Qwen has a strict no-fallback real tracker artifact with all sections and real tool use. The artifact is model-final and nonblank, but quality/freshness caveats remain.
 - **DeepEval W7 status:** Local-safe deterministic W7 tests pass 4/4 by default; cloud/judge-backed metrics remain opt-in.
@@ -18,13 +19,13 @@
 
 ### Research And Synthesis
 
-- **Local placement:** Qwen can support harness-aware research drafting and daily interest synthesis when paired with the specialist KB and tracker. The strict W7 artifact proves model-final behavior after tools, but its stale wording and weak web/GitHub tool results mean human review remains required.
+- **Local placement:** Qwen can support harness-aware research drafting and daily interest synthesis when paired with the specialist KB and tracker. Stream 17 did not distinguish qwen profile quality, so keep `gpu_offload` as the draft local placement based on W7/tracker and earlier offload evidence. The strict W7 artifact proves model-final behavior after tools, but its stale wording and weak web/GitHub tool results mean human review remains required.
 - **Cloud placement:** Cloud baselines remain the quality ceiling and review anchor for long-horizon synthesis and final judgement.
 - **Draft decision:** qwen for local draft/specialist support; cloud for final or high-stakes synthesis; liquid only for fast triage.
 
 ### Planning
 
-- **Local placement:** Qwen remains the local planning candidate because it has the strongest W7 specialist path and baseline-backed review queue. Current 40-assertion pass rate is too low to claim robust planning coverage.
+- **Local placement:** Qwen remains the local planning candidate because it has the strongest W7 specialist path and baseline-backed review queue. Stream 17 found `7/40` across the tested qwen profiles, so profile changes did not improve the current deterministic planning/build/tool mix. Current 40-assertion pass rate is too low to claim robust planning coverage.
 - **Cloud placement:** Cloud remains primary for complex multi-step or voice/host planning until user review and broader local matrix evidence improve.
 - **Draft decision:** qwen for first-pass local planning, cloud for final planning.
 
@@ -48,13 +49,13 @@
 
 ### Speed / Triage
 
-- **Local placement:** liquid remains the speed model. It has weaker deterministic outcomes but very fast current-suite control behavior and a fully backed archive.
+- **Local placement:** liquid remains the speed model. Stream 17 found all 11 liquid profiles tied at `5/40`, so `gpu_full` stays preferred because it fits the host easily and is the speed-oriented recommendation, not because pass rate was better.
 - **Draft decision:** liquid for fast triage/routing/light drafts; qwen for specialist depth; cloud for quality ceiling.
 
 ## Current Caveats
 
 - User review is still pending.
-- Latest default `results/baseline-comparison.jsonl` and `results/user-judge-queue.jsonl` are last-cell Stream 14 surfaces, while qwen/liquid 40-row evidence lives in archived `*-stream8` and `*-stream10` files.
+- Latest default `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/baseline-comparison.jsonl`, and `results/user-judge-queue.jsonl` are last-cell surfaces. After Stream 17 they point to the final qwen `gpu_full` cell; use `results/stream17-profile-sensitivity.json` plus the `*-stream17` archives for the full qwen/liquid profile slice.
 - Broad/full matrix coverage is incomplete.
 - Large 26B/31B placements are still not proven; Stream 16 provides estimate/timeout evidence, not a completed practical pass.
 - Mid-size fallback coverage is only one build task on `gpu_offload`.

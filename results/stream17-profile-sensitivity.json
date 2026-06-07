@@ -1,0 +1,389 @@
+{
+  "stream": 17,
+  "at": "2026-06-07T11:09:30.000Z",
+  "purpose": "qwen/liquid current-suite profile-sensitivity slice",
+  "runtimeBefore": {
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, 6-7% utilization"
+  },
+  "commands": {
+    "liquid": "EVAL_SMOKE_MODELS=liquid/lfm2.5-1.2b; EVAL_CELL_TIMEOUT_MS=300000; node scripts/run-matrix.mjs --smoke (EVAL_SMOKE_PROFILES unset, runner used all 11 profiles)",
+    "qwen": "One profile per command with EVAL_SMOKE_MODELS=qwen/qwen3.5-9b, EVAL_SMOKE_PROFILES in gpu_offload,gpu_partial_0.95,gpu_partial_0.7,gpu_full, EVAL_CELL_TIMEOUT_MS=1200000, node scripts/run-matrix.mjs --smoke"
+  },
+  "artifacts": [
+    "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+    "results/matrix-2026-06-07T11-08-01-420Z.jsonl",
+    "results/matrix-2026-06-07T11-08-11-880Z.jsonl",
+    "results/matrix-2026-06-07T11-08-22-161Z.jsonl",
+    "results/matrix-2026-06-07T11-08-32-534Z.jsonl",
+    "results/baseline-comparison-liquid-stream17.jsonl",
+    "results/user-judge-queue-liquid-stream17.jsonl",
+    "results/baseline-comparison-qwen-stream17.jsonl",
+    "results/user-judge-queue-qwen-stream17.jsonl",
+    "results/matrix-summary.json",
+    "results/promptfoo-latest.json"
+  ],
+  "rows": [
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 9283,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-bsA-2026-06-07T11:05:56)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-05-55-757Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-05-55-757Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7150,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-OHu-2026-06-07T11:06:04)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-06-04-233Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-06-04-233Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.3",
+      "gpuFlag": "0.3",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7174,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-QOJ-2026-06-07T11:06:12)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-06-12-512Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-06-12-512Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.35",
+      "gpuFlag": "0.35",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 6901,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-K70-2026-06-07T11:06:21)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-06-20-609Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-06-20-609Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.36",
+      "gpuFlag": "0.36",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7352,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-FY2-2026-06-07T11:06:29)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-06-28-481Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-06-28-481Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.39",
+      "gpuFlag": "0.39",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7005,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-A34-2026-06-07T11:06:37)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-06-36-785Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-06-36-785Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.5",
+      "gpuFlag": "0.5",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7230,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-ZOp-2026-06-07T11:06:45)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-06-44-915Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-06-44-915Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.7",
+      "gpuFlag": "0.7",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7146,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-bEk-2026-06-07T11:06:53)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-06-53-112Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-06-53-112Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.88",
+      "gpuFlag": "0.88",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7101,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-5F6-2026-06-07T11:07:01)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-07-01-214Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-07-01-214Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.9",
+      "gpuFlag": "0.9",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7490,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-ZkG-2026-06-07T11:07:09)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-07-09-409Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-07-09-409Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl",
+      "runId": "2026-06-07T11-05-50-387Z",
+      "modelKey": "liquid/lfm2.5-1.2b",
+      "variant": "liquid/lfm2.5-1.2b@q8_0",
+      "profileId": "gpu_partial_0.95",
+      "gpuFlag": "0.95",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 5,
+      "total": 40,
+      "durationMs": 7116,
+      "stderr": "        \u001b[90m│\u001b[39m real-t… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m Defin.… \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m feedba… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m mechan… \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m and     \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m domai.… \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-3nK-2026-06-07T11:07:18)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 4,703\r\n  Eval: 4,703 (cached)\r\n\r\nResults: ✓ 5 passed, ✗ 27 failed, ✗ 8 errors (12.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json\r\n\nThere were some errors during the operation. See logs for more details.\nError log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-error-2026-06-07_11-07-17-916Z.log\nDebug log: C:\\Users\\james\\.promptfoo\\logs\\promptfoo-debug-2026-06-07_11-07-17-916Z.log"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-08-01-420Z.jsonl",
+      "runId": "2026-06-07T11-08-01-420Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_offload",
+      "gpuFlag": "off",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 7,
+      "total": 40,
+      "durationMs": 6852,
+      "stderr": "  \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m nothing \u001b[90m│\u001b[39m produce \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m inside… \u001b[90m│\u001b[39m an a... \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m This    \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m appears \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m to...   \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-3rM-2026-06-07T11:08:05)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 39,548\r\n  Eval: 39,548 (cached)\r\n\r\nResults: ✓ 7 passed, ✗ 25 failed, ✗ 8 errors (17.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-08-11-880Z.jsonl",
+      "runId": "2026-06-07T11-08-11-880Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_partial_0.95",
+      "gpuFlag": "0.95",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 7,
+      "total": 40,
+      "durationMs": 6840,
+      "stderr": "  \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m nothing \u001b[90m│\u001b[39m produce \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m inside… \u001b[90m│\u001b[39m an a... \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m This    \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m appears \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m to...   \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-ks3-2026-06-07T11:08:15)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 39,548\r\n  Eval: 39,548 (cached)\r\n\r\nResults: ✓ 7 passed, ✗ 25 failed, ✗ 8 errors (17.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-08-22-161Z.jsonl",
+      "runId": "2026-06-07T11-08-22-161Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_partial_0.7",
+      "gpuFlag": "0.7",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 7,
+      "total": 40,
+      "durationMs": 6888,
+      "stderr": "  \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m nothing \u001b[90m│\u001b[39m produce \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m inside… \u001b[90m│\u001b[39m an a... \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m This    \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m appears \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m to...   \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-M6K-2026-06-07T11:08:26)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 39,548\r\n  Eval: 39,548 (cached)\r\n\r\nResults: ✓ 7 passed, ✗ 25 failed, ✗ 8 errors (17.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json"
+    },
+    {
+      "artifact": "results/matrix-2026-06-07T11-08-32-534Z.jsonl",
+      "runId": "2026-06-07T11-08-32-534Z",
+      "modelKey": "qwen/qwen3.5-9b",
+      "variant": "qwen/qwen3.5-9b@q4_k_m",
+      "profileId": "gpu_full",
+      "gpuFlag": "max",
+      "taskFilter": null,
+      "status": "eval_partial",
+      "passes": 7,
+      "total": 40,
+      "durationMs": 6975,
+      "stderr": "  \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m nothing \u001b[90m│\u001b[39m produce \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m inside… \u001b[90m│\u001b[39m an a... \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m This    \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m appears \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m to...   \u001b[90m│\u001b[39m         \u001b[90m│\u001b[39m\n\u001b[90m└─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────\u001b[39m\u001b[90m┴─────────┘\u001b[39m\r\n✓ Eval complete (ID: eval-62o-2026-06-07T11:08:36)\r\n\r\n» View results: promptfoo view\r\n» Share with your team: https://promptfoo.app\r\n» Feedback: https://promptfoo.dev/feedback\r\n\r\nTotal Tokens: 39,548\r\n  Eval: 39,548 (cached)\r\n\r\nResults: ✓ 7 passed, ✗ 25 failed, ✗ 8 errors (17.50%)\r\nDuration: 4s (concurrency: 1)\r\n\r\nWriting output to results/promptfoo-latest.json"
+    }
+  ],
+  "byModel": {
+    "liquid/lfm2.5-1.2b": [
+      {
+        "profileId": "gpu_full",
+        "gpuFlag": "max",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 9283,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7150,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.3",
+        "gpuFlag": "0.3",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7174,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.35",
+        "gpuFlag": "0.35",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 6901,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.36",
+        "gpuFlag": "0.36",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7352,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.39",
+        "gpuFlag": "0.39",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7005,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.5",
+        "gpuFlag": "0.5",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7230,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.7",
+        "gpuFlag": "0.7",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7146,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.88",
+        "gpuFlag": "0.88",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7101,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.9",
+        "gpuFlag": "0.9",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7490,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.95",
+        "gpuFlag": "0.95",
+        "status": "eval_partial",
+        "passes": 5,
+        "total": 40,
+        "durationMs": 7116,
+        "artifact": "results/matrix-2026-06-07T11-05-50-387Z.jsonl"
+      }
+    ],
+    "qwen/qwen3.5-9b": [
+      {
+        "profileId": "gpu_offload",
+        "gpuFlag": "off",
+        "status": "eval_partial",
+        "passes": 7,
+        "total": 40,
+        "durationMs": 6852,
+        "artifact": "results/matrix-2026-06-07T11-08-01-420Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.95",
+        "gpuFlag": "0.95",
+        "status": "eval_partial",
+        "passes": 7,
+        "total": 40,
+        "durationMs": 6840,
+        "artifact": "results/matrix-2026-06-07T11-08-11-880Z.jsonl"
+      },
+      {
+        "profileId": "gpu_partial_0.7",
+        "gpuFlag": "0.7",
+        "status": "eval_partial",
+        "passes": 7,
+        "total": 40,
+        "durationMs": 6888,
+        "artifact": "results/matrix-2026-06-07T11-08-22-161Z.jsonl"
+      },
+      {
+        "profileId": "gpu_full",
+        "gpuFlag": "max",
+        "status": "eval_partial",
+        "passes": 7,
+        "total": 40,
+        "durationMs": 6975,
+        "artifact": "results/matrix-2026-06-07T11-08-32-534Z.jsonl"
+      }
+    ]
+  },
+  "assessment": {
+    "liquid": "All 11 profiles tied at 5/40 (12.5%, rounded 13%). No load failures or timeouts. Profile choice did not change deterministic quality in this cached current-suite slice; gpu_full remains the recommendation by fit/speed rationale, not by pass-rate advantage.",
+    "qwen": "The bounded subset gpu_offload, gpu_partial_0.95, gpu_partial_0.7, and gpu_full tied at 7/40 (17.5%, rounded 18%). No timeouts. Because these were cached Promptfoo reruns, durations around 6.8-7.0s are not fresh model throughput evidence.",
+    "defaultSurfaces": "results/matrix-summary.json and results/promptfoo-latest.json point only to the final qwen gpu_full cell; use this stream17 artifact and raw JSONLs for the full profile-sensitivity slice.",
+    "remainingGaps": "User review, broad/full matrix, large practical proof, uncached qwen/liquid throughput, broad partial-profile measurement across other models, and final 3-solid selection remain incomplete."
+  },
+  "runtimeAfter": {
+    "lmsPs": "No models are currently loaded.",
+    "nvidiaSmi": "435 MiB used / 7553 MiB free / 5% utilization"
+  }
+}

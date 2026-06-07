@@ -1,6 +1,6 @@
 # 3 Solid Models — Current Evidence Memo (2026-06-07)
 
-**Status:** Draft evidence memo, not final completion. Streams 9-16 materially refreshed the evidence base, but subjective user review, broad/full matrix coverage, completed large-model proofs, partial-profile measurements, and final selection remain open.
+**Status:** Draft evidence memo, not final completion. Streams 9-17 materially refreshed the evidence base, but subjective user review, broad/full matrix coverage, completed large-model proofs, broad uncached partial-profile measurements, and final selection remain open.
 
 **Scope boundary:** This memo covers the `evals` harness only. Automated model runs are LM Studio local; cloud outputs are imported/credit-funded baselines and review anchors, not direct paid API calls from the matrix harness.
 
@@ -8,6 +8,7 @@
 
 - **Qwen current-suite control:** Stream 10 archived qwen review evidence at `results/baseline-comparison-qwen-stream10.jsonl` and `results/user-judge-queue-qwen-stream10.jsonl`: 40 rows, 40 baseline-backed, W7 8/8 backed. The qwen cell is `qwen/qwen3.5-9b@gpu_offload`, `7/40` (17.5%, rounded 18%). Promptfoo reported `7 passed`, `25 failed`, `8 errors`; the run used cached eval tokens, so it is review evidence more than fresh runtime evidence.
 - **Liquid current-suite control:** Stream 10 preserved Stream 8 liquid archives at `results/baseline-comparison-liquid-stream8.jsonl` and `results/user-judge-queue-liquid-stream8.jsonl`: 40 rows, 40 baseline-backed, W7 8/8 backed. Liquid is `liquid/lfm2.5-1.2b@gpu_full`, `5/40` (12.5%, rounded 13%), much faster than the uncached Stream 7 qwen cell but weaker on deterministic outcome.
+- **Stream 17 profile-sensitivity slice:** `results/stream17-profile-sensitivity.json` records the bounded current-suite profile check. Liquid ran all 11 current load profiles and tied at `5/40` on every profile. Qwen ran `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full`; all four tied at `7/40`. Stream 17 archives are `results/baseline-comparison-liquid-stream17.jsonl`, `results/user-judge-queue-liquid-stream17.jsonl`, `results/baseline-comparison-qwen-stream17.jsonl`, and `results/user-judge-queue-qwen-stream17.jsonl`. The qwen timings in this stream are cached Promptfoo reruns, not fresh uncached throughput evidence.
 - **W7 baselines:** Stream 9 imported W7 baselines for `daily-brief-synthetic-smoke` and `interest-tracker-tool-use`. The qwen and liquid model-specific queues are now 40/40 baseline-backed with W7 8/8 backed. User review is still pending.
 - **W7 real tracker:** Stream 12 produced strict qwen artifact `results/daily-briefs/brief-20260607-100231.json`: `strict_final=true`, `finalization_status=model_final`, `fallback_used=false`, all five required sections present, tools used `web_search`, `read_file`, and `github`, usage `5141/1393/6534`, wall `457.92s`, `tps=3.0`. Caveats: one invalid GitHub JSON-field request, poor web-search relevance, and stale wording inside the model-generated brief.
 - **DeepEval W7 lane:** Stream 11 repaired the local-safe W7 DeepEval lane. `uv run deepeval test run suites\deepeval\test_workflows.py -v` passed 4/4 without requiring `OPENAI_API_KEY`; judge-backed metrics remain opt-in.
@@ -18,11 +19,11 @@
 
 1. **qwen/qwen3.5-9b @ gpu_offload — local specialist candidate**
 
-   Qwen remains the best-supported local specialist candidate because it has the strict no-fallback W7 real tracker artifact, baseline-backed W7 review queues, and local-safe DeepEval W7 validation. The current-suite deterministic score is weak at 7/40, so qwen is not a finished overall local winner. Its current role is daily-briefs, harness-aware planning, local tool-assisted drafting, and specialist work with review caveats.
+   Qwen remains the best-supported local specialist candidate because it has the strict no-fallback W7 real tracker artifact, baseline-backed W7 review queues, and local-safe DeepEval W7 validation. Stream 17 did not show a pass-rate difference between the tested qwen profiles; `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full` all stayed at `7/40`. Keep `gpu_offload` as the draft placement because the W7/tracker and prior offload evidence still matter, not because Stream 17 separated the profiles. Qwen is not a finished overall local winner.
 
 2. **liquid/lfm2.5-1.2b @ gpu_full — speed and triage control**
 
-   Liquid remains useful as the fast local control. Its archived queue is fully baseline-backed and W7-backed, but its current-suite deterministic score is only 5/40. Treat it as a speed-first triage, routing, and lightweight draft model, not a quality leader.
+   Liquid remains useful as the fast local control. Stream 17 found all 11 current liquid profiles tied at `5/40`, so `gpu_full` remains the draft placement by fit/speed rationale rather than quality differentiation. Treat it as a speed-first triage, routing, and lightweight draft model, not a quality leader.
 
 3. **Cloud SOTA baseline/ref — quality ceiling and review anchor**
 
@@ -35,12 +36,13 @@
 - DeepEval W7 is no longer broken/smoke-only in default local mode: deterministic W7 tests pass 4/4.
 - Mid-size Stream 4 targets are no longer only zero-row timeout evidence: they have one-task bounded local-fallback proof, but no broad suite/profile claim.
 - The old qwen `5/8` smoke-leader claim is stale for ranking. Current qwen/liquid control data is 40 assertions: qwen 7/40, liquid 5/40.
+- Stream 17 closes the narrow qwen/liquid current-suite profile-sensitivity gap: liquid has all-profile current-suite evidence, and qwen has a bounded required-profile subset. It does not close broad/full matrix or uncached throughput gaps.
 
 ## Remaining Gaps
 
 - User review is pending for qwen/liquid model-specific queues.
-- Full/broad local matrix coverage is incomplete, including current-suite all-profile reruns.
+- Full/broad local matrix coverage is incomplete. Qwen/liquid now have Stream 17 profile-sensitivity evidence, but other model families and broader uncached profile measurements remain open.
 - Large 26B/31B local models remain unproven beyond Stream 16 estimate/timeout context.
-- Partial GPU profile quality and speed are not broadly measured.
+- Partial GPU profile quality and speed are not broadly measured beyond contained slices; Stream 17 qwen/liquid quality was invariant across tested profiles and qwen durations were cached.
 - Mid-size evidence is only `build-synthetic-smoke` local fallback on `gpu_offload`.
 - Final 3-solid selection is not complete; this is the current candidate rotation, not a promoted decision.

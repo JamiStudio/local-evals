@@ -1,6 +1,6 @@
 # Exhaustive Assessment — Current Snapshot (2026-06-07)
 
-**Status:** Current snapshot aligned to Streams 9-16. This is a synthesis aid, not a completion certificate.
+**Status:** Current snapshot aligned to Streams 9-17. This is a synthesis aid, not a completion certificate.
 
 ## Current Facts
 
@@ -10,13 +10,14 @@
 - Small/fit-class all-profile data exists for nemotron, e2b, e4b, and rnj; qwen/liquid have current-suite controls.
 - Stream 4 mid-size targets have bounded one-task local fallback proof on `build-synthetic-smoke`: 12B, GLM, and 12B-QAT completed 1/1 on `gpu_offload`.
 - Stream 16 added large-model estimate/timeout evidence: 26B and 31B-QAT recommended partial estimates returned, 31B Q4_K_M estimate probes timed out, and the first practical 31B-QAT partial local fallback cell timed out at `300022 ms`.
+- Stream 17 added qwen/liquid current-suite profile-sensitivity evidence: liquid ran all 11 profiles at `5/40`; qwen ran `gpu_offload`, `gpu_partial_0.95`, `gpu_partial_0.7`, and `gpu_full` at `7/40`. No final placement winner changed.
 
 ## Current Non-Completion Facts
 
 - User review is pending.
 - Broad/full matrix coverage remains incomplete.
 - Large 26B/31B practical runs are not completed; Stream 16 proves timeout behavior for the first bounded 31B-QAT partial cell, not success.
-- Partial GPU profiles are not broadly measured.
+- Partial GPU profiles are not broadly measured outside contained slices; Stream 17 qwen/liquid quality was invariant and qwen durations were cached reruns, not uncached throughput.
 - Mid-size coverage is not broad; it is one task/profile/path only.
 - Final 3-solid model selection is not complete.
 
