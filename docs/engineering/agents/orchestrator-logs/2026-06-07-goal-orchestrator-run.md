@@ -141,3 +141,16 @@ All per AGENTS.md / roadmap / standards (Windows/pwsh + rg; live truth; no fakes
 
 All per goal (assess/dispatch/poll/gate on commit+push, one loading at time, cite state+system+matrix, update roadmap/log, verif narrow/docs + pnpm verify + read-back + git check, push after stream). Multitask parallel (analysis subs; loads serial). Exhaustive assessment + configs dialed + reports written + partials implemented + W7/3-solid prior + pushes. Not "all cells" (20 missing, documented), but "exhaustive eval run" + "agents figure" + "optimized" + "reports" delivered. Keep rocking when GPU free for runner + re-summarize + full verifiers.
 
+
+## New Goal & Plan 2026-06-07 (per user direction: contained streams for real-time assessment/adjustment)
+
+User explicit: rewrite plan/roadmap brand new. New goal doc goal-eval.md. Contained streams so results interpretable and settings adjustable in real time between streams. No one long running uninterpretable eval suite. Orchestrator lets subagents run the evals (all of them) in focused contained batches. No need for two passes on each. Subagents execute (matrix scoped, deepeval, tracker real, cloud baselines, etc.). Orchestrator dispatches stream, waits for commit+push, assesses fresh results immediately, adjusts (profiles, scope, order, thresholds), dispatches next stream. Covers all testing (locals in batches with all presets including partials, cloud SOTA sonnet/gemini-flash/gpt, daily-briefs/tool-use/specialist real evals, config optimization with tweaks, 3 solid models) via the streams.
+
+Created:
+- docs/engineering/agents/goal-eval.md (new goal doc for this run: defines contained stream model, orchestrator sequences, subagents run evals, real-time assess/adjust, no 2 passes, all testing areas broken into streams).
+- docs/roadmaps/2026-06-07-contained-eval-streams-plan.md (brand new roadmap: specific streams listed, assessment between, builds to full exhaust + 3 solids, uses existing W7/partials/smoke as start, subagents run, orchestrator assesses/adjusts).
+
+This directly addresses "orchestrate subagents and run evals" in contained, assessable pieces with real-time tweaking. No changing plans — pure execution of the contained streams request.
+
+Existing state (smoke 4 cells, W7 done, partials in load-profiles, system 8GB) is foundation. Streams will extend and optimize in real time.
+
