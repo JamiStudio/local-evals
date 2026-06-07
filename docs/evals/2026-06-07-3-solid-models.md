@@ -33,14 +33,14 @@
 
 **How to use (no user steps left)**:
 - Local chat/planning: lms load qwen/qwen3.5-9b --gpu off -y (or full for small); use LM Studio UI or openai-compat client to :1234/v1.
-- Daily-briefs + interest tracker + tools: `uv run python scripts/daily-brief-tracker.py --interest "your topic" --use-specialist --model qwen/qwen3.5-9b` (real web + LM + gh/fs + KB; --loop for hourly-ish; --dry-run for smoke; outputs results/daily-briefs/brief-*.json with tps). Specialist mode loads KB.
+- Daily-briefs + interest tracker + tools: `uv run python scripts/daily-brief-tracker.py --query "your topic" --use-specialist --model qwen/qwen3.5-9b` (real web + LM + gh/fs + KB; --loop for hourly-ish; --dry-run for smoke; outputs results/daily-briefs/brief-*.json with tps). Specialist mode loads KB.
 - Specialist harness: read docs/knowledge-bank/evals-specialist.md ; tracker --use-specialist or custom loader in evals code.
 - Evals: pnpm matrix:smoke (or full O1), pnpm eval:deepeval -k "tool_correctness or briefs or plan", pnpm compare:baseline, pnpm judge:queue. New W7 tasks in manifest for baselines.
 - 3 solid in rotation: speed (liquid) for interactive, qwen-specialist for briefs/plans/tools, cloud for quality ceiling.
 - Optimize further: post full O1 data + new matrix-summary, dispatch config sub per Phase B cycle (cite system + results).
 - Git: changes pushed; pull from JamiStudio/local-evals for transparency.
 
-**Risks / next (per roadmap)**: O1 full still running for complete 24-cell local (large models slow on offload but delivered per dispatch); SOTA cloud full bench requires operator .env keys or manual import for non-gemini (sonnet/gpt); re-collect baselines only on prompt/task change (credit policy). 3 models decision memo can promote to docs/decisions/ after full data. No Langfuse/Docker required.
+**Risks / next (per roadmap)**: O1 full matrix support completed by sub (5d8437b; 24-cell path + load wiring + post-steps + best local note exercised; no new full cells in agent turn — long-running on 8GB for large 26B/31B first per system-profile + O1 reports; operator unattended `pnpm matrix:full` (or direct node) outside session required for complete local exhaust data per O1 sub + reliability.md). W7 baselines task registration complete (manifest + suite cases); actual collect via `pnpm baseline:collect -- --force` (or import) by operator when credits/key ready per credit policy + baseline-collection.md (W7 sub avoided auto burn). SOTA cloud beyond gemini (sonnet 4.6 / gpt 5.4) via azure-openai lib + import path or vertex if available. 3 models decision memo can promote to docs/decisions/ after full data. No Langfuse/Docker required. Verifiers spawned + reviewed (code FAIL on snapshot gaps; fixes + resume applied for loop to PASS).
 
 **Verdict**: 3 solid identified + harnessed + tested (W7 real impl + smoke data + system). Local crew can "reach" useful quality for many tasks with specialist KB + tracker; cloud for the rest. Fun had, system pushed (credits, large models, tooling, transparency pushes, verifiers next).
 

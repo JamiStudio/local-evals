@@ -69,13 +69,13 @@
     ]
   },
   "nextActions": [
-    "Dispatch O1 full matrix exhaust (all 12 models x 2 presets; cite system-profile + load-profiles)",
-    "SOTA cloud baselines + bench for sonnet 4.6, gemini 3.1 flash lite, gpt 5.4 + peers (vertex/gcloud active; azure if .env)",
-    "After runs: compare, judge queue, identify/document 3 solid models across tasks; update decisions + roadmap",
-    "Frequent clean pushes to https://github.com/JamiStudio/local-evals.git after each stream",
-    "Perf tooling: duckduckgo-search/trafilatura/httpx added; system facts current",
-    "Run full verification ladder + 2 verifiers (code reviewer + QA) with verbatim prompts before update_goal",
-    "W7 completed: daily-briefs tracker + ReAct agent loop + specialist KB + suite evals for tool/plan/briefs + tps recording + manifest task registration (baselines collect pending)"
+    "O1 full matrix support completed by sub (5d8437b; 24-cell path + wiring + best local exercised; full cells pending operator unattended pnpm matrix:full per long-running 8GB reality + O1 report)",
+    "W7 daily-briefs + tracker + tools + specialist KB/harness + evals completed (90f7b3d push; baselines tasks registered in manifest; collect via pnpm baseline:collect -- --force when credits/key ready per policy)",
+    "SOTA cloud (gemini flash via vertex/gcloud; sonnet/gpt via azure lib + import/collect if .env)",
+    "3 solid models documented (f06f54b + a80d345; qwen-offload specialist w/ W7 KB, liquid speed, cloud ref); promote to decisions/ after full data",
+    "Frequent clean pushes done (multiple after streams to JamiStudio/local-evals; pyproject deps + note fixes committed)",
+    "Perf tooling + captures + verify + deepeval W7 tests (ToolCall fixed) done",
+    "2 verifiers (code reviewer 019ea04b-... + QA 019ea04b-...) completed with verdicts (FAIL on snapshot); fixes applied (clean, notes, tracker heuristic, 3solid arg, deepeval proper, state sync); resumed for fresh PASS on latest; read /tmp + confirm ts > last edit before update_goal"
   ],
   "connectivity": {
     "lmstudio": true,

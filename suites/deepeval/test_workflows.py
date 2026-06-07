@@ -74,9 +74,9 @@ def test_tool_correctness_in_tracker_flow():
         input="Use tools to gather signals for daily evals brief on qwen3.5-9b + W7 tracker.",
         actual_output="Called web_search for 'qwen evals', read_file on optimization-state.json, github for repo activity, then finalized brief.",
         tools_called=[
-            {"name": "web_search", "input_parameters": {"query": "qwen3.5 evals"}},
-            {"name": "read_file", "input_parameters": {"path": "results/optimization-state.json"}},
-            {"name": "github", "input_parameters": {"args": ["repo", "view", "JamiStudio/local-evals"]}},
+            ToolCall(name="web_search", input_parameters={"query": "qwen3.5 evals"}),
+            ToolCall(name="read_file", input_parameters={"path": "results/optimization-state.json"}),
+            ToolCall(name="github", input_parameters={"args": ["repo", "view", "JamiStudio/local-evals"]}),
         ],
         expected_tools=["web_search", "read_file", "github"],
     )
@@ -91,7 +91,6 @@ def test_tool_correctness_in_tracker_flow():
         assert "ToolCorrectness" in repr(type(metric))
 
 
-@pytest.mark.skipif(not _has_deepeval_metrics(), reason="deepeval metrics not importable in this env")
 def test_plan_adherence_for_briefs():
     """W7: PlanAdherence for briefs planning loop (ReAct steps -> actionable plan in brief)."""
     test_case = LLMTestCase(
@@ -107,7 +106,6 @@ def test_plan_adherence_for_briefs():
         assert "PlanAdherence" in repr(type(metric))
 
 
-@pytest.mark.skipif(not _has_deepeval_metrics(), reason="deepeval metrics not importable in this env")
 def test_briefs_quality_vs_baseline():
     """W7: Briefs quality vs baseline (reference from harness knowledge / imported baseline pattern)."""
     # Reference "baseline" style output (would come from pnpm baseline:import for daily-brief-synthetic-smoke)
