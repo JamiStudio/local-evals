@@ -105,20 +105,20 @@ The repo is documentation-first today:
 
 ### Operator LM Studio inventory (verified)
 
-| Model key | Params | Quant | Size | Tool-trained | Vision | Variants |
-| --- | --- | --- | --- | --- | --- | --- |
-| liquid/lfm2.5-1.2b | 1.2B | Q8_0 | 1.25 GB | yes | no | 1 |
-| nvidia/nemotron-3-nano-4b | 4.0B | Q4_K_M, Q8_0 | 2.84 GB | yes | no | 2 |
-| google/gemma-4-e2b | 4.6B | Q4_K_M, Q8_0 | 4.41 GB | yes | yes | 2 |
-| essentialai/rnj-1 | 8.3B | Q4_K_M | 5.11 GB | yes | no | 1 |
-| google/gemma-4-e4b | 7.5B | Q4_K_M | 6.33 GB | yes | yes | 1 |
-| qwen/qwen3.5-9b | 9B | Q4_K_M | 6.55 GB | yes | yes | 1 |
-| google/gemma-4-12b | 12B | Q4_K_M | 7.56 GB | yes | yes | 1 |
-| google/gemma-4-12b-qat | 12B | Q4_0 | 7.15 GB | yes | yes | 1 |
-| zai-org/glm-4.6v-flash | 9.4B | Q4_K_M | 7.95 GB | yes | yes | 1 |
-| google/gemma-4-26b-a4b | 26B-A4B | Q4_K_M | 17.99 GB | yes | yes | 1 |
-| google/gemma-4-31b | 31B | Q4_K_M | 19.89 GB | yes | yes | 1 |
-| google/gemma-4-31b-qat | 31B | Q4_0 | 18.85 GB | yes | yes | 1 |
+| Model key                 | Params  | Quant        | Size     | Tool-trained | Vision | Variants |
+| ------------------------- | ------- | ------------ | -------- | ------------ | ------ | -------- |
+| liquid/lfm2.5-1.2b        | 1.2B    | Q8_0         | 1.25 GB  | yes          | no     | 1        |
+| nvidia/nemotron-3-nano-4b | 4.0B    | Q4_K_M, Q8_0 | 2.84 GB  | yes          | no     | 2        |
+| google/gemma-4-e2b        | 4.6B    | Q4_K_M, Q8_0 | 4.41 GB  | yes          | yes    | 2        |
+| essentialai/rnj-1         | 8.3B    | Q4_K_M       | 5.11 GB  | yes          | no     | 1        |
+| google/gemma-4-e4b        | 7.5B    | Q4_K_M       | 6.33 GB  | yes          | yes    | 1        |
+| qwen/qwen3.5-9b           | 9B      | Q4_K_M       | 6.55 GB  | yes          | yes    | 1        |
+| google/gemma-4-12b        | 12B     | Q4_K_M       | 7.56 GB  | yes          | yes    | 1        |
+| google/gemma-4-12b-qat    | 12B     | Q4_0         | 7.15 GB  | yes          | yes    | 1        |
+| zai-org/glm-4.6v-flash    | 9.4B    | Q4_K_M       | 7.95 GB  | yes          | yes    | 1        |
+| google/gemma-4-26b-a4b    | 26B-A4B | Q4_K_M       | 17.99 GB | yes          | yes    | 1        |
+| google/gemma-4-31b        | 31B     | Q4_K_M       | 19.89 GB | yes          | yes    | 1        |
+| google/gemma-4-31b-qat    | 31B     | Q4_0         | 18.85 GB | yes          | yes    | 1        |
 
 Embedding: `text-embedding-nomic-embed-text-v1.5` (84 MB, local).
 
@@ -160,7 +160,7 @@ workflows to mirror in eval suites:
 - Open-source, runs locally; cloud (Confident AI) is optional.
 - Strong for **agent evals**: trace-based metrics (`TaskCompletionMetric`,
   `ToolCorrectnessMetric`, `PlanAdherenceMetric`), pytest-style `deepeval test
-  run`, dataset/golden workflows.
+run`, dataset/golden workflows.
 - Documents LM Studio integration for using local models as **evaluator** or
   **subject** model.
 - Best when scoring multi-step agent outcomes and component-level behavior.
@@ -185,12 +185,12 @@ workflows to mirror in eval suites:
 
 ### Less fitting as primary harness
 
-| Framework | Why not primary here |
-| --- | --- |
-| lm-evaluation-harness / OpenCompass | Academic benchmarks (MMLU, etc.), not agent workflow fit |
-| RAGAS | RAG-quality focused; partial overlap only |
-| Braintrust | Strong product, but not fully free/local-first for this use case |
-| Custom runner | Higher maintenance; worse than composing Promptfoo + DeepEval |
+| Framework                           | Why not primary here                                             |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| lm-evaluation-harness / OpenCompass | Academic benchmarks (MMLU, etc.), not agent workflow fit         |
+| RAGAS                               | RAG-quality focused; partial overlap only                        |
+| Braintrust                          | Strong product, but not fully free/local-first for this use case |
+| Custom runner                       | Higher maintenance; worse than composing Promptfoo + DeepEval    |
 
 ## Industry Standard Shape
 
@@ -275,7 +275,7 @@ agent-style outcomes.
 **Tradeoffs:**
 
 - Technical: two frameworks, but complementary; minimal custom code (orchestrator
-  + schema only).
+  - schema only).
 - Practical: slightly more setup; best coverage per engineering hour.
 - Cost: free/local.
 - Reversibility: high — each layer replaceable.
@@ -376,15 +376,15 @@ Phase 2:
 
 ## Risks And Constraints
 
-| Risk | Impact | Mitigation |
-| --- | --- | --- |
-| 8 GB VRAM limits | Large models slow or fail | Record offload presets; compare fairly within same profile |
-| Tool-calling variance | Some GGUF models weak at tools | Dedicated tool suite; don't assume `trainedForToolUse` = reliable |
-| LLM-judge drift | Scores vary by judge model | Fix judge provider; log judge version |
-| Long runtimes | Full matrix may take hours | Smoke + nightly full matrix modes |
-| Promptfoo governance change | Post-OpenAI acquisition uncertainty | Keep result schema framework-agnostic |
-| Eval ≠ production | Harness tasks may not match live Hermes loops | Derive tasks from real workflow templates |
-| Greenfield repo | No CI gates yet | Add after first successful suite |
+| Risk                        | Impact                                        | Mitigation                                                        |
+| --------------------------- | --------------------------------------------- | ----------------------------------------------------------------- |
+| 8 GB VRAM limits            | Large models slow or fail                     | Record offload presets; compare fairly within same profile        |
+| Tool-calling variance       | Some GGUF models weak at tools                | Dedicated tool suite; don't assume `trainedForToolUse` = reliable |
+| LLM-judge drift             | Scores vary by judge model                    | Fix judge provider; log judge version                             |
+| Long runtimes               | Full matrix may take hours                    | Smoke + nightly full matrix modes                                 |
+| Promptfoo governance change | Post-OpenAI acquisition uncertainty           | Keep result schema framework-agnostic                             |
+| Eval ≠ production           | Harness tasks may not match live Hermes loops | Derive tasks from real workflow templates                         |
+| Greenfield repo             | No CI gates yet                               | Add after first successful suite                                  |
 
 ## Recommended Direction
 
@@ -406,24 +406,24 @@ Why:
 
 Tasks likely **worthy** of local models (supporting roles):
 
-| Lane | Rationale |
-| --- | --- |
+| Lane                   | Rationale                                                         |
+| ---------------------- | ----------------------------------------------------------------- |
 | Research summarization | Short-context synthesis; quality acceptable at 9–12B with offload |
-| Structured extraction | JSON/schema tasks testable with deterministic assertions |
-| Plan outline drafts | First-pass plan skeleton before cloud refinement |
-| Routing/classification | Small models (1–4B) for lane selection and triage |
-| Embedding retrieval | Already local (`nomic-embed-text-v1.5`) |
-| Tool argument drafting | Bounded schemas; validate with callbacks |
+| Structured extraction  | JSON/schema tasks testable with deterministic assertions          |
+| Plan outline drafts    | First-pass plan skeleton before cloud refinement                  |
+| Routing/classification | Small models (1–4B) for lane selection and triage                 |
+| Embedding retrieval    | Already local (`nomic-embed-text-v1.5`)                           |
+| Tool argument drafting | Bounded schemas; validate with callbacks                          |
 
 Tasks likely **not worthy** as primary local roles (cloud/coordinator preferred):
 
-| Lane | Rationale |
-| --- | --- |
-| Multi-step orchestration | Reliability and checkpoint discipline tested poorly on small locals |
-| Long-horizon build/refactor | Quality and context discipline lag cloud coding models |
-| High-stakes tool execution | Needs stronger guardrails and error recovery |
-| Final review/security | Judge-quality reasoning benefits from larger cloud models |
-| Cross-file architectural planning | Requires broader context + stronger reasoning |
+| Lane                              | Rationale                                                           |
+| --------------------------------- | ------------------------------------------------------------------- |
+| Multi-step orchestration          | Reliability and checkpoint discipline tested poorly on small locals |
+| Long-horizon build/refactor       | Quality and context discipline lag cloud coding models              |
+| High-stakes tool execution        | Needs stronger guardrails and error recovery                        |
+| Final review/security             | Judge-quality reasoning benefits from larger cloud models           |
+| Cross-file architectural planning | Requires broader context + stronger reasoning                       |
 
 **This hypothesis must be validated by the eval matrix — not assumed.**
 
@@ -558,15 +558,15 @@ portable source of truth, Langfuse is the inspection layer.
 
 ## Locked Decisions
 
-| Decision | Choice |
-| --- | --- |
-| Framework stack | **Hybrid** — Promptfoo + DeepEval |
-| Billing policy | **No direct paid API calls** — automated runs LM Studio only |
+| Decision            | Choice                                                                           |
+| ------------------- | -------------------------------------------------------------------------------- |
+| Framework stack     | **Hybrid** — Promptfoo + DeepEval                                                |
+| Billing policy      | **No direct paid API calls** — automated runs LM Studio only                     |
 | Baseline comparison | **Imported baselines** — subs or Azure/Vertex credits, collected outside harness |
-| Judge policy | **User judge primary**; optional Azure credit judge (off by default) |
-| Load profiles | **Two presets** — `gpu_full` and `gpu_offload` |
-| Suite content | **Mixed** — synthetic smoke + real Studio templates |
-| Result store | **JSONL + Langfuse OSS** from day one |
+| Judge policy        | **User judge primary**; optional Azure credit judge (off by default)             |
+| Load profiles       | **Two presets** — `gpu_full` and `gpu_offload`                                   |
+| Suite content       | **Mixed** — synthetic smoke + real Studio templates                              |
+| Result store        | **JSONL + Langfuse OSS** from day one                                            |
 
 ## Next Step If Accepted
 
@@ -597,11 +597,11 @@ portable source of truth, Langfuse is the inspection layer.
 
 ### Official / external
 
-- https://deepeval.com/docs/evaluation-introduction
-- https://deepeval.com/integrations/models/lmstudio
-- https://deepeval.com/docs/metrics-task-completion
-- https://www.promptfoo.dev/docs/configuration/guide/
-- https://www.promptfoo.dev/docs/providers/openai/
-- https://www.promptfoo.dev/docs/configuration/tools/
-- https://lmstudio.ai/docs/developer/openai-compat
-- https://langfuse.com/integrations/other/promptfoo
+- <https://deepeval.com/docs/evaluation-introduction>
+- <https://deepeval.com/integrations/models/lmstudio>
+- <https://deepeval.com/docs/metrics-task-completion>
+- <https://www.promptfoo.dev/docs/configuration/guide/>
+- <https://www.promptfoo.dev/docs/providers/openai/>
+- <https://www.promptfoo.dev/docs/configuration/tools/>
+- <https://lmstudio.ai/docs/developer/openai-compat>
+- <https://langfuse.com/integrations/other/promptfoo>
