@@ -4,22 +4,23 @@
 
 **Status:** Active authoritative monolithic plan. Supersedes all prior dated plans and "contained streams plan" skeleton. This single document is the complete, all-inclusive specification for the entire campaign — evals + ranking + synthesis + daily-briefs harness + specialist + config optimization + cloud SOTA + 3 solids + verification + git transparency + orchestration — delivered now, no deferred phases.
 
-**Purpose (verbatim alignment):** Exhaust *every* model (all 12 from live `lms ls --json` + registry/models.json, including intentional large 26B/31B pairs + qwen3.5-9b leader + liquid-lfm2.5-1.2b + all others), *every* test (full matrix across all load profiles, promptfoo suites, deepeval W7 + briefs/tool-use, real daily-briefs tracker with local tools + specialist, cloud SOTA benchmarks via credits, config dials research/tweaks by agents, compare, user-judge, synthesis/ranking), full end-to-end. Subagents run the evals in contained streams. Orchestrator dispatches, waits for commit+push, assesses fresh results in real time (citing live system-profile.json + optimization-state.json + latest matrix JSONL + daily-briefs artifacts), tweaks (load-profiles, scope, order, thresholds), sequences next. Agents figure the LM Studio dials (full/offload/granular partials) for best speed/outcome/quality on this rig. 3 solid models with hard evidence. Public transparency repo with pushes after every stream. Verification ladder + strict 2-verifier completion audit. One GPU at a time respected (8 GiB RTX 2080 Super Max-Q). No direct paid APIs from harness. Time for quality; token speed required for chat/planning/tool/briefs. Deliver EVERYTHING — do not leave for user.
+**Purpose (verbatim alignment):** Exhaust _every_ model (all 12 from live `lms ls --json` + registry/models.json, including intentional large 26B/31B pairs + qwen3.5-9b leader + liquid-lfm2.5-1.2b + all others), _every_ test (full matrix across all load profiles, promptfoo suites, deepeval W7 + briefs/tool-use, real daily-briefs tracker with local tools + specialist, cloud SOTA benchmarks via credits, config dials research/tweaks by agents, compare, user-judge, synthesis/ranking), full end-to-end. Subagents run the evals in contained streams. Orchestrator dispatches, waits for commit+push, assesses fresh results in real time (citing live system-profile.json + optimization-state.json + latest matrix JSONL + daily-briefs artifacts), tweaks (load-profiles, scope, order, thresholds), sequences next. Agents figure the LM Studio dials (full/offload/granular partials) for best speed/outcome/quality on this rig. 3 solid models with hard evidence. Public transparency repo with pushes after every stream. Verification ladder + strict 2-verifier completion audit. One GPU at a time respected (8 GiB RTX 2080 Super Max-Q). No direct paid APIs from harness. Time for quality; token speed required for chat/planning/tool/briefs. Deliver EVERYTHING — do not leave for user.
 
-**Source of truth (always re-verify, never guess):** 
+**Source of truth (always re-verify, never guess):**
+
 - Live `lms ls --json` + LM Studio server state (registry/models.json is normalized export only).
 - `pnpm capture:system` (or :quick) → `results/system-profile.json` + `registry/runtime-snapshot.json` (nvidia-smi, lms ps, estimates via `lms load --estimate-only`, placement).
-- `results/optimization-state.json` + latest matrix JSONL/summary + daily-briefs/*.json before any load-profile or suite change.
+- `results/optimization-state.json` + latest matrix JSONL/summary + daily-briefs/\*.json before any load-profile or suite change.
 - Current run: 12 LLMs confirmed, GPU occupied (recent: gemma-4-12b GENERATING or 26B; ~594 MiB free in latest sample), headroom ~6.8 GiB, serializeLoads true.
 - Use `rg` first for all searches. Windows/pwsh. Verify facts against official (LM Studio, Promptfoo, DeepEval).
 
 **Harness boundary (strict, preserved):** This repo evaluates models and workflows only. Does **not** implement Harness, Hermes, Zavi, or Studio runtimes. Tool-call evals use sandboxed callbacks only (no real shell/net side effects in suites). Real side effects only in host scripts (e.g. tracker) with timeouts/safe whitelists. No secrets in tracked files/suites/results/examples.
 
-**Git transparency (user explicit):** Remote https://github.com/JamiStudio/local-evals.git (public, jamesnavinhill collab). Push after *every* stream (clean, conventional commit + HEREDOC body citing evidence + numeric results). .gitignore allows selective results for transparency (`!results/matrix-summary.json`, `!results/optimization-state.json`, `!results/optimization-report-*.json`, `!results/baseline-comparison.jsonl`, `!results/user-judge-queue.jsonl`, `!results/system-profile.json`, `!results/runtime-snapshot.json`, `!results/promptfoo-latest.json`, `!baselines/manifest.json`, daily-briefs summaries where small). No model files, no large artifacts, no secrets. Results/summaries/state encouraged for public view of the exhaustive campaign.
+**Git transparency (user explicit):** Remote <https://github.com/JamiStudio/local-evals.git> (public, jamesnavinhill collab). Push after _every_ stream (clean, conventional commit + HEREDOC body citing evidence + numeric results). .gitignore allows selective results for transparency (`!results/matrix-summary.json`, `!results/optimization-state.json`, `!results/optimization-report-*.json`, `!results/baseline-comparison.jsonl`, `!results/user-judge-queue.jsonl`, `!results/system-profile.json`, `!results/runtime-snapshot.json`, `!results/promptfoo-latest.json`, `!baselines/manifest.json`, daily-briefs summaries where small). No model files, no large artifacts, no secrets. Results/summaries/state encouraged for public view of the exhaustive campaign.
 
 **GPU / system constraint (user reminder, enforced everywhere):** Rig can only handle **one local model on GPU at a time** (8 GiB RTX 2080 Super Max-Q). All matrix loads serial: `lms unload --all` between cells. Large models (26B/31B ~17-19 GiB est) require offload or partial (full fails guard). Analysis (parsing, research, reports, ests) can be parallel via multitask subs. Loads/runs only when rig free ("when rig free" ps1 ready). Always cite live nvidia-smi + lms ps + system-profile before any load decision. "Time isn't an issue" for quality; respect the hardware.
 
-**No lazy plans, no partials, no v1/v2/v3:** This document is the complete end-to-end inclusive spec. Contained streams are the *execution/sequencing mechanism* (small assessable batches so orchestrator + subs can read results and tweak in real time between — the whole point). The scope, evals, ranking, synthesis, 3 solids, daily-briefs epic, config dials, verification, git, everything is here now. Full coverage built incrementally via streams but the plan itself has no phases or "later".
+**No lazy plans, no partials, no v1/v2/v3:** This document is the complete end-to-end inclusive spec. Contained streams are the _execution/sequencing mechanism_ (small assessable batches so orchestrator + subs can read results and tweak in real time between — the whole point). The scope, evals, ranking, synthesis, 3 solids, daily-briefs epic, config dials, verification, git, everything is here now. Full coverage built incrementally via streams but the plan itself has no phases or "later".
 
 ---
 
@@ -49,6 +50,7 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 ## Every Test (Complete Scope — All Now in This Roadmap)
 
 ### 1. Full Matrix (Promptfoo + local runner, all 12 models × all profiles)
+
 - **Profiles (registry/load-profiles.json — 11 total, agent-figured):** gpu_full (max), gpu_offload (off), gpu_partial_0.3/0.35/0.36/0.39/0.5/0.7/0.88/0.9/0.95 (granular from system placementHints + 16+ safe --estimate-only sweeps on reps lfm/qwen/12b/26b + correlation to smoke 63% qwen offload leader + tps 38.4 + briefs).
 - **Recommendations map (per-model bestPreset + rationale, citing ests + measured + system + smoke):** liquid full (SPEED, ~4s, fits 1.28 GiB); qwen offload (OUTCOME, 63% leader 5/8 > full 50%, +13pp plan win, tool-trained, tps~38.4 briefs viable, measured override); larges 26B@0.39 / 31B@0.35/0.36 (GPU share vs pure off or full fail); mid 12B/GLM 0.9/0.88/0.95 or off; smalls full.
 - **Suites:** suites/promptfoo/ (promptfooconfig.yaml + providers/lmstudio-subject + tests/research.yaml (incl W7 daily-brief-synthetic-smoke), plan.yaml, build.yaml, tool-call.yaml (incl W7 interest-tracker-tool-use)). 10 tasks total (4 lanes + 2 W7). Deterministic asserts (contains-json, javascript, similar, etc.). Sandboxed tool callbacks only.
@@ -57,12 +59,14 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 - **Current (live from results/matrix-summary.json + JSONL + exhaustive-assessment):** 4 cells only (smoke on qwen + liquid, 8-task at time): qwen offload 5/8 63% (leader, plan offload win), qwen full 4/8 50%, liquid both 3/8 38% (~4s fastest). 20/24 missing (exact untested: gemma-4-26b-a4b both, gemma-4-12b both, glm-4.6v-flash both, gemma-4-e2b both, gemma-4-31b both, gemma-4-31b-qat both, gemma-4-12b-qat both, rnj-1 both, nemotron-3-nano-4b both, gemma-4-e4b both). Even tested lack current 10-task + W7 tasks + partials + full tps. 3rd JSONL stray (26b full attempt, eval_failed long duration). Build lane strongest (often 100% qwen); research harness-tools PASS, synthetic FAIL; plan profile-sensitive; tool search-docs PASS, read-file FAIL. vs baselines: 8/10 tasks have vertex-gemini-3-1-pro-preview 100% imports (baselines/manifest); locals 38-63% deterministic on smoke subset; locals shorter/less structured vs verbose cloud in queue samples. New W7 tasks 0 matrix cells.
 
 ### 2. DeepEval Agent-Trace Metrics (suites/deepeval/)
+
 - test_workflows.py: W7 extensions (ToolCorrectnessMetric for web/read/gh tools in tracker, PlanAdherenceMetric for briefs planning, TaskCompletionMetric, briefs_quality vs baseline). pytest-style `deepeval test run`.
 - Target: multi-step traces from real tracker runs + promptfoo tool cases. Align golden with suites.
 - Current: W7 smoke coverage implemented (4 metrics); full traces + runs on real briefs pending matrix cells for new tasks + baseline imports.
 
 ### 3. Daily-Briefs / Hourly Interest Tracker + Local Tools + Specialist Harness (core W7 epic)
-- **scripts/daily-brief-tracker.py** (full ReAct-style working impl, 8 files/692 LOC delivered): --query, --use-specialist (loads docs/knowledge-bank/evals-specialist.md), --dry-run (sim tokens/speed, no LM/net for smoke), --loop 3600s (hourly-ish). Real tools: web_search (duckduckgo-search free no-key), fetch (trafilatura + bs4 + httpx clean extract), safe_read_file (whitelist: docs/, registry/, suites/, scripts/, results/ summaries, baselines/manifest), github (gh CLI + timeout, public JamiStudio/local-evals signals). LM calls: LM Studio OpenAI-compat /v1 (local model, load via lms first). ReAct loop (think/tool/observe). tps = completion_tokens / wall_seconds (always recorded). Persist: results/daily-briefs/brief-*.json (timestamp, model, load hint, specialist mode, web/GH/harness/plan sections, usage, tps, kb_loaded, harness notes citing 63%/O1/W7/placement/system). Windows Task Scheduler example (.bat + schtasks for when free).
+
+- **scripts/daily-brief-tracker.py** (full ReAct-style working impl, 8 files/692 LOC delivered): --query, --use-specialist (loads docs/knowledge-bank/evals-specialist.md), --dry-run (sim tokens/speed, no LM/net for smoke), --loop 3600s (hourly-ish). Real tools: web_search (duckduckgo-search free no-key), fetch (trafilatura + bs4 + httpx clean extract), safe_read_file (whitelist: docs/, registry/, suites/, scripts/, results/ summaries, baselines/manifest), github (gh CLI + timeout, public JamiStudio/local-evals signals). LM calls: LM Studio OpenAI-compat /v1 (local model, load via lms first). ReAct loop (think/tool/observe). tps = completion_tokens / wall_seconds (always recorded). Persist: results/daily-briefs/brief-\*.json (timestamp, model, load hint, specialist mode, web/GH/harness/plan sections, usage, tps, kb_loaded, harness notes citing 63%/O1/W7/placement/system). Windows Task Scheduler example (.bat + schtasks for when free).
 - **Specialist KB (docs/knowledge-bank/evals-specialist.md):** Harness ground truth (AGENTS, live files, no paid, JSONL+state, user-judge, boundaries), briefs quality criteria (factual/sourced, concise, harness-aware with exact cites to matrix 63% leader/offload pref/results/O1/W7, actionable plan, tool/plan discipline, reasonable tokens), ReAct/tool patterns, simple loader. --use-specialist injects it + live summaries (matrix-summary, optimization-state, system-profile). Specialist vs generalist evals via new manifest tasks + deepeval.
 - **Suites coverage:** promptfoo research + tool-call additions for briefs quality + tracker flow (sandbox mirrors real); deepeval ToolCorrectness/PlanAdherence/TaskCompletion + briefs vs baseline.
 - **Baselines/manifest:** 2 new W7 tasks registered (daily-brief-synthetic-smoke research, interest-tracker-tool-use tool-call); 0 collected yet (per policy: collect via pnpm baseline:collect -- --force when credits ready; 8/8 original on gemini pro-preview 100%).
@@ -70,34 +74,40 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 - **Goal:** Unload daily interest/web search + local chat/planning/tool (gh/fs/web) to local models (qwen specialist primary). Match quality where possible; speed for interactive. Eval via deepeval/promptfoo vs baselines + user-judge.
 
 ### 4. Cloud SOTA Benchmarks (credits outside harness, per policy)
+
 - Paths ready: `pnpm gemini:models` (lists gemini-3.1-pro-preview + flash lite), `pnpm baseline:collect` (Vertex credits, gcloud active), azure-openai.mjs + import for sonnet 4.6 / gpt 5.4 + peers (env-gated, credit-funded only, never direct paid from matrix scripts).
 - W7 tasks registered for briefs/tool-use vs SOTA.
 - Use: contained baseline collect/import for 1-2 SOTA at a time + head-to-head compare (locals "reach" ceiling?). Burn reasonable (new/changed prompts/tasks only per credit policy). Baselines in baselines/ (imported, not harness-generated). 8/8 on current gemini pro-preview.
 - Target: sonnet 4.6, gemini 3.1 flash lite, gpt 5.4 + comparables for "reach with local crew".
 
 ### 5. Config / Offload Dials Optimization (agents figure out)
-- Live: 9 gpu_partial_* added (0.3-0.95) + full recs map for 12 models + notes (from O6 researcher sub: 16+ safe --estimate-only on reps, correlated to smoke 63% + tps38.4 + placement + system-profile + briefs). SPEED=liquid@full; OUTCOME=qwen@offload (measured leader); larges partial for GPU share vs off/full fail; mid near-headroom partials.
+
+- Live: 9 gpu*partial*\* added (0.3-0.95) + full recs map for 12 models + notes (from O6 researcher sub: 16+ safe --estimate-only on reps, correlated to smoke 63% + tps38.4 + placement + system-profile + briefs). SPEED=liquid@full; OUTCOME=qwen@offload (measured leader); larges partial for GPU share vs off/full fail; mid near-headroom partials.
 - Process: Subagents do safe est sweeps + targeted small-batch evals (when free) on varying ratios; measure tps (tracker) + pass/quality; update load-profiles + state + reports between streams. Orchestrator cites system-profile + matrix + state before any edit. "Agents figure the dials" — no user UI work.
 - Verify: re-run affected cells post-tweak; narrow pnpm verify + dry matrix.
 
 ### 6. Comparison, User-Judge, Synthesis/Ranking
+
 - pnpm compare:baseline (locals vs imported baselines), pnpm judge:queue (pending reviews — primary quality lane).
 - Synthesis: exhaustive-assessment (gaps/quality/speed/vs-baselines/briefs-perf/untested list), placement-decisions (per-lane local supporting vs cloud primary), configs-optimization-report (ests/tables/tradeoffs), 3-solid-models (evidence-based selection).
 - Ranking: speed (tps/duration), outcome (pass rates per lane vs 100% baseline), quality (briefs structure/harness-awareness/tool success), briefs perf (tps 38.4 + kb_loaded + citations), overall vs SOTA ceiling.
 
 ### 7. Verification Ladder + Completion Audit (run the program)
+
 - pnpm capture:system(:quick), pnpm registry:export, lm-runtime-snapshot (global tool), pnpm verify, deepeval collect + runs, tracker real/dry (expect observable tps~38.4 + "Specialist KB: True" + new briefs with web/GH/harness/plan + harness notes), node parsers on artifacts (cells/missing/profiles/recs/tps/kb_loaded/llms count), lms ps + nvidia-smi, git status + show --stat on pushes, read-backs + git diff --check for docs.
-- Full audit per goal.md + goal-eval.md: all todos complete with evidence, spawn *two* fresh strict verifiers (spawn_subagent full 'all' capability, prompt starts with exact canonical "You are a strict code reviewer. You are reviewing the completion of an exhaustive model evaluation goal..." and "You are a strict QA tester..." + verbatim task verifying EVERY model/test run, monolithic roadmap with evals+ranking+synthesis+everything no phases, subagents dispatched+results assessed/tweaked real-time, pushes after streams, 3 solids with data, ladder passed, no partials/fakes, read the /tmp/goal-verifier-*-*.md files), wait both, read exact /tmp files (exist, "VERDICT: PASS", ts newer than last source edit), ONLY then update_goal(completed:true). Loop on FAIL (fix, resume verifiers from subagent_id).
+- Full audit per goal.md + goal-eval.md: all todos complete with evidence, spawn _two_ fresh strict verifiers (spawn*subagent full 'all' capability, prompt starts with exact canonical "You are a strict code reviewer. You are reviewing the completion of an exhaustive model evaluation goal..." and "You are a strict QA tester..." + verbatim task verifying EVERY model/test run, monolithic roadmap with evals+ranking+synthesis+everything no phases, subagents dispatched+results assessed/tweaked real-time, pushes after streams, 3 solids with data, ladder passed, no partials/fakes, read the /tmp/goal-verifier-*-\_.md files), wait both, read exact /tmp files (exist, "VERDICT: PASS", ts newer than last source edit), ONLY then update_goal(completed:true). Loop on FAIL (fix, resume verifiers from subagent_id).
 
 ---
 
 ## Execution Model: Contained Streams (Real-Time Assess + Tweak — Subagents Run the Evals)
 
-**Why contained (user directive):** "orchestrate subagents and run evals... agents supposed to read results and tweak settings if it just runs as one long evall... I DONT WANT ONE LONG RUNNING EVAL SUITE THAT TAKES HOURS AND CAN NOT BE INTERPERTED AND ASSESSED IN REAL TIME AND ADJUSTED". Streams are narrow/focused batches (2-5 models + specific profiles/tasks or 1-2 cloud or real tracker runs or config ests). Subagent executes (pnpm matrix scoped, deepeval, real tracker, baseline pieces, config sweeps), produces artifacts, commits + pushes. Orchestrator polls (get_command_or_subagent_output, block), gates on commit+push + numeric evidence (cells:XX, tps values, briefs count, % vs baseline, profiles applied, git show --stat), reads fresh (matrix JSONL/summary, daily-briefs/*.json with tps/kb_loaded/harness notes, optimization-state, system-profile, load-profiles), assesses in real time (what data suggests for tweak: lock qwen offload, drop full for 26B, prioritize daily-briefs real next, expand KB, adjust partial ratio), decides next stream scope/order, dispatches with updated steering, updates roadmap + log + state *immediately*. No mandatory 2 passes. One loading at a time (GPU). Analysis parallel ok.
+**Why contained (user directive):** "orchestrate subagents and run evals... agents supposed to read results and tweak settings if it just runs as one long evall... I DONT WANT ONE LONG RUNNING EVAL SUITE THAT TAKES HOURS AND CAN NOT BE INTERPERTED AND ASSESSED IN REAL TIME AND ADJUSTED". Streams are narrow/focused batches (2-5 models + specific profiles/tasks or 1-2 cloud or real tracker runs or config ests). Subagent executes (pnpm matrix scoped, deepeval, real tracker, baseline pieces, config sweeps), produces artifacts, commits + pushes. Orchestrator polls (get_command_or_subagent_output, block), gates on commit+push + numeric evidence (cells:XX, tps values, briefs count, % vs baseline, profiles applied, git show --stat), reads fresh (matrix JSONL/summary, daily-briefs/_.json with tps/kb_loaded/harness notes, optimization-state, system-profile, load-profiles), assesses in real time (what data suggests for tweak: lock qwen offload, drop full for 26B, prioritize daily-briefs real next, expand KB, adjust partial ratio), decides next stream scope/order, dispatches with updated steering, updates roadmap + log + state immediately_
+No mandatory 2 passes. One loading at a time (GPU). Analysis parallel ok.
 
 **Current starting point (live, cite files):** W7 tracker+KB+suites+deepeval+manifest complete (16+ dry briefs tps=38.4 + Specialist KB True + harness notes). Partials 9 + per-12 recs + configs report complete (O6). Smoke 4 cells authoritative (qwen offload 63% leader per matrix-summary + JSONL). 20/24 cells missing (exact 10 models list in optimization-state + exhaustive-assessment). Baselines 8/8 gemini (100%), W7 0 collected. GPU occupied (lms ps 12b or 26b GENERATING, nvidia ~594 MiB free in latest). system-profile + optimization-state + reports have the gaps + "when rig free" + "unattended pnpm matrix:full" + ps1 ready. Use as foundation; streams fill + optimize + synthesize.
 
 **Stream Examples (adjust order/scope per real-time assessment after each push; all testing covered by collection of streams):**
+
 - Stream 1: Baseline re-assess + smoke re-run (or smalls full) + real tracker dry/specialist + deepeval W7 collect/runs + node parsers on artifacts. (Non-load heavy or when headroom allows.)
 - Stream 2: Mid-size partial profile tests (qwen/12B/GLM on 0.7/0.88/0.9/0.95 + off/full; measure tps/pass/quality).
 - Stream 3: Small models full coverage (liquid/nemotron/rnj/e2b/e4b × profiles; full 10-task + W7).
@@ -120,7 +130,8 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 
 ## Ranking, Synthesis, 3 Solid Models (Evidence from Live Artifacts)
 
-**Current leaderboard (matrix-summary.json + JSONL, 4 cells, 8-task at time):** 
+**Current leaderboard (matrix-summary.json + JSONL, 4 cells, 8-task at time):**
+
 - qwen/qwen3.5-9b @ gpu_offload: 5/8 (63%) — leader, offload +13pp win on plan-synthetic.
 - qwen @ gpu_full: 4/8 (50%).
 - liquid/lfm2.5-1.2b @ both: 3/8 (38%) — fastest (~4s vs qwen ~12 min).
@@ -129,11 +140,12 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 
 **Speed:** Matrix durations as above. Daily-briefs (16+ artifacts): consistent tps=38.4 (qwen specialist dry, completion/wall, ~407 tokens, 6.9s). Real tracker records tps always. Small/full for interactive; qwen offload viable for briefs/plans.
 
-**Briefs/specialist perf (daily-briefs/*.json + tracker + KB + deepeval):** 16+ dry qwen+specialist, tps 38.4, Specialist KB: True (later), harness notes with exact cites ("qwen3.5-9b @ gpu_offload preferred per 63% leader + offload plan win + W7 + O1 + system"), web/GH/harness/plan sections, actionable. Real impl supports web/gh/fs + ReAct + planning + tps + KB. deepeval W7 covers ToolCorrectness (web/read/gh), PlanAdherence (briefs plan), TaskCompletion (briefs vs baseline). Meets KB criteria in sim. Viable for unloading daily interest + local tools/planning/chat on 8GB.
+**Briefs/specialist perf (daily-briefs/\*.json + tracker + KB + deepeval):** 16+ dry qwen+specialist, tps 38.4, Specialist KB: True (later), harness notes with exact cites ("qwen3.5-9b @ gpu_offload preferred per 63% leader + offload plan win + W7 + O1 + system"), web/GH/harness/plan sections, actionable. Real impl supports web/gh/fs + ReAct + planning + tps + KB. deepeval W7 covers ToolCorrectness (web/read/gh), PlanAdherence (briefs plan), TaskCompletion (briefs vs baseline). Meets KB criteria in sim. Viable for unloading daily interest + local tools/planning/chat on 8GB.
 
 **Vs baselines/SOTA:** 100% ceiling on gemini pro-preview (8 tasks). Cloud paths ready for flash lite / sonnet 4.6 / gpt 5.4 + peers (contained collect + compare). Locals supporting on bounded (build/plan first-pass/harness-tools/briefs search-draft); cloud for long-horizon/high-stakes/voice/complex.
 
 **3 Solid Models (evidence-based, unchanged pending full O1 cells + real briefs + reviews; from smoke + W7 + system + placement + configs reports):**
+
 1. **qwen/qwen3.5-9b @ gpu_offload (primary local + specialist)**: 63% leader (measured offload > full), plan win, build 100%, tool search strong, tool-trained, tps~38.4 briefs viable, W7 specialist harness + KB complete (harness-aware briefs with cites, ReAct/tools real, evals coverage). Use: daily briefs/interest (unload web/gh/fs/planning), local chat/plan/tool, specialist for evals/research. Fits 8GB headroom. "Reach" quality for supporting roles.
 2. **liquid/lfm2.5-1.2b @ gpu_full (speed/triage solid)**: Smallest/fastest (~4s cell, 1.28 GiB fits full perfectly, max layers), 38% usable, tool-trained, high context. Use: fast local chat, quick triage/routing, briefs pre-filter, interactive stubs. Ubiquitous on rig.
 3. **Cloud SOTA ref (vertex gemini-3.1-pro-preview / flash-lite or azure sonnet 4.6 / gpt 5.4 + peers)**: 100% baseline ceiling. Paths ready (gcloud/vertex active, gemini:models + baseline:collect; azure lib + import). Use: head-to-head "can local crew reach?", high-stakes, final review, when local tps/quality insufficient. Credits reasonable per policy.
@@ -163,9 +175,9 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 
 ## Orchestration, Verification, Git, Completion (Full Contract)
 
-**Orchestrator (this agent):** Assess (read state/files first), dispatch subs (full tools, reusable + steering for contained stream only), poll (short intervals, block for terminal), gate (commit+push + numeric + git show --stat), assess fresh results real-time (cite system-profile + optimization-state + matrix JSONL + briefs), tweak/adjust (profiles/scope/order), sequence, update roadmap + log + state *immediately* after dispatch/return. Subagents run the evals. Never primary matrix runner in orchestrator context. Multitask analysis subs ok; loads serial. Follow goal-eval.md + goal.md + orchestration-reliability.md + AGENTS.md exactly (reusable prompt, no invented work, checkpoint, "may/fail" honest, rg first, Windows/pwsh, live truth, boundary, no secrets, pushes after streams).
+**Orchestrator (this agent):** Assess (read state/files first), dispatch subs (full tools, reusable + steering for contained stream only), poll (short intervals, block for terminal), gate (commit+push + numeric + git show --stat), assess fresh results real-time (cite system-profile + optimization-state + matrix JSONL + briefs), tweak/adjust (profiles/scope/order), sequence, update roadmap + log + state _immediately_ after dispatch/return. Subagents run the evals. Never primary matrix runner in orchestrator context. Multitask analysis subs ok; loads serial. Follow goal-eval.md + goal.md + orchestration-reliability.md + AGENTS.md exactly (reusable prompt, no invented work, checkpoint, "may/fail" honest, rg first, Windows/pwsh, live truth, boundary, no secrets, pushes after streams).
 
-**Verification per stream + overall:** Sub: narrow (read-backs, git diff --check, safe dry, capture/verify if touched). Orchestrator after push: results usable, push happened, no unrelated. Overall ladder as above (run the programs: tracker --dry --use-specialist produces tps + "Specialist KB: True" + briefs with sections + citations; deepeval collect/runs; pnpm verify; node parsers on real artifacts; lms/nvidia; git). Full completion audit: todos all complete, ladder executed, 2 fresh verifiers (full 'all', canonical verbatim blocks at prompt start + task-specific "verify EVERY model every test... monolithic all-inclusive roadmap... subagents dispatched and results read/assessed/tweaked... pushes... 3 solids with data... no partials/fakes... read the /tmp/goal-verifier-*-*.md"), both PASS on *current/latest* code, read exact /tmp files (exist + "VERDICT: PASS" + ts > last edit), *only then* update_goal(completed:true). Resume verifiers on FAIL after fixes.
+**Verification per stream + overall:** Sub: narrow (read-backs, git diff --check, safe dry, capture/verify if touched). Orchestrator after push: results usable, push happened, no unrelated. Overall ladder as above (run the programs: tracker --dry --use-specialist produces tps + "Specialist KB: True" + briefs with sections + citations; deepeval collect/runs; pnpm verify; node parsers on real artifacts; lms/nvidia; git). Full completion audit: todos all complete, ladder executed, 2 fresh verifiers (full 'all', canonical verbatim blocks at prompt start + task-specific "verify EVERY model every test... monolithic all-inclusive roadmap... subagents dispatched and results read/assessed/tweaked... pushes... 3 solids with data... no partials/fakes... read the /tmp/goal-verifier-_-_.md"), both PASS on _current/latest_ code, read exact /tmp files (exist + "VERDICT: PASS" + ts > last edit), _only then_ update_goal(completed:true). Resume verifiers on FAIL after fixes.
 
 **Git:** Push after every stream (selective per .gitignore for transparency on public JamiStudio/local-evals). Conventional subject + HEREDOC body (scope, evidence cites, numeric, changed files, verification, blockers). No destructive. Clean working tree for intentional.
 
@@ -182,6 +194,7 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 ---
 
 ## Appendix: Key Live Facts at Last Update (re-verify with rg/read/pnpm capture/lms/nvidia before next dispatch)
+
 - Models: 12 (exact list above from registry/models.json + node parse).
 - Smoke: 4 cells, qwen offload 63% leader (matrix-summary.json + JSONL).
 - Briefs: 16+ in results/daily-briefs/, tps=38.4, Specialist KB True, harness notes.
@@ -193,10 +206,11 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 - ps1: unattended-full-matrix.ps1 ready for full when free.
 
 **Stream 1 execution (this subagent, per goal-eval + roadmap Stream 1 steering: baseline re-assess + assessable non-load/low-load heavy start):**
+
 - pnpm capture:system:quick + pnpm registry:export + pnpm verify (done, live truth).
 - deepeval collect (W7) + focused test run on W7 (tool_correctness/plan_adherence/briefs_quality + research; ran via uv run deepeval test run ... -k; results: FFF failures - NameError ToolCall not defined (import missing in test_workflows.py), DeepEvalError no OPENAI_API_KEY (metrics init GPTModel internally, expected for local-only smoke per AGENTS/no paid; graceful excepts in code for smoke); no traces saved for inspect; 'collect' via test execution on W7 cases).
 - uv run python scripts/daily-brief-tracker.py --query "local OSS evals qwen specialist harness progress on 8GB" --use-specialist --dry-run (success; new brief-20260607-061605.json; tps=38.4, kb_loaded:true, Specialist KB:True, dry:true, harness placement notes cite "qwen/qwen3.5-9b @ gpu_offload preferred ... 63% leader"; 18 total briefs post).
-- node -e parsers on results/matrix-summary.json results/optimization-state.json results/daily-briefs/* registry/models.json registry/load-profiles.json (exact: cells 4/20 missing, untestedModels 10 exact list ["google/gemma-4-26b-a4b",... "google/gemma-4-e4b"], profiles count 11 + recs for 12, leader qwen/qwen3.5-9b@gpu_offload 63%, llms 12, briefs 18 with 12+ kb_loaded true / 15+ specialist, tps samples 38.4; system cite).
+- node -e parsers on results/matrix-summary.json results/optimization-state.json results/daily-briefs/\* registry/models.json registry/load-profiles.json (exact: cells 4/20 missing, untestedModels 10 exact list ["google/gemma-4-26b-a4b",... "google/gemma-4-e4b"], profiles count 11 + recs for 12, leader qwen/qwen3.5-9b@gpu_offload 63%, llms 12, briefs 18 with 12+ kb_loaded true / 15+ specialist, tps samples 38.4; system cite).
 - safe lms load --estimate-only: live cite FIRST multiple (lms ps + nvidia + system-profile): initial 12b GENERATING 594 MiB free (<1GiB occupied); later liquid IDLE 6224 MiB free. Ran ONLY on small/mid liquid (est 1.28 GiB "This model may be loaded") + nemotron (4.16 GiB "may"); 'may' honest per output; NO full matrix/loads ( <~1GiB initial or occupied defer to unattended ps1 note); 12B est skipped this contained/low turn.
 - Read back ALL fresh (rg searches for W7/deepeval/63%/briefs + read_file offsets on roadmap/state/briefs/system/models/load-profiles + reports + JSONL snippets + new brief); no unrelated changes.
 - Numeric: 4 cells confirmed/re-verified, tps observed 38.4, briefs count 18 (16+), Specialist KB True, gaps 20 confirmed + exact 10 untested models list, GPU from lms/nvidia (live cites), tweak/sequence for next e.g. lock qwen offload leader (63% + tps38.4 + specialist harness notes) + prioritize real tracker (headroom allows now) or cloud SOTA or larges partials per data.
@@ -208,6 +222,7 @@ All trainedForToolUse true (except noted). Source: `lms ls --json` normalized ex
 Update this section + all reports/state after each stream push. Live truth only. Exhaustive continuation complete when verifiers PASS + update_goal.
 
 **Stream 2 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Agent id: `019ea0c5-1152-7f93-bd37-996ae0c0bcdc` (`Linnaeus`).
 - Workstream/pass: Contained Stream 2, small untested local matrix slice.
 - Ownership boundary: subagent executes only `nvidia/nemotron-3-nano-4b` via `EVAL_SMOKE_MODELS=nvidia/nemotron-3-nano-4b node scripts/run-matrix.mjs --smoke`, using all current load profiles; unload idle model first if live `lms ps` confirms safe; no full matrix and no cloud/direct paid API calls.
@@ -215,6 +230,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Result: completed and pushed in `4b8a7b2`. Evidence: `results/matrix-2026-06-07T06-30-40-559Z.jsonl`, 11 nemotron cells, 0 load failures, every profile `9/40` (22.5%, rounded 23%) with `eval_failed` status due failed/error cases, fastest `gpu_partial_0.3` at 8413 ms, slowest `gpu_full` at 140360 ms. No load-profile change justified; parser tightened for current Promptfoo summary output.
 
 **Stream 3 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Agent id: `019ea0d1-c4e0-7251-8213-11fadb0b57f4` (`Nash`).
 - Workstream/pass: Contained Stream 3, fit-class local matrix slice.
 - Ownership boundary: subagent executes only `essentialai/rnj-1`, `google/gemma-4-e2b`, and `google/gemma-4-e4b` via `EVAL_SMOKE_MODELS=essentialai/rnj-1,google/gemma-4-e2b,google/gemma-4-e4b node scripts/run-matrix.mjs --smoke`, using all current load profiles; no full matrix and no cloud/direct paid API calls.
@@ -223,6 +239,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Result: completed and pushed in `c563e9c`. Evidence: `results/matrix-2026-06-07T06-44-52-303Z.jsonl`, 33 cells, 0 load failures. `google/gemma-4-e2b` tied `11/40` across all profiles (fastest `gpu_partial_0.9` 8447 ms, slowest `gpu_full` 229498 ms); `google/gemma-4-e4b` tied `10/40` (fastest `gpu_partial_0.95` 10236 ms, slowest `gpu_full` 431129 ms); `essentialai/rnj-1` tied `7/40` (fastest `gpu_partial_0.36` 9834 ms, slowest `gpu_full` 123533 ms). No load-profile change justified from duration-only differences.
 
 **Stream 4 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Agent id: `019ea0eb-9e9f-7993-baca-b40c6c327bb5` (`Goodall`).
 - Workstream/pass: Contained Stream 4, mid-size/borderline local matrix slice.
 - Ownership boundary: subagent executes only `google/gemma-4-12b`, `google/gemma-4-12b-qat`, and `zai-org/glm-4.6v-flash` via `EVAL_SMOKE_MODELS=google/gemma-4-12b,google/gemma-4-12b-qat,zai-org/glm-4.6v-flash node scripts/run-matrix.mjs --smoke`, using all current load profiles; no full matrix and no cloud/direct paid API calls.
@@ -231,6 +248,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: poll in short intervals, then read the pushed commit, latest matrix JSONL/summary/state, assess per-model pass rates/durations/load failures, decide between qwen/liquid refresh, large-model partial/offload slice, or W7 real tracker stream.
 
 **Stream 4 result checkpoint (subagent, 2026-06-07):**
+
 - Result: aborted timeout-evidence stream only; no completed matrix cells and no coverage credited for `google/gemma-4-12b`, `google/gemma-4-12b-qat`, or `zai-org/glm-4.6v-flash`.
 - Abort evidence 1: `results/matrix-2026-06-07T07-12-46-491Z.jsonl` stayed 0 bytes from 03:12:46 to evidence capture at 03:40:00 while `google/gemma-4-12b@gpu_full` was `GENERATING`; `nvidia-smi` reported 8192 MiB total, 7385 MiB used, 603 MiB free. Stopped only repo-owned `node scripts/run-matrix.mjs --smoke` PID 15144 and Promptfoo child PID 35956, then `lms unload --all`.
 - Abort evidence 2: `results/matrix-2026-06-07T07-41-56-989Z.jsonl` stayed 0 bytes from 03:41:56 to evidence capture at 03:58:46 while `google/gemma-4-12b@gpu_offload` was `GENERATING` after the first profile-filter redirect; `nvidia-smi` reported 8192 MiB total, 7313 MiB used, 675 MiB free. Stopped only repo-owned runner PID 25024 and Promptfoo child PID 22060, then unloaded.
@@ -240,6 +258,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - No `registry/load-profiles.json` change was made because this stream produced no pass-rate evidence. Remaining gap: mid-size current-suite cells need a smaller task subset, lower LM Studio context/parallel settings, local-eval fallback, or a short-timeout-proven runner retry before another matrix attempt. Recommended next stream: qwen/liquid current-suite refresh with profile filter, or W7 real tracker/specialist evidence; avoid another unbounded mid-size attempt.
 
 **Stream 5 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Agent id: `019ea12a-0c99-7bc3-8440-213dd7afeef2` (`Lovelace`).
 - Workstream/pass: Contained Stream 5, W7 real daily-brief tracker + specialist evidence.
 - Ownership boundary: subagent loads only `qwen/qwen3.5-9b` with measured leader `--gpu off`, runs one specialist dry control and one specialist real tracker run with `--max-steps 2`, parses new `results/daily-briefs/brief-*.json` artifacts, updates state/roadmap, verifies, commits, and pushes. No cloud/direct paid APIs and no unbounded loop.
@@ -248,6 +267,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: poll in short intervals, then assess whether qwen specialist real tracker evidence supports the current 3-solid model selection or requires another tracker/local refresh stream.
 
 **Stream 5 result checkpoint (subagent, 2026-06-07):**
+
 - Live source truth before load: read `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, `scripts/daily-brief-tracker.py`, and recent `results/daily-briefs/brief-*.json`. Live `lms ps` showed no loaded models; live `nvidia-smi` showed RTX 2080 Super Max-Q 8192 MiB total, 418 MiB used, 7570 MiB free. `results/system-profile.json` remains stale on free VRAM (captured during a 26B load) but still records the same 8 GiB host and qwen placement facts.
 - Load/run: `lms unload --all; lms load qwen/qwen3.5-9b --gpu off -y` loaded qwen in 17.47s. Initial unpinned `uv run` dry command failed because repo dependencies were not resolved (`openai` missing); all successful tracker commands used `uv run --project C:\Users\james\projects\evals ...`.
 - Dry evidence: `results/daily-briefs/brief-20260607-082135.json` and `results/daily-briefs/brief-20260607-082240.json` are `dry_run=true`, model `qwen/qwen3.5-9b`, `kb_loaded=true`, `tps=38.4`, `wall_seconds=6.9`, usage `prompt=142 completion=265 total=407`, and contain Web Signals, GH / Repo Activity, Harness Placement Notes, Recommended Actions, and Token & Speed sections.
@@ -257,6 +277,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining W7 gaps: qwen has dry controls plus real tool-call evidence, but not a usable real final brief. Next stream should repair/refresh W7 tracker finalization by forcing final synthesis after one tool step, shrinking specialist/live-summary context further, fixing the `gh search` invocation, or increasing qwen context; then rerun one real max-steps-2 artifact before using qwen daily-brief quality in the 3-solid assessment.
 
 **Stream 6 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Agent id: `019ea135-d7ba-7592-a4bd-8fcc3d34e057` (`Boole`).
 - Workstream/pass: Contained Stream 6, W7 tracker repair/refresh for usable qwen real final brief.
 - Ownership boundary: subagent repairs only `scripts/daily-brief-tracker.py` finalization/context/GitHub-tool behavior, loads only `qwen/qwen3.5-9b --gpu off`, runs exactly one real specialist refresh after repair (plus at most one dry check if needed), parses the new artifact, updates state/roadmap, verifies, commits, and pushes. No cloud/direct paid APIs and no unbounded loop.
@@ -265,6 +286,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: poll in short intervals, then assess whether qwen specialist has usable real daily-brief evidence for the 3-solid selection or still requires fallback-only caveats.
 
 **Stream 6 result checkpoint (subagent, 2026-06-07):**
+
 - Code repairs: `scripts/daily-brief-tracker.py` now injects a compact specialist KB, reduces model-facing tool observations to 360 chars and file reads to 1500 chars, normalizes the Stream 5 invalid `gh search issues:... --json` form to a bounded repo-scoped `gh issue list`, fills missing `gh repo list --json` fields for future runs, and records `fallback_used`, `fallback_reason`, `final_brief_nonempty`, `sections_present`, `tool_failures`, and `model_observation_chars`.
 - Execution: live `lms ps` showed no loaded models and `nvidia-smi` showed 418 MiB used / 7570 MiB free before load. Ran `lms unload --all; lms load qwen/qwen3.5-9b --gpu off -y` (loaded in 9.64s), then exactly one real refresh: `uv run --project C:\Users\james\projects\evals python scripts/daily-brief-tracker.py --model qwen/qwen3.5-9b --query "stream 6 repair qwen specialist daily brief with local eval evidence and next actions" --use-specialist --max-steps 2`.
 - New artifact: `results/daily-briefs/brief-20260607-083746.json` is `dry_run=false`, model `qwen/qwen3.5-9b`, `kb_loaded=true`, `tps=3.3`, `wall_seconds=150.48`, usage `prompt=2346 completion=499 total=2845`, `final_brief_nonempty=true`, and sections present: Web Signals, GH / Repo Activity, Harness Placement Notes, Recommended Actions, Token & Speed.
@@ -274,6 +296,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: W7 now has a nonblank real-tool final artifact with all sections, but daily-brief quality should carry a fallback caveat until a no-fallback qwen run or baseline/user-judge comparison is collected. W7 baselines and user-judge review remain open. Recommended next stream: orchestrator should decide whether fallback-backed W7 evidence is enough for current 3-solid assessment; otherwise run one no-fallback W7 refresh after the new GitHub guard, or move to W7 baselines/user-judge.
 
 **Stream 7 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Agent id: `019ea13f-408e-7893-b860-8e80173a17a2` (`Fermat`).
 - Workstream/pass: Contained Stream 7, qwen current-suite leader refresh.
 - Ownership boundary: subagent runs exactly one matrix cell, `EVAL_SMOKE_MODELS=qwen/qwen3.5-9b EVAL_SMOKE_PROFILES=gpu_offload EVAL_CELL_TIMEOUT_MS=1200000 node scripts/run-matrix.mjs --smoke`, then summarizes/compares/queues as needed, updates state/roadmap, verifies, commits, and pushes. No cloud/direct paid APIs, no full matrix, no second model.
@@ -282,6 +305,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: poll in short intervals, then assess whether qwen remains the primary local specialist candidate on current suite or needs demotion/caveat.
 
 **Stream 7 result checkpoint (subagent, 2026-06-07):**
+
 - Live source truth before run: read `results/optimization-state.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, Stream 6 artifact `results/daily-briefs/brief-20260607-083746.json`, and `scripts/run-matrix.mjs` with `EVAL_SMOKE_PROFILES` plus `EVAL_CELL_TIMEOUT_MS` support. Live `lms ps` showed no loaded models; live `nvidia-smi` showed RTX 2080 Super Max-Q 8192 MiB total, 418 MiB used, 7570 MiB free.
 - Executed exactly one cell: `EVAL_SMOKE_MODELS=qwen/qwen3.5-9b EVAL_SMOKE_PROFILES=gpu_offload EVAL_CELL_TIMEOUT_MS=1200000 node scripts/run-matrix.mjs --smoke`. Latest JSONL: `results/matrix-2026-06-07T08-43-29-893Z.jsonl`.
 - Numeric result: `qwen/qwen3.5-9b@gpu_offload` completed without timeout as `eval_partial`, `7/40` (17.5%, rounded 18%), duration `1018924` ms. Promptfoo reported `7 passed, 25 failed, 8 errors`, total tokens `39548`, and eval duration `16m 55s`.
@@ -291,6 +315,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: qwen/liquid still lack all-profile current-suite refreshes; mid/large models remain blocked by Stream 4 timeout behavior; W7 baselines and user-judge review remain open. Recommended next stream: run `liquid/lfm2.5-1.2b@gpu_full` as the matching one-cell current-suite speed/control refresh, then compare qwen vs liquid before trying another bounded mid-size or W7 no-fallback stream.
 
 **Stream 8 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Agent id: `019ea15b-d778-7001-950c-44706749d727` (`Mencius`).
 - Workstream/pass: Contained Stream 8, liquid current-suite control cell.
 - Ownership boundary: subagent runs exactly one matrix cell, `EVAL_SMOKE_MODELS=liquid/lfm2.5-1.2b EVAL_SMOKE_PROFILES=gpu_full EVAL_CELL_TIMEOUT_MS=600000 node scripts/run-matrix.mjs --smoke`, then summarizes/compares/queues as needed, updates state/roadmap, verifies, commits, and pushes. No cloud/direct paid APIs, no full matrix, no second model.
@@ -299,6 +324,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: poll in short intervals, then assess whether liquid speed/control result changes the local candidate ranking relative to qwen.
 
 **Stream 8 result checkpoint (subagent, 2026-06-07):**
+
 - Live source truth before run: read `results/optimization-state.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, Stream 7/8 roadmap checkpoint, and `scripts/run-matrix.mjs`. Live `lms ps` showed no loaded models; live `nvidia-smi` showed RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free.
 - Executed exactly one cell: `EVAL_SMOKE_MODELS=liquid/lfm2.5-1.2b EVAL_SMOKE_PROFILES=gpu_full EVAL_CELL_TIMEOUT_MS=600000 node scripts/run-matrix.mjs --smoke`. Latest JSONL: `results/matrix-2026-06-07T09-14-50-921Z.jsonl`.
 - Numeric result: `liquid/lfm2.5-1.2b@gpu_full` completed without timeout as `eval_partial`, `5/40` (12.5%, rounded 13%), duration `13373` ms. Promptfoo reported `5 passed, 27 failed, 8 errors`, total tokens `4703`, and eval duration `10s`.
@@ -309,12 +335,14 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: qwen/liquid still need all-profile current-suite refreshes if profile sensitivity matters; mid/large models remain blocked by Stream 4 timeout behavior; W7 baselines, no-fallback W7 refresh, and user-judge review remain open. Recommended next stream: W7 baseline/user-judge collection or one bounded no-fallback W7 tracker refresh before promoting 3-solid decisions.
 
 **Stream 9 dispatch checkpoint (orchestrator, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 9, W7 baseline/user-judge bounded collection/readiness.
 - Dispatch rationale: `baselines/manifest.json` has exactly two W7 tasks without imports (`daily-brief-synthetic-smoke`, `interest-tracker-tool-use`); latest compare/queue has 40 rows with 32 baseline-backed, leaving the W7 rows unbacked. Before dispatch, `scripts/collect-baselines-credits.mjs` and `scripts/print-baseline-prompts.mjs` gained repeatable `--task` filters so credit-funded collection can target only those two tasks and avoid sweeping all manifest tasks.
 - Required command shape: start with `pnpm baseline:prompts -- --task daily-brief-synthetic-smoke --task interest-tracker-tool-use`; check `pnpm gemini:models`/env readiness; if Vertex credits are available, run only `pnpm baseline:collect -- --task daily-brief-synthetic-smoke --task interest-tracker-tool-use --force`. Do not run broad baseline collection. No direct paid API calls.
 - Expected outputs: W7 baseline import status in `baselines/manifest.json`, refreshed `results/baseline-comparison.jsonl` and `results/user-judge-queue.jsonl`, queue counts for W7 backed/unbacked rows, `results/optimization-state.json` Stream 9 evidence, roadmap result checkpoint, verification (`node --check`, compare/queue read-backs, `git diff --check`, `lms ps` no unnecessary model loads), commit+push.
 
 **Stream 9 result checkpoint (subagent, 2026-06-07):**
+
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this Stream 9 dispatch checkpoint, `docs/operations/baseline-collection.md`, `baselines/manifest.json`, `scripts/collect-baselines-credits.mjs`, `scripts/print-baseline-prompts.mjs`, `results/optimization-state.json`, and current `results/baseline-comparison.jsonl` / `results/user-judge-queue.jsonl` counts.
 - Filter verification: `pnpm baseline:prompts -- --task daily-brief-synthetic-smoke --task interest-tracker-tool-use` returned exit 0 with empty output in this shell, so the allowed direct fallback `node scripts/print-baseline-prompts.mjs --task daily-brief-synthetic-smoke --task interest-tracker-tool-use` was used and printed exactly the two W7 prompts. Unknown task validation passed: `node scripts/print-baseline-prompts.mjs --task definitely-not-a-task` rejected with `Unknown baseline task filter(s): definitely-not-a-task`.
 - Collector readiness: `pnpm gemini:models` also returned exit 0 with empty output in this shell, so `node scripts/list-gemini-models.mjs` was used for source truth. It succeeded, listed 19 text-safe models, and showed `VERTEX_BASELINE_MODEL=gemini-3.1-pro-preview`; env presence was checked after `loadEvalEnv()` without printing secret values.
@@ -325,6 +353,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: W7 baseline backing is now present for both registered W7 tasks and queue review is refreshed, but user review remains pending. The interest-tracker Vertex baseline is short/tool-call-shaped, so final W7 quality should still carry a review caveat and may benefit from one no-fallback real tracker refresh before promoting qwen daily-brief quality into final 3-solid decisions.
 
 **Stream 10 dispatch/result checkpoint (contained subagent, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 10, preserve model-specific user-judge evidence and rerun qwen after W7 baselines.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this Stream 9 result/current gap, `results/optimization-state.json`, `baselines/manifest.json`, `results/baseline-comparison.jsonl`, `results/user-judge-queue.jsonl`, `scripts/compare-to-baseline.mjs`, `scripts/queue-user-judge.mjs`, `scripts/run-matrix.mjs`, and `.gitignore`.
 - Tooling change: `scripts/compare-to-baseline.mjs` now supports `EVAL_BASELINE_COMPARISON_OUT`; `scripts/queue-user-judge.mjs` now supports `EVAL_BASELINE_COMPARISON_IN` and `EVAL_USER_JUDGE_QUEUE_OUT`; defaults remain `results/baseline-comparison.jsonl` and `results/user-judge-queue.jsonl`. `.gitignore` now tracks `results/baseline-comparison-*.jsonl` and `results/user-judge-queue-*.jsonl` archives.
@@ -337,6 +366,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: subjective user review is still pending; Stream 10 only makes qwen-vs-liquid review queues durable and baseline-backed. Qwen W7 real daily-brief evidence remains fallback-backed from Stream 6, and the qwen Stream 10 promptfoo output was cached, so do not claim final 3-solid completion from this stream.
 
 **Stream 11 result checkpoint (contained subagent, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 11, repair and validate the W7 DeepEval agent-trace lane so it is local-safe and evidence-backed.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap, `results/optimization-state.json`, `suites/deepeval/test_workflows.py`, `package.json`, and installed DeepEval 4.0.5 package introspection.
 - Failure repaired: `test_tool_correctness_in_tracker_flow` referenced `ToolCall` without importing it; `ToolCorrectnessMetric`, `PlanAdherenceMetric`, and `TaskCompletionMetric` construct DeepEval's default OpenAI GPTModel when used directly, which violates the local-safe smoke lane without an explicit judge gate.
@@ -346,6 +376,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: this closes the local-safe DeepEval W7 trace-validation lane only. Subjective user review is still pending, qwen's real W7 daily-brief artifact remains fallback-backed from Stream 6, and final 3-solid model decisions are not complete.
 
 **Stream 12 result checkpoint (contained subagent, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 12, strict/no-fallback qwen W7 real daily-brief tracker refresh.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 6 and 9-11, `results/optimization-state.json`, Stream 6 artifact `results/daily-briefs/brief-20260607-083746.json`, `scripts/daily-brief-tracker.py`, live `lms ps`, live `nvidia-smi`, and clean `git log` at Stream 11 commit `985868b`.
 - Code change: `scripts/daily-brief-tracker.py` now supports `--strict-final`, which disables deterministic fallback synthesis while preserving the default fallback behavior for normal production use. Strict artifacts record `strict_final`, `finalization_status`, `model_failure_reason`, `fallback_used=false`, `sections_present`, `tool_failures`, usage, wall seconds, tps, and trace metadata. Prompt steering was narrowed to list allowed repo files and add a final-step reminder after tool observations; strict mode does not invent final output.
@@ -358,6 +389,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: Stream 12 removes the fallback-finalization caveat for qwen W7 tracker behavior, but subjective user review remains pending and the strict model-produced brief has quality/freshness caveats. Do not claim final 3-solid completion from this stream.
 
 **Stream 13 result checkpoint (contained subagent, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 13, repair/prove bounded mid-size matrix path using local-eval task filtering after Stream 4 produced zero-row timeout/abort evidence.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Stream 4/current gaps, `results/optimization-state.json` including `stream4MidSizeTimeoutEvidence`, `scripts/run-matrix.mjs`, `scripts/run-local-eval.mjs`, `registry/models.json`, `registry/load-profiles.json`, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before proof: `lms ps` showed no loaded models. `nvidia-smi` showed RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, and 7532 MiB free. `lms load google/gemma-4-12b --gpu off --estimate-only` did not return inside a 60s probe timeout, so the proof used conservative `gpu_offload` (`--gpu off`) with `EVAL_CELL_TIMEOUT_MS=300000`.
@@ -371,6 +403,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: do not claim broad mid-size coverage. This proves only `google/gemma-4-12b`, `gpu_offload`, local fallback, and `build-synthetic-smoke`; it does not prove `google/gemma-4-12b-qat`, `zai-org/glm-4.6v-flash`, partial GPU profiles, Promptfoo full-suite behavior, wider task subsets, quality vs user review, or final 3-solid selection.
 
 **Stream 14 result checkpoint (contained subagent, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 14, expand the Stream 13 bounded local-fallback proof to the remaining Stream 4 target models without retrying a broad/full suite.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Stream 4 and Stream 13 checkpoints, `results/optimization-state.json` including `stream4MidSizeTimeoutEvidence` and `stream13BoundedMidSizeLocalFallback`, `scripts/run-matrix.mjs`, `scripts/run-local-eval.mjs`, `registry/models.json`, `registry/load-profiles.json`, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before run: `lms ps` showed no loaded models. `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 456 MiB used, 7532 MiB free, 6% GPU utilization.
@@ -384,6 +417,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: do not claim broad mid-size coverage, Promptfoo full-suite behavior, partial GPU profile coverage, wider task subsets, quality ranking, or final 3-solid selection. `results/promptfoo-latest.json`, compare, and judge queue remain last-cell surfaces for this local fallback runner path unless archived per-model outputs are added in a later stream.
 
 **Stream 15 result checkpoint (contained subagent, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 15, refresh synthesis/report docs against Streams 9-14 evidence without overclaiming final completion.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 9-14 checkpoints, `results/optimization-state.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, `results/baseline-comparison*.jsonl`, `results/user-judge-queue*.jsonl`, `results/daily-briefs/brief-20260607-100231.json`, and the stale `docs/evals/2026-06-07-*` synthesis reports.
 - Report refresh: `docs/evals/2026-06-07-3-solid-models.md`, `docs/evals/2026-06-07-placement-decisions.md`, `docs/evals/2026-06-07-exhaustive-results-assessment.md`, and `docs/evals/2026-06-07-exhaustive-assessment.md` were rewritten as current draft evidence reports. The new wording removes obsolete W7 `0 baseline`, dry-only/fallback-only W7, broken DeepEval, and zero-row-only mid-size claims.
@@ -392,6 +426,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Runtime boundary: no model loads, matrix runs, cloud runs, or baseline collection were performed in this stream.
 
 **Stream 16 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 16, large-model practical proof slice for the remaining 26B/31B gap.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Stream 15, `results/optimization-state.json`, `results/system-profile.json`, `registry/models.json`, `registry/load-profiles.json`, `results/matrix-summary.json`, `results/promptfoo-latest.json`, live `lms ps`, and live `nvidia-smi`.
 - Quick runtime refresh: `pnpm capture:system:quick` completed before large-model probes. Live pre-run state was clean: `lms ps` showed no loaded models, and `nvidia-smi` showed RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free.
@@ -403,6 +438,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment: the large-model practical gap is narrowed but not closed. 26B and 31B-QAT have fresh estimate evidence; 31B Q4_K_M has estimate-timeout evidence; the first practical 31B-QAT partial cell exceeded the bounded 300000 ms stream cap, so no further practical large cells were run. No final placement, final 3-solid selection, or user-review completion is claimed.
 
 **Stream 17 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 17, qwen/liquid current-suite profile-sensitivity slice after Stream 16 left large practical proof incomplete and qwen/liquid profile sensitivity open.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 15-16 and remaining gaps, `results/optimization-state.json`, `results/system-profile.json`, `registry/models.json`, `registry/load-profiles.json`, `results/matrix-summary.json`, qwen/liquid archived queue notes, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before loads: `lms ps` showed no models loaded. `nvidia-smi` showed RTX 2080 Super Max-Q 8192 MiB total, 435 MiB used, 7553 MiB free, and 6-7% GPU utilization. All model loads were serialized through `scripts/run-matrix.mjs`; each cell unloaded before the next load.
@@ -416,6 +452,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment: profile changes did not alter deterministic current-suite pass rates for liquid or the tested qwen subset. Keep liquid `gpu_full` for fit/speed rationale and qwen `gpu_offload` for W7/tracker/prior offload evidence; Stream 17 itself does not create a new quality-leading profile. Remaining gaps stay open: user review, broad/full matrix, large practical proof, uncached qwen/liquid throughput, broad partial-profile measurements across other models, final 3-solid selection, and completion verification.
 
 **Stream 18 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 18, widen mid-size local fallback task coverage beyond the earlier `build-synthetic-smoke` proof.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 13-17 and remaining gaps, `results/optimization-state.json`, `results/system-profile.json`, `registry/models.json`, `registry/load-profiles.json`, `results/matrix-summary.json`, `results/stream17-profile-sensitivity.json`, Stream 13/14 matrix checkpoints, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before loads: `lms ps` showed no models loaded. `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, and 5% utilization. All cells used LM Studio local only, `EVAL_USE_PROMPTFOO=false`, `EVAL_SMOKE_PROFILES=gpu_offload`, `EVAL_CELL_TIMEOUT_MS=300000`, and one GPU-loaded model at a time.
@@ -428,6 +465,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment: Stream 18 closes the specific "wider mid-size task coverage beyond build-synthetic-smoke" gap for a small local fallback slice: the three mid-size targets now have three non-build lane tasks measured at `gpu_offload` with no timeout. It does not prove broad/full Promptfoo coverage, partial-profile quality, subjective user review, large practical success, final 3-solid selection, or completion verification.
 
 **Stream 19 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 19, user-review packet and final-gap audit prep with no model loads.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 9-18, `results/optimization-state.json`, `docs/evals/2026-06-07-3-solid-models.md`, `docs/evals/2026-06-07-placement-decisions.md`, `docs/evals/2026-06-07-exhaustive-results-assessment.md`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, Stream 17 qwen/liquid baseline comparison and user-judge archives, Stream 18 last-cell comparison/queue archives, and live `lms ps`.
 - Runtime boundary: no LM Studio model loads, matrix cells, baseline collection, or cloud/API calls were run. `lms ps` showed no models loaded before packet work and at closeout.
@@ -437,6 +475,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps unchanged: subjective user review, final 3-solid selection, broad/full local matrix coverage, large practical proof, broader partial-profile measurements outside contained slices, and final campaign verification remain open.
 
 **Stream 20 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 20, mid-size partial-profile comparison on the best-behaved Stream 18 task.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 18-19 and remaining gaps, `results/optimization-state.json`, `results/system-profile.json`, `registry/models.json`, `registry/load-profiles.json`, `results/stream18-mid-size-task-slice.json`, `results/user-review-packet-summary.json`, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before loads: `lms ps` showed no models loaded. `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, and 6% utilization. The requested profile ids existed in `registry/load-profiles.json`: `gpu_partial_0.9`, `gpu_partial_0.88`, and `gpu_partial_0.95`.
@@ -450,6 +489,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment: Stream 20 narrows the mid-size partial-profile gap for one task and one recommended partial per model. It does not prove broad/full Promptfoo coverage, mid-size partials across other tasks, subjective user review, large practical success, final 3-solid selection, or completion verification.
 
 **Stream 21 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 21, strict remaining-gap audit and next-stream recommendation with no model loads.
 - Source truth read before action: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 1-20, `results/optimization-state.json`, `results/matrix-summary.json`, `results/system-profile.json`, `registry/models.json`, `registry/load-profiles.json`, current eval memos, `results/user-review-packet-summary.json`, `results/stream16-large-estimates.json`, `results/stream17-profile-sensitivity.json`, `results/stream18-mid-size-task-slice.json`, `results/stream20-mid-size-partial-profile.json`, and live `lms ps`.
 - Runtime boundary: no LM Studio model loads, matrix cells, baseline collection, cloud/API calls, or direct paid calls were run. `lms ps` showed no models loaded.
@@ -459,6 +499,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Completion boundary: this is not the final two-verifier completion audit. Final user review, final 3-solid selection, broad/full matrix coverage, large practical proof, and final completion verification remain incomplete.
 
 **Stream 22 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 22, safe uncached qwen/liquid throughput refresh if Promptfoo supports non-destructive no-cache.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 17 and 21, `docs/evals/2026-06-07-strict-gap-audit.md`, `results/optimization-state.json`, `results/system-profile.json`, `registry/models.json`, `registry/load-profiles.json`, `results/stream17-profile-sensitivity.json`, `package.json`, `scripts/run-matrix.mjs`, live `lms ps`, and live `nvidia-smi`.
 - Cache preflight: `node node_modules/promptfoo/dist/src/entrypoint.js eval --help` showed `--no-cache` with the description "Do not read or write results to disk cache." Local `rg` found no repo-owned pass-through before this stream. No global Promptfoo cache, `.promptfoo`, user home cache, or unrelated artifact was deleted. `scripts/run-matrix.mjs` now appends `--no-cache` only when `EVAL_PROMPTFOO_NO_CACHE=true`; default cached behavior is unchanged.
@@ -473,6 +514,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment: Stream 22 closes the safe cache-control preflight and liquid no-cache throughput gap. It leaves qwen uncached current-suite throughput open under the bounded cap. Remaining gaps stay open: subjective user review, broad/full matrix, large practical proof, broader partial-profile measurements, final 3-solid selection, and final completion verification.
 
 **Stream 23 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 23, improved strict qwen W7 tracker quality refresh after Stream 12 quality caveats and Stream 22 qwen no-cache timeout.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 12, 21, and 22, `docs/evals/2026-06-07-strict-gap-audit.md`, `results/optimization-state.json`, `results/user-review-packet-summary.json`, `results/daily-briefs/brief-20260607-100231.json`, `scripts/daily-brief-tracker.py`, `docs/knowledge-bank/evals-specialist.md`, live `lms ps`, and live `nvidia-smi`.
 - Narrow tracker repair: `scripts/daily-brief-tracker.py` refreshed compact specialist facts to remove stale pre-Stream-9/12 W7 wording, added current `docs/evals` and `results/user-review-packet-summary.json` surfaces to the allowed prompt file reads, and normalized `gh repo view --json` requests to valid bounded `JamiStudio/local-evals` fields. Strict-final validation and fallback behavior were not weakened.
@@ -485,6 +527,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: subjective user review remains pending; final 3-solid selection remains incomplete; broad/full local matrix coverage remains incomplete; large practical proof remains incomplete; qwen uncached current-suite throughput remains incomplete; final two-verifier completion audit remains pending. Do not claim final W7 quality approval from Stream 23.
 
 **Stream 24 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 24, one bounded 26B offload practical retry after Stream 21/23 strict gap audit recommended closing the "26B has no practical row" gap.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 16, 21, and 23, `docs/evals/2026-06-07-strict-gap-audit.md`, `results/optimization-state.json`, `results/system-profile.json`, `registry/models.json`, `registry/load-profiles.json`, `results/stream16-large-estimates.json`, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before load: `lms ps` showed no models loaded. `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, and 6% utilization.
@@ -499,6 +542,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment at Stream 24 closeout: the narrow "26B has no practical row" gap was closed by one offload build row, while 26B partial was still untested until Stream 26. Large-model proof remained incomplete.
 
 **Stream 25 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 25, one bounded 31B-QAT offload practical probe to close or sharpen the remaining 31B-QAT practical evidence gap.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 16, 21, and 24, `results/stream16-large-estimates.json`, `results/stream24-26b-offload-practical.json`, `results/optimization-state.json`, `results/system-profile.json`, `registry/runtime-snapshot.json`, live `git status --short`, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before load: `git status --short` produced no output. `lms ps` showed no models loaded. `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 435 MiB used, 7553 MiB free, and 6% utilization.
@@ -511,6 +555,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment at Stream 25 closeout: Stream 25 did not close the 31B-QAT practical gap. It added bounded offload timeout evidence after Stream 16's 31B-QAT partial timeout. 26B still had only one offload build row until Stream 26 added the partial row; 31B Q4_K_M remained estimate-timeout only and 31B-QAT remained timeout-only.
 
 **Stream 26 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 26, one bounded 26B partial practical probe to close the remaining `google/gemma-4-26b-a4b@gpu_partial_0.39` one-cell evidence gap.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 16, 21, 24, and 25, `results/stream16-large-estimates.json`, `results/stream24-26b-offload-practical.json`, `results/stream25-31b-qat-offload-practical.json`, `results/optimization-state.json`, `results/system-profile.json`, `registry/runtime-snapshot.json`, live `git pull --ff-only`, live `git status --short`, live `lms ps`, and live `nvidia-smi`.
 - Live runtime before load: `git pull --ff-only` was already up to date; `git status --short` produced no output. `lms ps` showed no models loaded. `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 426 MiB used, 7562 MiB free, and 6% utilization.
@@ -525,6 +570,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Assessment: Stream 26 closes the narrow 26B partial practical one-cell gap. Large-model proof remains incomplete: 26B has one offload build row and one partial build row only; 31B Q4_K_M remains estimate-timeout only; 31B-QAT has timeout-only practical evidence on partial and offload. User review, final 3-solid selection, broad/full local matrix coverage, qwen uncached current-suite throughput, broad partial-profile coverage, and final two-verifier completion audit remain incomplete.
 
 **Stream 27 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 27, strict qwen W7 daily-brief tracker section-completeness repair after Stream 23 omitted `Token & Speed`.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 12, 23, 25, 26 and remaining W7 gaps, `results/stream23-w7-quality-refresh.json`, `results/optimization-state.json`, `results/system-profile.json`, `registry/runtime-snapshot.json`, `scripts/daily-brief-tracker.py`, live `git pull --ff-only`, live `git status --short`, live `lms ps`, and live `nvidia-smi`.
 - Narrow tracker repair: `scripts/daily-brief-tracker.py` now puts `Token & Speed` before `Recommended Actions`, asks the model to write exact headings first, and bounds section length so the speed section is less likely to be truncated. Strict-final validation and fallback behavior were not weakened.
@@ -537,6 +583,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: subjective user review remains pending; final 3-solid selection remains incomplete; broad/full local matrix coverage remains incomplete; 31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only; qwen uncached current-suite throughput remains incomplete; broad partial-profile coverage remains incomplete; final two-verifier completion audit remains pending.
 
 **Stream 28 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 28, narrow qwen no-cache single-task Promptfoo probe after Stream 22's qwen no-cache 40-case timeout and Stream 17's cached qwen timing caveat.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 7, 17, 22, and 27, `results/stream22-uncached-throughput.json`, `results/stream17-profile-sensitivity.json`, `results/optimization-state.json`, `results/system-profile.json`, `registry/runtime-snapshot.json`, and `scripts/run-matrix.mjs` for `EVAL_PROMPTFOO_NO_CACHE` / `EVAL_TASK_FILTER` behavior.
 - Live runtime before load: `git pull --ff-only` was already up to date; `git status --short` produced no output; `lms ps` showed no models loaded; `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 227 MiB used, 7761 MiB free, and 0% utilization.
@@ -550,6 +597,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: subjective user review remains pending; final 3-solid selection remains incomplete; broad/full local matrix coverage remains incomplete; 31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only; qwen full 40-case no-cache current-suite throughput remains incomplete; broad partial-profile coverage remains incomplete; final two-verifier completion audit remains pending.
 
 **Stream 29 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 29, mid-size recommended-partial Promptfoo no-cache filtered cells using the Stream 28 metadata filter fix.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, `docs/engineering/agents/orchestration-reliability.md`, this active roadmap including Streams 18, 20, and 28, `results/stream18-mid-size-task-slice.json`, `results/stream20-mid-size-partial-profile.json`, `results/stream28-qwen-uncached-single-task.json`, `results/optimization-state.json`, `results/system-profile.json`, `registry/runtime-snapshot.json`, and `scripts/run-matrix.mjs` confirming `EVAL_TASK_FILTER` reaches Promptfoo as `--filter-metadata taskId=<taskFilter>`.
 - Live runtime before load: `git pull --ff-only` was already up to date; `git status --short` produced no output; `lms ps` showed no models loaded; `nvidia-smi` showed RTX 2080 Super Max-Q, 8192 MiB total, 227 MiB used, 7761 MiB free, and 0% utilization.
@@ -563,6 +611,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: subjective user review remains pending; final 3-solid selection remains incomplete; broad/full local matrix coverage remains incomplete; qwen full 40-case no-cache current-suite throughput remains incomplete; 31B Q4_K_M practical proof remains estimate-timeout only and 31B-QAT practical evidence remains timeout-only; broad partial-profile coverage remains incomplete; final two-verifier completion audit remains pending.
 
 **Stream 30 dispatch checkpoint (contained stream, 2026-06-07):**
+
 - Agent: `019ea28c-7923-7441-a53c-d0500c447e2f` (`Ohm`).
 - Workstream/pass: Contained Stream 30, evidence-based readiness synthesis after Streams 1-29.
 - Dispatch timestamp: 2026-06-07 coordinator resume after compact checkpoint.
@@ -579,6 +628,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: audit Stream 30 commit/result state, keep the overall goal active, and do not dispatch final verifiers or mark completion from this checkpoint.
 
 **Stream 31 dispatch checkpoint (contained stream, 2026-06-07):**
+
 - Agent: `019ea294-8063-7e01-b6fa-6f70162a67aa` (`Bernoulli`).
 - Workstream/pass: Contained Stream 31, no-load final-selection scoring worksheet after Stream 30 readiness synthesis.
 - Dispatch timestamp: 2026-06-07 after Stream 30 audit.
@@ -593,6 +643,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: audit Stream 31 commit/result state and wait for user-scored worksheet decisions before final 3-solid promotion or final verifier dispatch.
 
 **Stream 32 dispatch checkpoint (contained stream, 2026-06-07):**
+
 - Agent: `019ea299-8912-7d50-8a75-3f6219ee0fad` (`Pauli`).
 - Workstream/pass: Contained Stream 32, one bounded `google/gemma-4-31b@gpu_offload` practical local-fallback probe.
 - Dispatch timestamp: 2026-06-07 after Stream 31 audit.
@@ -608,6 +659,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: subjective user review, final 3-solid selection, broad/full local matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, 31B broad quality proof, 31B-QAT practical proof, and final two-verifier completion audit.
 
 **Stream 33 result checkpoint (contained stream, 2026-06-07):**
+
 - Agent: `019ea2a5-cb4b-7a61-b2bd-d0b24176979f` (`Gauss`).
 - Workstream/pass: Contained Stream 33, no-load review-readiness index and machine-readable manifest for final-selection/user-review decisions after Streams 1-32.
 - Dispatch timestamp: 2026-06-07 after Stream 32 audit.
@@ -624,6 +676,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Next coordinator action: audit Stream 33 commit/result state and wait for user-scored worksheet decisions before final 3-solid promotion or final verifier dispatch.
 
 **Stream 34 dispatch checkpoint (contained stream, 2026-06-07):**
+
 - Agent: `019ea2ac-a5c6-75d0-a4ed-4d179ebaf8cc` (`Aristotle`).
 - Workstream/pass: Contained Stream 34, one extended bounded `google/gemma-4-31b-qat@gpu_offload` practical local-fallback probe.
 - Dispatch timestamp: 2026-06-07 after Stream 33 audit.
@@ -638,6 +691,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 34 closes only the "was 300s too tight for terminal status" question. 31B-QAT still has no practical success row: partial timed out, 300s offload timed out, and extended offload failed `0/1` with empty output after `305466 ms`. Subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, and final two-verifier audit remain pending.
 
 **Stream 35 result checkpoint (contained stream, 2026-06-07):**
+
 - Original agent `019ea2be-e1b2-7760-ab79-a16783f3db71` (`Kierkegaard`) crashed before producing a row; `results/matrix-2026-06-07T15-42-34-484Z.jsonl` remained 0 bytes and is treated as abandoned crash evidence only.
 - Retry executor: inline Stream 35 retry after the crashed agent was shut down. Coordinator dispatch/hotfix commits were pulled before Stream 35 commit work; latest pre-Stream-35 commits included `a68cd75` and `8e36da3`.
 - Workstream/pass: Contained Stream 35, one extended qwen full current-suite no-cache Promptfoo cell.
@@ -651,6 +705,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 35 closes only the narrow "retry with a longer full-suite cap" question. Qwen full 40-case no-cache throughput remains incomplete after both the Stream 22 `1200052 ms` timeout and this Stream 35 `2400084 ms` timeout. Subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final two-verifier audit remain pending.
 
 **Stream 36 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 36, validation of Promptfoo assertion hardening commit `5606495` with one qwen filtered no-cache Promptfoo cell.
 - Commit validation: `git pull --ff-only origin main` was already up to date; `5606495` is present on `main` and touched `suites/promptfoo/tests/build.yaml`, `plan.yaml`, `research.yaml`, and `tool-call.yaml`.
 - Source truth read before load: `AGENTS.md`, `docs/engineering/agents/goal-eval.md`, this roadmap, `results/optimization-state.json`, `results/system-profile.json`, `registry/runtime-snapshot.json`, latest `results/matrix-summary.json`, `results/stream28-qwen-uncached-single-task.json`, `results/stream35-qwen-full-no-cache-extended.json`, and the touched Promptfoo test YAML files.
@@ -664,6 +719,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 36 validates that the prior `undefined.includes` assertion error disappeared from the requested post-hardening runner surface, but qwen full-suite no-cache throughput, subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final two-verifier audit remain pending.
 
 **Stream 37 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 37, validation of runner accounting fix commit `c62f3ac` with one qwen filtered no-cache Promptfoo cell.
 - Commit validation: `git pull --ff-only` was already up to date; `c62f3ac Reject promptfoo runs without result totals` is present on `main`.
 - Source truth read before load: `results/stream36-qwen-assertion-hardening-validation.json`, latest `results/matrix-summary.json`, `results/optimization-state.json`, `docs/evals/2026-06-07-strict-gap-audit.md`, `scripts/run-matrix.mjs`, `scripts/summarize-matrix.mjs`, this roadmap, `docs/engineering/agents/goal-eval.md`, and current Promptfoo YAML tests.
@@ -678,6 +734,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 37 closes the runner-accounting validation question for this edge case only. It does not produce qwen pass totals, a fresh Promptfoo scoring surface, qwen full-suite no-cache throughput, subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, or final verifier audit.
 
 **Stream 38 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 38, validation of runner spawn fix commit `e7d7b4d` with one qwen filtered no-cache Promptfoo cell.
 - Commit validation: `git pull --ff-only` was already up to date; `e7d7b4d Run promptfoo without shell wrapping` is present on `main` and was the current HEAD before the run.
 - Source truth read before load: `scripts/run-matrix.mjs`, `results/stream37-runner-accounting-validation.json`, latest `results/matrix-summary.json`, `results/optimization-state.json`, `docs/evals/2026-06-07-strict-gap-audit.md`, this roadmap, `docs/engineering/agents/goal-eval.md`, and current Promptfoo YAML tests.
@@ -693,6 +750,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 38 validates the direct-spawn fix for Promptfoo launch/filter execution only. It does not produce qwen pass totals, a fresh Promptfoo scoring surface, qwen full-suite no-cache throughput, subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, or final verifier audit. The provider-call `undefined.includes` error still appears in the direct Promptfoo run.
 
 **Stream 39 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 39, validation of null-safe contains assertion commit `c36e52b` with one qwen filtered no-cache Promptfoo cell.
 - Commit validation: `git pull --ff-only` was already up to date; `c36e52b Make promptfoo contains checks null safe` is present on `main` and was the current HEAD before the run.
 - Source truth read before load: current `suites/promptfoo/tests/*.yaml`, `results/stream38-promptfoo-spawn-validation.json`, latest `results/matrix-summary.json`, `results/optimization-state.json`, `docs/evals/2026-06-07-strict-gap-audit.md`, `scripts/run-matrix.mjs`, this roadmap, and `docs/engineering/agents/goal-eval.md`.
@@ -708,6 +766,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 39 validates that commit `c36e52b` removed the Stream 38 `undefined.includes` contains-assertion error from this requested one-cell Promptfoo surface. It does not produce qwen pass totals, a fresh Promptfoo scoring surface, qwen full-suite no-cache throughput, subjective user review, final 3-solid selection, broad/full matrix coverage, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, or final verifier audit.
 
 **Stream 40 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 40, validation of normal Promptfoo scoring after the recent harness fixes with one fast liquid filtered no-cache cell.
 - Commit validation: `git pull --ff-only` was already up to date; `861e709` was present at HEAD before the run.
 - Source truth read before load: `results/stream39-null-safe-contains-validation.json`, `results/stream22-uncached-throughput.json`, latest `results/matrix-summary.json`, `results/optimization-state.json`, `docs/evals/2026-06-07-strict-gap-audit.md`, `scripts/run-matrix.mjs`, `scripts/summarize-matrix.mjs`, current Promptfoo YAML tests, this roadmap, and `docs/engineering/agents/goal-eval.md`.
@@ -723,6 +782,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 40 closes the narrow "can the repaired Promptfoo path refresh a fast filtered liquid result surface" question. It does not close normal passing Promptfoo scoring, because the fresh row is `eval_failed 0/4`; subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain pending.
 
 **Stream 41 result checkpoint (contained stream, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 41, validation of assertion string coercion commit `0d50176` with one fast liquid filtered no-cache cell.
 - Commit validation: `git pull --ff-only` was already up to date; `0d50176 Coerce promptfoo assertion outputs to strings` is present at HEAD.
 - Source truth read before load: `results/stream40-liquid-promptfoo-normal-scoring-validation.json`, `results/promptfoo-latest.json`, `results/matrix-summary.json`, `results/optimization-state.json`, `docs/evals/2026-06-07-strict-gap-audit.md`, current `suites/promptfoo/tests/*.yaml`, `scripts/run-matrix.mjs`, this roadmap, and `docs/engineering/agents/goal-eval.md`.
@@ -739,6 +799,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 41 closes the narrow assertion string-coercion validation question for this liquid filtered no-cache surface. It does not close normal passing Promptfoo scoring, because the fresh row is still `eval_failed 0/4`; subjective user review, final 3-solid selection, broad/full matrix coverage, qwen full-suite no-cache throughput, broad partial-profile quality/throughput, broad 31B/31B-QAT proof, and final verifier audit remain pending.
 
 **Stream 42 decision checkpoint (no-load synthesis, 2026-06-07):**
+
 - Workstream/pass: Contained Stream 42, no-load decision ledger and remaining-run minimization after Stream 41.
 - Runtime boundary: no LM Studio model loads, matrix cells, Promptfoo evals, DeepEval, tracker real runs, baseline collection, cloud/API calls, or paid/direct API calls were run.
 - Artifact: `docs/evals/2026-06-07-stream42-decision-ledger.md`.
@@ -750,6 +811,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Gap outcome: Stream 42 does not claim final completion, 3-solid acceptance, user review, broad matrix completion, or verifier audit. It narrows the next-step recommendation to a no-load Stream 43 user-review decision closeout.
 
 **Stream 3 result checkpoint (subagent, 2026-06-07):**
+
 - Live source truth before load: `results/optimization-state.json`, `results/system-profile.json`, latest `results/matrix-summary.json`, `registry/models.json`, `registry/load-profiles.json`, and Stream 2 commit `4b8a7b2` were read before the run. Live `lms ps` reported no loaded models; live `nvidia-smi` reported RTX 2080 Super Max-Q 8192 MiB total, 456 MiB used, 7532 MiB free. `results/system-profile.json` is stale for current free VRAM but still records the same 8 GiB host and placement facts; live `nvidia-smi` owned current capacity.
 - Executed only `EVAL_SMOKE_MODELS=essentialai/rnj-1,google/gemma-4-e2b,google/gemma-4-e4b node scripts/run-matrix.mjs --smoke` after `lms unload --all`. Latest JSONL: `results/matrix-2026-06-07T06-44-52-303Z.jsonl` (raw JSONL remains ignored by current `.gitignore`; tracked transparent surfaces were refreshed).
 - Numeric result: 33 cells added, 0 load failures, all cells `eval_partial` from Promptfoo failed/error cases with partial pass counts. `google/gemma-4-e2b`: 11 cells, every profile `11/40` (27.5%, rounded 28%), fastest `gpu_partial_0.9` 8447 ms, slowest `gpu_full` 229498 ms. `google/gemma-4-e4b`: 11 cells, every profile `10/40` (25%), fastest `gpu_partial_0.95` 10236 ms, slowest `gpu_full` 431129 ms. `essentialai/rnj-1`: 11 cells, every profile `7/40` (17.5%, rounded 18%), fastest `gpu_partial_0.36` 9834 ms, slowest `gpu_full` 123533 ms.
@@ -759,6 +821,7 @@ Update this section + all reports/state after each stream push. Live truth only.
 - Remaining gaps: current-profile coverage still lacks the large/mid local models (`google/gemma-4-26b-a4b`, `google/gemma-4-12b`, `zai-org/glm-4.6v-flash`, `google/gemma-4-31b`, `google/gemma-4-31b-qat`, `google/gemma-4-12b-qat`) plus qwen/liquid refresh against the current 40-assertion suite and all 11 profiles. W7 baseline collection, real tracker/specialist runs, and user review remain open. Recommended next stream: a mid/large partial/offload slice for 12B/GLM/large Gemma profiles, or a contained real tracker/specialist run if the orchestrator wants daily-brief quality before more matrix cells.
 
 **Stream 2 result checkpoint (subagent, 2026-06-07):**
+
 - Live source truth before load: `lms ps` reported no loaded models; `nvidia-smi` reported 513 MiB used / 8192 MiB total. `results/system-profile.json` still records the same 8 GiB RTX 2080 Super Max-Q host and `nvidia/nemotron-3-nano-4b` estimate of 4.16 GiB with suggested `gpu_full`; `registry/models.json` records Nemotron as 4.0B/Q4_K_M/tool-trained/no vision; `registry/load-profiles.json` has 11 profiles.
 - Executed only `EVAL_SMOKE_MODELS=nvidia/nemotron-3-nano-4b node scripts/run-matrix.mjs --smoke`. Latest JSONL: `results/matrix-2026-06-07T06-30-40-559Z.jsonl`. The run covered all 11 current profiles serially; no parallel loads and no cloud/direct paid APIs.
 - Numeric result: 11 cells added, 0 load failures. Every profile has promptfoo pass counts `9/40` (22.5%, rounded 23%) while the cell status remains `eval_failed` because promptfoo also reported 23 failed and 8 errors. `results/matrix-summary.json` now points to this stream and preserves those pass counts.

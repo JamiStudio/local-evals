@@ -13,6 +13,7 @@ Treat this as a tool-session reliability risk, not a product or repository block
 
 - Do not use one long `wait_agent` call as the only coordination point.
 - Poll subagents in short intervals, normally 60-120 seconds.
+- The coordinator stays active while subagents run. Dispatching a subagent is not a pause, final handoff, or reason to stop the goal session.
 - Keep polling until every dispatched subagent has a terminal result, has been explicitly closed, or has been replaced by a new checkpointed dispatch. A timed-out poll is not a stopping condition.
 - Do not send a final handoff while any checkpointed subagent is still running unless the user explicitly pauses the run.
 - After every subagent dispatch, write a compact checkpoint into the active roadmap before waiting:
@@ -51,6 +52,8 @@ These rules extend the coordinator loop for `evals` goal runs. They do not repla
 - The **orchestrator assesses and dispatches**; **subagents execute** (code, `pnpm` runs, commits).
 - Do not run matrix/eval/baseline commands in the orchestrator context. Dispatch a subagent.
 - Do not interrupt subagents mid-task. Poll until commit+push; then judge.
+- While a GPU-bound eval stream is running, do not dispatch another GPU-bound model-serving stream. Only one LM Studio / llama.cpp local model load may be active at a time.
+- Parallel subagents are allowed only for non-GPU analysis, docs, artifact review, or prep work that cannot contend with the active model server.
 - If work is not on the active roadmap phase, do not dispatch it. Unspecified orchestrators invent misaligned tasks.
 
 ### Phase discipline

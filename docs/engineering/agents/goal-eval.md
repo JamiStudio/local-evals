@@ -3,11 +3,16 @@
 **Date:** 2026-06-07
 **Purpose:** This is the active goal document for the current exhaustive model evaluation campaign. It replaces/supersedes previous strict rules for this specific run. The focus is real-time assessable, adjustable, contained evaluation streams so results can be interpreted and settings tweaked immediately between streams. No one massive long-running suite.
 **Working From:** `docs/roadmaps/2026-06-07-contained-eval-streams-plan.md`
+**Focused large-MoE run:** `docs/roadmaps/2026-06-08-large-moe-focused-eval-roadmap.md`
 
 ## Role of the Orchestrator
 
 You are the orchestrator. Your job is to sequence and let subagents run the actual evals in small, contained "streams".
 
+- Stay active for the goal run. Dispatching a subagent is not a stopping point, handoff point, or reason to go idle.
+- After dispatch, poll in bounded intervals and keep the coordinator loop alive until the subagent returns a terminal result, is explicitly closed, or is deliberately replaced from a visible checkpoint.
+- Timed-out polls are status checks, not blockers. Continue polling, ask the subagent for a compact status when useful, and inspect visible repo artifacts only to understand live state without interrupting valid work.
+- Keep only one GPU-bound local model load active at a time. Parallelize only non-GPU analysis or disjoint prep work; serialize LM Studio / llama.cpp model-serving streams.
 - Define a contained stream: a focused, limited batch of testing (e.g., "run matrix for qwen + liquid + nemotron using gpu_full + gpu_offload + gpu_partial_0.5 on current 10-task suite"; "run deepeval + real tracker for daily-briefs specialist on 2 models"; "collect baselines + compare for gemini-flash-lite and sonnet-4.6 only"; "test 3 specific partial offload ratios on the 26B and 31B models and measure tps + pass rates").
 - Dispatch a subagent for that exact stream (using reusable prompt + specific steering for what to run, scope limits via EVAL_SMOKE_MODELS or custom, which profiles, etc.).
 - Subagent executes the evals (pnpm matrix with limited scope, deepeval, baseline:collect for cloud pieces, tracker real runs, etc.), produces results/artifacts, commits and pushes.
@@ -22,6 +27,8 @@ You are the orchestrator. Your job is to sequence and let subagents run the actu
 This allows real-time interpretation and adjustment of settings (load-profiles, which presets, suite content, model order, cloud vs local focus) between streams instead of one opaque hours-long run.
 
 Follow AGENTS.md for repo rules (LM Studio only for automated, no direct paid, baselines outside, user-judge primary, rg for search, live lms + system-profile as truth, Windows/pwsh, capture before tuning, etc.). Use contained scope to keep each stream small and assessable.
+
+For the current large-MoE/QAT campaign, orchestrate directly against `docs/roadmaps/2026-06-08-large-moe-focused-eval-roadmap.md`. That focused roadmap owns the exact model pairs, stream order, sidecar-vs-LM-Studio comparison boundaries, artifacts, tuning rules, and completion criteria for this run.
 
 ## All Testing to Cover (Broken into Contained Streams)
 
@@ -40,7 +47,8 @@ The campaign must cover (via the contained streams, not one big thing):
 - Read current state (optimization-state.json, latest matrix-summary or specific stream results, system-profile, load-profiles, reports) before deciding next stream.
 - Define each stream narrowly so results are small and immediately usable for assessment/adjustment.
 - Dispatch subagent with reusable workstream prompt + explicit steering for that contained stream (scope, models/presets, what to run, output expectations, commit+push at end).
-- Poll for terminal result (commit+push). Do not interrupt mid-stream.
+- Poll for terminal result (commit+push) in bounded intervals and keep the goal session active while waiting. Do not interrupt mid-stream unless the subagent is clearly stale, mis-scoped, or blocking the one-GPU lane.
+- If a poll times out, continue the orchestrator loop: record/inspect visible state as needed, poll again, or request a compact status from the same subagent. Do not end the session merely because a wait call timed out.
 - After push: assess (pass rates, tps/speed, quality deltas vs baselines, errors, what to change for next). Update state/log/roadmap as needed for the campaign.
 - Sequence next stream based on assessment (e.g. "qwen partial 0.88 gave best tps+quality balance, use that for next large model batch; drop full for 26B as it OOM'd; prioritize daily-briefs real specialist stream next because W7 harness looks strong").
 - Subagents run the evals. You let them, assess after each, adjust, repeat until full coverage via streams.

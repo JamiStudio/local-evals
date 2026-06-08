@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "purpose": "Focused large-model comparison lane for Gemma 4 MoE/QAT CPU-MoE sidecar runs against nearby dense or standard single-host counterparts.",
+  "defaultTaskSet": "full-direct-suite",
+  "defaultContexts": [32768, 131072, 262144],
+  "rounds": [
+    {
+      "id": "round1-smoke",
+      "description": "One filtered build task per runnable candidate. Validates endpoint, template, assertions, and artifact writing."
+    },
+    {
+      "id": "round2-full-direct",
+      "description": "All 10 direct suite tasks. Use this before Promptfoo full assertions because direct suite is deterministic and faster."
+    },
+    {
+      "id": "round3-pressure",
+      "description": "Long-context needle, repo evidence audit, and harness code-review pressure tasks for candidates that clear round2."
+    },
+    {
+      "id": "round4-tune",
+      "description": "Incremental config tweaks only when a concrete failure suggests the tweak: context, reasoning, KV cache, chat template, max_tokens, and CPU-MoE/gpu-layer flags."
+    }
+  ],
+  "pairs": [
+    {
+      "id": "gemma4-26b-a4b-vs-12b",
+      "status": "primary",
+      "question": "Does the 26B A4B QAT CPU-MoE sidecar materially beat the dense/standard 12B class on the full local workflow suite and long-context retrieval?",
+      "moeCandidate": {
+        "id": "gemma4-26b-a4b-qat-cpu-moe",
+        "backend": "llama-server",
+        "model": "unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+        "hfRepo": "unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+        "hfFile": "gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf",
+        "context": 262144,
+        "profile": "llama_cmoe_ctx262k_q4kv",
+        "serverArgs": ["-cmoe", "-ngl", "auto", "-ctk", "q4_0", "-ctv", "q4_0", "-np", "1", "--cache-ram", "0", "--reasoning", "off"],
+        "evidence": ["results/llama-cmoe-ctx262k-full-suite.json", "results/llama-cmoe-pressure-long-context-needle.json"]
+      },
+      "counterparts": [
+        {
+          "id": "gemma4-12b-lmstudio",
+          "backend": "lmstudio",
+          "model": "google/gemma-4-12b",
+          "profile": "gpu_partial_0.9",
+          "reason": "Nearest already-installed dense/standard 256k Gemma 4 class in the registry."
+        },
+        {
+          "id": "gemma4-12b-qat-lmstudio",
+          "backend": "lmstudio",
+          "model": "google/gemma-4-12b-qat",
+          "profile": "gpu_partial_0.95",
+          "reason": "Already-installed QAT 12B counterpart."
+        },
+        {
+          "id": "gemma4-12b-qat-sidecar",
+          "backend": "llama-server",
+          "model": "unsloth/gemma-4-12B-it-qat-GGUF",
+          "hfRepo": "unsloth/gemma-4-12B-it-qat-GGUF",
+          "hfFile": "gemma-4-12B-it-qat-UD-Q4_K_XL.gguf",
+          "context": 262144,
+          "profile": "llama_ctx262k_q4kv_no_cmoe",
+          "download": "optional",
+          "reason": "HF QAT GGUF counterpart for apples-to-apples Unsloth QAT packaging; no CPU-MoE needed unless metadata proves expert tensors."
+        }
+      ]
+    },
+    {
+      "id": "gemma4-31b-qat-vs-31b",
+      "status": "secondary",
+      "question": "Can the 31B QAT family be made practical with llama.cpp sidecar tuning, and does it beat the standard 31B LM Studio lane?",
+      "moeCandidate": {
+        "id": "gemma4-31b-qat-sidecar",
+        "backend": "llama-server",
+        "model": "unsloth/gemma-4-31B-it-qat-GGUF",
+        "hfRepo": "unsloth/gemma-4-31B-it-qat-GGUF",
+        "hfFile": "gemma-4-31B-it-qat-UD-Q4_K_XL.gguf",
+        "context": 262144,
+        "profile": "llama_ctx262k_q4kv_31b_qat",
+        "download": "optional",
+        "reason": "QAT packaging may improve practicality versus the existing 31B-QAT LM Studio timeout/failure evidence."
+      },
+      "counterparts": [
+        {
+          "id": "gemma4-31b-lmstudio",
+          "backend": "lmstudio",
+          "model": "google/gemma-4-31b",
+          "profile": "gpu_offload",
+          "reason": "Already-installed standard 31B lane; one narrow build row previously passed."
+        },
+        {
+          "id": "gemma4-31b-qat-lmstudio",
+          "backend": "lmstudio",
+          "model": "google/gemma-4-31b-qat",
+          "profile": "gpu_offload",
+          "reason": "Already-installed QAT lane; prior evidence is timeout/failure-heavy and needs sidecar comparison."
+        }
+      ]
+    },
+    {
+      "id": "gemma4-e4b-vs-e2b-small-moe-control",
+      "status": "control",
+      "question": "Do smaller Gemma 4 efficient variants benefit from CPU-MoE style serving, or are their existing GPU-fit LM Studio profiles already enough?",
+      "moeCandidate": {
+        "id": "gemma4-e4b-lmstudio",
+        "backend": "lmstudio",
+        "model": "google/gemma-4-e4b",
+        "profile": "gpu_full",
+        "reason": "Already-installed efficient Gemma 4 control with 10/40 historical Promptfoo assertions."
+      },
+      "counterparts": [
+        {
+          "id": "gemma4-e2b-lmstudio",
+          "backend": "lmstudio",
+          "model": "google/gemma-4-e2b",
+          "profile": "gpu_full",
+          "reason": "Already-installed efficient Gemma 4 control with 11/40 historical Promptfoo assertions."
+        }
+      ]
+    }
+  ],
+  "decisionRules": [
+    "Do not promote from a single filtered build task.",
+    "A candidate must beat or match 8/10 direct full suite, pass a long-context needle task, and produce reviewable outputs before shortlist promotion.",
+    "Only tune a config when the previous artifact identifies a concrete failure class.",
+    "Keep one model server loaded at a time; stop llama-server before LM Studio load tests and unload LM Studio before llama-server tests.",
+    "Archive each round artifact under results/large-moe-* before changing config."
+  ]
+}

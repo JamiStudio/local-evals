@@ -15,6 +15,12 @@
     "langfuse:up": "docker compose -f langfuse/docker-compose.yml up -d",
     "langfuse:down": "docker compose -f langfuse/docker-compose.yml down",
     "eval:smoke": "node scripts/run-local-eval.mjs",
+    "llama:cmoe:server": "powershell -ExecutionPolicy Bypass -File scripts/llama-cmoe-server.ps1",
+    "llama:cmoe:probe": "node scripts/probe-openai-compatible.mjs",
+    "llama:cmoe:pressure": "node scripts/llama-cmoe-pressure.mjs",
+    "large-moe:list": "node scripts/run-large-moe-pairs.mjs --list",
+    "large-moe:smoke": "node scripts/run-large-moe-pairs.mjs --smoke",
+    "large-moe:full": "node scripts/run-large-moe-pairs.mjs --full",
     "eval:promptfoo": "node node_modules/promptfoo/dist/src/entrypoint.js eval -c suites/promptfoo/promptfooconfig.yaml --max-concurrency 1 -o results/promptfoo-latest.json",
     "matrix:smoke": "node scripts/run-matrix.mjs --smoke",
     "matrix:full": "node scripts/run-matrix.mjs --full",
@@ -29,7 +35,7 @@
     "optimize:full": "node scripts/optimization-loop.mjs --full",
     "optimize:loop": "node scripts/optimization-loop.mjs --smoke --loop",
     "optimize:report": "node scripts/optimization-loop.mjs --report-only",
-    "verify": "node scripts/export-registry.mjs && node --check scripts/run-matrix.mjs && node --check scripts/import-baseline.mjs && node --check scripts/compare-to-baseline.mjs && node --check scripts/summarize-matrix.mjs && node --check scripts/optimization-loop.mjs"
+    "verify": "node scripts/export-registry.mjs && node --check scripts/run-matrix.mjs && node --check scripts/import-baseline.mjs && node --check scripts/compare-to-baseline.mjs && node --check scripts/summarize-matrix.mjs && node --check scripts/optimization-loop.mjs && node --check scripts/probe-openai-compatible.mjs && node --check scripts/llama-cmoe-pressure.mjs && node --check scripts/run-large-moe-pairs.mjs"
   },
   "devDependencies": {
     "dotenv": "^16.4.7",

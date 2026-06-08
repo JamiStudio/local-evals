@@ -1,857 +1,355 @@
 {
-  "evalId": "eval-tq3-2026-06-07T17:46:52",
+  "evalId": "large-moe-gemma4-26b-a4b-qat-cpu-moe-2026-06-08T06:53:08.123Z",
+  "model": "unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+  "loadProfile": "llama_cmoe_ctx262k_q4kv",
   "results": {
-    "version": 3,
-    "timestamp": "2026-06-07T17:46:52.095Z",
-    "prompts": [
-      {
-        "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
-        "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
-        "id": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
-        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
-        "metrics": {
-          "score": 0,
-          "testPassCount": 0,
-          "testFailCount": 1,
-          "testErrorCount": 0,
-          "assertPassCount": 0,
-          "assertFailCount": 2,
-          "totalLatencyMs": 2253,
-          "tokenUsage": {
-            "prompt": 69,
-            "completion": 88,
-            "cached": 0,
-            "total": 157,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0,
-              "acceptedPrediction": 0,
-              "rejectedPrediction": 0
-            },
-            "assertions": {
-              "total": 0,
-              "prompt": 0,
-              "completion": 0,
-              "cached": 0,
-              "numRequests": 0,
-              "completionDetails": {
-                "reasoning": 0,
-                "acceptedPrediction": 0,
-                "rejectedPrediction": 0
-              }
-            }
-          },
-          "namedScores": {},
-          "namedScoresCount": {},
-          "cost": 0
-        }
-      },
-      {
-        "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
-        "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
-        "id": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
-        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
-        "metrics": {
-          "score": 0,
-          "testPassCount": 0,
-          "testFailCount": 1,
-          "testErrorCount": 0,
-          "assertPassCount": 0,
-          "assertFailCount": 2,
-          "totalLatencyMs": 774,
-          "tokenUsage": {
-            "prompt": 69,
-            "completion": 114,
-            "cached": 0,
-            "total": 183,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0,
-              "acceptedPrediction": 0,
-              "rejectedPrediction": 0
-            },
-            "assertions": {
-              "total": 0,
-              "prompt": 0,
-              "completion": 0,
-              "cached": 0,
-              "numRequests": 0,
-              "completionDetails": {
-                "reasoning": 0,
-                "acceptedPrediction": 0,
-                "rejectedPrediction": 0
-              }
-            }
-          },
-          "namedScores": {},
-          "namedScoresCount": {},
-          "cost": 0
-        }
-      },
-      {
-        "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
-        "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
-        "id": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
-        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
-        "metrics": {
-          "score": 0,
-          "testPassCount": 0,
-          "testFailCount": 1,
-          "testErrorCount": 0,
-          "assertPassCount": 0,
-          "assertFailCount": 2,
-          "totalLatencyMs": 402,
-          "tokenUsage": {
-            "prompt": 97,
-            "completion": 56,
-            "cached": 0,
-            "total": 153,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0,
-              "acceptedPrediction": 0,
-              "rejectedPrediction": 0
-            },
-            "assertions": {
-              "total": 0,
-              "prompt": 0,
-              "completion": 0,
-              "cached": 0,
-              "numRequests": 0,
-              "completionDetails": {
-                "reasoning": 0,
-                "acceptedPrediction": 0,
-                "rejectedPrediction": 0
-              }
-            }
-          },
-          "namedScores": {},
-          "namedScoresCount": {},
-          "cost": 0
-        }
-      },
-      {
-        "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
-        "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
-        "id": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
-        "provider": "local:liquid/lfm2.5-1.2b (gpu_full)",
-        "metrics": {
-          "score": 0,
-          "testPassCount": 0,
-          "testFailCount": 1,
-          "testErrorCount": 0,
-          "assertPassCount": 0,
-          "assertFailCount": 2,
-          "totalLatencyMs": 293,
-          "tokenUsage": {
-            "prompt": 39,
-            "completion": 41,
-            "cached": 0,
-            "total": 80,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0,
-              "acceptedPrediction": 0,
-              "rejectedPrediction": 0
-            },
-            "assertions": {
-              "total": 0,
-              "prompt": 0,
-              "completion": 0,
-              "cached": 0,
-              "numRequests": 0,
-              "completionDetails": {
-                "reasoning": 0,
-                "acceptedPrediction": 0,
-                "rejectedPrediction": 0
-              }
-            }
-          },
-          "namedScores": {},
-          "namedScoresCount": {},
-          "cost": 0
-        }
-      }
-    ],
     "results": [
       {
-        "cost": 0,
-        "error": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-        "gradingResult": {
-          "pass": false,
-          "score": 0,
-          "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-          "namedScores": {},
-          "tokensUsed": {
-            "total": 0,
-            "prompt": 0,
-            "completion": 0,
-            "cached": 0,
-            "numRequests": 0
+        "testCase": {
+          "metadata": {
+            "taskId": "research-synthetic-smoke",
+            "lane": "research"
           },
-          "componentResults": [
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('+++')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('+++')"
-              }
-            },
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-              }
-            }
-          ]
-        },
-        "id": "20583839-4bc1-479a-8b5f-08cd4238482c",
-        "latencyMs": 2253,
-        "namedScores": {},
-        "prompt": {
-          "raw": "You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: \n\nSources:\n\n\nOutput only the summary. No preamble.",
-          "label": "suites\\promptfoo\\prompts\\research.txt: You are a research assistant for a software team. Given the topic and sources below,\nproduce a concise feasibility-style summary with: key findings, risks, and recommended\nnext steps. Use markdown headings.\n\nTopic: {{topic}}\n\nSources:\n{{sources}}\n\nOutput only the summary. No preamble.",
-          "config": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          "description": "research — synthetic smoke",
+          "vars": {
+            "topic": "Local OSS model placement for agent research tasks",
+            "sources": "- LM Studio exposes OpenAI-compatible APIs for local GGUF models.\n- 8GB VRAM forces offload for 12B+ models.\n- Cloud models remain stronger for long-horizon synthesis.\n"
           }
         },
-        "promptId": "6b567610795fb5f3c3ad94e97019595f893e3b37c49e6dc7ca61972a0e727278",
-        "promptIdx": 0,
         "provider": {
-          "id": "openai:chat:liquid/lfm2.5-1.2b",
-          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
         },
         "response": {
-          "tokenUsage": {
-            "total": 157,
-            "prompt": 69,
-            "completion": 88,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0
-            }
-          },
-          "cached": false,
-          "latencyMs": 2253,
-          "finishReason": "stop",
-          "guardrails": {
-            "flagged": false
-          },
-          "metadata": {
-            "http": {
-              "status": 200,
-              "statusText": "OK",
-              "headers": {
-                "access-control-allow-headers": "*",
-                "access-control-allow-origin": "*",
-                "connection": "keep-alive",
-                "content-length": "1081",
-                "content-type": "application/json; charset=utf-8",
-                "date": "Sun, 07 Jun 2026 17:46:54 GMT",
-                "etag": "W/\"439-su0OCKvLvX56NfIyAOYsiVSZqM4\"",
-                "keep-alive": "timeout=5",
-                "x-powered-by": "Express"
-              }
-            }
-          }
+          "output": "### Key Findings\n* **API Compatibility:** LM Studio provides an OpenAI-compatible interface, allowing for seamless integration of local GGUF models into existing agentic workflows.\n* **Hardware Constraints:** Local execution is heavily dependent on VRAM; models exceeding 12B parameters will require CPU offloading on 8GB VRAM hardware, significantly increasing latency.\n* **Performance Gap:** While local models are viable for specific tasks, cloud-based models currently maintain a superior edge in complex, long-horizon synthesis tasks.\n\n### Risks\n* **Latency Bottlenecks:** Offloading large models to the CPU due to VRAM limitations may render real-time agentic reasoning impractical.\n* **Reasoning Limitations:** Local models may struggle with multi-step planning or complex instruction following compared to high-parameter cloud alternatives.\n\n### Recommended Next Steps\n* **Benchmark Local Latency:** Conduct performance testing on 12B+ models to quantify the impact of CPU offloading on agent response times.\n* **Hybrid Architecture Implementation:** Develop a tiered routing strategy where simple tasks are handled by local GGUF models and complex synthesis tasks are escalated to cloud APIs."
         },
-        "score": 0,
+        "latencyMs": 16391,
         "success": false,
-        "testCase": {
-          "description": "build — synthetic smoke",
-          "metadata": {
-            "runId": "2026-06-07T17-46-46-512Z",
-            "loadProfile": "gpu_full",
-            "subjectModel": "liquid/lfm2.5-1.2b",
-            "scoringMode": "deterministic-only",
-            "taskId": "build-synthetic-smoke",
-            "lane": "build"
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('VRAM')",
+            "pass": true
           },
-          "vars": {
-            "task": "Add a function that sums an array of numbers",
-            "file_path": "src/math.ts",
-            "language": "typescript",
-            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
-          },
-          "assert": [
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('+++')"
-            },
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-            }
-          ],
-          "options": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('next')",
+            "pass": false
           }
-        },
-        "testIdx": 0,
-        "vars": {
-          "task": "Add a function that sums an array of numbers",
-          "file_path": "src/math.ts",
-          "language": "typescript",
-          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
-        },
-        "metadata": {
-          "runId": "2026-06-07T17-46-46-512Z",
-          "loadProfile": "gpu_full",
-          "subjectModel": "liquid/lfm2.5-1.2b",
-          "scoringMode": "deterministic-only",
-          "taskId": "build-synthetic-smoke",
-          "lane": "build",
-          "http": {
-            "status": 200,
-            "statusText": "OK",
-            "headers": {
-              "access-control-allow-headers": "*",
-              "access-control-allow-origin": "*",
-              "connection": "keep-alive",
-              "content-length": "1081",
-              "content-type": "application/json; charset=utf-8",
-              "date": "Sun, 07 Jun 2026 17:46:54 GMT",
-              "etag": "W/\"439-su0OCKvLvX56NfIyAOYsiVSZqM4\"",
-              "keep-alive": "timeout=5",
-              "x-powered-by": "Express"
-            }
-          },
-          "_promptfooFileMetadata": {}
-        },
-        "failureReason": 1
+        ]
       },
       {
-        "cost": 0,
-        "error": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-        "gradingResult": {
-          "pass": false,
-          "score": 0,
-          "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-          "namedScores": {},
-          "tokensUsed": {
-            "total": 0,
-            "prompt": 0,
-            "completion": 0,
-            "cached": 0,
-            "numRequests": 0
+        "testCase": {
+          "metadata": {
+            "taskId": "research-harness-tools",
+            "lane": "research"
           },
-          "componentResults": [
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('+++')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('+++')"
-              }
-            },
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-              }
-            }
-          ]
-        },
-        "id": "f7cab141-8e2a-485d-b531-e722d0cc3626",
-        "latencyMs": 774,
-        "namedScores": {},
-        "prompt": {
-          "raw": "You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n\n\nConstraints:\n",
-          "label": "suites\\promptfoo\\prompts\\plan.txt: You are a technical planner. Turn the findings below into a dependency-ordered\nimplementation plan with 3-5 workstreams. Each workstream needs a one-sentence goal\nand 2-3 concrete tasks. Output markdown only.\n\nFindings:\n{{findings}}\n\nConstraints:\n{{constraints}}",
-          "config": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          "description": "research — template (agent harness workflow)",
+          "vars": {
+            "topic": "Tool registry design for a harness product",
+            "sources": "- Harness owns tool identity, permissions, approval, and audit mapping.\n- External connector catalogs sit behind adapters.\n- First prototype targets ten internal tools before breadth integrations.\n"
           }
         },
-        "promptId": "e3ef2cfd94181afedfb6bb5adcaa59ce35a48f9c5a477ca5e4c625fd617bf853",
-        "promptIdx": 1,
         "provider": {
-          "id": "openai:chat:liquid/lfm2.5-1.2b",
-          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
         },
         "response": {
-          "tokenUsage": {
-            "total": 183,
-            "prompt": 69,
-            "completion": 114,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0
-            }
+          "output": "# Feasibility Summary: Tool Registry Design\n\n### Key Findings\n*   **Centralized Governance:** Harness will maintain primary control over the core registry functions, specifically managing tool identity, permissioning, approval workflows, and audit mapping.\n*   **Abstraction Layer:** To support diverse ecosystems, the architecture will utilize an adapter pattern, allowing external connector catalogs to interface with the registry through standardized layers.\n*   **Phased Rollout:** The implementation strategy follows a \"depth-first\" approach, starting with a pilot of ten internal tools to validate the design before scaling to broad external integrations.\n\n### Risks\n*   **Adapter Complexity:** The reliance on adapters for external catalogs introduces potential latency or mapping discrepancies between external schemas and the Harness standard.\n*   **Scalability Bottlenecks:** While the initial prototype is limited to ten tools, the complexity of managing permissions and audit trails may increase non-linearly as the number of external integrations grows.\n\n### Recommended Next Steps\n1.  **Define Adapter Interface:** Formalize the contract/schema that external connectors must implement to communicate with the Harness adapter layer.\n2.  **Prototype Development:** Initiate the development of the core registry engine focusing on the identity and permissioning modules.\n3.  **Pilot Selection:** Identify the specific ten internal tools for the first prototype to ensure a representative mix of tool types."
+        },
+        "latencyMs": 18886,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('tool')",
+            "pass": true
           },
-          "cached": false,
-          "latencyMs": 774,
-          "finishReason": "stop",
-          "guardrails": {
-            "flagged": false
-          },
-          "metadata": {
-            "http": {
-              "status": 200,
-              "statusText": "OK",
-              "headers": {
-                "access-control-allow-headers": "*",
-                "access-control-allow-origin": "*",
-                "connection": "keep-alive",
-                "content-length": "1267",
-                "content-type": "application/json; charset=utf-8",
-                "date": "Sun, 07 Jun 2026 17:46:55 GMT",
-                "etag": "W/\"4f3-OEuRsy4whw9iUnyNUyLYQB+Xt3M\"",
-                "keep-alive": "timeout=5",
-                "x-powered-by": "Express"
-              }
-            }
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').length > 200",
+            "pass": true
           }
-        },
-        "score": 0,
-        "success": false,
-        "testCase": {
-          "description": "build — synthetic smoke",
-          "metadata": {
-            "runId": "2026-06-07T17-46-46-512Z",
-            "loadProfile": "gpu_full",
-            "subjectModel": "liquid/lfm2.5-1.2b",
-            "scoringMode": "deterministic-only",
-            "taskId": "build-synthetic-smoke",
-            "lane": "build"
-          },
-          "vars": {
-            "task": "Add a function that sums an array of numbers",
-            "file_path": "src/math.ts",
-            "language": "typescript",
-            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
-          },
-          "assert": [
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('+++')"
-            },
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-            }
-          ],
-          "options": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
-          }
-        },
-        "testIdx": 0,
-        "vars": {
-          "task": "Add a function that sums an array of numbers",
-          "file_path": "src/math.ts",
-          "language": "typescript",
-          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
-        },
-        "metadata": {
-          "runId": "2026-06-07T17-46-46-512Z",
-          "loadProfile": "gpu_full",
-          "subjectModel": "liquid/lfm2.5-1.2b",
-          "scoringMode": "deterministic-only",
-          "taskId": "build-synthetic-smoke",
-          "lane": "build",
-          "http": {
-            "status": 200,
-            "statusText": "OK",
-            "headers": {
-              "access-control-allow-headers": "*",
-              "access-control-allow-origin": "*",
-              "connection": "keep-alive",
-              "content-length": "1267",
-              "content-type": "application/json; charset=utf-8",
-              "date": "Sun, 07 Jun 2026 17:46:55 GMT",
-              "etag": "W/\"4f3-OEuRsy4whw9iUnyNUyLYQB+Xt3M\"",
-              "keep-alive": "timeout=5",
-              "x-powered-by": "Express"
-            }
-          },
-          "_promptfooFileMetadata": {}
-        },
-        "failureReason": 1
+        ]
       },
       {
-        "cost": 0,
-        "error": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-        "gradingResult": {
-          "pass": false,
-          "score": 0,
-          "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-          "namedScores": {},
-          "tokensUsed": {
-            "total": 0,
-            "prompt": 0,
-            "completion": 0,
-            "cached": 0,
-            "numRequests": 0
+        "testCase": {
+          "metadata": {
+            "taskId": "daily-brief-synthetic-smoke",
+            "lane": "research"
           },
-          "componentResults": [
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('+++')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('+++')"
-              }
-            },
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-              }
-            }
-          ]
-        },
-        "id": "63600fe2-ad41-4d29-bf6b-0f3d0889114f",
-        "latencyMs": 402,
-        "namedScores": {},
-        "prompt": {
-          "raw": "You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: Add a function that sums an array of numbers\n\nFile: src/math.ts\n\n```typescript\nexport function sum(values: number[]): number {\n  return 0;\n}\n```",
-          "label": "suites\\promptfoo\\prompts\\build.txt: You are a senior engineer. Implement the requested change as a unified diff against\nthe file context below. Output ONLY a valid unified diff (---/+++ headers and hunks).\nNo explanation outside the diff.\n\nTask: {{task}}\n\nFile: {{file_path}}\n\n```{{language}}\n{{file_content}}\n```",
-          "config": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          "description": "daily-brief research (W7 interest tracker)",
+          "vars": {
+            "topic": "Daily interest tracker for local OSS evals harness + qwen3.5-9b specialist placement on 8GB",
+            "sources": "- Live matrix shows qwen/qwen3.5-9b @ gpu_offload at 63% smoke leader (offload win on plan/tool).\n- Harness: LM Studio only, Promptfoo + DeepEval, sandboxed tools in suites, real tools (gh/fs/web free) in host scripts.\n- Baselines imported only (no harness-paid calls); user-judge primary.\n- Specialist KB under docs/knowledge-bank/evals-specialist.md for briefs/plan/tool use.\n"
           }
         },
-        "promptId": "e3189358ffa61f6878ca10f5d4cad9147b591c37c90a630f6165c8b648c007a5",
-        "promptIdx": 2,
         "provider": {
-          "id": "openai:chat:liquid/lfm2.5-1.2b",
-          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
         },
         "response": {
-          "tokenUsage": {
-            "total": 153,
-            "prompt": 97,
-            "completion": 56,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0
-            }
+          "output": "### Key Findings\n*   **Model Performance:** Live matrix data indicates that `qwen/qwen3.5-9b` utilizing `gpu_offload` at 63% is currently the \"smoke leader,\" specifically demonstrating superior performance in planning and tool-use tasks.\n*   **Hardware Constraints:** The target environment is limited to 8GB VRAM, necessitating the current offloading strategy to maintain functionality.\n*   **Harness Architecture:** \n    *   **Inference:** LM Studio serves as the primary inference engine.\n    *   **Evaluation Framework:** A hybrid approach using `Promptfoo` and `DeepEval`.\n    *   **Tooling Environment:** Sandboxed tools are utilized within evaluation suites, while real-world tools (GitHub, File System, Web) are executed via host scripts.\n*   **Evaluation Methodology:** The system relies on imported baselines to avoid harness-related costs; the primary evaluation metric is user-judge feedback.\n*   **Documentation:** Specialist knowledge and briefs for plan/tool use are centralized in `docs/knowledge-bank/evals-specialist.md`.\n\n### Risks\n*   **Resource Bottlenecks:** Running a 9B model on 8GB VRAM via 63% offloading may lead to significant latency or memory pressure during complex tool-use loops.\n*   **Evaluation Subjectivity:** Heavy reliance on \"user-judge\" metrics can introduce human bias and lack the reproducibility of automated LLM-as-a-judge metrics.\n*   **Security/Stability:** Using \"real tools\" (gh/fs/web) in host scripts introduces potential side effects to the local development environment if not strictly isolated.\n\n### Recommended Next Steps\n1.  **Benchmark Latency:** Quantify the exact tokens-per-second (TPS) for the 63% offload configuration to ensure it meets the requirements for \"daily\" tracking.\n2.  **Formalize Specialist KB:** Ensure all new tool-use patterns are immediately documented in `docs/knowledge-bank/evals-specialist.md` to maintain alignment between the model and the harness.\n3.  **Automate User-Judge Feedback:** Explore implementing a lightweight LLM-as-a-judge (using a smaller model) to supplement the user-judge and provide more consistent baseline comparisons."
+        },
+        "latencyMs": 33074,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('qwen')",
+            "pass": true
           },
-          "cached": false,
-          "latencyMs": 402,
-          "finishReason": "stop",
-          "guardrails": {
-            "flagged": false
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('brief')",
+            "pass": true
           },
-          "metadata": {
-            "http": {
-              "status": 200,
-              "statusText": "OK",
-              "headers": {
-                "access-control-allow-headers": "*",
-                "access-control-allow-origin": "*",
-                "connection": "keep-alive",
-                "content-length": "758",
-                "content-type": "application/json; charset=utf-8",
-                "date": "Sun, 07 Jun 2026 17:46:55 GMT",
-                "etag": "W/\"2f6-Tt1RMdJi0IhckyACjmktyXl6wiE\"",
-                "keep-alive": "timeout=5",
-                "x-powered-by": "Express"
-              }
-            }
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').length > 180 && (String(output ?? '').toLowerCase().includes('token') || String(output ?? '').toLowerCase().includes('tps') || String(output ?? '').toLowerCase().includes('plan'))",
+            "pass": true
           }
-        },
-        "score": 0,
-        "success": false,
-        "testCase": {
-          "description": "build — synthetic smoke",
-          "metadata": {
-            "runId": "2026-06-07T17-46-46-512Z",
-            "loadProfile": "gpu_full",
-            "subjectModel": "liquid/lfm2.5-1.2b",
-            "scoringMode": "deterministic-only",
-            "taskId": "build-synthetic-smoke",
-            "lane": "build"
-          },
-          "vars": {
-            "task": "Add a function that sums an array of numbers",
-            "file_path": "src/math.ts",
-            "language": "typescript",
-            "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
-          },
-          "assert": [
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('+++')"
-            },
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-            }
-          ],
-          "options": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
-          }
-        },
-        "testIdx": 0,
-        "vars": {
-          "task": "Add a function that sums an array of numbers",
-          "file_path": "src/math.ts",
-          "language": "typescript",
-          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
-        },
-        "metadata": {
-          "runId": "2026-06-07T17-46-46-512Z",
-          "loadProfile": "gpu_full",
-          "subjectModel": "liquid/lfm2.5-1.2b",
-          "scoringMode": "deterministic-only",
-          "taskId": "build-synthetic-smoke",
-          "lane": "build",
-          "http": {
-            "status": 200,
-            "statusText": "OK",
-            "headers": {
-              "access-control-allow-headers": "*",
-              "access-control-allow-origin": "*",
-              "connection": "keep-alive",
-              "content-length": "758",
-              "content-type": "application/json; charset=utf-8",
-              "date": "Sun, 07 Jun 2026 17:46:55 GMT",
-              "etag": "W/\"2f6-Tt1RMdJi0IhckyACjmktyXl6wiE\"",
-              "keep-alive": "timeout=5",
-              "x-powered-by": "Express"
-            }
-          },
-          "_promptfooFileMetadata": {}
-        },
-        "failureReason": 1
+        ]
       },
       {
-        "cost": 0,
-        "error": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-        "gradingResult": {
-          "pass": false,
-          "score": 0,
-          "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-          "namedScores": {},
-          "tokensUsed": {
-            "total": 0,
-            "prompt": 0,
-            "completion": 0,
-            "cached": 0,
-            "numRequests": 0
+        "testCase": {
+          "metadata": {
+            "taskId": "plan-synthetic-smoke",
+            "lane": "plan"
           },
-          "componentResults": [
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('+++')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('+++')"
-              }
-            },
-            {
-              "pass": false,
-              "score": 0,
-              "reason": "Custom function returned false\nString(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
-              "assertion": {
-                "type": "javascript",
-                "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-              }
-            }
-          ]
-        },
-        "id": "b8dee652-eeba-4de1-b208-8d16441c86dd",
-        "latencyMs": 293,
-        "namedScores": {},
-        "prompt": {
-          "raw": "You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: ",
-          "label": "suites\\promptfoo\\prompts\\tool-call.txt: You are an agent that must call tools to answer the user request. Use the available\ntools; do not invent tool results.\n\nRequest: {{request}}",
-          "config": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
+          "description": "plan — synthetic smoke",
+          "vars": {
+            "findings": "Local eval harness needs registry, suites, matrix runner, and Langfuse.",
+            "constraints": "Windows host, 8GB VRAM, hybrid Promptfoo + DeepEval, imported baselines."
           }
         },
-        "promptId": "809651afe27defe7e6813c9ea7c27b1cd4c81b0d918596aa502d45f1542df8fa",
-        "promptIdx": 3,
         "provider": {
-          "id": "openai:chat:liquid/lfm2.5-1.2b",
-          "label": "local:liquid/lfm2.5-1.2b (gpu_full)"
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
         },
         "response": {
-          "tokenUsage": {
-            "total": 80,
-            "prompt": 39,
-            "completion": 41,
-            "numRequests": 1,
-            "completionDetails": {
-              "reasoning": 0
-            }
+          "output": "# Implementation Plan: Local Evaluation Harness\n\n### Workstream 1: Infrastructure & Environment Setup\n**Goal:** Establish a stable Windows-based execution environment optimized for limited VRAM resources.\n* Configure Windows development environment with necessary drivers and Python virtual environments.\n* Implement memory management protocols to handle model execution within 8GB VRAM constraints.\n* Set up local containerization or lightweight orchestration to manage the hybrid execution stack.\n\n### Workstream 2: Core Evaluation Engine Integration\n**Goal:** Integrate the hybrid Promptfoo and DeepEval framework to enable multi-dimensional testing.\n* Configure Promptfoo to handle structured input/output testing and template management.\n* Integrate DeepEval to provide advanced metrics (e.g., faithfulness, relevancy) for LLM outputs.\n* Develop a unified runner script to orchestrate the hybrid execution of both tools.\n\n### Workstream 3: Registry & Data Management\n**Goal:** Build a centralized system for managing evaluation suites, baselines, and results.\n* Implement a local registry to version and store evaluation suites and test cases.\n* Develop a data ingestion pipeline to import and normalize existing evaluation baselines.\n* Create a matrix runner to execute tests across varying parameters and model versions.\n\n### Workstream 4: Observability & Analytics\n**Goal:** Enable deep visibility into evaluation metrics and trace-level debugging.\n* Deploy and connect a local Langfuse instance for experiment tracking and trace logging.\n* Map Promptfoo/DeepEval outputs to Langfuse traces for end-to-end visibility.\n* Build a dashboard view to compare current runs against imported baselines."
+        },
+        "latencyMs": 21967,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('Workstream')",
+            "pass": true
           },
-          "cached": false,
-          "latencyMs": 293,
-          "finishReason": "stop",
-          "guardrails": {
-            "flagged": false
-          },
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').split(/\\n/).filter(l => l.trim()).length >= 5",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "testCase": {
           "metadata": {
-            "http": {
-              "status": 200,
-              "statusText": "OK",
-              "headers": {
-                "access-control-allow-headers": "*",
-                "access-control-allow-origin": "*",
-                "connection": "keep-alive",
-                "content-length": "814",
-                "content-type": "application/json; charset=utf-8",
-                "date": "Sun, 07 Jun 2026 17:46:55 GMT",
-                "etag": "W/\"32e-KvpSWpNwHc6yNqXisd40G9Nfhrc\"",
-                "keep-alive": "timeout=5",
-                "x-powered-by": "Express"
-              }
-            }
+            "taskId": "plan-voice-host",
+            "lane": "plan"
+          },
+          "description": "plan — template (voice host integration)",
+          "vars": {
+            "findings": "Voice host delegates cognition to Hermes over gateway protocol; host owns audio and UI.",
+            "constraints": "No Hermes fork; ports for STT/TTS/realtime; pipeline path is permanent fallback."
           }
         },
-        "score": 0,
-        "success": false,
+        "provider": {
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
+        },
+        "response": {
+          "output": "# Implementation Plan: Voice Host Architecture\n\n### Workstream 1: Gateway Protocol & Hermes Integration\n**Goal:** Establish a stable communication bridge between the Voice Host and the Hermes cognition engine without modifying the Hermes core.\n*   Implement the Gateway Protocol client within the Voice Host to handle request/response orchestration.\n*   Develop a delegation layer to offload cognitive processing tasks to Hermes via the protocol.\n*   Implement a \"Permanent Fallback\" mechanism that redirects logic to the local pipeline path if the gateway connection fails.\n\n### Workstream 2: Audio & UI Interface Layer\n**Goal:** Develop the local host components responsible for managing user-facing sensory inputs and outputs.\n*   Build the audio driver interface to manage local microphone input and speaker output.\n*   Implement the UI state machine to reflect real-time cognitive processing status to the user.\n*   Develop the local audio buffer management system to ensure low-latency playback.\n\n### Workstream 3: Modular Media Pipeline\n**Goal:** Create a standardized interface for pluggable speech processing services.\n*   Develop standardized ports for Speech-to-Text (STT) and Text-to-Speech (TTS) integration.\n*   Implement a realtime streaming interface to allow low-latency audio processing.\n*   Build a modular pipeline controller to switch between Hermes-driven cognition and local fallback processing."
+        },
+        "latencyMs": 18438,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('gateway')",
+            "pass": true
+          },
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').toLowerCase().includes('host') || String(output ?? '').toLowerCase().includes('hermes')",
+            "pass": true
+          }
+        ]
+      },
+      {
         "testCase": {
-          "description": "build — synthetic smoke",
           "metadata": {
-            "runId": "2026-06-07T17-46-46-512Z",
-            "loadProfile": "gpu_full",
-            "subjectModel": "liquid/lfm2.5-1.2b",
-            "scoringMode": "deterministic-only",
             "taskId": "build-synthetic-smoke",
             "lane": "build"
           },
+          "description": "build — synthetic smoke",
           "vars": {
             "task": "Add a function that sums an array of numbers",
             "file_path": "src/math.ts",
             "language": "typescript",
             "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
-          },
-          "assert": [
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('+++')"
-            },
-            {
-              "type": "javascript",
-              "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')"
-            }
-          ],
-          "options": {
-            "transform": "(output) => String(output ?? \"\").replace(/```[\\\\s\\\\S]*?```/g, \"\").trim()"
           }
         },
-        "testIdx": 0,
-        "vars": {
-          "task": "Add a function that sums an array of numbers",
-          "file_path": "src/math.ts",
-          "language": "typescript",
-          "file_content": "export function sum(values: number[]): number {\n  return 0;\n}\n"
+        "provider": {
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
         },
-        "metadata": {
-          "runId": "2026-06-07T17-46-46-512Z",
-          "loadProfile": "gpu_full",
-          "subjectModel": "liquid/lfm2.5-1.2b",
-          "scoringMode": "deterministic-only",
-          "taskId": "build-synthetic-smoke",
-          "lane": "build",
-          "http": {
-            "status": 200,
-            "statusText": "OK",
-            "headers": {
-              "access-control-allow-headers": "*",
-              "access-control-allow-origin": "*",
-              "connection": "keep-alive",
-              "content-length": "814",
-              "content-type": "application/json; charset=utf-8",
-              "date": "Sun, 07 Jun 2026 17:46:55 GMT",
-              "etag": "W/\"32e-KvpSWpNwHc6yNqXisd40G9Nfhrc\"",
-              "keep-alive": "timeout=5",
-              "x-powered-by": "Express"
-            }
+        "response": {
+          "output": "--- src/math.ts\n+++ src/math.ts\n@@ -1,3 +1,3 @@\n export function sum(values: number[]): number {\n-  return 0;\n+  return values.reduce((acc, curr) => acc + curr, 0);\n }"
+        },
+        "latencyMs": 5019,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('+++')",
+            "pass": true
           },
-          "_promptfooFileMetadata": {}
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('reduce') || String(output ?? '').includes('for') || String(output ?? '').includes('+=')",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "testCase": {
+          "metadata": {
+            "taskId": "build-config-timeout",
+            "lane": "build"
+          },
+          "description": "build — template (config helper)",
+          "vars": {
+            "task": "Parse an optional timeout env var with default 30000",
+            "file_path": "src/config.ts",
+            "language": "typescript",
+            "file_content": "export function readTimeout(): number {\n  throw new Error('not implemented');\n}\n"
+          }
         },
-        "failureReason": 1
+        "provider": {
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
+        },
+        "response": {
+          "output": "```diff\n--- src/config.ts\n+++ src/config.ts\n@@ -1,3 +1,4 @@\n export function readTimeout(): number {\n-  throw new Error('not implemented');\n+  const timeout = process.env.TIMEOUT;\n+  return timeout ? parseInt(timeout, 10) : 30000;\n }\n```"
+        },
+        "latencyMs": 6483,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('+++')",
+            "pass": true
+          },
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('30000') || String(output ?? '').includes('30_000') || String(output ?? '').includes('30 * 1000')",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "testCase": {
+          "metadata": {
+            "taskId": "tool-call-search-docs",
+            "lane": "tool-call"
+          },
+          "description": "tool-call — search then summarize (synthetic)",
+          "vars": {
+            "request": "Search the docs for \"load profile\" and summarize how gpu_full differs from gpu_offload."
+          }
+        },
+        "provider": {
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
+        },
+        "response": {
+          "output": "<|tool_call>call:google:search_docs{query: \"load profile gpu_full vs gpu_offload\"}<tool_call|>"
+        },
+        "latencyMs": 2539,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').toLowerCase().includes('gpu') || String(output ?? '').toLowerCase().includes('offload') || String(output ?? '').toLowerCase().includes('max')\n",
+            "pass": true
+          }
+        ]
+      },
+      {
+        "testCase": {
+          "metadata": {
+            "taskId": "tool-call-read-file",
+            "lane": "tool-call"
+          },
+          "description": "tool-call — read file (template)",
+          "vars": {
+            "request": "Read the registry load profiles and report the two preset ids."
+          }
+        },
+        "provider": {
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
+        },
+        "response": {
+          "output": "<|tool_call>call:registry:get_registry_load_profiles{}<tool_call|>"
+        },
+        "latencyMs": 1844,
+        "success": false,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "String(output ?? '').includes('gpu_full') && String(output ?? '').includes('gpu_offload')\n",
+            "pass": false
+          }
+        ]
+      },
+      {
+        "testCase": {
+          "metadata": {
+            "taskId": "interest-tracker-tool-use",
+            "lane": "tool-call"
+          },
+          "description": "interest-tracker tool use (W7 daily-briefs + gh/fs/web)",
+          "vars": {
+            "request": "Use tools (search + read + github) to gather latest interest signals for local evals harness (qwen3.5-9b, W7 tracker, specialist KB) then produce a short actionable plan."
+          }
+        },
+        "provider": {
+          "id": "lmstudio:unsloth/gemma-4-26B-A4B-it-qat-GGUF",
+          "label": "unsloth/gemma-4-26B-A4B-it-qat-GGUF"
+        },
+        "response": {
+          "output": "I do not have access to any tools, such as `search`, `read`, or `github`, by default. To fulfill your request, you must provide the specific tool definitions and endpoints in the context.\n\nHowever, based on my internal knowledge up to January 2025, I can outline how an agent would approach this task once the tools are provided. Here is the structural framework for the plan:\n\n### 1. Information Gathering Strategy (Tool Execution)\n*   **`search`**: I would search for recent discussions, GitHub issues, and research papers regarding \"local evaluation harnesses\" specifically focusing on the integration of **Qwen 2.5/3.5** models and **W7 tracker** metrics.\n*   **`github`**: I would scan repositories related to the \"local evals harness\" to check for:\n    *   Recent commits involving model weight compatibility for Qwen 3.5-9B.\n    *   Implementation status of \"specialist KB\" (Knowledge Base) retrieval-augmented evaluation.\n    *   Integration of W7 tracking telemetry.\n*   **`read`**: I would ingest the documentation or README files of the identified repositories to understand the specific configuration requirements for the 9B parameter model and the KB integration.\n\n### 2. Expected Signal Analysis\nI would look for the following \"interest signals\":\n*   **Compatibility:** Are there errors reported when running Qwen 3.5-9B through the current harness?\n*   **Performance Bottlenecks:** Is the W7 tracker causing latency during local evaluation?\n*   **KB Accuracy:** Are there discussions regarding the fidelity of the \"specialist KB\" when used for zero-shot vs. few-shot evaluation?\n\n### 3. Draft Actionable Plan (Template)\n*Once the data is gathered, the output would look like this:*\n\n*   **Immediate Fix:** [e.g., Update quantization settings to support Qwen 3.5-9B architecture].\n*   **Integration Task:** [e.g., Map W7 tracker telemetry to the local evaluation logs to ensure parity with cloud runs].\n*   **Optimization:** [e.g., Index the Specialist KB using a more efficient vector format to reduce local evaluation time].\n*   **Validation:** [e.g., Run a benchmark suite comparing the current harness against the new signals to ensure no regression in evaluation accuracy].\n\n**Please provide the tool definitions if you would like me to attempt this task.**"
+        },
+        "latencyMs": 34774,
+        "success": true,
+        "error": null,
+        "assertResults": [
+          {
+            "type": "javascript",
+            "value": "(String(output ?? '').toLowerCase().includes('search') || String(output ?? '').toLowerCase().includes('tool')) && (String(output ?? '').toLowerCase().includes('plan') || String(output ?? '').toLowerCase().includes('step') || String(output ?? '').toLowerCase().includes('brief'))\n",
+            "pass": true
+          }
+        ]
       }
-    ],
-    "stats": {
-      "successes": 0,
-      "failures": 4,
-      "errors": 0,
-      "tokenUsage": {
-        "prompt": 274,
-        "completion": 299,
-        "cached": 0,
-        "total": 573,
-        "numRequests": 4,
-        "completionDetails": {
-          "reasoning": 0,
-          "acceptedPrediction": 0,
-          "rejectedPrediction": 0
-        },
-        "assertions": {
-          "total": 0,
-          "prompt": 0,
-          "completion": 0,
-          "cached": 0,
-          "numRequests": 0,
-          "completionDetails": {
-            "reasoning": 0,
-            "acceptedPrediction": 0,
-            "rejectedPrediction": 0
-          }
-        }
-      },
-      "durationMs": 3879,
-      "evaluationDurationMs": 3879
-    }
+    ]
   },
-  "config": {
-    "tags": {},
-    "description": "Local OSS model eval matrix — LM Studio only, no paid API calls",
-    "prompts": [
-      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\research.txt",
-      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\plan.txt",
-      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\build.txt",
-      "file://C:\\Users\\james\\projects\\evals\\suites\\promptfoo\\prompts\\tool-call.txt"
-    ],
-    "providers": [
-      "file://providers/lmstudio-subject.yaml"
-    ],
-    "tests": [
-      "file://tests/research.yaml",
-      "file://tests/plan.yaml",
-      "file://tests/build.yaml",
-      "file://tests/tool-call.yaml"
-    ],
-    "scenarios": [],
-    "env": {},
-    "outputPath": [
-      "results/promptfoo-latest.json"
-    ],
-    "extensions": [],
-    "metadata": {
-      "runId": "2026-06-07T17-46-46-512Z",
-      "loadProfile": "gpu_full",
-      "subjectModel": "liquid/lfm2.5-1.2b",
-      "scoringMode": "deterministic-only"
-    },
-    "evaluateOptions": {
-      "maxConcurrency": 1
-    }
-  },
-  "shareableUrl": null,
-  "metadata": {
-    "promptfooVersion": "0.120.27",
-    "nodeVersion": "v22.22.0",
-    "platform": "win32",
-    "arch": "x64",
-    "exportedAt": "2026-06-07T17:46:56.304Z",
-    "evaluationCreatedAt": "2026-06-07T17:46:52.095Z"
+  "stats": {
+    "passes": 8,
+    "failures": 2,
+    "total": 10
   }
 }
